@@ -1,0 +1,85 @@
+{
+ "id": "pulpo",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.1
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Este animal tiene tres corazones.",
+    "Y eso ni siquiera es lo más raro.",
+    "Quédate, porque el dato tres es el más loco."
+   ]
+  },
+  {
+   "tipo": "corazones",
+   "titulo": "DATO 1: TRES CORAZONES",
+   "frases": [
+    "Es el pulpo.",
+    "Dos corazones mandan sangre solo a sus branquias,",
+    "y el tercero la reparte por todo el cuerpo."
+   ]
+  },
+  {
+   "tipo": "sangre",
+   "titulo": "DATO 2: SANGRE AZUL",
+   "frases": [
+    "Su sangre es azul.",
+    "En vez de hierro, usa cobre para llevar el oxígeno,",
+    "y eso le sirve en aguas frías y con poco oxígeno."
+   ]
+  },
+  {
+   "tipo": "nadar",
+   "titulo": "DATO 3: EL MÁS LOCO",
+   "frases": [
+    "Cuando nada,",
+    "su corazón principal se detiene por unos momentos.",
+    "Por eso casi siempre prefiere gatear."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Tres corazones, sangre azul,",
+    "y un corazón que se pausa al nadar.",
+    "Ahora ya sabes por qué este animal..."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "tres",
+  "corazones",
+  "raro",
+  "loco",
+  "pulpo",
+  "branquias",
+  "tercero",
+  "cuerpo",
+  "azul",
+  "hierro",
+  "cobre",
+  "oxígeno",
+  "frías",
+  "nada",
+  "detiene",
+  "gatear",
+  "pausa",
+  "animal",
+  "comentarios",
+  "síguenos"
+ ]
+}
