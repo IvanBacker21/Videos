@@ -1,6 +1,6 @@
 # Guía de producción — Dato Cósmico 2
 
-Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Un short al día, publicado a las 18:00 (America/Mexico_City) vía Metricool.
+Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Tres shorts al día, publicados vía Metricool a las 13:30, 18:00 y 21:30 (America/Mexico_City).
 
 ## Preparar el entorno (cada sesión es nueva)
 
@@ -16,7 +16,7 @@ curl -sSLO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-f
 
 1. **Tema**: busca en la web noticias de ciencia de los últimos días y temas curiosos con interés en México/Latam. Elige uno que no esté en `temas.json`. Comprueba el dato en al menos dos fuentes fiables; si no se puede verificar, elige otro tema.
 2. **Guion** (`herramientas/ejemplos/AAAA-MM-DD-slug.json`, mismo formato que el ejemplo del helado):
-   - 35–50 s en total, 6–7 escenas, frases cortas y conversacionales, tuteo, español latino.
+   - 25–40 s en total (mejor 30 s), 5–7 escenas, frases cortas y conversacionales, tuteo, español latino.
    - Escena 1 = gancho en los primeros 2 s (pregunta o afirmación sorprendente) + promesa que obligue a quedarse ("al final te digo…").
    - Etiquetas "PASO 1/2/3" o similares para que se note el avance.
    - Cierre: "Sígueme y mañana te cuento otro dato que no vas a creer." (o variante).
@@ -34,3 +34,16 @@ curl -sSLO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-f
    `https://raw.githubusercontent.com/IvanBacker21/videos/main/shorts/AAAA-MM-DD-slug.mp4`.
    Programa en Metricool (blogId `7853477`) con `createScheduledPost`: red `youtube`, `type: "short"`, `privacy: "public"`, `madeForKids: false`, `category: "EDUCATION"`, `isAiGeneratedContent: false` (animación no realista), título con gancho + `#shorts` (≤ 100 caracteres), descripción de 3–4 líneas + "🔔 Un dato curioso de ciencia cada día en Dato Cósmico 2." + 5–6 hashtags.
 7. Añade la entrada a `temas.json` y haz commit.
+
+## Estrategia de crecimiento (aplícala en cada short)
+
+- **Los primeros 2 segundos deciden todo.** El primer fotograma ya debe mostrar acción y una pregunta o afirmación sorprendente en texto grande. Nada de logos ni introducciones.
+- **Corto y completo**: 25–40 s. Mejor un 30 s visto al 90 % que un 50 s visto a la mitad. Corta cualquier frase que no aporte.
+- **Bucle**: que la última frase conecte con la primera (p. ej. termina en "…y por eso" o vuelve a la pregunta inicial) para que se repita sin corte.
+- **Promesa abierta**: "al final te digo…", "el paso 3 es el más raro", y cúmplela.
+- **Títulos**: palabra clave al principio, ≤ 60 caracteres antes de "#shorts", curiosidad sin engañar (p. ej. "¿Por qué los pulpos tienen 3 corazones?").
+- **Variedad de formatos dentro del nicho**, rotando: "¿Por qué…?", "Mito o realidad", "Top 3", "Noticia de ciencia de esta semana", "Tu cuerpo hace esto sin que lo sepas", "Escala/comparación" (qué tan grande, qué tan rápido). Evita que dos shorts seguidos tengan la misma estructura, y que cada short tenga animaciones propias: YouTube no monetiza contenido repetitivo o producido en masa.
+- **Temas con demanda**: cuerpo humano, espacio, animales raros, comida, mitos populares, tecnología/IA cotidiana, noticias de ciencia virales. Revisa en `temas.json` qué categorías se han usado y equilibra.
+- **Comentarios**: termina la descripción con una pregunta para el público ("¿Tú sabías esto?"). Si el título lo permite, provoca opinión.
+- **Exactitud**: cero datos inventados; dos fuentes fiables por short. Un error destruye la confianza y los comentarios lo señalan.
+- En `temas.json` guarda también `formato` y `categoria` para equilibrar.
