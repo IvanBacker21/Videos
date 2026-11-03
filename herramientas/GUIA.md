@@ -23,7 +23,7 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
    - 25–40 s en total (mejor 30 s), 5–7 escenas, frases cortas y conversacionales, tuteo, español latino.
    - Escena 1 = gancho en los primeros 2 s (pregunta o afirmación sorprendente) + promesa que obligue a quedarse ("al final te digo…").
    - Etiquetas "PASO 1/2/3" o similares para que se note el avance.
-   - Cierre: "Sígueme y mañana te cuento otro dato que no vas a creer." (o variante).
+   - Cierre (escena `cierre`, SIEMPRE con este texto, palabra por palabra): "¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios y síguenos para más datos." Va después del final de la historia; el bucle se hace con la frase anterior.
    - Voz: `{"modelo": "em_alex", "lang": "es-419", "speed": 1.1}`. Escribe números y siglas como se pronuncian.
 3. **Voz**: `python3 herramientas/voice.py guion.json out/` → `v*.wav` + `timings.json`.
 4. **Animación**: usa **`render3.py` + `estilo.py`** (estilo moderno; `render2.py` es la versión vieja, no la uses). Copia `render3.py` y reescribe `draw_scene()` y `BGS` con ilustraciones nuevas para el tema (el resto — fondo, cámara con zoom/temblor, subtítulos palabra por palabra, barra de progreso, efectos — se reutiliza). Ajusta `BGS` con un color de fondo por escena. Reglas de ritmo:
@@ -38,7 +38,7 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
    `https://raw.githubusercontent.com/IvanBacker21/videos/main/shorts/AAAA-MM-DD-slug.mp4`.
    **Miniatura**: crea `shorts/<mismo-nombre>.png` con `herramientas/miniatura.py` (ver `ejemplos/miniatura_helado.py`): 2–4 palabras gigantes que generen curiosidad (no repitas el título entero), el sujeto ilustrado grande con emoción y glow, una etiqueta corta. Revísala antes de subirla. Súbela junto con el video.
    Programa en Metricool (blogId `7853477`) con `videoThumbnailUrl` = enlace raw del PNG. Si responde `VIDEO_THUMBNAIL_NOT_APPLICABLE` (canal sin verificar o sin miniaturas de Shorts), repite la llamada SIN `videoThumbnailUrl` y menciona en el resumen que la miniatura no se aplicó.
-   Programa con `createScheduledPost`: red `youtube`, `type: "short"`, `privacy: "public"`, `madeForKids: false`, `category: "EDUCATION"`, `isAiGeneratedContent: false` (animación no realista), título con gancho + `#shorts` (≤ 100 caracteres), descripción de 3–4 líneas + "🔔 Un dato curioso de ciencia cada día en Dato Cósmico 2." + 5–6 hashtags.
+   Programa con `createScheduledPost`: red `youtube`, `type: "short"`, `privacy: "public"`, `madeForKids: false`, `category: "EDUCATION"`, `isAiGeneratedContent: false` (animación no realista), título con gancho + `#shorts` (≤ 100 caracteres), descripción de 3–4 líneas + "💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios." + "🔔 Un dato curioso de ciencia cada día en Dato Cósmico 2." + 5–6 hashtags.
 7. Añade la entrada a `temas.json` y haz commit.
 
 ## Estrategia de crecimiento (aplícala en cada short)

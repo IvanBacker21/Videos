@@ -325,7 +325,7 @@ def draw_scene(cr, kind, lt, z, ev):
                 callout(cr, "ADIÓS DOLOR", W / 2, 620, 64, MINT, (0.2, 0.8, 0.6), lt, tok, dark=True)
     elif kind == "cierre":
         k = pop(lt / 0.5)
-        cr.save(); cr.translate(W / 2, 720); cr.scale(k, k); cr.rotate(math.sin(lt * 2) * 0.04)
+        cr.save(); cr.translate(W / 2, 690); cr.scale(k, k); cr.rotate(math.sin(lt * 2) * 0.04)
         radial_glow(cr, 0, 0, 460, CYAN, 0.35)
         ringp = lambda c, half: (c.save(), c.rotate(-0.3), c.scale(1, 0.32), c.arc(0, 0, 330, math.pi if half else 0, 2 * math.pi if half else math.pi), c.restore())
         cr.set_line_cap(cairo.LINE_CAP_ROUND)
@@ -343,19 +343,29 @@ def draw_scene(cr, kind, lt, z, ev):
         moon = lambda c: c.arc(mx, my, 34, 0, 2 * math.pi)
         volume(cr, moon, YEL, (mx - 34, my - 34, mx + 34, my + 34), sh_blur=14)
         cr.restore()
-        text(cr, "DATO CÓSMICO 2", W / 2, 1060, 80, grad=(WHITE, (0.8, 0.85, 1.0)), alpha=ease((lt - 0.2) / 0.3))
-        tb = 0.7
+        text(cr, "DATO CÓSMICO 2", W / 2, 1020, 80, grad=(WHITE, (0.8, 0.85, 1.0)), alpha=ease((lt - 0.2) / 0.3))
+        # invitación a comentar (burbuja + etiqueta)
+        tcm = z.w("comentarios") if z.w("comentarios") else 0.4
+        bub = lambda c, r: (c.set_source_rgb(1, 1, 1), rr(c, -r * 0.5, -r * 0.42, r, r * 0.66, r * 0.2), c.fill(), c.move_to(-r * 0.2, r * 0.2), c.line_to(-r * 0.32, r * 0.48), c.line_to(r * 0.02, r * 0.22), c.close_path(), c.fill())
+        if lt > 0.3:
+            kb = pop((lt - 0.3) / 0.4); cr.save(); cr.translate(W / 2, 330); cr.scale(kb, kb)
+            text(cr, "¿QUÉ DATO QUIERES VER?", 0, 0, 60, grad=(lighten(YEL, 0.5), ORANGE)); cr.restore()
+        if lt > tcm:
+            ev("pop", tcm); kc = pop((lt - tcm) / 0.35)
+            cr.save(); cr.translate(W / 2 - 330, 1125); cr.scale(kc, kc); icon_badge(cr, 0, 0, 62, (0.2, 0.7, 1.0), VIOLET, bub); cr.restore()
+            callout(cr, "DÉJALO EN COMENTARIOS", W / 2 + 60, 1145, 46, (0.2, 0.7, 1.0), VIOLET, lt, tcm)
+        tb = 0.7 if z.dur < 4 else z.w("síguenos") or 0.7
         if lt > tb:
-            ev("pop", tb); kk = pop((lt - tb) / 0.35); pressed = 1.6 < lt < 1.8; subbed = lt > 1.7
-            cr.save(); cr.translate(W / 2, 1200); s2 = kk * (0.92 if pressed else 1 + 0.035 * math.sin(lt * 8)); cr.scale(s2, s2)
+            ev("pop", tb); kk = pop((lt - tb) / 0.35); pressed = tb + 0.9 < lt < tb + 1.1; subbed = lt > tb + 1.0
+            cr.save(); cr.translate(W / 2, 1255); s2 = kk * (0.92 if pressed else 1 + 0.035 * math.sin(lt * 8)); cr.scale(s2, s2)
             if subbed: pill(cr, 0, 0, 520, 120, (0.45, 0.45, 0.55), (0.32, 0.32, 0.42))
             else: pill(cr, 0, 0, 520, 120, (1.0, 0.22, 0.28), (0.85, 0.05, 0.18))
             text(cr, "SUSCRITO" if subbed else "SUSCRÍBETE", 0, 20, 54, WHITE); cr.restore()
-            if pressed: ring_burst(cr, W / 2 + 120, 1220, (lt - 1.6) / 0.4, WHITE, 140, 8)
-            hx = W / 2 + 120 + 300 * (1 - ease((lt - 1.0) / 0.6)); hy = 1220 + 300 * (1 - ease((lt - 1.0) / 0.6))
+            if pressed: ring_burst(cr, W / 2 + 120, 1275, (lt - tb - 0.9) / 0.4, WHITE, 140, 8)
+            hx = W / 2 + 120 + 300 * (1 - ease((lt - tb - 0.3) / 0.6)); hy = 1275 + 300 * (1 - ease((lt - tb - 0.3) / 0.6))
             cur = lambda c: (c.save(), c.translate(hx, hy), c.scale(1.7, 1.7), c.move_to(0, 0), c.line_to(0, 70), c.line_to(18, 55), c.line_to(32, 85), c.line_to(44, 79), c.line_to(30, 50), c.line_to(52, 50), c.close_path(), c.restore())
             shadow(cr, cur, 14, 0.5, dy=8); cur(cr); cr.set_source_rgb(1, 1, 1); cr.fill_preserve(); cr.set_source_rgb(*LINE); cr.set_line_width(4); cr.stroke()
-            ev("click", 1.65, g=1.2); ev("ding", 1.75, g=0.6)
+            ev("click", tb + 0.95, g=1.2); ev("ding", tb + 1.05, g=0.6)
 
 # ================= capas comunes =================
 ACCENTS = [PINK, VIOLET, (0.2, 0.7, 1.0), ORANGE]

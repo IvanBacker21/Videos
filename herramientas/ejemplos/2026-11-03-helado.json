@@ -1,21 +1,103 @@
 {
-  "id": "short01",
-  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.1},
-  "escenas": [
-    {"tipo": "gancho",  "titulo": "",
-     "frases": ["¿Te ha pasado?", "Comes helado rapidísimo y... ¡zas!", "Un dolor punzante en la frente.", "Quédate, porque al final te digo cómo quitarlo en segundos."]},
-    {"tipo": "nombre",  "titulo": "",
-     "frases": ["Ese dolor tiene un nombre larguísimo:", "ganglioneuralgia esfenopalatina.", "Pero todos le decimos: congelamiento cerebral."]},
-    {"tipo": "contrae", "titulo": "PASO 1: EL FRÍO",
-     "frases": ["Pasa así:", "el helado enfría tu paladar,", "y los vasos sanguíneos de ahí se encogen de golpe."]},
-    {"tipo": "dilata",  "titulo": "PASO 2: EL REBOTE",
-     "frases": ["Tu cuerpo se alarma,", "los abre otra vez rapidísimo...", "¡y entra un chorro de sangre!"]},
-    {"tipo": "nervio",  "titulo": "PASO 3: LA ALARMA",
-     "frases": ["Ese cambio lo detecta el nervio trigémino,", "que le avisa al cerebro.", "Pero el cerebro se confunde...", "y siente el dolor en la frente."]},
-    {"tipo": "truco",   "titulo": "EL TRUCO",
-     "frases": ["¿El truco?", "Pega la lengua al paladar para calentarlo,", "o toma algo tibio.", "Y listo: adiós dolor."]},
-    {"tipo": "cierre",  "titulo": "",
-     "frases": ["Sígueme, y mañana te cuento otro dato que no vas a creer."]}
-  ],
-  "resaltar": ["zas", "dolor", "frente", "segundos", "ganglioneuralgia", "esfenopalatina", "congelamiento", "cerebral", "paladar", "encogen", "golpe", "alarma", "rapidísimo", "chorro", "sangre", "trigémino", "cerebro", "confunde", "truco", "lengua", "tibio", "adiós", "mañana", "creer"]
+ "id": "short01",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.1
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Te ha pasado?",
+    "Comes helado rapidísimo y... ¡zas!",
+    "Un dolor punzante en la frente.",
+    "Quédate, porque al final te digo cómo quitarlo en segundos."
+   ]
+  },
+  {
+   "tipo": "nombre",
+   "titulo": "",
+   "frases": [
+    "Ese dolor tiene un nombre larguísimo:",
+    "ganglioneuralgia esfenopalatina.",
+    "Pero todos le decimos: congelamiento cerebral."
+   ]
+  },
+  {
+   "tipo": "contrae",
+   "titulo": "PASO 1: EL FRÍO",
+   "frases": [
+    "Pasa así:",
+    "el helado enfría tu paladar,",
+    "y los vasos sanguíneos de ahí se encogen de golpe."
+   ]
+  },
+  {
+   "tipo": "dilata",
+   "titulo": "PASO 2: EL REBOTE",
+   "frases": [
+    "Tu cuerpo se alarma,",
+    "los abre otra vez rapidísimo...",
+    "¡y entra un chorro de sangre!"
+   ]
+  },
+  {
+   "tipo": "nervio",
+   "titulo": "PASO 3: LA ALARMA",
+   "frases": [
+    "Ese cambio lo detecta el nervio trigémino,",
+    "que le avisa al cerebro.",
+    "Pero el cerebro se confunde...",
+    "y siente el dolor en la frente."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "EL TRUCO",
+   "frases": [
+    "¿El truco?",
+    "Pega la lengua al paladar para calentarlo,",
+    "o toma algo tibio.",
+    "Y listo: adiós dolor."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "zas",
+  "dolor",
+  "frente",
+  "segundos",
+  "ganglioneuralgia",
+  "esfenopalatina",
+  "congelamiento",
+  "cerebral",
+  "paladar",
+  "encogen",
+  "golpe",
+  "alarma",
+  "rapidísimo",
+  "chorro",
+  "sangre",
+  "trigémino",
+  "cerebro",
+  "confunde",
+  "truco",
+  "lengua",
+  "tibio",
+  "adiós",
+  "mañana",
+  "creer",
+  "comentarios",
+  "síguenos"
+ ]
 }
