@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-05-1330-pan",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué el pan con mantequilla siempre cae al revés?", "No es mala suerte: es física."]},
+    {"tipo": "gira", "titulo": "", "frases": ["Cuando el pan se resbala de la mesa, empieza a girar."]},
+    {"tipo": "media", "titulo": "", "frases": ["Y una mesa normal solo le da tiempo de dar media vuelta..."]},
+    {"tipo": "aterriza", "titulo": "", "frases": ["¡y aterriza con la mantequilla hacia abajo!"]},
+    {"tipo": "mesa", "titulo": "", "frases": ["Para que cayera bien, tu mesa tendría que medir como tres metros."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien siempre se le cae el pan."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

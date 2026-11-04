@@ -130,3 +130,25 @@ Antes del render completo Y antes de publicar ejecuta:
 - Si sale "NO PUBLICAR", corrige y vuelve a correrlo.
 - Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
 - Escribe los números con letra en la voz.
+
+## ⭐ ESTILO ACTUAL: ANIMACIÓN 3D LOW-POLY (obligatorio desde el 4-nov tarde; reemplaza a Material y a render3)
+
+Pedido de Iván con un video de referencia: escenas 3D sencillas tipo "low-poly" (objetos y personas hechos de cubos y formas simples, sombreado plano, luz suave con sombras, niebla), cámara cinematográfica que se mueve despacio, subtítulos ARRIBA palabra por palabra (dichas en blanco, próximas en gris, la actual con recuadro azul) y rótulos inferiores en caja oscura con borde dorado (texto dorado grande + subtítulo blanco en mayúsculas). Tono narrativo, tipo documental.
+
+**Motor**: `herramientas/motor3d/` (Three.js en Chromium sin pantalla).
+- Preparar (una vez por sesión): `cd herramientas/motor3d && npm i --silent` (descarga three).
+- Plantilla aprobada: `ejemplos/2026-11-05-1330-pan.json` + `ejemplos/2026-11-05-1330-pan.js` (cocina, mesa, pan que cae, persona, etiquetas 3D, rótulos). Cada short nuevo es un `.js` que exporta `build(E)` y registra una escena por tipo con `E.escena('tipo', { setup(ctx){...}, update(lt, ctx){...} })`. El cierre ya viene hecho en el motor (planeta low-poly + rótulos "¿Qué dato quieres ver?" y "Síguenos").
+- Herramientas del motor (`engine.js`): `box`, `cyl`, `ball`, `plane`, `group`, `persona` (personaje low-poly con brazos/cabeza animables), `mat`, `ambiente({top,bottom,fog,...})` (cielo/niebla/luz por escena), `cam(pos, mira, fov)`, `rotulo(texto, sub, tiempo_desde_que_aparece, y)`, `etiqueta(texto, pos3D, tiempo)`, easing (`ease`, `eout`, `einout`, `spring`) y `ctx.w('palabra')`, `ctx.f(n)`, `ctx.ev('impact'|'whoosh'|'pop'|'ding'|'zap'|'crack'|'heartbeat'|'click', t)`.
+- Revisión rápida: `node render3d.js ../ejemplos/X.json OUT ../ejemplos/X.js frames 1,4,8,...` → `OUT/fr_*.png` (haz hoja de contacto y revísala).
+- Render completo (~8 min): `node render3d.js ../ejemplos/X.json OUT ../ejemplos/X.js` → `OUT/video.mp4` + `OUT/events.json`; luego `python3 ../audio.py OUT` y `ffmpeg -i OUT/video.mp4 -i OUT/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -af loudnorm=I=-14:TP=-1.5 -shortest shorts/<archivo>.mp4`.
+- La voz se genera igual que antes con `voice.py` (Alex, es-419). Usa `"speed": 1.0` (tono narrador, más pausado).
+- `coherencia.py` acepta el `.js` de escenas (revisa `c.w('...')` y `c.f(n)`).
+
+Reglas de dirección de arte 3D:
+- Cada escena es un PLANO de cine: decide dónde está la cámara y a qué mira; muévela despacio (dolly, grúa, paneo) o haz un corte. Nada estático.
+- Objetos protagonistas grandes y legibles en celular (exagera tamaños si hace falta, como el pan).
+- Paleta cálida y realista apagada (maderas, paredes crema, cielos de atardecer) con UN color de acento por escena.
+- Usa `etiqueta` para nombrar cosas en el espacio 3D (medidas, lugares) y `rotulo` para la idea clave de cada escena (2–4 palabras + subtítulo).
+- Personas: usa `persona()` y anímala (brazos, cabeza) para dar emoción.
+- Revisa que ningún rótulo tape lo importante y que los subtítulos de arriba se lean (si el fondo es claro, baja la cámara o cambia `ambiente`).
+- Mejora continua: cada short agrega al motor algo reutilizable (un set nuevo: calle, cuarto, espacio, laboratorio; un objeto; un movimiento de cámara) y lo anota en MEJORAS.md.

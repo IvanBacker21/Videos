@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Poppins";font-weight:900;src:local("Poppins Black"),local("Poppins-Black")}
+@font-face{font-family:"Poppins";font-weight:800;src:local("Poppins ExtraBold"),local("Poppins-ExtraBold")}
+@font-face{font-family:"Poppins";font-weight:700;src:local("Poppins Bold"),local("Poppins-Bold")}
+html,body{margin:0;padding:0;background:#000;overflow:hidden}
+#wrap{position:relative;width:1080px;height:1920px;overflow:hidden}
+canvas{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#ov{position:absolute;inset:0;pointer-events:none;font-family:"Poppins",sans-serif}
+/* subtítulos arriba, palabra por palabra (dichas en blanco, próximas en gris, actual con recuadro) */
+#cap{position:absolute;left:90px;right:90px;top:250px;text-align:center;font-weight:700;font-size:66px;line-height:1.22;letter-spacing:-.5px;
+     text-shadow:0 4px 18px rgba(0,0,0,.55)}
+#cap span{color:rgba(255,255,255,.38);transition:none;padding:0 6px;border-radius:12px}
+#cap span.on{color:#fff}
+#cap span.cur{color:#fff;outline:4px solid rgba(120,190,255,.95);outline-offset:2px;background:rgba(40,90,160,.25)}
+/* rótulo inferior: caja oscura con borde dorado */
+.lt{position:absolute;left:50%;transform:translate(-50%,0) scale(var(--s,1));transform-origin:50% 50%;
+    background:rgba(18,16,12,.86);border:4px solid #d9a93a;border-radius:14px;padding:16px 40px 14px;text-align:center;
+    box-shadow:0 14px 40px rgba(0,0,0,.45);white-space:nowrap}
+.lt .t{color:#f3c54d;font-weight:900;font-size:76px;line-height:1.05;letter-spacing:-.5px}
+.lt .s{color:#fff;font-weight:800;font-size:26px;letter-spacing:1.5px;margin-top:6px;text-transform:uppercase}
+.tag3d{position:absolute;transform:translate(-50%,-50%);color:#fff;font-weight:900;font-size:58px;letter-spacing:.5px;
+       text-shadow:0 3px 0 rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.4);white-space:nowrap}
+#brand{position:absolute;top:120px;left:0;right:0;text-align:center;color:rgba(255,255,255,.75);font-weight:800;font-size:32px;letter-spacing:4px}
+#bar{position:absolute;left:0;top:0;height:10px;background:linear-gradient(90deg,#f3c54d,#ff7a59)}
+</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script>
+</head><body><div id="wrap"><div id="ov"><div id="brand">DATO CÓSMICO 2</div><div id="cap"></div><div id="bar"></div></div></div>
+<script type="module">
+import * as E from './engine.js';
+const qs = new URLSearchParams(location.search);
+window.__ready = (async () => {
+  const data = await (await fetch(qs.get('data'))).json();          // {script, timings}
+  const mod = await import(qs.get('short'));
+  await E.init(document.getElementById('wrap'), data);
+  await mod.build(E);
+  window.setFrame = (gt) => E.frame(gt);
+  window.__events = () => E.events();
+  return true;
+})();
+</script></body></html>

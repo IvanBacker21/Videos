@@ -46,7 +46,8 @@ if a.out and os.path.exists(f"{a.out}/timings.json"):
 # 4. animación ↔ guion: cada z.w("palabra") y z.f(n) del archivo de escenas debe existir en su escena
 if a.escenas and os.path.exists(a.escenas):
     src = open(a.escenas, encoding="utf-8").read()
-    bloques = re.split(r'kind == "([^"]+)"', src)
+    js = a.escenas.endswith(".js")
+    bloques = re.split(r"escena\('([^']+)'" if js else r'kind == "([^"]+)"', src)
     por_tipo = {bloques[i]: bloques[i + 1] for i in range(1, len(bloques) - 1, 2)}
     for e in esc:
         b = por_tipo.get(e["tipo"])
@@ -54,9 +55,9 @@ if a.escenas and os.path.exists(a.escenas):
             if e["tipo"] != "cierre": err.append(f"La escena '{e['tipo']}' no tiene animación en {os.path.basename(a.escenas)}.")
             continue
         palabras = " ".join(e["frases"]).lower()
-        for w in re.findall(r'z\.w\("([^"]+)"', b):
+        for w in re.findall(r"c\.w\('([^']+)'" if js else r'z\.w\("([^"]+)"', b):
             if w.lower() not in palabras: err.append(f"[{e['tipo']}] la animación espera la palabra '{w}' pero no está en la voz → el efecto saldrá en el segundo 0.")
-        for n in re.findall(r"z\.f\((\d+)\)", b):
+        for n in re.findall(r"c\.f\((\d+)\)" if js else r"z\.f\((\d+)\)", b):
             if int(n) >= len(e["frases"]): err.append(f"[{e['tipo']}] la animación usa la frase {n} pero la escena solo tiene {len(e['frases'])}.")
 
 # 5. título y descripción

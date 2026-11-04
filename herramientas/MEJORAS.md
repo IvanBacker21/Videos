@@ -11,8 +11,14 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 - 2026-11-04 · Short de nadar después de comer · Transición M3 "container transform" en `render3.py` (`TRANSICION = "container"`, `TR_DUR`, `TR_FORMA`, `container_transform()`): la escena nueva se abre dentro de una forma scallop con elevación que crece y se redondea sobre el fondo de la escena anterior; reemplaza el destello blanco (`TRANSICION = "flash"` lo recupera). Además: gráfica de barras plana M3 sin cifras (`bars()` en el short, pendiente de pasar a material.py) y chat con respuesta de "mamá" (burbuja escribiendo → respuesta).
 
 - 2026-11-04 · Short del perro (19:00) · Mascota del canal "Cosmo" (`material.mascota()`, expresiones en `EXPRESIONES`: feliz, sorpresa, guino, pensando; parpadea y flota). Protagoniza el cierre (`CIERRE_MASCOTA = True` en render3: pensando → feliz → guiño al "síguenos") y aparece en el gancho como reacción. Además `material.donut()` (anillo de progreso M3 sin cifras, parte de la #7) y personajes de perro/lobo de frente, desde arriba y enroscado.
+- 2026-11-04 · Motor 3D low-poly (`motor3d/`): Three.js headless, cocina, persona, rótulos dorados, subtítulos arriba palabra por palabra, cierre con planeta 3D. Short demo: pan con mantequilla. **Desde aquí el estilo oficial es 3D**; lo de Material queda como referencia.
 
-## Siguientes (toma la primera)
+## Siguientes (toma la primera de las 3D)
+0. (3D) Sets reutilizables en `engine.js`: `setCalle()`, `setCuarto()`, `setEspacio()`, `setLaboratorio()`, `setMapa()` (mapa plano con etiquetas como en la referencia).
+0b. (3D) Cámara con temblor suave de mano y profundidad de campo falsa (niebla más cercana) para look cinematográfico.
+0c. (3D) Transición entre escenas: barrido de cámara rápido (whip pan) en vez de corte seco.
+0d. (3D) Mascota "Cosmo" en versión 3D low-poly para el cierre.
+--- (lista anterior, estilo Material) ---
 4. Subtítulos: la palabra activa con chip que se desliza (no aparece) de una palabra a otra.
 5. Barra de progreso tipo M3 "wavy progress indicator" (línea ondulada).
 6. Íconos animados (morph): check que se dibuja, corazón que late, rayo que parpadea.
