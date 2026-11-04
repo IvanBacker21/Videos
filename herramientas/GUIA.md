@@ -1,6 +1,6 @@
 # Guía de producción — Dato Cósmico 2
 
-Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Cinco shorts al día, publicados vía Metricool a las 08:30, 13:30, 16:00, 19:00 y 21:30 (America/Mexico_City).
+Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Tres shorts al día (por unas semanas, hasta que el canal tenga historial), publicados vía Metricool a las 13:30, 18:00 y 21:30 (America/Mexico_City).
 
 ## Preparar el entorno (cada sesión es nueva)
 
@@ -24,7 +24,7 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
 
 1. **Tema**: busca en la web noticias de ciencia de los últimos días y temas curiosos con interés en México/Latam. Elige uno que no esté en `temas.json`. Comprueba el dato en al menos dos fuentes fiables; si no se puede verificar, elige otro tema.
 2. **Guion** (`herramientas/ejemplos/AAAA-MM-DD-slug.json`, mismo formato que el ejemplo del helado):
-   - 25–40 s en total (mejor 30 s), 5–7 escenas, frases cortas y conversacionales, tuteo, español latino.
+   - **20–30 s de contenido** (más el cierre), 5–6 escenas cortas, frases cortas y conversacionales, tuteo, español latino.
    - **Tono**: datos curiosos LIGEROS y divertidos, que cualquiera entienda y quiera contar a un amigo. Pocos números (máximo uno o dos, redondos), nada de tecnicismos ni listas de cifras. Mejor temas cotidianos y sorprendentes (tu cuerpo, animales, comida, hábitos, cosas que todos hacen) que datos astronómicos o técnicos. Ejemplo de referencia PRINCIPAL (aprobado por Iván): `ejemplos/2026-11-04-1330-picante.*` — estructura, tono, ritmo, estilo Material y remate para compartir. Úsalo como plantilla. Evita el estilo del short de Venus (demasiadas cifras).
    - **Sin bucle**: NO intentes conectar el final con el inicio. La última escena de contenido cierra la historia con un remate claro (una pregunta al espectador o una frase graciosa) y de ahí se pasa natural a la escena de cierre.
    - Escena 1 = gancho en los primeros 2 s (pregunta o afirmación sorprendente) + promesa que obligue a quedarse ("al final te digo…").
@@ -49,7 +49,7 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
 ## Estrategia de crecimiento (aplícala en cada short)
 
 - **Los primeros 2 segundos deciden todo.** El primer fotograma ya debe mostrar acción y una pregunta o afirmación sorprendente en texto grande. Nada de logos ni introducciones.
-- **Corto y completo**: 25–40 s. Mejor un 30 s visto al 90 % que un 50 s visto a la mitad. Corta cualquier frase que no aporte.
+- **Corto y completo**: 20–30 s de contenido. Los datos del canal lo confirman: el bostezo (26 s) se vio al 71 %, el pulpo y el helado (~40 s) a menos del 50 %. Corta cualquier frase que no aporte; una idea por escena.
 - **Promesa abierta**: "al final te digo…", "el paso 3 es el más raro", y cúmplela.
 - **Títulos**: palabra clave al principio, ≤ 60 caracteres antes de "#shorts", curiosidad sin engañar (p. ej. "¿Por qué los pulpos tienen 3 corazones?").
 - **Variedad de formatos dentro del nicho**, rotando: "¿Por qué…?", "Mito o realidad", "Top 3", "Noticia de ciencia de esta semana", "Tu cuerpo hace esto sin que lo sepas", "Escala/comparación" (qué tan grande, qué tan rápido). Evita que dos shorts seguidos tengan la misma estructura, y que cada short tenga animaciones propias: YouTube no monetiza contenido repetitivo o producido en masa.
