@@ -81,3 +81,23 @@ Cada short se publica TAMBIÉN en TikTok, a la misma hora que en YouTube, con un
 - `tiktokData`: `{"privacyOption":"PUBLIC_TO_EVERYONE","title":"<título corto sin #>","isAigc":true,"autoAddMusic":false,"disableComment":false,"disableDuet":false,"disableStitch":false,"commercialContentThirdParty":false,"commercialContentOwnBrand":false}`.
 - `isAigc: true` siempre: el video está hecho con IA (voz, guion y animación) y TikTok exige declararlo.
 - Las mismas reglas de texto limpio que en YouTube.
+
+## Hacerlo COMPARTIBLE (prioridad n.º 1 al elegir tema y escribir guion)
+
+Antes de escribir, el short debe pasar esta prueba: **¿a quién se lo mandaría alguien por WhatsApp y qué le diría?** ("¡mira, eres tú!", "¿ves? te dije", "no sabía esto"). Si no hay respuesta clara, cambia de tema o de enfoque.
+
+Disparadores que hacen que la gente comparta y dé like (usa al menos dos por short):
+1. **"Eres tú"** – identidad y situaciones que todos vivimos: el que siempre llega tarde, el que le pone salsa a todo, la mamá que dice "ponte un suéter", el que no puede dormir sin cobija. La gente lo comparte para etiquetar a alguien.
+2. **Lo mexicano** – picante, tortillas, tráfico, temblores, "ahorita", el Oxxo, las abuelitas. Orgullo y humor local = muchos envíos.
+3. **"¿Ves? Te dije"** – mitos y consejos de casa que la ciencia confirma o desmiente ("¿de verdad no hay que bañarse después de comer?"). Generan debate en comentarios y la gente lo manda para ganar una discusión.
+4. **Truco útil** – algo que el espectador puede probar hoy mismo (cortar cebolla sin llorar, quitarse el hipo, calmar el picante). Se guarda y se comparte.
+5. **Reto o prueba en vivo** – el espectador hace algo mientras ve (como el de no bostezar). Comentan el resultado.
+6. **Sorpresa con emoción** – asombro, risa o ternura. Nada de datos fríos: siempre la reacción ("¡¿qué?!").
+
+Fórmulas de guion:
+- Gancho = situación reconocible + pregunta: "¿Por qué tu abuelita siempre dice que no te bañes después de comer? 👀"
+- Desarrollo = explicación en 2–3 frases sencillas con una imagen mental clara (comparaciones cotidianas, no cifras).
+- Remate = **invitación a compartir** dirigida a alguien concreto, por ejemplo: "Mándaselo a ese amigo que le pone salsa a TODO." / "Etiqueta a tu mamá." / "Comenta si te pasa." Después viene la escena de cierre.
+- Títulos tipo: "Tu mamá tenía razón…", "Esto le pasa a TODOS los que…", "Por esto NO deberías…", "Mándaselo al que…". Siempre honestos con el contenido.
+
+Evita: temas técnicos o lejanos (planetas con cifras, química con nombres raros), listas de datos, tono de clase.
