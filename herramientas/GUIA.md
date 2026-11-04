@@ -72,3 +72,12 @@ Look moderno 2.5D tipo motion graphics, coherente en todo el canal:
 - Escribe todo en español normal y correcto. **Nunca** uses letras cambiadas por números o símbolos (p. ej. "s4ngr3", "m.u.e.r.t.e"): YouTube lo trata como spam y deja de recomendar el short.
 - Evita en título y descripción palabras sensibles para anunciantes (sangre, muerte, matar, cadáver, drogas, sexo, armas…). Si el tema las necesita, usa sinónimos neutros ("fluido azul", "circulación", "no sobrevivió"); en la voz y el video sí pueden decirse con naturalidad.
 - Al inicio de cada ejecución, revisa con `getScheduledPosts` (últimos 2 días) el estado de los shorts anteriores: si alguno tiene `status` distinto de `PUBLISHED` o un aviso, inclúyelo en el resumen para Iván.
+
+## TikTok (@datocosmico2)
+
+Cada short se publica TAMBIÉN en TikTok, a la misma hora que en YouTube, con una llamada aparte a `createScheduledPost`:
+- `providers: [{"network":"tiktok"}]`, mismo enlace raw del MP4.
+- `text` (caption): 1–2 frases cortas con gancho + pregunta al público + 5–6 hashtags (sin `#shorts`; usa p. ej. `#datoscuriosos #ciencia #sabiasque #aprendeentiktok` + 2 del tema). Máximo ~200 caracteres.
+- `tiktokData`: `{"privacyOption":"PUBLIC_TO_EVERYONE","title":"<título corto sin #>","isAigc":true,"autoAddMusic":false,"disableComment":false,"disableDuet":false,"disableStitch":false,"commercialContentThirdParty":false,"commercialContentOwnBrand":false}`.
+- `isAigc: true` siempre: el video está hecho con IA (voz, guion y animación) y TikTok exige declararlo.
+- Las mismas reglas de texto limpio que en YouTube.
