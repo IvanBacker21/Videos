@@ -1,0 +1,21 @@
+{
+  "id": "2026-11-03-2130-bostezo",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.1},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "",
+     "frases": ["Te apuesto a que vas a bostezar antes de que termine este video.", "Y no es casualidad."]},
+    {"tipo": "contagio", "titulo": "ES CONTAGIOSO",
+     "frases": ["Bostezar es contagioso:", "con solo ver, oír o hasta leer la palabra bostezo,", "tu cerebro quiere copiarlo."]},
+    {"tipo": "enfriar", "titulo": "¿PARA QUÉ SIRVE?",
+     "frases": ["Una teoría dice que bostezar enfría tu cerebro,", "como si le prendieras un ventilador."]},
+    {"tipo": "amigos", "titulo": "CON QUIÉN SE PEGA MÁS",
+     "frases": ["Y se contagia más entre amigos y familia", "que con desconocidos."]},
+    {"tipo": "perro", "titulo": "¡INCLUSO ÉL!",
+     "frases": ["¡Hasta tu perro puede contagiarse de tus bostezos!"]},
+    {"tipo": "remate", "titulo": "",
+     "frases": ["Entonces...", "¿ya bostezaste?"]},
+    {"tipo": "cierre", "titulo": "",
+     "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": ["apuesto", "bostezar", "casualidad", "contagioso", "ver", "oír", "leer", "copiarlo", "enfría", "cerebro", "ventilador", "amigos", "familia", "desconocidos", "perro", "bostezaste", "comentarios", "síguenos"]
+}
