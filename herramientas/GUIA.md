@@ -18,6 +18,8 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
 
 ## Flujo
 
+- **Aprende de las métricas**: si existe `metricas.md` (lo llena la revisión cada 2 h), léelo antes de elegir tema y formato: repite lo que tiene mejor % visto y más vistas del feed, y evita lo que se atascó.
+
 0. **Pedidos de Iván**: abre `pedidos.json`. Si hay una entrada con `estado: "pendiente"` para la fecha de hoy y el horario que te toca, ESE es el tema (sigue sus `indicaciones`, que mandan sobre las reglas generales de elección de tema). Al terminar, cambia su `estado` a `"hecho"` y haz commit.
 
 1. **Tema**: busca en la web noticias de ciencia de los últimos días y temas curiosos con interés en México/Latam. Elige uno que no esté en `temas.json`. Comprueba el dato en al menos dos fuentes fiables; si no se puede verificar, elige otro tema.
