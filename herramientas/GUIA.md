@@ -21,6 +21,8 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
 1. **Tema**: busca en la web noticias de ciencia de los últimos días y temas curiosos con interés en México/Latam. Elige uno que no esté en `temas.json`. Comprueba el dato en al menos dos fuentes fiables; si no se puede verificar, elige otro tema.
 2. **Guion** (`herramientas/ejemplos/AAAA-MM-DD-slug.json`, mismo formato que el ejemplo del helado):
    - 25–40 s en total (mejor 30 s), 5–7 escenas, frases cortas y conversacionales, tuteo, español latino.
+   - **Tono**: datos curiosos LIGEROS y divertidos, que cualquiera entienda y quiera contar a un amigo. Pocos números (máximo uno o dos, redondos), nada de tecnicismos ni listas de cifras. Mejor temas cotidianos y sorprendentes (tu cuerpo, animales, comida, hábitos, cosas que todos hacen) que datos astronómicos o técnicos. Ejemplo de referencia: `ejemplos/2026-11-03-2130-bostezo.*` (reto + explicación sencilla). Evita el estilo del short de Venus (demasiadas cifras).
+   - **Sin bucle**: NO intentes conectar el final con el inicio. La última escena de contenido cierra la historia con un remate claro (una pregunta al espectador o una frase graciosa) y de ahí se pasa natural a la escena de cierre.
    - Escena 1 = gancho en los primeros 2 s (pregunta o afirmación sorprendente) + promesa que obligue a quedarse ("al final te digo…").
    - Etiquetas "PASO 1/2/3" o similares para que se note el avance.
    - Cierre (escena `cierre`, SIEMPRE con este texto, palabra por palabra): "¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios y síguenos para más datos." Va después del final de la historia; el bucle se hace con la frase anterior.
@@ -44,7 +46,6 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
 
 - **Los primeros 2 segundos deciden todo.** El primer fotograma ya debe mostrar acción y una pregunta o afirmación sorprendente en texto grande. Nada de logos ni introducciones.
 - **Corto y completo**: 25–40 s. Mejor un 30 s visto al 90 % que un 50 s visto a la mitad. Corta cualquier frase que no aporte.
-- **Bucle**: que la última frase conecte con la primera (p. ej. termina en "…y por eso" o vuelve a la pregunta inicial) para que se repita sin corte.
 - **Promesa abierta**: "al final te digo…", "el paso 3 es el más raro", y cúmplela.
 - **Títulos**: palabra clave al principio, ≤ 60 caracteres antes de "#shorts", curiosidad sin engañar (p. ej. "¿Por qué los pulpos tienen 3 corazones?").
 - **Variedad de formatos dentro del nicho**, rotando: "¿Por qué…?", "Mito o realidad", "Top 3", "Noticia de ciencia de esta semana", "Tu cuerpo hace esto sin que lo sepas", "Escala/comparación" (qué tan grande, qué tan rápido). Evita que dos shorts seguidos tengan la misma estructura, y que cada short tenga animaciones propias: YouTube no monetiza contenido repetitivo o producido en masa.
