@@ -1,0 +1,21 @@
+{
+  "id": "2026-11-04-1330-picante",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.1},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "",
+     "frases": ["¿Por qué lloras, sudas...", "y aun así le pones más salsa?"]},
+    {"tipo": "engano", "titulo": "EL ENGAÑO",
+     "frases": ["El chile no está caliente.", "Tiene capsaicina, que engaña a tu lengua:", "tu cerebro cree que te estás quemando."]},
+    {"tipo": "premio", "titulo": "EL PREMIO",
+     "frases": ["Para calmar ese fuego, tu cuerpo suelta endorfinas,", "que te hacen sentir bien...", "y por eso quieres otra mordida."]},
+    {"tipo": "truco", "titulo": "EL TRUCO",
+     "frases": ["¿Cómo lo apagas?", "Con leche, no con agua:", "el agua no lo quita, y la leche lo atrapa y se lo lleva."]},
+    {"tipo": "pajaros", "titulo": "LO MÁS LOCO",
+     "frases": ["Y lo más loco:", "¡a los pájaros no les pica nada!"]},
+    {"tipo": "remate", "titulo": "",
+     "frases": ["Mándaselo a ese amigo que le pone salsa a todo."]},
+    {"tipo": "cierre", "titulo": "",
+     "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": ["lloras", "sudas", "salsa", "caliente", "capsaicina", "engaña", "quemando", "endorfinas", "bien", "mordida", "leche", "agua", "atrapa", "pájaros", "pica", "mándaselo", "amigo", "todo", "comentarios", "síguenos"]
+}

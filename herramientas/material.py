@@ -26,7 +26,7 @@ SURF = (0.98, 0.97, 1.0)
 def emph(x):
     """Curva 'emphasized decelerate' de M3 (aprox. cubic-bezier(0.05,0.7,0.1,1))."""
     x = cl(x); return 1 - (1 - x) ** 4
-def bounce_in(x): return spring(x, 1.6, 7.0)
+def bounce_in(x): return max(0.01, spring(x, 1.6, 7.0))
 def stagger(lt, i, step=0.08, dur=0.45): return cl((lt - i * step) / dur)
 
 # ---------- elevación (dos sombras: clave + ambiente, como M3) ----------

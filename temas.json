@@ -32,5 +32,21 @@
   "categoria": "vida cotidiana / ciudad",
   "archivo": "shorts/2026-11-04-0830-trafico.mp4",
   "titulo": "¿Por qué hay TRÁFICO aunque no haya choque? 🚗 #shorts"
+ },
+ {
+  "fecha": "2026-11-04",
+  "hora": "13:30",
+  "tema": "Por qué el picante 'quema' y aun así queremos más (capsaicina, endorfinas, leche vs agua, a los pájaros no les pica)",
+  "formato": "¿Por qué…? + truco",
+  "categoria": "comida",
+  "disparadores": [
+   "lo mexicano",
+   "eres tú",
+   "truco útil",
+   "sorpresa"
+  ],
+  "mejora_visual": "Primer short en Material Design 3 + cierre Material (MEJORAS #1)",
+  "archivo": "shorts/2026-11-04-1330-picante.mp4",
+  "titulo": "Por esto NO puedes dejar el picante 🌶️ #shorts"
  }
 ]

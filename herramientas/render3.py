@@ -330,6 +330,8 @@ def draw_scene(cr, kind, lt, z, ev):
                     x = rnd.uniform(80, W - 80); y = 480 + ph * 700 + 30 * math.sin(lt * 5 + q)
                     cr.save(); cr.translate(x, y); cr.rotate(lt * 4 + q); rr(cr, -13, -6, 26, 12, 4); cr.set_source_rgb(*[CYAN, PINK, YEL, MINT, VIOLET][q % 5]); cr.fill(); cr.restore()
                 callout(cr, "ADIÓS DOLOR", W / 2, 620, 64, MINT, (0.2, 0.8, 0.6), lt, tok, dark=True)
+    elif kind == "cierre" and ESTILO == "material":
+        cierre_material(cr, lt, z, ev)
     elif kind == "cierre":
         k = pop(lt / 0.5)
         cr.save(); cr.translate(W / 2, 690); cr.scale(k, k); cr.rotate(math.sin(lt * 2) * 0.04)
@@ -373,6 +375,50 @@ def draw_scene(cr, kind, lt, z, ev):
             cur = lambda c: (c.save(), c.translate(hx, hy), c.scale(1.7, 1.7), c.move_to(0, 0), c.line_to(0, 70), c.line_to(18, 55), c.line_to(32, 85), c.line_to(44, 79), c.line_to(30, 50), c.line_to(52, 50), c.close_path(), c.restore())
             shadow(cr, cur, 14, 0.5, dy=8); cur(cr); cr.set_source_rgb(1, 1, 1); cr.fill_preserve(); cr.set_source_rgb(*LINE); cr.set_line_width(4); cr.stroke()
             ev("click", tb + 0.95, g=1.2); ev("ding", tb + 1.05, g=0.6)
+
+
+def cierre_material(cr, lt, z, ev):
+    """Cierre en Material Design 3: planeta-logo como forma M3, chip de comentarios y botón Suscribirse con ripple."""
+    k = M.bounce_in(lt / 0.6)
+    # titular
+    if lt > 0.15:
+        kt = M.bounce_in((lt - 0.15) / 0.5); cr.save(); cr.translate(W / 2, 330); cr.scale(kt, kt)
+        text(cr, "¿QUÉ DATO QUIERES VER?", 0, 0, 62, M.C("amarillo"), font=DISPLAY, sh=False); cr.restore()
+    # logo: planeta (scallop) + anillo plano + luna "2"
+    cr.save(); cr.translate(W / 2, 690); cr.scale(k, k)
+    M.shape(cr, "flower", 0, 0, 300, rot=lt * 0.25); cr.set_source_rgba(1, 1, 1, 0.10); cr.fill()
+    ring = lambda c, a0, a1: (c.save(), c.rotate(-0.3), c.scale(1, 0.30), c.arc(0, 0, 300, a0, a1), c.restore())
+    cr.set_line_cap(cairo.LINE_CAP_ROUND); cr.set_line_width(26)
+    ring(cr, math.pi, 2 * math.pi); cr.set_source_rgb(*M.C("rosa")); cr.stroke()
+    M.blob(cr, "scallop", 0, 0, 205, M.C("violeta"), 4, rot=lt * 0.3)
+    M.shape(cr, "scallop", 0, 0, 150, rot=-lt * 0.3); cr.set_source_rgb(*lighten(M.C("violeta"), 0.15)); cr.fill()
+    text(cr, "?", 0, 72, 210, (1, 1, 1), font=DISPLAY, sh=False)
+    ring(cr, 0, math.pi); cr.set_source_rgb(*M.C("rosa")); cr.set_line_width(26); cr.stroke()
+    ang = lt * 2.4; px, py = 300 * math.cos(ang), 90 * math.sin(ang); c_, s_ = math.cos(-0.3), math.sin(-0.3)
+    mx, my = px * c_ - py * s_, px * s_ + py * c_
+    M.blob(cr, "circle", mx, my, 44, M.C("amarillo"), 3)
+    text(cr, "2", mx, my + 22, 60, M.C("amarillo", 2), font=DISPLAY, sh=False)
+    cr.restore()
+    text(cr, "DATO CÓSMICO 2", W / 2, 1035, 70, (1, 1, 1), font=DISPLAY, alpha=ease((lt - 0.2) / 0.3), sh=False)
+    # chip comentarios cuando la voz lo dice
+    tcm = z.w("comentarios") or 0.4
+    if lt > tcm: ev("pop", tcm)
+    M.chip(cr, "DÉJALO EN COMENTARIOS", W / 2, 1140, 42, "cian", lt=lt, t0=tcm, icon=M.ic_chat)
+    # botón suscribirse
+    tb = z.w("síguenos") or 0.7
+    if lt > tb:
+        ev("pop", tb); kk = M.bounce_in((lt - tb) / 0.5); pressed = tb + 0.9 < lt < tb + 1.1; subbed = lt > tb + 1.0
+        cr.save(); cr.translate(W / 2, 1265); s2 = kk * (0.94 if pressed else 1.0); cr.scale(s2, s2)
+        col = M.C("noche", 1) if subbed else (0.90, 0.13, 0.20)
+        M.surface(cr, lambda c: rr(c, -250, -58, 500, 116, 58), col, 1 if pressed else 4)
+        cr.save(); cr.translate(-160, 0); (M.ic_check if subbed else M.ic_bolt)(cr, 26, (1, 1, 1)); cr.restore()
+        text(cr, "SUSCRITO" if subbed else "SUSCRÍBETE", 30, 18, 50, (1, 1, 1), font=DISPLAY, sh=False)
+        cr.restore()
+        M.ripple(cr, W / 2 + 120, 1265, (lt - tb - 0.9) / 0.5, (1, 1, 1), 260)
+        hx = W / 2 + 120 + 280 * (1 - M.emph((lt - tb - 0.3) / 0.6)); hy = 1285 + 280 * (1 - M.emph((lt - tb - 0.3) / 0.6))
+        cur = lambda c: (c.save(), c.translate(hx, hy), c.scale(1.6, 1.6), c.move_to(0, 0), c.line_to(0, 70), c.line_to(18, 55), c.line_to(32, 85), c.line_to(44, 79), c.line_to(30, 50), c.line_to(52, 50), c.close_path(), c.restore())
+        M.elevation(cr, cur, 3); cur(cr); cr.set_source_rgb(1, 1, 1); cr.fill_preserve(); cr.set_source_rgb(*M.INK); cr.set_line_width(4); cr.stroke()
+        ev("click", tb + 0.95, g=1.2); ev("ding", tb + 1.05, g=0.6)
 
 # ================= capas comunes =================
 ACCENTS = [M.C("rosa"), M.C("violeta"), M.C("cian"), M.C("naranja")]
