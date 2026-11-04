@@ -1,0 +1,29 @@
+{
+ "id": "venus",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.1},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": [
+    "En Venus, un día dura más que un año.",
+    "¿Mito o realidad?",
+    "Quédate, porque el paso tres es el más raro."]},
+  {"tipo": "anio", "titulo": "PASO 1: SU AÑO", "frases": [
+    "Venus le da la vuelta al Sol en doscientos veinticinco días.",
+    "Ese es su año."]},
+  {"tipo": "dia", "titulo": "PASO 2: SU DÍA", "frases": [
+    "Pero gira tan lento sobre sí mismo,",
+    "que una vuelta completa le toma doscientos cuarenta y tres días.",
+    "Es realidad: su día es más largo que su año."]},
+  {"tipo": "reves", "titulo": "PASO 3: EL MÁS RARO", "frases": [
+    "Y además, gira al revés.",
+    "Allá el Sol sale por el oeste",
+    "y se oculta por el este."]},
+  {"tipo": "remate", "titulo": "", "frases": [
+    "Ojo: por girar al revés, entre un amanecer y otro pasan unos ciento diecisiete días.",
+    "Pero su vuelta completa sigue tardando más que su año.",
+    "Por eso dicen que en Venus..."]},
+  {"tipo": "cierre", "titulo": "", "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": ["venus", "día", "año", "mito", "realidad", "raro", "sol", "veinticinco", "lento", "cuarenta", "largo", "revés", "oeste", "este", "amanecer", "diecisiete", "vuelta", "comentarios", "síguenos"]
+}
