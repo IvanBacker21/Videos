@@ -162,3 +162,53 @@ def md_background(cr, t, rol="violeta", dark=True):
     rnd = random.Random(9); cr.set_source_rgba(1, 1, 1, 0.07 if dark else 0.25)
     for _ in range(40):
         x, y = rnd.uniform(0, W), rnd.uniform(0, H); cr.arc(x, (y + t * 12) % H, rnd.uniform(3, 7), 0, 2 * math.pi); cr.fill()
+
+# ---------- mascota del canal: "Cosmo", planeta con cara (mejora #3) ----------
+EXPRESIONES = ("feliz", "sorpresa", "guino", "pensando")
+def mascota(cr, cx, cy, r, t, expr="feliz", rol="violeta", anillo=True, lt=1.0, t0=0.0):
+    """Planeta-mascota de Dato Cósmico 2 en estilo M3: cuerpo scallop con elevación, anillo plano,
+    mejillas y cara en INK. expr: feliz | sorpresa | guino | pensando. Parpadea solo y flota."""
+    if lt < t0: return
+    k = bounce_in((lt - t0) / 0.55)
+    cr.save(); cr.translate(cx, cy + r * 0.04 * math.sin(t * 2.2)); cr.scale(k * r / 100, k * r / 100)
+    cr.rotate(0.05 * math.sin(t * 1.3))
+    ring = lambda c, a0, a1: (c.save(), c.translate(0, 62), c.rotate(-0.2), c.scale(1, 0.22), c.arc(0, 0, 150, a0, a1), c.restore())
+    cr.set_line_cap(cairo.LINE_CAP_ROUND); cr.set_line_width(16)
+    if anillo: ring(cr, math.pi, 2 * math.pi); cr.set_source_rgb(*C("rosa")); cr.stroke()
+    blob(cr, "scallop", 0, 0, 100, C(rol), 4, rot=t * 0.25)
+    shape(cr, "circle", -30, -35, 26); cr.set_source_rgba(1, 1, 1, 0.16); cr.fill()
+    shape(cr, "circle", 40, 45, 14); cr.set_source_rgba(1, 1, 1, 0.12); cr.fill()
+    # cara
+    blink = (t % 3.1) < 0.12
+    cr.set_source_rgb(*INK); cr.set_line_cap(cairo.LINE_CAP_ROUND); cr.set_line_width(9)
+    for i, ex in enumerate((-32, 32)):
+        wink = expr == "guino" and i == 1
+        if blink or wink:
+            cr.move_to(ex - 13, -6); cr.curve_to(ex - 5, 2, ex + 5, 2, ex + 13, -6); cr.stroke()
+        else:
+            er = 17 if expr == "sorpresa" else 14
+            ey = -14 if expr == "pensando" else -6
+            cr.arc(ex + (6 if expr == "pensando" else 0), ey, er, 0, 2 * math.pi); cr.fill()
+            cr.arc(ex + 5 + (6 if expr == "pensando" else 0), ey - 5, er * 0.33, 0, 2 * math.pi); cr.set_source_rgb(1, 1, 1); cr.fill(); cr.set_source_rgb(*INK)
+    if expr == "sorpresa":
+        cr.arc(0, 30, 14, 0, 2 * math.pi); cr.fill()
+    elif expr == "pensando":
+        cr.move_to(-18, 32); cr.line_to(18, 26); cr.stroke()
+        for j, (bx, by, br) in enumerate(((95, -95, 10), (120, -130, 15), (150, -175, 22))):
+            if (t * 2) % 3 > j * 0.6: cr.arc(bx, by, br, 0, 2 * math.pi); cr.set_source_rgb(*SURF); cr.fill()
+        cr.set_source_rgb(*INK)
+    else:
+        cr.arc(0, 14, 24, 0.15 * math.pi, 0.85 * math.pi); cr.stroke()
+    for ex in (-62, 62):
+        cr.arc(ex, 16, 13, 0, 2 * math.pi); cr.set_source_rgba(1, 0.45, 0.6, 0.55); cr.fill()
+    if anillo: ring(cr, 0, math.pi); cr.set_source_rgb(*C("rosa")); cr.set_line_width(16); cr.stroke()
+    cr.restore()
+
+# ---------- dona M3 plana animada (mejora #7, sin cifras) ----------
+def donut(cr, cx, cy, r, frac, rol="verde", p=1.0, grosor=0.34):
+    """Anillo de progreso M3: pista tonal + arco fuerte con puntas redondas; p anima de 0 a 1."""
+    w = r * grosor; cr.set_line_cap(cairo.LINE_CAP_ROUND); cr.set_line_width(w)
+    cr.arc(cx, cy, r, 0, 2 * math.pi); cr.set_source_rgb(*C(rol, 1)); cr.stroke()
+    a = frac * emph(p)
+    if a > 0.005:
+        cr.arc(cx, cy, r, -math.pi / 2, -math.pi / 2 + 2 * math.pi * a); cr.set_source_rgb(*C(rol)); cr.stroke()

@@ -1,0 +1,92 @@
+{
+ "id": "2026-11-04-1900-perro",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.1
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué tu perro da vueltas y vueltas antes de acostarse?",
+    "Al final te cuento el experimento que lo comprobó."
+   ]
+  },
+  {
+   "tipo": "lobo",
+   "titulo": "VIENE DEL LOBO",
+   "frases": [
+    "Es una herencia de sus ancestros, los lobos.",
+    "En el bosque no había camitas ni cobijas."
+   ]
+  },
+  {
+   "tipo": "nido",
+   "titulo": "RAZÓN 1",
+   "frases": [
+    "Al dar vueltas aplastaban el pasto o la nieve,",
+    "y de paso espantaban bichos y víboras."
+   ]
+  },
+  {
+   "tipo": "bolita",
+   "titulo": "RAZÓN 2",
+   "frases": [
+    "Luego se acostaban hechos bolita,",
+    "para guardar su calor como si fuera una cobija."
+   ]
+  },
+  {
+   "tipo": "experimento",
+   "titulo": "EL EXPERIMENTO",
+   "frases": [
+    "Un psicólogo lo probó: en una alfombra lisa, solo uno de cada cinco perros dio vueltas.",
+    "En una alfombra peluda y arrugada, más de la mitad. ¡Estaban tendiendo su cama!"
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Unas cuantas vueltas son normales; si de pronto da muchísimas, al veterinario.",
+    "Mándaselo al que trata a su perro como su hijo."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "perro",
+  "vueltas",
+  "acostarse",
+  "experimento",
+  "lobos",
+  "camitas",
+  "cobijas",
+  "pasto",
+  "nieve",
+  "bichos",
+  "víboras",
+  "bolita",
+  "calor",
+  "lisa",
+  "peluda",
+  "mitad",
+  "cama",
+  "normales",
+  "veterinario",
+  "mándaselo",
+  "hijo",
+  "comentarios",
+  "síguenos",
+  "cinco"
+ ]
+}

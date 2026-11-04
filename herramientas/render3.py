@@ -16,6 +16,7 @@ ROL_DEFECTO_CICLO = ["violeta", "cian", "rosa", "verde", "naranja", "coral"]
 TRANSICION = "container"
 TR_DUR = 0.55          # duración de la transición (s)
 TR_FORMA = "scallop"   # forma que crece (material.shape); se convierte en círculo al final (morph)
+CIERRE_MASCOTA = True   # mejora #3: la mascota "Cosmo" (material.mascota) protagoniza el cierre
 def rol_de(i, kind): return ROLES.get(kind, ROL_DEFECTO_CICLO[i % len(ROL_DEFECTO_CICLO)])
 
 FPS = 30
@@ -395,11 +396,16 @@ def cierre_material(cr, lt, z, ev):
     M.shape(cr, "flower", 0, 0, 300, rot=lt * 0.25); cr.set_source_rgba(1, 1, 1, 0.10); cr.fill()
     ring = lambda c, a0, a1: (c.save(), c.rotate(-0.3), c.scale(1, 0.30), c.arc(0, 0, 300, a0, a1), c.restore())
     cr.set_line_cap(cairo.LINE_CAP_ROUND); cr.set_line_width(26)
-    ring(cr, math.pi, 2 * math.pi); cr.set_source_rgb(*M.C("rosa")); cr.stroke()
-    M.blob(cr, "scallop", 0, 0, 205, M.C("violeta"), 4, rot=lt * 0.3)
-    M.shape(cr, "scallop", 0, 0, 150, rot=-lt * 0.3); cr.set_source_rgb(*lighten(M.C("violeta"), 0.15)); cr.fill()
-    text(cr, "?", 0, 72, 210, (1, 1, 1), font=DISPLAY, sh=False)
-    ring(cr, 0, math.pi); cr.set_source_rgb(*M.C("rosa")); cr.set_line_width(26); cr.stroke()
+    if CIERRE_MASCOTA:
+        tsig = z.w("síguenos") or 99
+        expr = "guino" if lt > tsig + 1.0 else ("pensando" if lt < (z.w("comentarios") or 1.5) else "feliz")
+        M.mascota(cr, 0, 0, 200, lt, expr)
+    else:
+        ring(cr, math.pi, 2 * math.pi); cr.set_source_rgb(*M.C("rosa")); cr.stroke()
+        M.blob(cr, "scallop", 0, 0, 205, M.C("violeta"), 4, rot=lt * 0.3)
+        M.shape(cr, "scallop", 0, 0, 150, rot=-lt * 0.3); cr.set_source_rgb(*lighten(M.C("violeta"), 0.15)); cr.fill()
+        text(cr, "?", 0, 72, 210, (1, 1, 1), font=DISPLAY, sh=False)
+        ring(cr, 0, math.pi); cr.set_source_rgb(*M.C("rosa")); cr.set_line_width(26); cr.stroke()
     ang = lt * 2.4; px, py = 300 * math.cos(ang), 90 * math.sin(ang); c_, s_ = math.cos(-0.3), math.sin(-0.3)
     mx, my = px * c_ - py * s_, px * s_ + py * c_
     M.blob(cr, "circle", mx, my, 44, M.C("amarillo"), 3)
