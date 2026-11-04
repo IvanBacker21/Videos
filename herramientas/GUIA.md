@@ -56,7 +56,7 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
 - **Exactitud**: cero datos inventados; dos fuentes fiables por short. Un error destruye la confianza y los comentarios lo señalan.
 - En `temas.json` guarda también `formato` y `categoria` para equilibrar.
 
-## Estilo visual (obligatorio)
+## Estilo visual anterior (2.5D, solo referencia)
 
 Look moderno 2.5D tipo motion graphics, coherente en todo el canal:
 - **Todo con volumen**: formas con `volume()` (degradado claro→oscuro, brillo superior, sombra suave). Nada de rellenos planos con contorno negro grueso.
@@ -101,3 +101,30 @@ Fórmulas de guion:
 - Títulos tipo: "Tu mamá tenía razón…", "Esto le pasa a TODOS los que…", "Por esto NO deberías…", "Mándaselo al que…". Siempre honestos con el contenido.
 
 Evita: temas técnicos o lejanos (planetas con cifras, química con nombres raros), listas de datos, tono de clase.
+
+## Estilo visual: MATERIAL DESIGN 3 EXPRESSIVE (obligatorio desde el 4-nov)
+
+`render3.py` ya usa `ESTILO = "material"`: fondo tonal plano con formas M3 que giran, subtítulos y etiquetas como chips planos con elevación, sin grano ni brillos. Las escenas NUEVAS se dibujan con `herramientas/material.py`:
+- **Superficies planas con elevación** (`surface`, `card`, `blob`): colores sólidos y saturados de la paleta `P` (violeta, cian, verde, coral, rosa, amarillo, naranja), sombras suaves de elevación. Nada de degradados brillantes, contornos negros ni texturas.
+- **Formas M3** (`shape`/`blob`: circle, scallop, flower, burst, squircle, clover, gem, pill) como contenedores de iconos, datos y personajes; que giren o cambien de forma (`morph`) suavemente.
+- **Componentes**: `chip` (etiquetas), `fab` (botón de acción), `ripple` (toque), `big_number` (dato clave sobre un burst), iconos redondeados `ICONOS` (check, close, heart, chat, share, bolt, flame, drop, star, clock, bulb).
+- **Movimiento M3**: entradas con `bounce_in`/`emph`, elementos en cascada con `stagger`, nada aparece de golpe; cada escena tiene un cambio visual cada 1–3 s.
+- **Color por escena**: asigna en `ROLES` un rol distinto a cada tipo de escena para que el fondo cambie de color al pasar de escena.
+- **Composición**: un elemento protagonista grande (500–800 px) centrado en y≈700–1000, apoyado por 2–3 elementos secundarios; mucho aire; textos cortos en chips.
+- Personajes (caritas, animales, objetos): formas geométricas simples y planas con colores de la paleta, ojos y boca en `INK`; expresivos.
+
+## Mejora continua (OBLIGATORIO en cada short)
+
+Cada short debe verse MEJOR que el anterior. En cada ejecución:
+1. Lee `herramientas/MEJORAS.md` (bitácora). Toma la primera mejora pendiente de la lista "Siguientes" (o una nueva que tú detectes al revisar la hoja de contacto del short anterior) e impleméntala.
+2. Si la mejora es reutilizable (un componente, un personaje, una transición, un efecto), agrégala a `material.py` o `render3.py`, NO solo a tu escena.
+3. Prueba de regresión antes de subir cambios compartidos: dibuja fotogramas del ejemplo del bostezo (`python3 ejemplos/2026-11-03-2130-bostezo.py ejemplos/2026-11-03-2130-bostezo.json /tmp/reg frames 3,9,23,31.5`) y confirma que nada se rompió.
+4. Anota en `MEJORAS.md` qué mejoraste (fecha, short, mejora) y añade 1–2 ideas nuevas a "Siguientes".
+
+## Coherencia del guion (OBLIGATORIO)
+
+Antes del render completo Y antes de publicar ejecuta:
+`python3 herramientas/coherencia.py guion.json escenas.py --out OUT --titulo "..." --descripcion "..."`
+- Si sale "NO PUBLICAR", corrige y vuelve a correrlo.
+- Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
+- Escribe los números con letra en la voz.

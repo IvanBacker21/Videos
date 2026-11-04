@@ -4,6 +4,13 @@ Cada short nuevo reescribe draw_scene(); todo lo demás se reutiliza."""
 import cairo, json, math, os, random, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from estilo import *
+import material as M
+
+# Estilo visual: "material" (Material Design 3 Expressive, por defecto) o "glossy" (estilo anterior 2.5D)
+ESTILO = "material"
+# Rol de color M3 por tipo de escena (material.P). Escenas no listadas usan ROL_DEFECTO.
+ROLES = {"gancho": "violeta", "cierre": "violeta"}
+ROL_DEFECTO_CICLO = ["violeta", "cian", "rosa", "verde", "naranja", "coral"]
 
 FPS = 30
 SKIN = (1.0, 0.76, 0.62); HAIR = (0.30, 0.17, 0.20); LINE = (0.16, 0.08, 0.14); RED = (1.0, 0.27, 0.36); ICE = (0.70, 0.93, 1.0)
@@ -368,7 +375,7 @@ def draw_scene(cr, kind, lt, z, ev):
             ev("click", tb + 0.95, g=1.2); ev("ding", tb + 1.05, g=0.6)
 
 # ================= capas comunes =================
-ACCENTS = [PINK, VIOLET, (0.2, 0.7, 1.0), ORANGE]
+ACCENTS = [M.C("rosa"), M.C("violeta"), M.C("cian"), M.C("naranja")]
 def captions(cr, z, lt, hl):
     words = z.tm["words"]
     cur = max([i for i, x in enumerate(words) if x["t"] <= lt] or [0])
@@ -393,7 +400,10 @@ def captions(cr, z, lt, hl):
                 k = 0.85 + 0.15 * pop((lt - words[i]["t"]) / 0.14)
                 cr.save(); cr.translate(cx, cy - size * 0.33); cr.rotate(-0.025); cr.scale(k, k)
                 acc = ACCENTS[i % len(ACCENTS)] if not key else YEL
-                pill(cr, 0, 0, ws[j] + 38, size * 1.28, acc, darken(acc, 0.2))
+                if ESTILO == "material":
+                    M.surface(cr, lambda c, w_=ws[j] + 38, h_=size * 1.28: rr(c, -w_ / 2, -h_ / 2, w_, h_, h_ * 0.32), acc, 3)
+                else:
+                    pill(cr, 0, 0, ws[j] + 38, size * 1.28, acc, darken(acc, 0.2))
                 cr.restore()
                 cr.save(); cr.translate(cx, cy); cr.rotate(-0.025); cr.scale(k, k)
                 text(cr, up[j], 0, 0, size, (0.08, 0.04, 0.12) if key else WHITE, sh=False); cr.restore()
@@ -403,14 +413,19 @@ def captions(cr, z, lt, hl):
 
 def title_tag(cr, s, lt):
     if not s: return
+    if ESTILO == "material":
+        M.chip(cr, s, W / 2, 275, 40, "amarillo", lt=lt, t0=0.0); return
     k = pop(lt / 0.35); e = text_extents(cr, s, 44, DISPLAY_XB)
     cr.save(); cr.translate(W / 2, 290); cr.scale(k, k)
     glass(cr, -e.x_advance / 2 - 40, -58, e.x_advance + 80, 84, 42, a=0.12)
     text(cr, s, 0, 0, 44, YEL, font=DISPLAY_XB, sh=False); cr.restore()
 
 def frame(cr, i, z, lt, gt, total, hl, ev):
-    kind = z.sc["tipo"]; top, bot, blobs = BGS[kind]
-    background(cr, gt, top, bot, blobs)
+    kind = z.sc["tipo"]
+    if ESTILO == "material":
+        M.md_background(cr, gt, ROLES.get(kind, ROL_DEFECTO_CICLO[i % len(ROL_DEFECTO_CICLO)]))
+    else:
+        top, bot, blobs = BGS.get(kind, BGS["gancho"]); background(cr, gt, top, bot, blobs)
     punch = 1 + 0.2 * (1 - eout(lt / 0.32)) if i > 0 else 1 + 0.1 * (1 - eout(lt / 0.4))
     zoom = punch * (1 + 0.035 * lt / max(1, z.dur))
     shk = sum(math.exp(-(lt - e) * 7) * 20 for e in z.shakes if 0 <= lt - e < 0.8)
@@ -418,9 +433,9 @@ def frame(cr, i, z, lt, gt, total, hl, ev):
     draw_scene(cr, kind, lt, z, ev); cr.restore()
     if i > 0 and lt < 0.12: cr.set_source_rgba(1, 1, 1, 0.45 * (1 - lt / 0.12)); cr.paint()
     title_tag(cr, z.sc.get("titulo", ""), lt)
-    text(cr, "DATO CÓSMICO 2", W / 2, 150, 34, CYAN, font=DISPLAY_XB, sh=False)
+    text(cr, "DATO CÓSMICO 2", W / 2, 150, 34, M.C("amarillo") if ESTILO == "material" else CYAN, font=DISPLAY_XB, sh=False)
     captions(cr, z, lt, hl)
-    finish(cr, gt)
+    if ESTILO != "material": finish(cr, gt)
     cr.set_source_rgba(1, 1, 1, 0.12); cr.rectangle(0, 0, W, 10); cr.fill()
     g = cairo.LinearGradient(0, 0, W, 0); g.add_color_stop_rgb(0, *CYAN); g.add_color_stop_rgb(1, *PINK)
     cr.set_source(g); cr.rectangle(0, 0, W * gt / total, 10); cr.fill()
