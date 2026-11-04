@@ -64,5 +64,21 @@
   "mejora_visual": "Transición M3 container transform (MEJORAS #2) + barras planas sin cifras + chat con respuesta de mamá",
   "archivo": "shorts/2026-11-04-1600-nadar.mp4",
   "titulo": "Nadar después de comer: ¿tu mamá tenía razón? 🏊 #shorts"
+ },
+ {
+  "fecha": "2026-11-05",
+  "hora": "13:30",
+  "tema": "Por qué el pan con mantequilla cae al revés (gira media vuelta desde una mesa normal; con mesa de 3 m caería bien; Ig Nobel 1996, Robert Matthews)",
+  "formato": "¿Por qué…?",
+  "categoria": "física cotidiana",
+  "disparadores": [
+   "eres tú",
+   "sorpresa"
+  ],
+  "duracion_contenido_s": 21.5,
+  "mejora_visual": "Primer short en 3D low-poly (motor3d)",
+  "archivo": "shorts/2026-11-05-1330-pan.mp4",
+  "titulo": "¿Por qué el pan SIEMPRE cae al revés? 🍞 #shorts",
+  "nota": "Hecho a mano por Claude; la ejecución de las 11:10 debe detectar que el horario ya está ocupado"
  }
 ]
