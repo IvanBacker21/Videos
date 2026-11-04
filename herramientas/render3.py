@@ -11,6 +11,12 @@ ESTILO = "material"
 # Rol de color M3 por tipo de escena (material.P). Escenas no listadas usan ROL_DEFECTO.
 ROLES = {"gancho": "violeta", "cierre": "violeta"}
 ROL_DEFECTO_CICLO = ["violeta", "cian", "rosa", "verde", "naranja", "coral"]
+# Transición entre escenas: "container" (M3 container transform: la escena nueva crece desde una forma M3
+# que se expande sobre el fondo de la escena anterior) o "flash" (destello blanco, versión vieja).
+TRANSICION = "container"
+TR_DUR = 0.55          # duración de la transición (s)
+TR_FORMA = "scallop"   # forma que crece (material.shape); se convierte en círculo al final (morph)
+def rol_de(i, kind): return ROLES.get(kind, ROL_DEFECTO_CICLO[i % len(ROL_DEFECTO_CICLO)])
 
 FPS = 30
 SKIN = (1.0, 0.76, 0.62); HAIR = (0.30, 0.17, 0.20); LINE = (0.16, 0.08, 0.14); RED = (1.0, 0.27, 0.36); ICE = (0.70, 0.93, 1.0)
@@ -466,18 +472,33 @@ def title_tag(cr, s, lt):
     glass(cr, -e.x_advance / 2 - 40, -58, e.x_advance + 80, 84, 42, a=0.12)
     text(cr, s, 0, 0, 44, YEL, font=DISPLAY_XB, sh=False); cr.restore()
 
+def container_transform(cr, z, i, lt, gt):
+    """Mejora M3 #2: abre la escena nueva dentro de una forma que crece desde el centro de la escena
+    anterior (con elevación), girando y redondeándose hasta llenar la pantalla. Devuelve True si dejó un clip activo."""
+    if not (ESTILO == "material" and TRANSICION == "container" and i > 0 and lt < TR_DUR and getattr(z, "prev_kind", None)):
+        return False
+    p = ease(lt / TR_DUR)
+    M.md_background(cr, gt, rol_de(i - 1, z.prev_kind))
+    r = 70 + p * 1300; cx, cy = W / 2, getattr(z, "tr_y", 900)
+    M.elevation(cr, lambda c: M.shape(c, TR_FORMA, cx, cy, r, rot=lt * 2.5, morph=p), 5)
+    M.shape(cr, TR_FORMA, cx, cy, r, rot=lt * 2.5, morph=p)
+    cr.save(); cr.clip(); return True
+
 def frame(cr, i, z, lt, gt, total, hl, ev):
     kind = z.sc["tipo"]
+    clipped = container_transform(cr, z, i, lt, gt)
     if ESTILO == "material":
-        M.md_background(cr, gt, ROLES.get(kind, ROL_DEFECTO_CICLO[i % len(ROL_DEFECTO_CICLO)]))
+        M.md_background(cr, gt, rol_de(i, kind))
     else:
         top, bot, blobs = BGS.get(kind, BGS["gancho"]); background(cr, gt, top, bot, blobs)
     punch = 1 + 0.2 * (1 - eout(lt / 0.32)) if i > 0 else 1 + 0.1 * (1 - eout(lt / 0.4))
+    if clipped: punch = 1 + 0.08 * (1 - eout(lt / 0.5))
     zoom = punch * (1 + 0.035 * lt / max(1, z.dur))
     shk = sum(math.exp(-(lt - e) * 7) * 20 for e in z.shakes if 0 <= lt - e < 0.8)
     cr.save(); cr.translate(W / 2 + math.sin(gt * 71) * shk, 960 + math.cos(gt * 53) * shk); cr.scale(zoom, zoom); cr.translate(-W / 2, -960)
     draw_scene(cr, kind, lt, z, ev); cr.restore()
-    if i > 0 and lt < 0.12: cr.set_source_rgba(1, 1, 1, 0.45 * (1 - lt / 0.12)); cr.paint()
+    if clipped: cr.restore()
+    elif i > 0 and lt < 0.12: cr.set_source_rgba(1, 1, 1, 0.45 * (1 - lt / 0.12)); cr.paint()
     title_tag(cr, z.sc.get("titulo", ""), lt)
     text(cr, "DATO CÓSMICO 2", W / 2, 150, 34, M.C("amarillo") if ESTILO == "material" else CYAN, font=DISPLAY_XB, sh=False)
     captions(cr, z, lt, hl)
@@ -490,6 +511,7 @@ def main():
     js, out = sys.argv[1], sys.argv[2]; mode = sys.argv[3] if len(sys.argv) > 3 else ""
     d = json.load(open(js)); T = json.load(open(f"{out}/timings.json")); hl = d.get("resaltar", [])
     scenes = [S(sc, tm) for sc, tm in zip(d["escenas"], T)]
+    for j in range(1, len(scenes)): scenes[j].prev_kind = scenes[j - 1].sc["tipo"]
     offs = [sum(t["dur"] for t in T[:i]) for i in range(len(T))]; total = sum(t["dur"] for t in T)
     SH = {"impact", "heartbeat", "crack"}; events = {}
     # pasada rápida para recoger efectos de sonido (sin dibujar: contexto diminuto)

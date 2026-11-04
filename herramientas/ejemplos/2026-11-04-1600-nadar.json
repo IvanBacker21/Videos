@@ -1,0 +1,21 @@
+{
+  "id": "2026-11-04-1600-nadar",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.1},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "",
+     "frases": ["¿Tu mamá no te dejaba meterte a la alberca después de comer?", "Hoy la ciencia dice quién tenía razón."]},
+    {"tipo": "miedo", "titulo": "EL MIEDO",
+     "frases": ["La idea era que la comida se roba la sangre de tus músculos,", "te da un calambre...", "y te hundes."]},
+    {"tipo": "verdad", "titulo": "LA VERDAD",
+     "frases": ["Sí, tu panza pide un poquito más de sangre para la digestión,", "pero alcanza de sobra para tus brazos y tus piernas."]},
+    {"tipo": "prueba", "titulo": "LA PRUEBA",
+     "frases": ["La Cruz Roja revisó los estudios y concluyó que es un mito:", "no hay casos de ahogados por haber comido."]},
+    {"tipo": "ojo", "titulo": "LO QUE SÍ",
+     "frases": ["Eso sí, si te atascaste de tacos, puedes sentirte pesado o con náuseas.", "Y lo importante de verdad: nunca nades solo."]},
+    {"tipo": "remate", "titulo": "",
+     "frases": ["Mándaselo a tu mamá...", "y a ver qué te contesta."]},
+    {"tipo": "cierre", "titulo": "",
+     "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": ["mamá", "hora", "alberca", "comer", "razón", "músculos", "calambre", "hundes", "panza", "digestión", "sobra", "brazos", "piernas", "mito", "ahogados", "tacos", "pesado", "solo", "mándaselo", "contesta", "comentarios", "síguenos"]
+}
