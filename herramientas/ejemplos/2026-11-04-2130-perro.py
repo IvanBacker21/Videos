@@ -1,5 +1,5 @@
 """Short: ¿Por qué tu perro da vueltas antes de acostarse? (¿Por qué…? + experimento, estilo Material Design 3).
-Uso (desde herramientas/): python3 ejemplos/2026-11-04-1900-perro.py ejemplos/2026-11-04-1900-perro.json OUT [frames t1,t2]"""
+Uso (desde herramientas/): python3 ejemplos/2026-11-04-2130-perro.py ejemplos/2026-11-04-2130-perro.json OUT [frames t1,t2]"""
 import sys, os, math, random
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 import cairo
@@ -251,7 +251,7 @@ def draw_scene(cr, kind, lt, z, ev):
         chip(cr, "¡FUERA BICHOS!" if lt > tb else "APLASTA SU CAMITA", W / 2, 470, 48, "coral" if lt > tb else "noche",
              lt=lt, t0=tb if lt > tb else 0.4, icon=ic_close if lt > tb else ic_check)
     elif kind == "bolita":
-        tb, tc, tco = z.w("bolita"), z.w("calor"), z.w("cobija")
+        tb, tc, tco = z.w("bolita"), z.w("calor"), 0  # la versión corta no menciona la cobija
         k = bounce_in(lt / 0.45)
         cr.save(); cr.translate(W / 2, 860); cr.scale(k, k)
         blob(cr, "flower", 0, 0, 360, C("naranja", 1), 2, rot=lt * 0.25)
@@ -277,7 +277,7 @@ def draw_scene(cr, kind, lt, z, ev):
                 cr.save(); cr.translate(W / 2 + r * math.cos(a), 870 + r * math.sin(a) * 0.95); cr.scale(bounce_in(p), bounce_in(p))
                 blob(cr, "circle", 0, 0, 48, C("coral"), 3); ic_flame(cr, 26, (1, 1, 1)); cr.restore()
             chip(cr, "GUARDA SU CALOR", W / 2, 1270, 50, "coral", lt=lt, t0=tc, icon=ic_flame)
-        if lt > tco:
+        if tco and lt > tco:
             ev("whoosh", tco); p = emph((lt - tco) / 0.6)
             cr.save(); cr.translate(W / 2, 1080 + (1 - p) * 300); cr.rotate(-0.06)
             cr.save(); rr(cr, -300, -110, 600, 170, 50); cr.clip()
@@ -314,7 +314,7 @@ def draw_scene(cr, kind, lt, z, ev):
                 perro(cr, 0, -5, 0.27, lt + j, "feliz" if gira else "dormido")
                 cr.restore()
             cr.restore()
-        tablero(290, 1.4, False, (2,), tu, "cian")
+        tablero(290, max(0.5, tl - 0.4), False, (2,), tu, "cian")
         tablero(790, tpe, True, (0, 2, 3), tpe + 0.6, "rosa")
         if lt > tu: ev("ding", tu)
         if lt > tpe: ev("pop", tpe)

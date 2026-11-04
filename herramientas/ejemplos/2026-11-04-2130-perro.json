@@ -1,5 +1,5 @@
 {
- "id": "2026-11-04-1900-perro",
+ "id": "2026-11-04-2130-perro",
  "voz": {
   "modelo": "em_alex",
   "lang": "es-419",
@@ -10,47 +10,47 @@
    "tipo": "gancho",
    "titulo": "",
    "frases": [
-    "¿Por qué tu perro da vueltas y vueltas antes de acostarse?",
-    "Al final te cuento el experimento que lo comprobó."
+    "¿Por qué tu perro da vueltas antes de acostarse?",
+    "Al final te cuento el experimento."
    ]
   },
   {
    "tipo": "lobo",
    "titulo": "VIENE DEL LOBO",
    "frases": [
-    "Es una herencia de sus ancestros, los lobos.",
-    "En el bosque no había camitas ni cobijas."
+    "Es herencia de los lobos:",
+    "en el bosque no había camitas ni cobijas."
    ]
   },
   {
    "tipo": "nido",
    "titulo": "RAZÓN 1",
    "frases": [
-    "Al dar vueltas aplastaban el pasto o la nieve,",
-    "y de paso espantaban bichos y víboras."
+    "Dar vueltas aplastaba el pasto o la nieve,",
+    "y espantaba bichos y víboras."
    ]
   },
   {
    "tipo": "bolita",
    "titulo": "RAZÓN 2",
    "frases": [
-    "Luego se acostaban hechos bolita,",
-    "para guardar su calor como si fuera una cobija."
+    "Luego, hechos bolita,",
+    "guardaban su calor."
    ]
   },
   {
    "tipo": "experimento",
    "titulo": "EL EXPERIMENTO",
    "frases": [
-    "Un psicólogo lo probó: en una alfombra lisa, solo uno de cada cinco perros dio vueltas.",
-    "En una alfombra peluda y arrugada, más de la mitad. ¡Estaban tendiendo su cama!"
+    "Un psicólogo lo probó: en alfombra lisa, solo uno de cada cinco perros giró.",
+    "En una peluda, ¡más de la mitad! Estaban tendiendo su cama."
    ]
   },
   {
    "tipo": "remate",
    "titulo": "",
    "frases": [
-    "Unas cuantas vueltas son normales; si de pronto da muchísimas, al veterinario.",
+    "Unas vueltas son normales; muchísimas, al veterinario.",
     "Mándaselo al que trata a su perro como su hijo."
    ]
   },
