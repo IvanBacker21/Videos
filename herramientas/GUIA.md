@@ -1,6 +1,6 @@
 # Guía de producción — Dato Cósmico 2
 
-Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Tres shorts al día, publicados vía Metricool a las 13:30, 18:00 y 21:30 (America/Mexico_City).
+Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Cinco shorts al día, publicados vía Metricool a las 08:30, 13:30, 16:00, 19:00 y 21:30 (America/Mexico_City).
 
 ## Preparar el entorno (cada sesión es nueva)
 
