@@ -48,5 +48,21 @@
   "mejora_visual": "Primer short en Material Design 3 + cierre Material (MEJORAS #1)",
   "archivo": "shorts/2026-11-04-1330-picante.mp4",
   "titulo": "Por esto NO puedes dejar el picante 🌶️ #shorts"
+ },
+ {
+  "fecha": "2026-11-04",
+  "hora": "16:00",
+  "tema": "Mito: ¿hay que esperar para nadar después de comer? (la digestión no deja sin circulación a los músculos; revisión de la Cruz Roja: es mito; con comida abundante solo pesadez/náuseas; lo importante: no nadar solo)",
+  "formato": "Mito o realidad",
+  "categoria": "mitos / cuerpo humano",
+  "disparadores": [
+   "¿ves? te dije",
+   "eres tú (tu mamá)",
+   "lo mexicano (alberca, tacos)",
+   "truco útil"
+  ],
+  "mejora_visual": "Transición M3 container transform (MEJORAS #2) + barras planas sin cifras + chat con respuesta de mamá",
+  "archivo": "shorts/2026-11-04-1600-nadar.mp4",
+  "titulo": "Nadar después de comer: ¿tu mamá tenía razón? 🏊 #shorts"
  }
 ]
