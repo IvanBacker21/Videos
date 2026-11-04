@@ -36,9 +36,8 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
    `ffmpeg -i out/video.mp4 -i out/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -af loudnorm=I=-14:TP=-1.5 -shortest shorts/AAAA-MM-DD-slug.mp4`
 6. **Publicar**: commit + push a `main` de este repo; el enlace público es
    `https://raw.githubusercontent.com/IvanBacker21/videos/main/shorts/AAAA-MM-DD-slug.mp4`.
-   **Miniatura**: crea `shorts/<mismo-nombre>.png` con `herramientas/miniatura.py` (ver `ejemplos/miniatura_helado.py`): 2–4 palabras gigantes que generen curiosidad (no repitas el título entero), el sujeto ilustrado grande con emoción y glow, una etiqueta corta. Revísala antes de subirla. Súbela junto con el video.
-   Programa en Metricool (blogId `7853477`) con `videoThumbnailUrl` = enlace raw del PNG. Si responde `VIDEO_THUMBNAIL_NOT_APPLICABLE` (canal sin verificar o sin miniaturas de Shorts), repite la llamada SIN `videoThumbnailUrl` y menciona en el resumen que la miniatura no se aplicó.
-   Programa con `createScheduledPost`: red `youtube`, `type: "short"`, `privacy: "public"`, `madeForKids: false`, `category: "EDUCATION"`, `isAiGeneratedContent: false` (animación no realista), título con gancho + `#shorts` (≤ 100 caracteres), descripción de 3–4 líneas + "💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios." + "🔔 Un dato curioso de ciencia cada día en Dato Cósmico 2." + 5–6 hashtags.
+   **NO hagas miniaturas** y NUNCA mandes `videoThumbnailUrl` ni `videoCoverMilliseconds` a Metricool (falla y afecta la publicación).
+   Programa en Metricool (blogId `7853477`) con `createScheduledPost`: red `youtube`, `type: "short"`, `privacy: "public"`, `madeForKids: false`, `category: "EDUCATION"`, `isAiGeneratedContent: false` (animación no realista), título con gancho + `#shorts` (≤ 100 caracteres), descripción de 3–4 líneas + "💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios." + "🔔 Un dato curioso de ciencia cada día en Dato Cósmico 2." + 5–6 hashtags.
 7. Añade la entrada a `temas.json` y haz commit.
 
 ## Estrategia de crecimiento (aplícala en cada short)
@@ -64,3 +63,9 @@ Look moderno 2.5D tipo motion graphics, coherente en todo el canal:
 - **Iconos e ilustraciones**: formas redondeadas, simples y legibles a tamaño de celular; usa `icon_badge()` para iconos tipo app. Sujeto principal grande (500–800 px).
 - **Movimiento**: todo entra con rebote (`pop`, `spring`), nada aparece de golpe sin animación; algo se mueve siempre (flotación suave, partículas).
 - Antes del render completo revisa una hoja de contacto y pregúntate: ¿parece de un canal profesional? Si algo se ve plano, vacío o amateur, mejóralo.
+
+## Textos de título y descripción
+
+- Escribe todo en español normal y correcto. **Nunca** uses letras cambiadas por números o símbolos (p. ej. "s4ngr3", "m.u.e.r.t.e"): YouTube lo trata como spam y deja de recomendar el short.
+- Evita en título y descripción palabras sensibles para anunciantes (sangre, muerte, matar, cadáver, drogas, sexo, armas…). Si el tema las necesita, usa sinónimos neutros ("fluido azul", "circulación", "no sobrevivió"); en la voz y el video sí pueden decirse con naturalidad.
+- Al inicio de cada ejecución, revisa con `getScheduledPosts` (últimos 2 días) el estado de los shorts anteriores: si alguno tiene `status` distinto de `PUBLISHED` o un aviso, inclúyelo en el resumen para Iván.
