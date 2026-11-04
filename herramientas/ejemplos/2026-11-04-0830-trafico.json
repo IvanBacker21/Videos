@@ -1,0 +1,90 @@
+{
+ "id": "2026-11-04-0830-trafico",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.1
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué te quedas parado en Periférico aunque no haya ningún choque?",
+    "Al final te digo cuánto tiempo pierdes ahí."
+   ]
+  },
+  {
+   "tipo": "fantasma",
+   "titulo": "ATASCO FANTASMA",
+   "frases": [
+    "Se llama atasco fantasma.",
+    "Un conductor frena tantito,",
+    "el de atrás frena más fuerte, y el siguiente más."
+   ]
+  },
+  {
+   "tipo": "ola",
+   "titulo": "COMO UNA OLA",
+   "frases": [
+    "Ese frenazo viaja hacia atrás como una ola,",
+    "y muchos autos después, todos se paran sin saber por qué."
+   ]
+  },
+  {
+   "tipo": "experimento",
+   "titulo": "LO PROBARON EN JAPÓN",
+   "frases": [
+    "En Japón lo probaron con veintidós autos en una pista.",
+    "Sin semáforos y sin choques... ¡y aun así se hizo el tráfico!"
+   ]
+  },
+  {
+   "tipo": "dias",
+   "titulo": "LA CIFRA CHILANGA",
+   "frases": [
+    "Según TomTom, la Ciudad de México tiene el peor tráfico del mundo:",
+    "en la hora pico se pierden casi ocho días al año."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Así que cuando digas ya voy llegando desde Viaducto...",
+    "cuéntame: ¿cuánto haces tú de tu casa al trabajo?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "parado",
+  "periférico",
+  "choque",
+  "vida",
+  "fantasma",
+  "frena",
+  "fuerte",
+  "atrás",
+  "ola",
+  "japón",
+  "veintidós",
+  "pista",
+  "tráfico",
+  "peor",
+  "ocho",
+  "días",
+  "llegando",
+  "viaducto",
+  "trabajo",
+  "comentarios",
+  "síguenos"
+ ]
+}
