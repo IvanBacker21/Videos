@@ -38,3 +38,22 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 Configuración (Metricool): todos públicos, short, EDUCATION, no para niños, títulos/descripciones bien escritos. TikTok programado: helado 5-nov 10:15, pulpo 5-nov 12:00, pan 5-nov 13:30.
 
 **Conclusión:** sin YouTube Studio no se puede medir vistas por short ni % de feed; los datos del canal (0 vistas registradas el 4-nov con 6 shorts publicados) apuntan a que casi nada entra al feed. El pan (28 s, estilo 3D) es la primera prueba ≤30 s: compararlo contra los de 33–45 s. Recortar de verdad a ≤30 s (el perro sigue en 36.9 s).
+
+## 2026-11-04 21:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). YTVP06/YTVP08 siguen vacíos para todos los shorts y fuentes de tráfico (YTTS) sin filas; TikTok sin datos. Canal (YTEV): **6 suscriptores**, 0 vistas registradas el 4-nov (API con ~48 h de retraso).
+
+| Short (YouTube) | Publicado | Duración | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | 43.5 s | s/d | s/d | s/d | +33 h; candidato a atascado (sin confirmar) |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | 39.5 s | s/d | s/d | s/d | Miniatura no subió (Metricool) |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | 32.7 s | s/d | s/d | s/d | +24 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | 44.8 s | s/d | s/d | s/d | +13 h |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | 35.0 s | s/d | s/d | s/d | +8 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | 40.3 s | s/d | s/d | s/d | +5.7 h |
+| Caída al dormir (38haxZF3eCk) | 4-nov 21:30 | 34.2 s | s/d | s/d | s/d | Nuevo, reemplazó al perro; publicado en YT y TikTok. Sigue >30 s |
+| Pan 3D | 5-nov 13:30 programado | 28.2 s | — | — | — | Primer ≤30 s; TikTok helado 10:15 y pulpo 12:00 pendientes |
+
+Configuración (Metricool): todos públicos, short, EDUCATION, no para niños; títulos/descripciones bien escritos.
+
+**Conclusión:** sin cambios medibles; Metricool no entrega vistas por short y sin Studio no se puede confirmar el % de feed. 7 shorts publicados, todos de 33–45 s; el pan (28 s, mañana 13:30) será la primera prueba real ≤30 s.
