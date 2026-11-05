@@ -100,5 +100,20 @@
    "youtube_uuid": "-5338550127244128660",
    "tiktok_uuid": "-7840654864499979875"
   }
+ },
+ {
+  "fecha": "2026-11-05",
+  "hora": "18:00",
+  "tema": "Por qué odias cómo suena tu voz en las grabaciones (te oyes por el aire y por los huesos de la cabeza, que la hacen sonar más grave; el celular solo graba lo que va por el aire)",
+  "formato": "¿Por qué…? (3D low-poly)",
+  "categoria": "cuerpo humano / vida cotidiana",
+  "disparadores": [
+   "eres tú",
+   "sorpresa"
+  ],
+  "duracion": "30.1 s (23.5 s de contenido)",
+  "mejora": "setLaboratorio(), setMapa() y ondas() en engine.js",
+  "archivo": "shorts/2026-11-05-1800-voz.mp4",
+  "titulo": "Por esto ODIAS escuchar tus audios 🎙️ #shorts"
  }
 ]
