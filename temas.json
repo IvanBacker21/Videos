@@ -80,5 +80,25 @@
   "archivo": "shorts/2026-11-05-1330-pan.mp4",
   "titulo": "¿Por qué el pan SIEMPRE cae al revés? 🍞 #shorts",
   "nota": "Hecho a mano por Claude; la ejecución de las 11:10 debe detectar que el horario ya está ocupado"
+ },
+ {
+  "fecha": "2026-11-04",
+  "hora": "21:30",
+  "tema": "Por qué sientes que te caes cuando te estás quedando dormido (sacudida hípnica: le pasa a 7 de cada 10; los músculos se relajan de golpe y el cerebro lo confunde con una caída; más con cansancio, estrés o café; es normal)",
+  "formato": "¿Te ha pasado…? / tu cuerpo hace esto",
+  "categoria": "cuerpo humano / sueño",
+  "disparadores": [
+   "eres tú",
+   "sorpresa",
+   "¿ves? te dije (es normal)"
+  ],
+  "duracion_contenido_s": 27.6,
+  "mejora_visual": "Sets 3D reutilizables en engine.js (setCuarto, cama/acostar, setCalle, setEspacio, setCielo + nubesCaida, AMB) y fix de etiqueta() que usaba la cámara del fotograma anterior",
+  "archivo": "shorts/2026-11-04-2130-caida.mp4",
+  "titulo": "¿Sientes que te CAES al dormirte? 😴 #shorts",
+  "metricool": {
+   "youtube_uuid": "-5338550127244128660",
+   "tiktok_uuid": "-7840654864499979875"
+  }
  }
 ]
