@@ -19,3 +19,22 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida, así que
 Configuración (Metricool): todos públicos, short, EDUCATION, no para niños; títulos y descripciones bien escritos. TikTok se publica con `isAigc: true`.
 
 **Conclusión:** con 6 vistas de canal en 24 h, los 4 shorts con más de 6 h probablemente están por debajo de 20 vistas; hace falta YouTube Studio para confirmar el % de feed. Todos duran 33–45 s, más de los 20–30 s que exige la guía: recortar a ≤30 s es lo más accionable.
+
+## 2026-11-04 19:42 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). Metricool sigue sin dar vistas por video (YTVP06/YTVP08 vacíos) ni fuentes de tráfico; TikTok sin datos. Canal (YTEV): **6 suscriptores**, vistas diarias 0 registradas el 4-nov (la API de YouTube va con ~48 h de retraso; la entrada anterior leyó el 6 como vistas, pero corresponde a suscriptores).
+
+| Short (YouTube) | Publicado | Duración | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | 43.5 s | s/d | s/d | s/d | +31 h; candidato a "atascado" (sin confirmar) |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | 39.5 s | s/d | s/d | s/d | Estado ERROR en Metricool: miniatura no subió |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | 32.7 s | s/d | s/d | s/d | +22 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | 44.8 s | s/d | s/d | s/d | +11 h; en TikTok desde 10:15 |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | 35.0 s | s/d | s/d | s/d | +6 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | 40.3 s | s/d | s/d | s/d | +3.7 h |
+| Perro (shorts/2026-11-04-2130-perro.mp4) | 21:30 prevista | 36.9 s | — | — | — | Movido de 19:00 a 21:30; a las 19:42 NO está programado en Metricool. La "versión de 30 s" mide 36.9 s |
+| Pan 3D | 5-nov 13:30 programado | 28.2 s | — | — | — | Primer short ≤30 s (YT + TikTok pendientes) |
+
+Configuración (Metricool): todos públicos, short, EDUCATION, no para niños, títulos/descripciones bien escritos. TikTok programado: helado 5-nov 10:15, pulpo 5-nov 12:00, pan 5-nov 13:30.
+
+**Conclusión:** sin YouTube Studio no se puede medir vistas por short ni % de feed; los datos del canal (0 vistas registradas el 4-nov con 6 shorts publicados) apuntan a que casi nada entra al feed. El pan (28 s, estilo 3D) es la primera prueba ≤30 s: compararlo contra los de 33–45 s. Recortar de verdad a ≤30 s (el perro sigue en 36.9 s).
