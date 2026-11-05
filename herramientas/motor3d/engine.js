@@ -145,6 +145,33 @@ export function setMapa(o = {}) {
     return { grupo: p, nombre: L.nombre, pos3: [(o.pos?.[0] ?? 0) + L.x, (o.pos?.[1] ?? 0) + .78, (o.pos?.[2] ?? 0) + L.z] }; });
   return { mapa: g, pins };
 }
+// Perro low-poly (mira hacia +z). o: {pos, s (escala; 1 ≈ perro mediano, .6 cachorro), color, mancha, collar}
+// Devuelve el grupo con .head (gira), .jaw (abre la boca con rotation.x>0), .tail, .legs[4], .earL/.earR, .body
+// Usa perroAnda(p, lt, vel) para animar patas y cola.
+export function perro(o = {}, parent) {
+  const g = group(o.pos ?? [0, 0, 0], parent); g.scale.setScalar(o.s ?? 1);
+  const c = o.color ?? 0xc9925a, m = o.mancha ?? 0xf2e2c8, osc = o.oscuro ?? 0x5a3a22;
+  g.body = box(.42, .36, .8, c, [0, .5, 0], g); box(.3, .1, .6, m, [0, .33, .04], g);           // cuerpo y panza clara
+  g.legs = [[-.13, .26], [.13, .26], [-.13, -.28], [.13, -.28]].map(([x, z]) => { const L = group([x, .4, z], g);
+    box(.12, .4, .12, c, [0, -.2, 0], L); box(.13, .06, .16, m, [0, -.39, .02], L); return L; });
+  g.tail = group([0, .62, -.4], g); box(.07, .07, .34, c, [0, .08, -.15], g.tail); g.tail.rotation.x = -.7;
+  g.head = group([0, .78, .42], g);
+  box(.36, .32, .34, c, [0, 0, 0], g.head);                                                   // cráneo
+  box(.22, .12, .2, m, [0, -.04, .25], g.head);                                               // hocico (arriba)
+  ball(.045, 0x1b1410, [0, .03, .36], g.head, 0, { rough: .3 });                              // nariz
+  g.jaw = group([0, -.1, .15], g.head); box(.2, .06, .2, m, [0, -.03, .1], g.jaw);            // mandíbula
+  g.lengua = box(.1, .02, .1, 0xe86a7a, [0, .01, .13], g.jaw);
+  g.ojos = [-.09, .09].map(x => box(.05, .06, .02, 0x111111, [x, .07, .175], g.head));
+  g.earL = group([-.17, .14, -.02], g.head); box(.08, .2, .14, osc, [0, -.08, 0], g.earL); g.earL.rotation.z = .5;
+  g.earR = group([.17, .14, -.02], g.head); box(.08, .2, .14, osc, [0, -.08, 0], g.earR); g.earR.rotation.z = -.5;
+  if (o.collar !== false) cyl(.15, .15, .06, o.collar ?? 0xe0403a, [0, .66, .36], g, 10).rotation.x = Math.PI / 2 - .5;
+  return g;
+}
+export function perroAnda(p, lt, vel = 1, cola = 1) {
+  p.legs.forEach((L, k) => { L.rotation.x = Math.sin(lt * 10 * vel + (k === 0 || k === 3 ? 0 : Math.PI)) * .45 * Math.min(vel, 1); });
+  p.tail.rotation.y = Math.sin(lt * 14) * .6 * cola; p.body.position.y = .5 + Math.abs(Math.sin(lt * 10 * vel)) * .02 * Math.min(vel, 1);
+}
+
 // Ondas (sonido, wifi, señal): anillos que salen de un punto y se desvanecen. Crear en setup, animar con ondas.update(lt).
 // o: {color, n, vel (anillos/s), alcance (m), grosor, dir: rotación [x,y,z] del plano del anillo}
 export function ondas(pos, o = {}, parent) {

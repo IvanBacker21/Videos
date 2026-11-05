@@ -115,5 +115,21 @@
   "mejora": "setLaboratorio(), setMapa() y ondas() en engine.js",
   "archivo": "shorts/2026-11-05-1800-voz.mp4",
   "titulo": "Por esto ODIAS escuchar tus audios 🎙️ #shorts"
+ },
+ {
+  "fecha": "2026-11-05",
+  "hora": "18:00",
+  "tema": "Por qué los perros muerden todo (exploran con la boca, dientes nuevos que duelen, aburrimiento o soledad; truco: juguetes, paseos y juego). Pedido de un suscriptor en los comentarios",
+  "formato": "¿Por qué…? (3D low-poly)",
+  "categoria": "animales / mascotas",
+  "disparadores": [
+   "eres tú / tu perro",
+   "truco útil",
+   "pedido de la comunidad"
+  ],
+  "duracion": "31.2 s (24.5 s de contenido)",
+  "mejora": "perro() y perroAnda() reutilizables en engine.js",
+  "archivo": "shorts/2026-11-05-1800-perro.mp4",
+  "titulo": "¿Por qué tu perro muerde TODO? 🐶 #shorts"
  }
 ]

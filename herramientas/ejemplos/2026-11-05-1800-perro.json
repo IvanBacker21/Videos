@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-05-1800-perro",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["Nos preguntaron en los comentarios:", "¿por qué los perros muerden todo?"]},
+    {"tipo": "boca", "titulo": "", "frases": ["Los cachorros conocen el mundo con la boca, como los bebés con las manos."]},
+    {"tipo": "dientes", "titulo": "", "frases": ["Y cuando les salen los dientes nuevos, les duele... y morder les da alivio."]},
+    {"tipo": "solo", "titulo": "", "frases": ["Ya de grandes, muerden por aburrimiento, o porque se sienten solos cuando te vas."]},
+    {"tipo": "truco", "titulo": "", "frases": ["El truco: juguetes para morder, paseos y mucho juego."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien tiene un perro que ya se comió media casa."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

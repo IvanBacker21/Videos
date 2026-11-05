@@ -36,3 +36,5 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 12. Container transform con origen configurable: que la forma crezca desde el elemento protagonista de la escena anterior (z.tr_y / x) y no siempre desde el centro.
 13. Que la luna "2" del cierre pase por detrás de la mascota (orden de dibujo según el ángulo) y no por encima de la cara.
 14. Pasar `perro()`, `perro_arriba()` y `flecha_giro()` del short del perro a `personajes.py` (base de la #10).
+
+- 2026-11-05 18:00 (perro): agregado perro({pos,s,color,mancha,oscuro,collar}) y perroAnda(p,lt,vel,cola) en engine.js. Lección: en vertical el FOV horizontal es angosto; para objetos de menos de 1 m usa fov 42–50 y cámara a 3–5 m, o se ven cortados.
