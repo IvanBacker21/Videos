@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-04-2130-caida",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Te ha pasado que te estás quedando dormido y sientes que te caes?", "¡Y brincas en la cama!"]},
+    {"tipo": "nombre", "titulo": "", "frases": ["Se llama sacudida hípnica, y le pasa a siete de cada diez personas."]},
+    {"tipo": "relaja", "titulo": "", "frases": ["Cuando te duermes, tus músculos se relajan de golpe."]},
+    {"tipo": "confunde", "titulo": "", "frases": ["Tu cerebro, medio dormido, cree que te estás cayendo...", "¡y tus músculos dan un brinco!"]},
+    {"tipo": "causas", "titulo": "", "frases": ["Pasa más si estás cansado, estresado o tomaste mucho café.", "Pero tranquilo: es normal."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien siempre brinca cuando se está durmiendo."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

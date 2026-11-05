@@ -13,8 +13,12 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 - 2026-11-04 · Short del perro (21:30) · Mascota del canal "Cosmo" (`material.mascota()`, expresiones en `EXPRESIONES`: feliz, sorpresa, guino, pensando; parpadea y flota). Protagoniza el cierre (`CIERRE_MASCOTA = True` en render3: pensando → feliz → guiño al "síguenos") y aparece en el gancho como reacción. Además `material.donut()` (anillo de progreso M3 sin cifras, parte de la #7) y personajes de perro/lobo de frente, desde arriba y enroscado.
 - 2026-11-04 · Motor 3D low-poly (`motor3d/`): Three.js headless, cocina, persona, rótulos dorados, subtítulos arriba palabra por palabra, cierre con planeta 3D. Short demo: pan con mantequilla. **Desde aquí el estilo oficial es 3D**; lo de Material queda como referencia.
 
+- 2026-11-04 · Short de la sacudida hípnica (21:30) · **Sets reutilizables en `engine.js` (MEJORAS 0)**: `setCuarto({noche})` (recámara con cama, buró, lámpara con luz cálida, ventana con luna o día, tapete), `cama()` + `acostar(persona, pos)` (personaje acostado), `setCalle()` (asfalto, banquetas, edificios con ventanas, postes), `setEspacio()` (estrellas + planeta), `setCielo()` + `nubesCaida()` (nubes low-poly que suben = sensación de caer) y ambientes listos en `AMB` (cuartoNoche, cuartoDia, calle, espacio, cielo). Además se corrigió `etiqueta()`: ahora actualiza la matriz de la cámara antes de proyectar (antes usaba la cámara del fotograma anterior y las etiquetas salían corridas en el primer fotograma de cada escena y en los fotogramas de revisión). Prueba de regresión: fotogramas del pan OK.
+
 ## Siguientes (toma la primera de las 3D)
-0. (3D) Sets reutilizables en `engine.js`: `setCalle()`, `setCuarto()`, `setEspacio()`, `setLaboratorio()`, `setMapa()` (mapa plano con etiquetas como en la referencia).
+0. (3D) Sets que faltan: `setLaboratorio()` y `setMapa()` (mapa plano con etiquetas como en la referencia). `setCalle()` y `setEspacio()` ya pasaron la prueba de humo; falta usarlos en un short.
+0e. (3D) `persona()` con poses listas (sentada, acostada de lado, señalando, riendo) y cara con boca para dar emoción.
+0f. (3D) Escenario "multitud" reutilizable (N personas en gradas/escenario que se iluminan en dorado) para datos tipo "7 de cada 10".
 0b. (3D) Cámara con temblor suave de mano y profundidad de campo falsa (niebla más cercana) para look cinematográfico.
 0c. (3D) Transición entre escenas: barrido de cámara rápido (whip pan) en vez de corte seco.
 0d. (3D) Mascota "Cosmo" en versión 3D low-poly para el cierre.

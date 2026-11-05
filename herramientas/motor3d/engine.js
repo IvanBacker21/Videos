@@ -45,6 +45,70 @@ export function persona(o = {}, parent) {
   return g;
 }
 
+// ---------- SETS REUTILIZABLES (MEJORAS 0) ----------
+// Cada set arma un lugar completo en low-poly y devuelve sus piezas para animarlas. Llamar en setup() después de ambiente().
+// Ambientes sugeridos para cada set (pásalos a ambiente()):
+export const AMB = {
+  cuartoNoche: { top: 0x10152b, bottom: 0x2d2b52, fog: 0x161a33, near: 5, far: 22, sunColor: 0x9fb4ff, sunInt: 1.5, hemiInt: .75, sunPos: [-5, 9, 6] },
+  cuartoDia:   { top: 0x6f8fc2, bottom: 0xf2c58e, fog: 0xc9b39a, near: 7, far: 26, sunColor: 0xffe2b8, sunInt: 2.6, hemiInt: 1.1 },
+  calle:       { top: 0x3a4c7a, bottom: 0xf0a868, fog: 0xc98e6a, near: 10, far: 55, sunColor: 0xffd8a8, sunInt: 2.6, hemiInt: 1.0, sunPos: [-8, 10, 6] },
+  espacio:     { top: 0x05060f, bottom: 0x1b1440, fog: 0x05060f, near: 30, far: 120, sunColor: 0xfff1dc, sunInt: 2.4, hemiInt: .6 },
+  cielo:       { top: 0x2c3d78, bottom: 0xf3a46f, fog: 0xe9a07a, near: 6, far: 40, sunColor: 0xffe0b5, sunInt: 2.4, hemiInt: 1.2 },
+};
+// Cama low-poly (largo en z). Devuelve el grupo con .colchon, .cobija y .almohada
+export function cama(pos = [0, 0, 0], o = {}, parent) {
+  const g = group(pos, parent), wood = o.madera ?? 0x7a4e2f;
+  box(1.5, .35, 2.2, wood, [0, .18, 0], g); box(1.5, 1.0, .1, wood, [0, .5, -1.1], g);      // base y cabecera
+  g.colchon = box(1.4, .22, 2.05, 0xf1ece2, [0, .46, .02], g);
+  g.almohada = box(.9, .14, .4, 0xffffff, [0, .64, -.78], g);
+  g.cobija = box(1.46, .1, 1.3, o.cobija ?? 0x4f6fb3, [0, .6, .42], g);
+  return g;
+}
+// Persona acostada boca arriba sobre una cama (usa persona() y la gira). y = altura del colchón.
+export function acostar(p, [x, y, z]) { p.rotation.set(-Math.PI / 2, 0, 0); p.position.set(x, y, z); p.armL.rotation.z = .15; p.armR.rotation.z = -.15; return p; }
+// Recámara: piso de duela, dos paredes, ventana (luna o sol), cama, buró con lámpara y tapete.
+export function setCuarto(o = {}) {
+  const noche = o.noche ?? true, pared = o.pared ?? (noche ? 0x5a5f86 : 0xe9dcc6);
+  for (let k = -6; k < 6; k++) box(.5, .03, 9, k % 2 ? 0x8a6242 : 0x9a7050, [k * .5 + .25, -.015, 0]);
+  box(6, 3.2, .15, pared, [0, 1.6, -2.4]); box(.15, 3.2, 6, pared, [-3, 1.6, .5]);
+  const win = box(1.3, 1.0, .05, noche ? 0x1d2a5c : 0xbfe3ff, [1.5, 1.9, -2.3], null, { emissive: noche ? 0x22336e : 0xbfe3ff, ei: .5 });
+  box(1.4, .07, .1, 0xf2efe8, [1.5, 1.37, -2.28]); box(.06, 1.05, .08, 0xf2efe8, [1.5, 1.9, -2.27]);
+  let astro = null; if (noche) { astro = ball(.13, 0xfff3c4, [1.75, 2.15, -2.25], null, 1, { emissive: 0xfff3c4, ei: 1 }); astro.castShadow = false; }
+  const c = cama([0, 0, -1.2], o);
+  const buro = group([-1.15, 0, -1.9]); box(.55, .55, .45, 0x6b4428, [0, .28, 0], buro);
+  cyl(.06, .1, .25, 0xd8c8a8, [0, .68, 0], buro, 8); const pant = cyl(.12, .2, .2, 0xffe0a0, [0, .88, 0], buro, 8, { emissive: 0xffc870, ei: noche ? .9 : .2 });
+  const tap = box(1.8, .02, 1.1, o.tapete ?? 0xc0583f, [0, .01, .6]); tap.castShadow = false;
+  let luz = null; if (noche && o.lampara !== false) { luz = new THREE.PointLight(0xffc27a, 2.2, 5, 1.6); luz.position.set(-1.15, 1.05, -1.75); world.add(luz); }
+  return { cama: c, buro, pantalla: pant, ventana: win, astro, luz };
+}
+// Calle: banqueta, asfalto con líneas, edificios low-poly a ambos lados y postes. largo = metros hacia -z.
+export function setCalle(o = {}) {
+  const largo = o.largo ?? 40, cols = o.colores ?? [0xd98f6a, 0xe8c27a, 0x7fa7c9, 0xb58bc0, 0x8fbf8f, 0xe3a0a0];
+  box(7, .02, largo, 0x3c3f47, [0, -.01, -largo / 2 + 4]);
+  for (let z = 3; z > -largo + 4; z -= 2.2) box(.12, .025, 1, 0xf4e6b0, [0, 0, z]);
+  for (const s of [-1, 1]) { box(2.2, .15, largo, 0xb8b1a6, [s * 4.6, .075, -largo / 2 + 4]);
+    let z = 3, k = 0; while (z > -largo + 4) { const d = 2.5 + (k % 3) * .6, h = 3 + ((k * 7) % 5) * 1.2;
+      box(3, h, d, cols[(k + (s > 0 ? 2 : 0)) % cols.length], [s * 7.2, h / 2, z - d / 2]);
+      for (let y = 1.2; y < h - .5; y += 1.1) box(.05, .55, d * .6, 0xffe7b0, [s * 5.68, y, z - d / 2], null, { emissive: 0xffd28a, ei: .25 });
+      z -= d + .15; k++; }
+    for (let z = 2; z > -largo + 4; z -= 7) { cyl(.05, .06, 3.2, 0x2b2f38, [s * 3.8, 1.6, z]); ball(.16, 0xfff0c0, [s * 3.6, 3.2, z], null, 0, { emissive: 0xffe2a0, ei: .8 }); } }
+}
+// Espacio: fondo de estrellas y un planeta opcional. Ideal para datos del cosmos.
+export function setEspacio(o = {}) {
+  for (let k = 0; k < (o.estrellas ?? 140); k++) { const s = ball(.03 + Math.random() * .06, 0xffffff, [(Math.random() - .5) * 60, (Math.random() - .5) * 80, -15 - Math.random() * 30], world, 0, { emissive: 0xffffff, ei: .9 }); s.castShadow = false; }
+  return o.planeta ? ball(o.planeta.r ?? 2, o.planeta.color ?? 0x6b5cff, o.planeta.pos ?? [0, 0, -6], null, 1, { rough: .7 }) : null;
+}
+// Cielo con nubes low-poly (para escenas de "caída", vuelo o sueño). Devuelve las nubes para moverlas.
+export function setCielo(o = {}) {
+  const nubes = [];
+  for (let k = 0; k < (o.n ?? 26); k++) { const g = group([(Math.random() - .5) * 14, (Math.random() - .5) * 30, -2 - Math.random() * 10]);
+    const c = o.color ?? 0xfff1e6; for (let j = 0; j < 4; j++) ball(.5 + Math.random() * .5, c, [j * .55 - .8, Math.random() * .25, Math.random() * .3], g, 0, { rough: 1 });
+    g.userData.v = .6 + Math.random() * .8; nubes.push(g); }
+  return nubes;
+}
+// Mueve nubes hacia arriba (sensación de caer). vel en m/s; envuelve en un rango vertical.
+export function nubesCaida(nubes, lt, vel = 6, y0 = -15, y1 = 15) { nubes.forEach((g, k) => { const span = y1 - y0; g.position.y = y0 + ((k * 3.7 + lt * vel * g.userData.v) % span + span) % span; }); }
+
 // ---------- escena / luces ----------
 export async function init(wrap, d) {
   data = d; renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -98,7 +162,7 @@ export function rotulo(texto, sub, p, y = 1330) {
 }
 // Etiqueta pegada a un punto 3D (ej. "ISLA ÁNGEL" sobre un mapa)
 export function etiqueta(texto, pos3, p, size = 58, color = '#fff') {
-  if (p < 0) return; const v = new THREE.Vector3(...pos3).project(camera); const e = el('tag3d');
+  if (p < 0) return; camera.updateMatrixWorld(); /* matriz al día: si no, usa la cámara del fotograma anterior */ const v = new THREE.Vector3(...pos3).project(camera); const e = el('tag3d');
   e.textContent = texto; e.style.left = ((v.x + 1) / 2 * W) + 'px'; e.style.top = ((1 - v.y) / 2 * H) + 'px';
   e.style.fontSize = size + 'px'; e.style.color = color; e.style.opacity = cl(p / 0.25);
 }
