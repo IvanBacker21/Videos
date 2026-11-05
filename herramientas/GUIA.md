@@ -153,3 +153,12 @@ Reglas de dirección de arte 3D:
 - Personas: usa `persona()` y anímala (brazos, cabeza) para dar emoción.
 - Revisa que ningún rótulo tape lo importante y que los subtítulos de arriba se lean (si el fondo es claro, baja la cámara o cambia `ambiente`).
 - Mejora continua: cada short agrega al motor algo reutilizable (un set nuevo: calle, cuarto, espacio, laboratorio; un objeto; un movimiento de cámara) y lo anota en MEJORAS.md.
+
+## 🎄 Serie "Navidad Cósmica" (27-nov → 24-dic, horario de las 18:00)
+
+Los pedidos de la serie están en `pedidos.json` (campo `serie`). Reglas de la serie, además de todo lo demás:
+- Identidad visual: en la primera escena, rótulo dorado `rotulo('Navidad Cósmica', 'episodio N', …)`; ambiente navideño en 3D (luces cálidas, nieve ligera cayendo, tonos rojo/verde/dorado discretos) sin perder el estilo low-poly del canal.
+- Título de YouTube con el gancho + " 🎄 #shorts"; en la descripción, "🎄 Serie Navidad Cósmica · episodio N".
+- Temas religiosos (Belén, estrella, pastores): tono respetuoso, solo datos históricos/científicos verificados, sin burla ni opiniones sobre la fe. Si los historiadores no coinciden, decir "una explicación es…".
+- Villancicos: solo se pueden mencionar o citar fragmentos MUY cortos (son tradicionales); no cantar la canción completa.
+- Mejora reutilizable sugerida para el primer episodio: agregar a `engine.js` un `setNavidad()` (nieve, luces de colores, árbol low-poly) y un `setNocheEstrellada()`.
