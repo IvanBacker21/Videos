@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-05-1800-voz",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Te da cosa escuchar tus audios de WhatsApp?", "No eres el único."]},
+    {"tipo": "aire", "titulo": "", "frases": ["Cuando hablas, tu voz sale por el aire y llega a tus oídos."]},
+    {"tipo": "huesos", "titulo": "", "frases": ["Pero también viaja por dentro, por los huesos de tu cabeza."]},
+    {"tipo": "grave", "titulo": "", "frases": ["Y esos huesos la hacen sonar más grave y más llena."]},
+    {"tipo": "celular", "titulo": "", "frases": ["El celular solo graba lo que va por el aire...", "y esa es la voz que oyen todos."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien nunca manda audios porque odia su voz."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

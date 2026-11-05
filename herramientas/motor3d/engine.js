@@ -108,6 +108,55 @@ export function setCielo(o = {}) {
 }
 // Mueve nubes hacia arriba (sensación de caer). vel en m/s; envuelve en un rango vertical.
 export function nubesCaida(nubes, lt, vel = 6, y0 = -15, y1 = 15) { nubes.forEach((g, k) => { const span = y1 - y0; g.position.y = y0 + ((k * 3.7 + lt * vel * g.userData.v) % span + span) % span; }); }
+// Laboratorio (añadido 2026-11-05, short de la voz): piso claro, pared de azulejo, mesa de trabajo blanca con matraces
+// de colores que brillan, repisa con frascos, pizarrón y lámparas colgantes. Devuelve {mesa, frascos, pizarron, topY}.
+// La mesa queda centrada en x=0, z=-.6 con la cubierta a topY=.92 (pon ahí tu objeto protagonista).
+export function setLaboratorio(o = {}) {
+  const acc = o.acento ?? 0x4fd1c5;
+  for (let x = -6; x < 6; x++) for (let z = -6; z < 4; z++) box(.6, .02, .6, (x + z) % 2 ? 0xdfe3e6 : 0xc9cfd4, [x * .6 + .3, -.01, z * .6 + .3]);
+  for (let y = 0; y < 8; y++) for (let x = -10; x < 10; x++) box(.39, .39, .12, (x + y) % 3 ? 0xeef3f3 : 0xdbe7e8, [x * .4 + .2, y * .4 + .2, -3]);
+  const piz = box(2.2, 1.1, .06, 0x24443a, [-1.3, 2.0, -2.9]); box(2.3, .07, .1, 0x8a6242, [-1.3, 1.42, -2.88]);
+  box(2.2, .06, .35, 0x9aa7b0, [1.6, 2.0, -2.8]);                                         // repisa
+  const frascos = [];
+  [[0xff7a59, .9], [acc, 1.25], [0xf3c54d, 1.6], [0xb58bc0, 1.95], [acc, 2.3]].forEach(([c, x]) => {
+    cyl(.09, .09, .26, 0xe8f1f2, [x, 2.16, -2.8], null, 10, { transparent: true, opacity: .5 });
+    frascos.push(cyl(.075, .075, .15, c, [x, 2.1, -2.8], null, 10, { emissive: c, ei: .5 })); });
+  const mesa = group([0, 0, -.6]);
+  box(2.6, .08, 1.1, 0xf4f6f6, [0, .88, 0], mesa); box(2.5, .8, 1.0, 0x6d8a9c, [0, .42, 0], mesa);
+  [[-1.0, 0xff7a59], [1.05, acc]].forEach(([x, c]) => { cyl(.03, .16, .26, 0xe8f1f2, [x, 1.05, .25], mesa, 10, { transparent: true, opacity: .55 });
+    frascos.push(cyl(.02, .12, .12, c, [x, .98, .25], mesa, 10, { emissive: c, ei: .6 })); });
+  for (const x of [-1.6, 1.6]) { cyl(.01, .01, 1, 0x333333, [x, 3.3, -.6]); const l = cyl(.08, .28, .2, 0x2f3b45, [x, 2.75, -.6], null, 10);
+    ball(.07, 0xfff4d0, [x, 2.64, -.6], null, 0, { emissive: 0xfff0c0, ei: 1 }).castShadow = false; l.castShadow = false; }
+  return { mesa, frascos, pizarron: piz, topY: .92 };
+}
+// Mapa plano low-poly sobre una mesa/piso (estilo documental): mar, "países" como losetas de colores con relieve y
+// marcadores. lugares = [{nombre, x, z, color}] → devuelve {mapa, pins:[{grupo,pos3}]}; usa etiqueta(nombre, pin.pos3, t).
+export function setMapa(o = {}) {
+  const g = group(o.pos ?? [0, 0, 0]), W0 = o.ancho ?? 6, D0 = o.fondo ?? 4;
+  box(W0 + .3, .12, D0 + .3, 0x6b4a30, [0, -.06, 0], g);                                  // marco de madera
+  box(W0, .02, D0, o.mar ?? 0x3f7fb0, [0, .01, 0], g, { rough: .5 });
+  const tierra = o.tierra ?? [0x9cc27a, 0xc9b27a, 0x8fb06a, 0xd4c08e];
+  // islas/continentes en celdas con alturas distintas (determinista para que no cambie entre fotogramas)
+  for (let i = 0; i < 70; i++) { const a = i * 2.39996, r = Math.sqrt(i / 70) * Math.min(W0, D0) * .42;
+    const x = Math.cos(a) * r * (W0 / D0) * .9, z = Math.sin(a) * r, h = .04 + ((i * 37) % 7) * .012;
+    if (((i * 53) % 10) < 3) continue; box(.42, h, .42, tierra[i % tierra.length], [x, h / 2 + .02, z], g); }
+  const pins = (o.lugares ?? []).map(L => { const p = group([L.x, 0, L.z], g); cyl(.015, .015, .45, 0x333333, [0, .25, 0], p, 6);
+    ball(.09, L.color ?? 0xff5c5c, [0, .5, 0], p, 1, { emissive: L.color ?? 0xff5c5c, ei: .3 });
+    return { grupo: p, nombre: L.nombre, pos3: [(o.pos?.[0] ?? 0) + L.x, (o.pos?.[1] ?? 0) + .78, (o.pos?.[2] ?? 0) + L.z] }; });
+  return { mapa: g, pins };
+}
+// Ondas (sonido, wifi, señal): anillos que salen de un punto y se desvanecen. Crear en setup, animar con ondas.update(lt).
+// o: {color, n, vel (anillos/s), alcance (m), grosor, dir: rotación [x,y,z] del plano del anillo}
+export function ondas(pos, o = {}, parent) {
+  const g = group(pos, parent), n = o.n ?? 5, col = o.color ?? 0x7fd6ff, rings = [];
+  for (let k = 0; k < n; k++) { const m = new THREE.Mesh(new THREE.TorusGeometry(1, o.grosor ?? .035, 6, 40, o.arco ?? Math.PI * 2),
+      new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false })); g.add(m); rings.push(m); }
+  if (o.dir) g.rotation.set(...o.dir);
+  g.update = (lt, on = true) => { const vel = o.vel ?? 1.6, alc = o.alcance ?? 1.2;
+    rings.forEach((m, k) => { const ph = ((lt * vel + k / n) % 1 + 1) % 1; const s = .05 + ph * alc; m.scale.set(s, s, s);
+      m.material.opacity = on ? Math.sin(Math.PI * ph) * (o.opacidad ?? .9) : 0; }); };
+  return g;
+}
 
 // ---------- escena / luces ----------
 export async function init(wrap, d) {
