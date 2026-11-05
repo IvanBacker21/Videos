@@ -91,3 +91,20 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 | Pan 3D | 5-nov 13:30 programado | 28.2 s | — | — | — | YT+TikTok pendientes; primer ≤30 s |
 
 **Conclusión:** sin publicaciones nuevas desde las 21:30 de ayer y Metricool sigue sin vistas por short; no se puede confirmar atascos sin Studio. Próxima señal: pan (≤30 s) a las 13:30.
+
+## 2026-11-05 11:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). YTVP06/YTVP08 vacíos para todos los shorts. Canal (YTEV): **6 suscriptores** (4-nov); vistas 5-nov = 0 (API con retraso).
+
+| Short (YouTube) | Publicado | Duración | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | 43.5 s | s/d | s/d | s/d | +47 h; candidato a atascado (sin confirmar). TikTok publicado hoy 10:15 |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | 39.5 s | s/d | s/d | s/d | TikTok 12:00 pendiente |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | 32.7 s | s/d | s/d | s/d | +38 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | 44.8 s | s/d | s/d | s/d | +27 h |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | 35.0 s | s/d | s/d | s/d | +22 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | 40.3 s | s/d | s/d | s/d | +20 h |
+| Caída al dormir (38haxZF3eCk) | 4-nov 21:30 | 34.2 s | s/d | s/d | s/d | +14 h |
+| Pan 3D | 5-nov 13:30 programado | 28.2 s | — | — | — | YT+TikTok pendientes; primer ≤30 s |
+
+**Conclusión:** sin cambios; único movimiento es el TikTok del helado (10:15). Sin Studio no se confirman atascos; próxima señal: pan (≤30 s) a las 13:30.
