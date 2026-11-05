@@ -127,3 +127,21 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 Configuración (Metricool): todos públicos, short, EDUCATION, no para niños; títulos/descripciones bien escritos. Pedidos de hoy 18:00 (voz) y 21:30 (dedos) aún sin programar en Metricool.
 
 **Conclusión:** el pan (≤30 s) ya salió en YT y TikTok; es la prueba clave de duración. Sin Studio sigue sin poder confirmarse el % de feed ni las vistas por short.
+
+## 2026-11-05 15:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). YTVP06/YTVP08 vacíos para todos los shorts. Canal (YTEV): **12 suscriptores** (5-nov; antes 6, +6 en un día); vistas 5-nov = 0 (API con retraso).
+
+| Short (YouTube) | Publicado | Duración | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | 43.5 s | s/d | s/d | s/d | +51 h; candidato a atascado (sin confirmar) |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | 39.5 s | s/d | s/d | s/d | +46 h |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | 32.7 s | s/d | s/d | s/d | +42 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | 44.8 s | s/d | s/d | s/d | +31 h |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | 35.0 s | s/d | s/d | s/d | +26 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | 40.3 s | s/d | s/d | s/d | +24 h |
+| Caída al dormir (38haxZF3eCk) | 4-nov 21:30 | 34.2 s | s/d | s/d | s/d | +18 h |
+| Pan 3D (zo3GfZ41xC0) | 5-nov 13:30 | 28.2 s | s/d | s/d | s/d | +2 h; YT y TikTok publicados |
+| Voz en grabaciones | 5-nov 21:30 programado | — | — | — | — | YT+TikTok pendientes (Metricool lo tiene a las 21:30, no 18:00); título/config OK |
+
+**Conclusión:** los suscriptores se duplicaron (6→12) el 5-nov, primera señal positiva; sigue sin haber vistas por short en Metricool, así que no se confirman atascos. Ojo: el short de la voz quedó a las 21:30 en Metricool, no a las 18:00.
