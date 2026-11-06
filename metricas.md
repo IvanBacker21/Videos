@@ -202,3 +202,22 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 | Voz en grabaciones (Dte6lQ5y0Pc) | 5-nov 21:30 | s/d | s/d | s/d | recién publicado; YT y TikTok sin errores; config OK |
 
 **Conclusión:** sin cambios en métricas; el short de la voz salió bien en ambas redes. No hay nada programado en Metricool para el 6-nov todavía (el de "dedos" no aparece).
+
+## 2026-11-05 23:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). YTVP06/YTVP08 siguen vacíos para los 8 shorts listados; perro y voz aún no aparecen en analítica. Canal (YTEV): **12 suscriptores** (sin cambio); vistas 5-nov = 0 (API con retraso).
+
+| Short (YouTube) | Publicado | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | s/d | s/d | s/d | +59 h; candidato a atascado (sin confirmar) |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | s/d | s/d | s/d | +54 h |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | s/d | s/d | s/d | +50 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | s/d | s/d | s/d | +39 h |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | s/d | s/d | s/d | +34 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | s/d | s/d | s/d | +32 h |
+| Caída al dormir (38haxZF3eCk) | 4-nov 21:30 | s/d | s/d | s/d | +26 h |
+| Pan 3D (zo3GfZ41xC0) | 5-nov 13:30 | s/d | s/d | s/d | +10 h |
+| Perro muerde todo (QjA3qYDBhTc) | 5-nov 18:00 | s/d | s/d | s/d | +5.7 h |
+| Voz en grabaciones (Dte6lQ5y0Pc) | 5-nov 21:30 | s/d | s/d | s/d | +2.2 h; YT y TikTok publicados OK |
+
+**Conclusión:** sin cambios en métricas; sigue sin haber nada programado en Metricool para el 6-nov.
