@@ -42,7 +42,36 @@ export function persona(o = {}, parent) {
   g.armR = group([.4, 1.6, 0], g); box(.18, .7, .2, shirt, [0, -.33, 0], g.armR); box(.14, .14, .14, skin, [0, -.74, 0], g.armR);
   g.head = group([0, 1.92, 0], g); box(.38, .44, .38, skin, [0, 0, 0], g.head); box(.4, .14, .4, o.hair ?? 0x3a2a20, [0, .22, 0], g.head);
   box(.05, .05, .02, 0x111111, [-.09, .03, .2], g.head); box(.05, .05, .02, 0x111111, [.09, .03, .2], g.head);
+  if (o.cara !== false) {   // MEJORAS 0e: cara con cejas y boca para dar emoción (ver gesto(), pose(), hablar())
+    g.cejaL = box(.09, .022, .02, o.hair ?? 0x3a2a20, [-.09, .1, .2], g.head); g.cejaR = box(.09, .022, .02, o.hair ?? 0x3a2a20, [.09, .1, .2], g.head);
+    g.boca = box(.12, .03, .02, 0x7a2e2e, [0, -.11, .2], g.head);
+  }
+  if (o.pelo === 'largo') { box(.42, .5, .12, o.hair ?? 0x3a2a20, [0, -.04, -.17], g.head); box(.06, .4, .3, o.hair ?? 0x3a2a20, [-.21, -.02, -.03], g.head); box(.06, .4, .3, o.hair ?? 0x3a2a20, [.21, -.02, -.03], g.head); }
+  if (o.bata) { box(.64, .62, .34, 0xf4f4f0, [0, 1.12, 0], g); g.torso.scale.set(1.04, 1, 1.05); g.torso.material = mat(0xf4f4f0); }
   return g;
+}
+// ---------- MEJORAS 0e: expresiones y poses de persona() ----------
+// gesto(p, 'feliz'|'enojada'|'sorpresa'|'triste'|'neutral'): mueve cejas y boca.
+export function gesto(p, tipo = 'neutral') {
+  if (!p.boca) return; const G = { neutral: [0, 1, 1], feliz: [.0, 1.5, .8], enojada: [.45, 1.1, .8], sorpresa: [-.15, .7, 3.2], triste: [-.35, .9, .8] }[tipo] ?? [0, 1, 1];
+  p.cejaL.rotation.z = -G[0]; p.cejaR.rotation.z = G[0]; p.cejaL.position.y = p.cejaR.position.y = tipo === 'sorpresa' ? .13 : .1;
+  p.boca.scale.set(G[1], G[2], 1);
+}
+// hablar(p, lt, k): la boca se abre y cierra (k = intensidad 0..1)
+export function hablar(p, lt, k = 1) { if (!p.boca) return; p.boca.scale.y *= 1 + k * 2.2 * Math.abs(Math.sin(lt * 11) * Math.sin(lt * 4.3 + 1)); }
+// pose(p, nombre, k=0..1 mezcla, lt para movimientos): 'senalar' (brazo derecho al frente, regañando), 'jarras' (manos en la cintura),
+// 'brazosArriba' (festejo), 'encoger' (no sé), 'manosJuntas' (dedos entrelazados al frente), 'neutral'.
+export function pose(p, nombre = 'neutral', k = 1, lt = 0) {
+  const P = {
+    neutral:      { L: [0, 0, 0], R: [0, 0, 0] },
+    senalar:      { L: [0, 0, -.1], R: [-1.45 + Math.sin(lt * 9) * .12, 0, -.1] },
+    jarras:       { L: [-.15, 0, -.5], R: [-.15, 0, .5] },
+    brazosArriba: { L: [0, 0, -2.5 - Math.sin(lt * 8) * .15], R: [0, 0, 2.5 + Math.sin(lt * 8) * .15] },
+    encoger:      { L: [-.7, 0, -.5], R: [-.7, 0, .5] },
+    manosJuntas:  { L: [-1.1, 0, .5], R: [-1.1, 0, -.5] },
+  }[nombre] ?? { L: [0, 0, 0], R: [0, 0, 0] };
+  ['L', 'R'].forEach(s => { const a = p['arm' + s]; a.rotation.x = lerp(a.rotation.x, P[s][0], k); a.rotation.y = lerp(a.rotation.y, P[s][1], k); a.rotation.z = lerp(a.rotation.z, P[s][2], k); });
+  if (nombre === 'encoger') { p.head.position.y = 1.92 - .06 * k; }
 }
 
 // ---------- SETS REUTILIZABLES (MEJORAS 0) ----------

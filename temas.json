@@ -131,5 +131,21 @@
   "mejora": "perro() y perroAnda() reutilizables en engine.js",
   "archivo": "shorts/2026-11-05-1800-perro.mp4",
   "titulo": "¿Por qué tu perro muerde TODO? 🐶 #shorts"
+ },
+ {
+  "fecha": "2026-11-06",
+  "hora": "13:30",
+  "tema": "¿Tronarte los dedos da artritis? (dentro del nudillo hay líquido; al estirarlo baja la presión y se forma una burbuja de gas = el crac; por eso hay que esperar para volver a tronarlo; el médico Donald Unger se tronó una sola mano durante sesenta años y ninguna tuvo artritis). Pedido de Iván",
+  "formato": "Mito o realidad (3D low-poly)",
+  "categoria": "cuerpo humano / mitos",
+  "disparadores": [
+   "eres tú",
+   "¿ves? te dije",
+   "etiqueta a tu mamá"
+  ],
+  "duracion": 35.2,
+  "mejora": "MEJORAS 0e: cara (cejas/boca), gesto(), hablar(), pose() y pelo largo/bata en persona()",
+  "archivo": "shorts/2026-11-06-1330-dedos.mp4",
+  "titulo": "¿Tronarte los dedos da artritis? 🤔 #shorts"
  }
 ]

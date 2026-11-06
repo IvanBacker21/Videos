@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-06-1330-dedos",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Te regañaban por tronarte los dedos?", "Esto es lo que pasa de verdad."]},
+    {"tipo": "liquido", "titulo": "", "frases": ["Dentro de tus nudillos hay un líquido que los mantiene resbalosos."]},
+    {"tipo": "burbuja", "titulo": "", "frases": ["Al estirarlos, baja la presión y se forma una burbuja de gas.", "¡Crac! Ese es el sonido."]},
+    {"tipo": "esperar", "titulo": "", "frases": ["Por eso no puedes tronarlo otra vez enseguida: hay que esperar un rato."]},
+    {"tipo": "medico", "titulo": "", "frases": ["Un médico se tronó los dedos de una sola mano durante sesenta años...", "y ninguna de sus manos tuvo artritis."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Etiqueta a tu mamá que siempre te regañaba por esto."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}
