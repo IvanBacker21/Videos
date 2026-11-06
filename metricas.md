@@ -302,3 +302,24 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible: sin % de Feed de Shorts,
 | Gato tira cosas | — | 6-nov 18:00 (programado) | — | — | — | — | PENDING en YT y TikTok, normal |
 
 **Conclusión:** en TikTok ningún video está atascado (176–765 vistas); los 3 más bajos (bostezo, picante, nadar) salieron el 4-nov entre 12:00 y 16:00 y son temas "reto/mito" genéricos, mientras que los mejores tocan una experiencia muy concreta y cotidiana (tráfico en CDMX, sacudida al dormir, pan cayendo). La duración no explica la diferencia (28–44 s en ambos grupos). YouTube sigue sin vistas por short en Metricool.
+
+## 2026-11-06 17:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible: sin % de Feed de Shorts, % visto ni tiempo real). **Sin datos nuevos**: TikTok (TKPO07) idéntico al corte de 15:41 (total 4,763 vistas en 10 videos; % completo y % For You siguen vacíos). YouTube: YTVP06/YTVP08 vacíos; canal 16 suscriptores; YTEV13 (vistas de videos publicados el 6-nov) = 0.
+
+| Short | Publicado | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| Tráfico fantasma | 4-nov | 765 | s/d | s/d | s/d | sin cambio |
+| Caída al dormir | 4-nov | 692 | s/d | s/d | s/d | sin cambio |
+| Pan 3D | 5-nov | 592 | s/d | s/d | s/d | sin cambio |
+| Pulpo | 5-nov | 552 | s/d | s/d | s/d | sin cambio |
+| Voz en grabaciones | 5-nov | 532 | s/d | s/d | s/d | sin cambio |
+| Perro muerde todo | 5-nov | 525 | s/d | s/d | s/d | sin cambio |
+| Helado | 5-nov | 520 | s/d | s/d | s/d | sin cambio |
+| Nadar después de comer | 4-nov | 225 | s/d | s/d | s/d | bajo |
+| Picante | 4-nov | 184 | s/d | s/d | s/d | bajo |
+| Bostezo (reto) | 4-nov | 176 | s/d | s/d | s/d | el más bajo |
+| Dedos / artritis (YT ZRVG52--b8o) | 6-nov 13:30 | s/d | 0 (YTEV13, probable retraso API) | s/d | s/d | +4 h; aún no aparece en analíticas de TikTok |
+| Gato tira cosas | 6-nov 18:00 | — | — | — | — | PENDING en YT y TikTok (sale en ~20 min) |
+
+**Conclusión:** Metricool no se actualizó desde el corte anterior; no hay evidencia de atasco. El 0 en YouTube para "dedos" es probablemente retraso de la API, confirmar con Studio.
