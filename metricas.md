@@ -241,3 +241,23 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 | Dedos / artritis | 6-nov 13:30 (pedido) | — | — | — | publicación manual (Metricool gratis agotado); no hay nada programado en Metricool |
 
 **Conclusión:** sin datos nuevos; Metricool no da vistas por short y el corte de hoy está en 0 por retraso. El short de "dedos" de las 13:30 depende de que Iván lo suba a mano.
+
+## 2026-11-06 11:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). YTVP/YTVV (vistas por short) y fuentes de tráfico (YTTS) siguen vacíos. Canal (YTEV): **16 suscriptores** el 6-nov (antes 12, +4). YTEV02 ahora muestra **2,933 vistas** en la fila del 3-nov (dato nuevo; puede ser un acumulado/backfill del canal, sin confirmar) y +6 suscriptores ganados ese día; 4–6 nov sin dato de vistas (API con retraso).
+
+| Short (YouTube) | Publicado | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | s/d | s/d | s/d | +71 h; candidato a atascado (sin confirmar) |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | s/d | s/d | s/d | +66 h |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | s/d | s/d | s/d | +62 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | s/d | s/d | s/d | +51 h |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | s/d | s/d | s/d | +46 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | s/d | s/d | s/d | +44 h |
+| Caída al dormir (38haxZF3eCk) | 4-nov 21:30 | s/d | s/d | s/d | +38 h |
+| Pan 3D (zo3GfZ41xC0) | 5-nov 13:30 | s/d | s/d | s/d | +22 h |
+| Perro muerde todo (QjA3qYDBhTc) | 5-nov 18:00 | s/d | s/d | s/d | +18 h |
+| Voz en grabaciones (Dte6lQ5y0Pc) | 5-nov 21:30 | s/d | s/d | s/d | +14 h |
+| Dedos / artritis | 6-nov 13:30 (pedido) | — | — | — | aún no publicado; manual (no hay nada programado en Metricool) |
+
+**Conclusión:** los suscriptores siguen subiendo (6→12→16 en 3 días), señal de que algo sí se está viendo; Metricool aún no da vistas por short, así que no se puede confirmar ningún atasco.
