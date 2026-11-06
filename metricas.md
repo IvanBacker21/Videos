@@ -261,3 +261,23 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 | Dedos / artritis | 6-nov 13:30 (pedido) | — | — | — | aún no publicado; manual (no hay nada programado en Metricool) |
 
 **Conclusión:** los suscriptores siguen subiendo (6→12→16 en 3 días), señal de que algo sí se está viendo; Metricool aún no da vistas por short, así que no se puede confirmar ningún atasco.
+
+## 2026-11-06 13:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). YTVP06/YTVP08 y YTVV siguen vacíos; YTEV igual que el corte anterior: **16 suscriptores**, 2,933 vistas en la fila del 3-nov, 4–6 nov sin vistas (API con retraso).
+
+| Short (YouTube) | Publicado | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|---|
+| Helado (FG0M_p62sHY) | 3-nov 12:45 | s/d | s/d | s/d | +73 h; candidato a atascado (sin confirmar) |
+| Pulpo (z7gzjJ98VY4) | 3-nov 18:00 | s/d | s/d | s/d | +68 h |
+| Bostezo (BKNb1EqYODk) | 3-nov 21:30 | s/d | s/d | s/d | +64 h |
+| Tráfico (qK_uU2ngak0) | 4-nov 08:30 | s/d | s/d | s/d | +53 h |
+| Picante (j72vtMbp6iA) | 4-nov 13:30 | s/d | s/d | s/d | +48 h |
+| Nadar (thsCaAgRTMM) | 4-nov 16:00 | s/d | s/d | s/d | +46 h |
+| Caída al dormir (38haxZF3eCk) | 4-nov 21:30 | s/d | s/d | s/d | +40 h |
+| Pan 3D (zo3GfZ41xC0) | 5-nov 13:30 | s/d | s/d | s/d | +24 h |
+| Perro muerde todo (QjA3qYDBhTc) | 5-nov 18:00 | s/d | s/d | s/d | +20 h |
+| Voz en grabaciones (Dte6lQ5y0Pc) | 5-nov 21:30 | s/d | s/d | s/d | +16 h |
+| Dedos / artritis (ZRVG52--b8o) | 6-nov 13:30 | s/d | s/d | s/d | **publicado** vía Metricool en YouTube y TikTok (7705143221210369281); +11 min, aún sin datos. YouTube: público, no para niños, título correcto. Ojo: en YT `isAiGeneratedContent=false` y en TikTok `isAigc=true` (inconsistente) |
+
+**Conclusión:** sin datos nuevos de vistas; el short de "dedos" sí salió a las 13:30 en ambas redes. Hasta tener Studio (Chrome) no se puede confirmar ningún atasco.
