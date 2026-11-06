@@ -1,6 +1,6 @@
 # Guía de producción — Dato Cósmico 2
 
-> **⚠️ Publicación manual (desde el 6-nov-2026):** Metricool gratis agotó sus 20 publicaciones del mes (cada red cuenta aparte). NO uses createScheduledPost: entrega a Iván el .mp4 (SendUserFile) y un paquete de textos para YouTube y TikTok listo para copiar; él los sube y programa a mano. El límite se reinicia el día 1 de cada mes; si Iván contrata un plan de pago, vuelve a publicar con Metricool.
+> **⚠️ Publicación con Buffer (desde el 6-nov-2026):** Metricool gratis agotó sus 20 publicaciones del mes (cada red cuenta aparte). Programa con `python3 herramientas/buffer.py programar ...` (una llamada para youtube y otra para tiktok; ver ayuda en el archivo). La clave de Buffer NUNCA va en el repositorio: va en ~/.buffer_key o en la variable BUFFER_KEY. Si Buffer falla, entrega a Iván el .mp4 y los textos para que lo suba a mano.
 
 
 Canal de YouTube Shorts de datos curiosos de ciencia, en español latino. Tres shorts al día (por unas semanas, hasta que el canal tenga historial), publicados vía Metricool a las 13:30, 18:00 y 21:30 (America/Mexico_City).
