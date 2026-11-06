@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-06-1800-gato",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué tu gato te mira a los ojos... y tira el vaso?", "Hay tres razones, y la tercera es tu culpa."]},
+    {"tipo": "cazador", "titulo": "", "frases": ["Uno: es un cazador. Con la patita prueba si algo está vivo, como haría con un ratón."]},
+    {"tipo": "caida", "titulo": "", "frases": ["Dos: curiosidad. Ver qué pasa cuando algo cae le parece divertidísimo."]},
+    {"tipo": "atencion", "titulo": "", "frases": ["Y tres: aprendió que si tira algo... tú llegas corriendo."]},
+    {"tipo": "truco", "titulo": "", "frases": ["El truco: juega con él todos los días, con juguetes que se muevan."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien tiene un gato que ya rompió media vajilla."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

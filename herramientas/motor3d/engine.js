@@ -201,6 +201,49 @@ export function perroAnda(p, lt, vel = 1, cola = 1) {
   p.tail.rotation.y = Math.sin(lt * 14) * .6 * cola; p.body.position.y = .5 + Math.abs(Math.sin(lt * 10 * vel)) * .02 * Math.min(vel, 1);
 }
 
+// Gato low-poly (añadido 2026-11-06, short del gato; mira hacia +z). o: {pos, s (1 ≈ gato adulto ~45 cm de alto), color,
+// panza, rayas (color o false), ojos (color del iris)}. Devuelve el grupo con .head, .earL/.earR, .pupilas (escala x = dilatar),
+// .cola (5 segmentos encadenados), .legs[4] (0=del. izq, 1=del. der), .body, .bigotes.
+// Animar con gatoAnda(g, lt, vel, cola), colaGato(g, lt, k, rapidez), patita(g, k, lado) y ojosCazador(g, k).
+export function gato(o = {}, parent) {
+  const g = group(o.pos ?? [0, 0, 0], parent); g.scale.setScalar(o.s ?? 1);
+  const c = o.color ?? 0xe08a3c, pz = o.panza ?? 0xf6e7d2, ray = o.rayas ?? 0xb0602a, iris = o.ojos ?? 0x9fd84a;
+  g.body = group([0, .3, 0], g); box(.26, .24, .55, c, [0, 0, 0], g.body); box(.2, .06, .44, pz, [0, -.11, .02], g.body);
+  if (ray !== false) for (const z of [-.15, 0, .15]) box(.27, .03, .06, ray, [0, .11, z], g.body);
+  box(.24, .26, .2, c, [0, .1, .22], g.body);                                                    // pecho alto (sentado/erguido)
+  box(.16, .16, .03, pz, [0, .06, .325], g.body);
+  g.legs = [[-.08, .2], [.08, .2], [-.08, -.2], [.08, -.2]].map(([x, z]) => { const L = group([x, .26, z], g);
+    box(.075, .26, .075, c, [0, -.13, 0], L); box(.085, .04, .1, pz, [0, -.25, .015], L); return L; });
+  g.head = group([0, .52, .32], g);
+  box(.26, .22, .22, c, [0, 0, 0], g.head);                                                      // cráneo
+  box(.3, .12, .16, c, [0, -.04, .01], g.head);                                                  // mejillas
+  box(.13, .07, .07, pz, [0, -.06, .12], g.head);                                                // hocico
+  const nar = box(.04, .03, .02, 0xe8788a, [0, -.025, .16], g.head); nar.castShadow = false;
+  if (ray !== false) for (const x of [-.05, 0, .05]) box(.025, .07, .02, ray, [x, .08, .11], g.head);
+  g.earL = group([-.08, .11, 0], g.head); g.earR = group([.08, .11, 0], g.head);
+  [g.earL, g.earR].forEach((e, k) => { const m = new THREE.Mesh(new THREE.ConeGeometry(.065, .13, 4), mat(c)); m.position.y = .06; m.rotation.y = Math.PI / 4; m.castShadow = true; e.add(m);
+    const i = new THREE.Mesh(new THREE.ConeGeometry(.035, .08, 4), mat(0xf2a7b0)); i.position.set(0, .05, .025); i.rotation.y = Math.PI / 4; e.add(i); e.rotation.z = k ? -.2 : .2; });
+  g.ojos = [-.065, .065].map(x => box(.07, .06, .02, iris, [x, .03, .112], g.head, { emissive: iris, ei: .25 }));
+  g.pupilas = [-.065, .065].map(x => box(.018, .055, .01, 0x0d0d0d, [x, .03, .123], g.head));
+  g.brillo = [-.065, .065].map(x => { const b = box(.014, .014, .005, 0xffffff, [x + .018, .045, .128], g.head, { emissive: 0xffffff, ei: 1 }); b.castShadow = false; return b; });
+  g.bigotes = [];
+  for (const s of [-1, 1]) for (const k of [0, 1]) { const b = box(.16, .006, .006, 0xffffff, [s * .14, -.05 - k * .025, .12], g.head); b.rotation.z = s * (k ? -.12 : .1); b.castShadow = false; g.bigotes.push(b); }
+  g.cola = []; let par = group([0, .38, -.27], g);
+  for (let k = 0; k < 5; k++) { if (k) par = group([0, 0, -.085], par); box(.055 - k * .004, .055 - k * .004, .1, k === 4 && ray !== false ? ray : c, [0, 0, -.045], par); g.cola.push(par); }
+  g.cola[0].rotation.x = .7;
+  return g;
+}
+// Cola que se curva y ondula. k = amplitud (0 quieta, 1 normal, 2 "modo cazador"), rapidez en ciclos/s.
+export function colaGato(g, lt, k = 1, rapidez = .8) { g.cola.forEach((s, i) => { s.rotation.y = Math.sin(lt * rapidez * 6.28 - i * .7) * .28 * k; if (i) s.rotation.x = .18 + .05 * Math.sin(lt * 2 + i); }); }
+export function gatoAnda(g, lt, vel = 1, cola = 1) {
+  g.legs.forEach((L, k) => { L.rotation.x = Math.sin(lt * 9 * vel + (k === 0 || k === 3 ? 0 : Math.PI)) * .5 * Math.min(vel, 1); });
+  g.body.position.y = .3 + Math.abs(Math.sin(lt * 9 * vel)) * .012 * Math.min(vel, 1); colaGato(g, lt, cola);
+}
+// Levanta una pata delantera hacia adelante (k 0..1). lado 1 = derecha, 0 = izquierda. Para "toquecitos": k = |sin(lt*f)|.
+export function patita(g, k = 1, lado = 1) { const L = g.legs[lado]; L.rotation.x = -1.5 * k; L.position.y = .26 + .06 * k; }
+// Pupilas grandes (k=1, cazador) o rendija (k=0).
+export function ojosCazador(g, k = 1) { g.pupilas.forEach(p => p.scale.set(1 + 2.4 * k, 1, 1)); }
+
 // Ondas (sonido, wifi, señal): anillos que salen de un punto y se desvanecen. Crear en setup, animar con ondas.update(lt).
 // o: {color, n, vel (anillos/s), alcance (m), grosor, dir: rotación [x,y,z] del plano del anillo}
 export function ondas(pos, o = {}, parent) {
@@ -266,8 +309,9 @@ export function rotulo(texto, sub, p, y = 1330) {
   e.style.top = y + 'px'; e.style.setProperty('--s', s.toFixed(3)); e.style.opacity = cl(p / 0.15);
 }
 // Etiqueta pegada a un punto 3D (ej. "ISLA ÁNGEL" sobre un mapa)
-export function etiqueta(texto, pos3, p, size = 58, color = '#fff') {
-  if (p < 0) return; camera.updateMatrixWorld(); /* matriz al día: si no, usa la cámara del fotograma anterior */ const v = new THREE.Vector3(...pos3).project(camera); const e = el('tag3d');
+// fondo=true (MEJORAS 0j): píldora oscura detrás del texto, para fondos claros.
+export function etiqueta(texto, pos3, p, size = 58, color = '#fff', fondo = false) {
+  if (p < 0) return; camera.updateMatrixWorld(); /* matriz al día: si no, usa la cámara del fotograma anterior */ const v = new THREE.Vector3(...pos3).project(camera); const e = el(fondo ? 'tag3d pill' : 'tag3d');
   e.textContent = texto; e.style.left = ((v.x + 1) / 2 * W) + 'px'; e.style.top = ((1 - v.y) / 2 * H) + 'px';
   e.style.fontSize = size + 'px'; e.style.color = color; e.style.opacity = cl(p / 0.25);
 }

@@ -18,9 +18,12 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-06 13:30 (dedos) · **MEJORAS 0e en `engine.js`**: `persona()` ahora trae cara con cejas y boca (`o.cara:false` la quita), `pelo:'largo'` y `bata:true` (médico/científico); nuevas `gesto(p,'feliz'|'enojada'|'sorpresa'|'triste'|'neutral')`, `hablar(p, lt, k)` (boca que se mueve) y `pose(p,'senalar'|'jarras'|'brazosArriba'|'encoger'|'manosJuntas'|'neutral', mezcla, lt)`. En el short: `mano()` grande con falanges que se doblan (`flex`), corte de `nudillo()` con huesos, cartílago, líquido, cápsula y burbuja, y `reloj()` de pared. Prueba de regresión: fotogramas del pan OK.
 
+- 2026-11-06 18:00 (gato) · **`gato()` en `engine.js`** (pedido de Iván): gato low-poly con orejas de cono, rayas, bigotes, ojos con pupilas que se dilatan, cola de 5 segmentos; `colaGato(g, lt, k, rapidez)`, `gatoAnda()`, `patita(g, k, lado)` (toquecitos con la pata) y `ojosCazador(g, k)`. Además **MEJORAS 0j hecha**: `etiqueta(texto, pos, t, size, color, fondo=true)` dibuja una píldora oscura con borde dorado detrás del texto (para fondos claros). En el short: `comedor()` (mesa, pared con lambrín, cuadro), `vaso()` con agua que cae y salpica (gotas), `raton()`, `varita()` con plumas y `pedazos()` (vajilla rota). Prueba de regresión: fotogramas del pan OK.
+
 ## Siguientes (toma la primera de las 3D)
+0k. (3D) Pasar `comedor()`, `vaso()` y `pedazos()` del short del gato a `engine.js` (set de comedor reutilizable).
+0l. (3D) Pose 'sentado' para `gato()` y `perro()` (patas traseras dobladas) y salto con arco.
 0i. (3D) Pasar `mano()` (dedos articulados) y `reloj()` del short de los dedos a `engine.js`.
-0j. (3D) Etiquetas 3D con fondo (píldora oscura) opcional para cuando caen sobre fondos claros.
 0g. (3D) Pasar `celular()` (nota de voz animada), `busto()` (cabeza grande con cráneo) y `chorro()` (partículas sobre una curva) del short de la voz a `engine.js`.
 0h. (3D) Usar `setMapa()` en un short de lugares (aún sin probar en video) y `setEspacio()`.
 0e. (3D) `persona()` con poses listas (sentada, acostada de lado, señalando, riendo) y cara con boca para dar emoción.

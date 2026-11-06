@@ -273,6 +273,6 @@
   "horario": "18:00",
   "tema": "¿Por qué los gatos tiran cosas de la mesa?",
   "indicaciones": "Pedido de Iván. Disparadores: 'eres tú / tu gato', mascotas (el short del perro funcionó). Gancho reconocible: el gato mirándote a los ojos mientras empuja un vaso al borde de la mesa. Explica sencillo (verifica en dos fuentes, p. ej. veterinarios o asociaciones felinas): 1) instinto de cazador: con la pata 'prueban' si algo está vivo, como harían con un ratón; 2) curiosidad y juego: ver qué pasa cuando cae es divertido para ellos; 3) llamar tu atención: aprendieron que si tiran algo, tú vienes corriendo. Truco: jugar con ellos a diario y darles juguetes que se muevan. Sin números o máximo uno. En 3D: crea una función gato() low-poly reutilizable en engine.js (como perro(): cuerpo, cabeza con orejas triangulares, bigotes, cola animable, patas; con gatoAnda/patita) y úsala; escenas: gato en la mesa empujando un vaso con la pata y mirando a cámara; vaso que cae en cámara lenta; 'modo cazador' (pupilas grandes, cola moviéndose, pata que da toquecitos); la persona que llega corriendo al oír el ruido; el gato jugando con una varita con plumas. Remate: 'Mándaselo a quien tiene un gato que ya rompió media vajilla'. Título sugerido: '¿Por qué tu gato tira TODO de la mesa? 🐱'. Tono cariñoso.",
-  "estado": "pendiente"
+  "estado": "hecho"
  }
 ]
