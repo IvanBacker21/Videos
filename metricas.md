@@ -281,3 +281,24 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 | Dedos / artritis (ZRVG52--b8o) | 6-nov 13:30 | s/d | s/d | s/d | **publicado** vía Metricool en YouTube y TikTok (7705143221210369281); +11 min, aún sin datos. YouTube: público, no para niños, título correcto. Ojo: en YT `isAiGeneratedContent=false` y en TikTok `isAigc=true` (inconsistente) |
 
 **Conclusión:** sin datos nuevos de vistas; el short de "dedos" sí salió a las 13:30 en ambas redes. Hasta tener Studio (Chrome) no se puede confirmar ningún atasco.
+
+## 2026-11-06 15:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible: sin % de Feed de Shorts, % visto ni tiempo real). YouTube: YTVP06/YTVP08 siguen vacíos para los 10 shorts; canal (YTEV) sin cambios: **16 suscriptores**. **Nuevo: TikTok sí da vistas por video (TKPO07) y duración (TKPO06)** → total TikTok **4,763 vistas** en 10 videos (% completo y % For You aún vacíos).
+
+| Short | Duración | Publicado TikTok (CDMX) | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|---|
+| Tráfico fantasma | 44 s | 4-nov 10:16 | 765 | s/d | s/d | s/d | mejor; ángulo local (Periférico/CDMX) |
+| Caída al dormir | 34 s | 4-nov 21:30 | 692 | s/d | s/d | s/d | 2º; experiencia universal |
+| Pan 3D | 28 s | 5-nov 13:31 | 592 | s/d | s/d | s/d | |
+| Pulpo | 39 s | 5-nov 12:01 | 552 | s/d | s/d | s/d | |
+| Voz en grabaciones | 30 s | 5-nov 21:30 | 532 | s/d | s/d | s/d | |
+| Perro muerde todo | 31 s | 5-nov 18:04 | 525 | s/d | s/d | s/d | |
+| Helado | 43 s | 5-nov 10:15 | 520 | s/d | s/d | s/d | ya no parece atascado en TikTok |
+| Nadar después de comer | 40 s | 4-nov 16:03 | 225 | s/d | s/d | s/d | bajo |
+| Picante | 35 s | 4-nov 13:31 | 184 | s/d | s/d | s/d | bajo |
+| Bostezo (reto) | 32 s | 4-nov 12:02 | 176 | s/d | s/d | s/d | el más bajo |
+| Dedos / artritis | — | 6-nov 13:30 | s/d | s/d | s/d | s/d | +2 h; aún no aparece en analíticas |
+| Gato tira cosas | — | 6-nov 18:00 (programado) | — | — | — | — | PENDING en YT y TikTok, normal |
+
+**Conclusión:** en TikTok ningún video está atascado (176–765 vistas); los 3 más bajos (bostezo, picante, nadar) salieron el 4-nov entre 12:00 y 16:00 y son temas "reto/mito" genéricos, mientras que los mejores tocan una experiencia muy concreta y cotidiana (tráfico en CDMX, sacudida al dormir, pan cayendo). La duración no explica la diferencia (28–44 s en ambos grupos). YouTube sigue sin vistas por short en Metricool.
