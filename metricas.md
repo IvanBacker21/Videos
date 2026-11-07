@@ -347,3 +347,16 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de
 | Cebolla | 6-nov 21:30 | — | — | — | — | no está programado en Metricool |
 
 **Conclusión:** la falta de vistas en los shorts nuevos no es del algoritmo: desde el 6-nov 18:00 los videos **no se están publicando** porque la cuenta de Metricool llegó a su límite. Tarea de producción: antes de programar, comprobar el límite / que el post quede en estado PENDING y no ERROR.
+
+## 2026-11-06 21:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios** desde 15:41: 4,763 vistas en 10 videos. YouTube YTVP06/YTVP08 vacíos; YTEV13 del 7-nov = 0.
+
+| Short | Publicado | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| 10 shorts 4–5 nov | 4/5-nov | 4,763 total | s/d | s/d | s/d | sin cambio |
+| Dedos / artritis (YT ZRVG52--b8o) | 6-nov 13:30 | s/d | s/d | s/d | s/d | +8 h; sigue sin datos en Metricool; necesita Studio para confirmar atasco |
+| Gato tira cosas | 6-nov 18:00 | — | — | — | — | sigue en **ERROR: límite de cuenta de Metricool** |
+| Cebolla | 6-nov 21:30 | — | — | — | — | ya pasó la hora y no está en Metricool: no publicado |
+
+**Conclusión:** sin cambios; el bloqueo sigue siendo el límite de la cuenta de Metricool (no el algoritmo). Hasta que Iván lo resuelva, cualquier short nuevo programado allí fallará.
