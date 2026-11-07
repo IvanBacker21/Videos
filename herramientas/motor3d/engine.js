@@ -35,8 +35,13 @@ export const group = (pos, parent) => { const g = new THREE.Group(); if (pos) g.
 export function persona(o = {}, parent) {
   const g = group(o.pos ?? [0, 0, 0], parent);
   const skin = o.skin ?? 0xe0b08c, shirt = o.shirt ?? 0x6f9bd6, pants = o.pants ?? 0x3d4a66;
-  g.legL = box(.22, .9, .24, pants, [-.15, .45, 0], g); g.legR = box(.22, .9, .24, pants, [.15, .45, 0], g);
-  box(.26, .12, .34, 0x222222, [-.15, .06, .05], g); box(.26, .12, .34, 0x222222, [.15, .06, .05], g);
+  // Piernas articuladas (7-nov 18:00): legL/legR giran desde la cadera (rotation.x), kneeL/kneeR doblan la rodilla
+  // (rotation.x positivo = pantorrilla hacia atrás) y pieL/pieR giran el tobillo. Ver sentar().
+  [['L', -.15], ['R', .15]].forEach(([s, x]) => {
+    const hip = group([x, .9, 0], g); box(.22, .46, .24, pants, [0, -.23, 0], hip);
+    const knee = group([0, -.45, 0], hip); box(.21, .45, .23, pants, [0, -.225, 0], knee);
+    const pie = group([0, -.39, 0], knee); box(.26, .12, .34, o.zapato ?? 0x222222, [0, -.0, .05], pie);
+    g['leg' + s] = hip; g['knee' + s] = knee; g['pie' + s] = pie; });
   g.torso = box(.6, .75, .32, shirt, [0, 1.28, 0], g);
   g.armL = group([-.4, 1.6, 0], g); box(.18, .7, .2, shirt, [0, -.33, 0], g.armL); box(.14, .14, .14, skin, [0, -.74, 0], g.armL);
   g.armR = group([.4, 1.6, 0], g); box(.18, .7, .2, shirt, [0, -.33, 0], g.armR); box(.14, .14, .14, skin, [0, -.74, 0], g.armR);
@@ -467,4 +472,60 @@ export function atomo(pos, o = {}, parent) {
     g.nube.forEach((m, j) => { m.material.opacity = m.userData.op * k * (1 + .25 * Math.sin(lt * 3 + j)); m.rotation.y = lt * (.3 + j * .1); });
   };
   return g;
+}
+
+// ---------- 7-nov 18:00 (short de la pierna dormida): persona sentada, vapores y lágrimas, baño ----------
+// sentar(p, k=0..1): dobla cadera y rodillas. Para que los pies toquen el piso, el asiento va a y≈.345 y p.position.y = -.435
+// (cadera a .465); la persona queda mirando a +z con los muslos hacia adelante. Con k parcial sirve para pararse/sentarse animado.
+export function sentar(p, k = 1) {
+  ['L', 'R'].forEach(s => { p['leg' + s].rotation.x = lerp(p['leg' + s].rotation.x, -Math.PI / 2, k); p['knee' + s].rotation.x = lerp(p['knee' + s].rotation.x, Math.PI / 2, k); });
+  p.userData.sentado = k;
+}
+// gas(a, b, n, color): partículas que suben por un camino curvo de a → b (vapor, olor, gas de cebolla, aliento).
+// update(lt, on 0..1, vel). (MEJORAS 0m, antes local en el short de la cebolla)
+export function gas(a, b, n = 26, color = 0xd9ffb0, parent) {
+  const ps = Array.from({ length: n }, (_, k) => { const p = ball(.018 + (k % 3) * .008, color, [0, 0, 0], parent, 0, { emissive: color, ei: .8, opacity: .55 });
+    p.material.depthWrite = false; p.castShadow = false; p.visible = false; return p; });
+  return { ps, update(lt, on = 1, vel = .35) {
+    ps.forEach((p, k) => { const ph = ((lt * vel + k / n) % 1 + 1) % 1; p.visible = on > 0 && ph < on + .02 && lt * vel > k / n * .5;
+      const w = Math.sin(ph * 9 + k) * .06 * (1 + ph);
+      p.position.set(lerp(a[0], b[0], ph) + w, lerp(a[1], b[1], ease(ph)), lerp(a[2], b[2], ph) + Math.cos(ph * 7 + k) * .05);
+      p.scale.setScalar(.6 + ph * 1.4); p.material.opacity = .65 * Math.sin(Math.PI * Math.min(1, ph * 1.1)); }); } };
+}
+// lagrimas(p, n) + llorar(ls, lt, on): gotas que escurren de los ojos de una persona (MEJORAS 0m)
+export function lagrimas(p, n = 3) {
+  return Array.from({ length: n * 2 }, (_, k) => { const d = ball(.022, 0x7fd0ff, [0, 0, 0], p.head, 0, { emissive: 0x3aa0ff, ei: .6, opacity: .9 }); d.scale.set(.8, 1.3, .8); d.castShadow = false; d.visible = false; d.k = k; return d; });
+}
+export function llorar(ls, lt, on = 1) {
+  ls.forEach(d => { const lado = d.k % 2 ? 1 : -1, ph = ((lt * .9 + Math.floor(d.k / 2) / 3) % 1);
+    d.visible = on > 0; d.position.set(lado * (.1 + ph * .02), .0 - ph * .3, .2 + ph * .01); d.material.opacity = .9 * (1 - ph * .6); });
+}
+// chispas(n, color): enjambre de chispitas (hormigueo, electricidad, emoción). update(centros[], radio, lt, on 0..1)
+export function chispas(n = 40, color = 0xfff27a, parent) {
+  const ps = Array.from({ length: n }, (_, k) => { const p = box(.035, .035, .035, color, [0, 0, 0], parent, { emissive: color, ei: 1.4 }); p.castShadow = false; p.visible = false; p.k = k; return p; });
+  return { ps, update(centros, r, lt, on = 1) { ps.forEach(p => { const c = centros[p.k % centros.length], ph = (lt * 3.1 + p.k * .37) % 1;
+    p.visible = on > 0 && (p.k / n) < on; const a = p.k * 2.399 + lt * 4, b = p.k * 1.3;
+    p.position.set(c[0] + Math.cos(a) * r * (.3 + ph), c[1] + Math.sin(b + lt * 5) * r * .8, c[2] + Math.sin(a) * r * (.3 + ph));
+    p.rotation.set(lt * 9 + p.k, lt * 7, 0); p.scale.setScalar((1 - ph) * 1.6 + .2); }); } };
+}
+// setBano({acento}): baño low-poly: piso de mosaico, paredes de azulejo, escusado mirando a +z, lavabo con espejo, puerta
+// y rollo de papel. Devuelve {escusado, puerta, asiento, personaY}.
+export function setBano(o = {}) {
+  const ac = o.acento ?? 0x3f8fa6;
+  for (let x = -6; x < 6; x++) for (let z = -3; z < 6; z++) box(.5, .04, .5, (x + z) % 2 ? 0xe9e4da : 0xcfd6d8, [x * .5 + .25, -.02, z * .5 - .5], null);
+  const pared = (w, pos, ry) => { const m = box(w, 3, .1, 0xeef1ee, pos); m.rotation.y = ry; return m; };
+  pared(6, [0, 1.5, -.75], 0); pared(6, [-2.6, 1.5, 1.6], Math.PI / 2);
+  for (let x = -12; x < 12; x++) for (let y = 0; y < 5; y++) box(.24, .24, .02, (x + y) % 3 ? 0xdfe9ec : ac, [x * .25 + .125, .15 + y * .25, -.69], null);   // azulejo hasta media pared
+  box(6, .04, .04, ac, [0, 1.38, -.68]);
+  const e = group([0, -.12, -.35]);   // asiento a y≈.345: así una persona sentada apoya los pies en el piso
+  cyl(.15, .2, .35, 0xffffff, [0, .17, .05], e, 12); const taza = cyl(.24, .17, .12, 0xffffff, [0, .38, .12], e, 14); taza.scale.z = 1.25;
+  const asiento = cyl(.25, .25, .03, 0xf4f4f4, [0, .45, .12], e, 14); asiento.scale.z = 1.25;
+  box(.5, .42, .2, 0xffffff, [0, .62, -.22], e); box(.54, .05, .24, 0xf4f4f4, [0, .85, -.22], e); box(.08, .03, .03, 0xb9c4c8, [.18, .78, -.1], e, { metal: .6 });
+  const rollo = group([.55, .65, -.28]); box(.06, .02, .12, 0xb9c4c8, [0, .07, 0], rollo, { metal: .6 }); const r = cyl(.07, .07, .12, 0xffffff, [0, 0, 0], rollo, 10); r.rotation.x = Math.PI / 2;
+  const lav = group([-1.4, 0, -.45]); cyl(.09, .12, .78, 0xffffff, [0, .39, 0], lav, 10); const t = cyl(.3, .22, .16, 0xffffff, [0, .84, .02], lav, 14); t.scale.z = .8;
+  box(.7, .9, .04, 0xa9d4e0, [0, 1.75, -.27], lav, { metal: .5, rough: .1 }); box(.78, .98, .03, 0x9a7a55, [0, 1.75, -.29], lav);
+  const puerta = group([1.9, 0, -.7]); box(.9, 2.1, .06, 0x9a6a42, [.45, 1.05, 0], puerta); ball(.04, 0xd9c08a, [.8, 1.0, .06], puerta, 0, { metal: .6 });
+  box(1.02, .08, .1, 0x7a5232, [2.35, 2.14, -.7]);
+  const tapete = box(.8, .02, .55, ac, [0, .01, .55]);
+  return { escusado: e, puerta, asiento: [0, .345, -.23], personaY: -.435 };   // persona sentada: pos [0, personaY, -.23] + sentar(p)
 }

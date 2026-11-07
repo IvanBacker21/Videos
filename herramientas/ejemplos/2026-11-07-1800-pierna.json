@@ -1,0 +1,62 @@
+{
+ "id": "2026-11-07-1800-pierna",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Se te duerme la pierna en el baño por estar en el celular?",
+    "Al final te digo cómo despertarla."
+   ]
+  },
+  {
+   "tipo": "nervio",
+   "titulo": "",
+   "frases": [
+    "Al sentarte así, aplastas los nervios de la pierna, unos cables que llevan mensajes a tu cerebro."
+   ]
+  },
+  {
+   "tipo": "silencio",
+   "titulo": "",
+   "frases": [
+    "Con la presión, los mensajes ya no pasan, y la pierna se siente dormida."
+   ]
+  },
+  {
+   "tipo": "hormigueo",
+   "titulo": "",
+   "frases": [
+    "Al pararte, los nervios despiertan todos de golpe y mandan mensajes revueltos: eso es el hormigueo."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: no te pares de golpe. Mueve el pie y los dedos, y en un ratito se te pasa."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien siempre sale del baño cojeando."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
