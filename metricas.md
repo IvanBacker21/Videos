@@ -415,3 +415,16 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin %
 | Átomos (pedido) | 7-nov 13:30 | — | — | — | — | **no se publicó**: no hay nada programado en Metricool para el 7-nov |
 
 **Conclusión:** sin cambios; el bloqueo sigue siendo el límite de la cuenta de Metricool, y ya se perdió el horario de 13:30 del short de átomos. TikTok lleva ~22 h congelado en 4,763 vistas.
+
+## 2026-11-07 15:40 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en 10 videos. YouTube YTVP06/YTVP08 siguen vacíos; YTEV02/YTEV13 del 7-nov = 0. Suscriptores YT (YTEV01): 23, sin cambio.
+
+| Short | Publicado | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| 10 shorts 3–6 nov | 3/6-nov | 4,763 total | s/d | s/d | s/d | sin cambio |
+| Dedos / artritis (YT ZRVG52--b8o) | 6-nov 13:30 | s/d | s/d | s/d | s/d | +26 h; sin datos por video en Metricool; requiere Studio |
+| Gato tira cosas | 6-nov 18:00 | — | — | — | — | sigue en **ERROR: límite de cuenta de Metricool** |
+| Átomos / Pierna dormida (repo, 7-nov 18:00) | — | — | — | — | — | nada programado en Metricool para el 7-nov; la pierna no saldrá a las 18:00 si no se libera el límite |
+
+**Conclusión:** sin cambios por cuarta revisión; el bloqueo sigue siendo el límite de la cuenta de Metricool (no un problema de algoritmo). TikTok lleva ~24 h congelado en 4,763 vistas.
