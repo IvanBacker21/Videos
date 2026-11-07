@@ -323,3 +323,27 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible: sin % de Feed de Shorts,
 | Gato tira cosas | 6-nov 18:00 | — | — | — | — | PENDING en YT y TikTok (sale en ~20 min) |
 
 **Conclusión:** Metricool no se actualizó desde el corte anterior; no hay evidencia de atasco. El 0 en YouTube para "dedos" es probablemente retraso de la API, confirmar con Studio.
+
+## 2026-11-06 19:42 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios** desde 15:41: total 4,763 vistas en 10 videos; "dedos" sigue sin aparecer en analíticas de TikTok. YouTube: YTVP/YTVV vacíos; canal 16 suscriptores; YTEV13 del 6/7-nov = 0.
+
+**⚠️ Hallazgo principal:** el short **"Gato tira cosas" (6-nov 18:00) NO se publicó**: Metricool marca YouTube y TikTok en `ERROR – "You have reached your Metricool account limit."` Además **"Cebolla" (6-nov 21:30) no aparece programado** en Metricool (probablemente el mismo límite).
+
+| Short | Publicado | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| Tráfico fantasma | 4-nov | 765 | s/d | s/d | s/d | sin cambio |
+| Caída al dormir | 4-nov | 692 | s/d | s/d | s/d | sin cambio |
+| Pan 3D | 5-nov | 592 | s/d | s/d | s/d | sin cambio |
+| Pulpo | 5-nov | 552 | s/d | s/d | s/d | sin cambio |
+| Voz en grabaciones | 5-nov | 532 | s/d | s/d | s/d | sin cambio |
+| Perro muerde todo | 5-nov | 525 | s/d | s/d | s/d | sin cambio |
+| Helado | 5-nov | 520 | s/d | s/d | s/d | sin cambio |
+| Nadar después de comer | 4-nov | 225 | s/d | s/d | s/d | bajo |
+| Picante | 4-nov | 184 | s/d | s/d | s/d | bajo |
+| Bostezo (reto) | 4-nov | 176 | s/d | s/d | s/d | el más bajo |
+| Dedos / artritis (YT ZRVG52--b8o, TT 7705143221210369281) | 6-nov 13:30 | s/d | 0 (YTEV13) | s/d | s/d | PUBLISHED en ambos; +6 h sin datos en Metricool, no se puede confirmar atasco sin Studio |
+| Gato tira cosas | 6-nov 18:00 | — | — | — | — | **ERROR: límite de cuenta de Metricool**, no publicado |
+| Cebolla | 6-nov 21:30 | — | — | — | — | no está programado en Metricool |
+
+**Conclusión:** la falta de vistas en los shorts nuevos no es del algoritmo: desde el 6-nov 18:00 los videos **no se están publicando** porque la cuenta de Metricool llegó a su límite. Tarea de producción: antes de programar, comprobar el límite / que el post quede en estado PENDING y no ERROR.
