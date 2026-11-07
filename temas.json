@@ -179,5 +179,22 @@
   "mejora": "setCocina() con refri que abre, comedor()/vaso()/pedazos() en engine.js (MEJORAS 0k)",
   "archivo": "shorts/2026-11-06-2130-cebolla.mp4",
   "titulo": "¿Por qué lloras al picar cebolla? 🧅 #shorts"
+ },
+ {
+  "fecha": "2026-11-07",
+  "hora": "13:30",
+  "tema": "¿De qué están hechos los átomos? (todo lo que tocas es de átomos; a lo ancho de un cabello caben cientos de miles; núcleo de protones y neutrones con nube de electrones; protones y neutrones hechos de quarks; el átomo es casi vacío: canica en el centro del Estadio Azteca y electrones en las gradas; al chocar los cinco nunca se tocan porque los electrones se empujan). Pedido de un seguidor",
+  "formato": "Pedido de seguidor + escala/comparación",
+  "categoria": "física / escala",
+  "disparadores": [
+   "sorpresa con emoción",
+   "lo mexicano (taco, Estadio Azteca)",
+   "premiar comentarios",
+   "etiquetar al compa"
+  ],
+  "duracion": 37.9,
+  "mejora": "mano(), reloj() y atomo() en engine.js (MEJORAS 0i) + estadio low-poly",
+  "archivo": "shorts/2026-11-07-1330-atomos.mp4",
+  "titulo": "¿De qué están hechos los ÁTOMOS? ⚛️ #shorts"
  }
 ]

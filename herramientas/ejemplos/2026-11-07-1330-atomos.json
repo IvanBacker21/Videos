@@ -1,0 +1,64 @@
+{
+ "id": "2026-11-07-1330-atomos",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Nos preguntaron en los comentarios: ¿de qué están hechos los átomos?",
+    "Ojo al final."
+   ]
+  },
+  {
+   "tipo": "zoom",
+   "titulo": "",
+   "frases": [
+    "Todo lo que tocas, hasta un taco, es de átomos.",
+    "A lo ancho de un cabello caben cientos de miles."
+   ]
+  },
+  {
+   "tipo": "atomo",
+   "titulo": "",
+   "frases": [
+    "Cada átomo tiene un núcleo, y alrededor, una nube de electrones."
+   ]
+  },
+  {
+   "tipo": "quarks",
+   "titulo": "",
+   "frases": [
+    "El núcleo tiene protones y neutrones, hechos de quarks."
+   ]
+  },
+  {
+   "tipo": "estadio",
+   "titulo": "",
+   "frases": [
+    "Y es casi vacío: si el núcleo fuera una canica en el Estadio Azteca, los electrones andarían en las gradas."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Al chocar los cinco, nunca se tocan: sus electrones se empujan.",
+    "Mándaselo a tu compa de los choques de cinco."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

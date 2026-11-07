@@ -22,10 +22,13 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-06 21:30 (cebolla) · **MEJORAS 0k hecha en `engine.js`**: `comedor({top, mantel, pared})`, `vaso()` y `pedazos()` ahora son del motor; además **`setCocina({acento, vidrio})`** nuevo: piso de mosaico, pared de azulejo talavera, barra con cubierta (y=.92) y alacenas, estufa con comal, ventana y **refrigerador hueco con puerta que abre** (`refri.puerta.rotation.y` de 0 a -1.9, luz interior, repisas; mete objetos con `parent = refri.g`). En el short: `cebolla()`, `mediaCebolla()` (anillos), `cuchillo(filo)`, `gas()` (partículas por camino curvo), `lagrimas()`/`llorar()` y tazón de pico de gallo. Lección: un gabinete sólido tapa su interior aunque abras la puerta; hazlo de paneles. Prueba de regresión: fotogramas del pan OK.
 
+- 2026-11-07 13:30 (átomos) · **MEJORAS 0i hecha en `engine.js`**: `mano(pos, s, parent, {skin, skin2, manga})` (dedos articulados con `flex`; `manga:null` sin puño) y `reloj()` ya son del motor; además **`atomo(pos, {r, rn, nucleones, orbitas, nube})`** nuevo: núcleo de protones rojos y neutrones grises, nube de electrones azul translúcida y órbitas con electrones (`g.update(lt, k)`). En el short: efecto "potencias de diez" taco → red de átomos → cabello con átomos en fila, protón transparente con tres quarks y gluones, **estadio low-poly** (cancha, gradas elípticas en 5 anillos, techo, torres de luz) con canica brillante y grúa a vista aérea, y dos manos que chocan los cinco con brillo azul entre ellas. Lección: manos con palmas enfrentadas se ven de canto desde el frente; pon la cámara a 3/4. Prueba de regresión: fotogramas del pan OK.
+
 ## Siguientes (toma la primera de las 3D)
 0m. (3D) Pasar `lagrimas()/llorar()` y `gas()` del short de la cebolla a `engine.js` (llanto y vapores reutilizables: sirven para cebolla, picante, aliento con frío).
 0l. (3D) Pose 'sentado' para `gato()` y `perro()` (patas traseras dobladas) y salto con arco.
-0i. (3D) Pasar `mano()` (dedos articulados) y `reloj()` del short de los dedos a `engine.js`.
+0n. (3D) Pasar `estadio()` del short de los átomos a `engine.js` como `setEstadio()` (sirve para multitudes, 0f) y `taco()` como utilería mexicana.
+0o. (3D) `zoomPotencias(capas)`: transición reutilizable de acercamiento continuo entre escalas (objeto → red → partícula) con fundido.
 0g. (3D) Pasar `celular()` (nota de voz animada), `busto()` (cabeza grande con cráneo) y `chorro()` (partículas sobre una curva) del short de la voz a `engine.js`.
 0h. (3D) Usar `setMapa()` en un short de lugares (aún sin probar en video) y `setEspacio()`.
 0e. (3D) `persona()` con poses listas (sentada, acostada de lado, señalando, riendo) y cara con boca para dar emoción.

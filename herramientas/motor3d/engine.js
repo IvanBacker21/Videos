@@ -412,3 +412,59 @@ export function setCocina(o = {}) {
   box(.04, .5, .05, 0x9aa3ab, [.78, 1.25, .05], puerta);
   return { barra, topY, refri: { g: rg, puerta, frio }, estufa, ventana };
 }
+
+// ---------- MEJORAS 0i (7-nov 13:30, short de los átomos): mano(), reloj() y atomo() reutilizables ----------
+// Mano grande low-poly con la palma hacia +z y dedos hacia +y. g.dedos[i] = [f0,f1,f2]; g.flex(k, i) dobla (k 0..1.4);
+// o: {skin, manga (color del puño; null = sin puño)}. Para "chocar los cinco", gira y=±PI/2 para que las palmas se miren.
+export function mano(pos, s = 1, parent, o = {}) {
+  const SK = o.skin ?? 0xe0b08c, SK2 = o.skin2 ?? 0xc99872;
+  const g = group(pos, parent); g.scale.setScalar(s);
+  box(.95, 1.0, .32, SK, [0, .5, 0], g);
+  if (o.manga !== null) box(.85, .45, .34, o.manga ?? 0x6f9bd6, [0, -.22, 0], g);
+  g.dedos = [[-.36, .78], [-.12, .95], [.12, .9], [.36, .7]].map(([x, L]) => {
+    const segs = []; let par = group([x, 1.0, 0], g);
+    ball(.135, SK2, [0, 0, 0], par, 0);
+    [L * .42, L * .33, L * .25].forEach((l, k) => { if (k) { par = group([0, segs[k - 1].userData.l, 0], segs[k - 1]); ball(.105, SK, [0, 0, 0], par, 0); }
+      box(.2 - k * .02, l, .24 - k * .02, SK, [0, l / 2, 0], par); par.userData.l = l; segs.push(par); });
+    box(.12, .06, .04, 0xf4dccb, [0, segs[2].userData.l - .06, .12], segs[2]);
+    return segs; });
+  const th = group([-.5, .3, .05], g); th.rotation.z = .75; ball(.13, SK2, [0, 0, 0], th, 0); box(.22, .42, .24, SK, [0, .21, 0], th);
+  const th2 = group([0, .42, 0], th); box(.2, .3, .22, SK, [0, .15, 0], th2); g.pulgar = [th, th2];
+  g.flex = (k, i = -1) => g.dedos.forEach((d, j) => { if (i < 0 || i === j) d.forEach((sg, n) => sg.rotation.x = k * (n ? 1.0 : .7)); });
+  return g;
+}
+// Reloj de pared: g.min y g.hor giran con rotation.z (negativo = sentido horario).
+export function reloj(pos, r = .55, parent) {
+  const g = group(pos, parent); cyl(r, r, .1, 0xf4efe6, [0, 0, 0], g, 24).rotation.x = Math.PI / 2;
+  g.add(new THREE.Mesh(new THREE.TorusGeometry(r, .06, 6, 24), mat(0xd9a93a)));
+  for (let k = 0; k < 12; k++) box(.04, .1, .02, 0x333333, [Math.sin(k * Math.PI / 6) * r * .82, Math.cos(k * Math.PI / 6) * r * .82, .06], g).rotation.z = -k * Math.PI / 6;
+  g.hor = group([0, 0, .08], g); box(.05, r * .5, .02, 0x222222, [0, r * .25, 0], g.hor);
+  g.min = group([0, 0, .09], g); box(.035, r * .78, .02, 0xd94a3a, [0, r * .39, 0], g.min);
+  return g;
+}
+// Átomo low-poly: núcleo de bolitas (protones rojos, neutrones grises), nube de electrones azul brillante
+// y órbitas con electrones. o: {r (radio de órbita), nucleones, orbitas, nube:true, colorP, colorN, colorE}.
+// Animar con g.update(lt, k) (k = 0..1 visibilidad de nube/órbitas). g.nucleo, g.nube, g.electrones, g.orbitas.
+export function atomo(pos, o = {}, parent) {
+  const g = group(pos, parent), R = o.r ?? 1.6, cE = o.colorE ?? 0x58c8ff;
+  g.nucleo = group([0, 0, 0], g); const n = o.nucleones ?? 14, rn = o.rn ?? .17;
+  for (let k = 0; k < n; k++) { const ph = Math.acos(1 - 2 * (k + .5) / n), th = k * 2.399, rr = k ? rn * 1.25 : 0;
+    ball(rn, k % 2 ? (o.colorN ?? 0xb9bec6) : (o.colorP ?? 0xe0453a), [rr * Math.sin(ph) * Math.cos(th), rr * Math.cos(ph), rr * Math.sin(ph) * Math.sin(th)], g.nucleo, 1, { rough: .5 }); }
+  g.nube = [];
+  if (o.nube !== false) for (const [s, op] of [[R * 1.05, .10], [R * .75, .12], [R * .45, .10]]) {
+    const m = new THREE.Mesh(new THREE.IcosahedronGeometry(s, 2), new THREE.MeshBasicMaterial({ color: cE, transparent: true, opacity: op, depthWrite: false }));
+    m.userData.op = op; g.add(m); g.nube.push(m); }
+  g.orbitas = []; g.electrones = [];
+  (o.orbitas ?? [[1.2, 0], [1.2, 1.05], [1.2, -1.05]]).forEach(([ix, iy], k) => {
+    const og = group([0, 0, 0], g); og.rotation.set(ix, iy, 0);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(R, .015, 4, 64), new THREE.MeshBasicMaterial({ color: cE, transparent: true, opacity: .55, depthWrite: false })); og.add(ring);
+    const e = ball(.09, 0xbff0ff, [R, 0, 0], og, 1, { emissive: cE, ei: 1.6 }); e.castShadow = false;
+    og.userData.ph = k * 2.1; g.orbitas.push(og); g.electrones.push(e); });
+  g.update = (lt, k = 1) => {
+    g.nucleo.rotation.y = lt * .6; g.nucleo.position.x = Math.sin(lt * 9) * .01;
+    g.orbitas.forEach((og, j) => { const a = lt * (2.2 + j * .35) + og.userData.ph; g.electrones[j].position.set(Math.cos(a) * R, Math.sin(a) * R, 0);
+      og.children[0].material.opacity = .55 * k; g.electrones[j].visible = k > .05; });
+    g.nube.forEach((m, j) => { m.material.opacity = m.userData.op * k * (1 + .25 * Math.sin(lt * 3 + j)); m.rotation.y = lt * (.3 + j * .1); });
+  };
+  return g;
+}
