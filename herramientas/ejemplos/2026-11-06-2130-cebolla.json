@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-06-2130-cebolla",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué lloras cada vez que picas cebolla?", "Al final te doy dos trucos para no llorar."]},
+    {"tipo": "gas", "titulo": "", "frases": ["Al cortarla, rompes sus células y sueltan un gas invisible que sube a tu cara."]},
+    {"tipo": "ojos", "titulo": "", "frases": ["Cuando llega a tus ojos, los pica, y tu cuerpo hace lágrimas para lavarlos."]},
+    {"tipo": "cuchillo", "titulo": "", "frases": ["Truco uno: cuchillo bien afilado y corta despacio. Uno sin filo la aplasta y salpica más."]},
+    {"tipo": "refri", "titulo": "", "frases": ["Truco dos: métela al refri media hora antes. Fría, suelta menos gas."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien siempre llora haciendo el pico de gallo."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

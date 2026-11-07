@@ -163,5 +163,21 @@
   "mejora": "gato(), colaGato(), patita(), ojosCazador() y etiqueta con fondo (MEJORAS 0j) en engine.js",
   "archivo": "shorts/2026-11-06-1800-gato.mp4",
   "titulo": "¿Por qué tu gato tira TODO de la mesa? 🐱 #shorts"
+ },
+ {
+  "fecha": "2026-11-06",
+  "hora": "21:30",
+  "tema": "¿Por qué lloras al picar cebolla? (al cortarla se rompen sus células y sueltan un gas que sube a los ojos y los irrita; las lágrimas los lavan; truco 1: cuchillo afilado y cortar despacio, uno sin filo aplasta y salpica más (Cornell, 2025); truco 2: cebolla fría del refri, suelta menos gas)",
+  "formato": "¿Por qué…? + 2 trucos",
+  "categoria": "cuerpo humano / cocina",
+  "disparadores": [
+   "eres tú",
+   "truco útil",
+   "lo mexicano (pico de gallo)"
+  ],
+  "duracion": 35.0,
+  "mejora": "setCocina() con refri que abre, comedor()/vaso()/pedazos() en engine.js (MEJORAS 0k)",
+  "archivo": "shorts/2026-11-06-2130-cebolla.mp4",
+  "titulo": "¿Por qué lloras al picar cebolla? 🧅 #shorts"
  }
 ]

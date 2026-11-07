@@ -20,8 +20,10 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-06 18:00 (gato) · **`gato()` en `engine.js`** (pedido de Iván): gato low-poly con orejas de cono, rayas, bigotes, ojos con pupilas que se dilatan, cola de 5 segmentos; `colaGato(g, lt, k, rapidez)`, `gatoAnda()`, `patita(g, k, lado)` (toquecitos con la pata) y `ojosCazador(g, k)`. Además **MEJORAS 0j hecha**: `etiqueta(texto, pos, t, size, color, fondo=true)` dibuja una píldora oscura con borde dorado detrás del texto (para fondos claros). En el short: `comedor()` (mesa, pared con lambrín, cuadro), `vaso()` con agua que cae y salpica (gotas), `raton()`, `varita()` con plumas y `pedazos()` (vajilla rota). Prueba de regresión: fotogramas del pan OK.
 
+- 2026-11-06 21:30 (cebolla) · **MEJORAS 0k hecha en `engine.js`**: `comedor({top, mantel, pared})`, `vaso()` y `pedazos()` ahora son del motor; además **`setCocina({acento, vidrio})`** nuevo: piso de mosaico, pared de azulejo talavera, barra con cubierta (y=.92) y alacenas, estufa con comal, ventana y **refrigerador hueco con puerta que abre** (`refri.puerta.rotation.y` de 0 a -1.9, luz interior, repisas; mete objetos con `parent = refri.g`). En el short: `cebolla()`, `mediaCebolla()` (anillos), `cuchillo(filo)`, `gas()` (partículas por camino curvo), `lagrimas()`/`llorar()` y tazón de pico de gallo. Lección: un gabinete sólido tapa su interior aunque abras la puerta; hazlo de paneles. Prueba de regresión: fotogramas del pan OK.
+
 ## Siguientes (toma la primera de las 3D)
-0k. (3D) Pasar `comedor()`, `vaso()` y `pedazos()` del short del gato a `engine.js` (set de comedor reutilizable).
+0m. (3D) Pasar `lagrimas()/llorar()` y `gas()` del short de la cebolla a `engine.js` (llanto y vapores reutilizables: sirven para cebolla, picante, aliento con frío).
 0l. (3D) Pose 'sentado' para `gato()` y `perro()` (patas traseras dobladas) y salto con arco.
 0i. (3D) Pasar `mano()` (dedos articulados) y `reloj()` del short de los dedos a `engine.js`.
 0g. (3D) Pasar `celular()` (nota de voz animada), `busto()` (cabeza grande con cráneo) y `chorro()` (partículas sobre una curva) del short de la voz a `engine.js`.

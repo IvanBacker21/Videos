@@ -356,3 +356,59 @@ escena('cierre', {
     if (lt > ts) c.ev('ding', ts, .6);
   }
 });
+
+// ---------- MEJORAS 0k (6-nov 21:30, short de la cebolla): sets de cocina y comedor reutilizables ----------
+// Comedor (antes local en el short del gato): duela, pared con lambrín, ventana, cuadro y mesa con cubierta a y=o.top (.8).
+export function comedor(o = {}) {
+  const TOP = o.top ?? .8;
+  for (let k = -8; k < 8; k++) box(.5, .03, 10, k % 2 ? 0x8a6242 : 0x9a7050, [k * .5 + .25, -.015, 0]);
+  box(8, 3.4, .15, o.pared ?? 0xe9dcc6, [0, 1.7, -2.2]); box(8, .9, .17, 0x7f9a8a, [0, .45, -2.18]); box(8, .06, .2, 0xf4efe6, [0, .92, -2.16]);
+  box(1.3, 1.0, .05, o.vidrio ?? 0xbfe3ff, [1.6, 2.0, -2.1], null, { emissive: o.vidrio ?? 0xbfe3ff, ei: .45 }); box(1.4, .07, .1, 0xf4efe6, [1.6, 1.47, -2.08]);
+  box(.8, .6, .04, 0xd9a93a, [-1.5, 2.1, -2.1]); box(.7, .5, .02, 0x3f7fb0, [-1.5, 2.1, -2.08]);
+  const mesa = group([0, 0, 0]); box(1.9, .08, 1.0, 0x8a5a36, [0, TOP - .04, 0], mesa);
+  for (const x of [-.85, .85]) for (const z of [-.42, .42]) box(.08, TOP - .08, .08, 0x6b4428, [x, (TOP - .08) / 2, z], mesa);
+  if (o.mantel !== false) box(.9, .01, .5, o.mantel ?? 0xf3c54d, [-.35, TOP + .005, 0], mesa).castShadow = false;
+  mesa.topY = TOP; return mesa;
+}
+// Vaso de vidrio con agua (origen en la base). .agua para ajustar nivel.
+export function vaso(pos, parent, s = 1) {
+  const g = group(pos, parent); g.scale.setScalar(s);
+  const v = cyl(.075, .06, .22, 0xdff3ff, [0, .11, 0], g, 12, { opacity: .38, rough: .1 }); v.material.depthWrite = false;
+  g.agua = cyl(.066, .056, .14, 0x4fb3ff, [0, .075, 0], g, 12, { opacity: .7, emissive: 0x1a7fe0, ei: .25 });
+  cyl(.06, .06, .012, 0xdff3ff, [0, .006, 0], g, 12, { opacity: .6 });
+  return g;
+}
+// Pedazos de vajilla rota regados en el piso alrededor de centro=[x,z].
+export function pedazos(n, centro, radio, colores = [0xffffff, 0x3f7fb0, 0xf4efe6]) {
+  return Array.from({ length: n }, (_, k) => { const a = k * 2.4, r = radio * (.3 + ((k * 37) % 10) / 14);
+    const b = box(.06 + (k % 3) * .03, .015, .05 + (k % 2) * .04, colores[k % colores.length], [centro[0] + Math.cos(a) * r, .01, centro[1] + Math.sin(a) * r]);
+    b.rotation.y = k; return b; });
+}
+// Cocina mexicana low-poly: piso de mosaico, pared de azulejo, barra con cubierta (y=.92) a lo largo de x en z=-1.6,
+// alacenas arriba, estufa con comal, ventana y refrigerador con puerta que abre (refri.puerta.rotation.y, 0..-1.9).
+// Devuelve { barra, topY, refri:{g, puerta, frio}, estufa, ventana }. o.acento = color de alacenas.
+export function setCocina(o = {}) {
+  const topY = .92, zb = -1.6, ac = o.acento ?? 0x4f8a7a;
+  for (let x = -8; x < 8; x++) for (let z = -5; z < 6; z++) box(.5, .02, .5, (x + z) % 2 ? 0xd8cdb8 : 0xb8a58a, [x * .5 + .25, -.01, z * .5 + .25]);
+  box(9, 3.4, .15, 0xf1e6d2, [0, 1.7, -2.2]);
+  for (let x = -4; x < 4; x += .3) for (let y = 1.0; y < 1.6; y += .3) box(.28, .28, .02, ((x * 10 + y * 10) | 0) % 2 ? 0xf7f4ee : 0x6fa3c9, [x + .15, y + .15, -2.12]);
+  const barra = group([0, 0, 0]);
+  box(5, .86, .6, ac, [0, .43, zb], barra); box(5.05, .06, .66, 0xe9e2d6, [0, topY - .03, zb], barra);
+  for (let x = -2.25; x < 2.4; x += .75) box(.02, .7, .01, 0x2f2a26, [x, .45, zb + .305], barra);
+  box(5, .7, .35, ac, [0, 2.45, -1.98]); for (let x = -2.25; x < 2.4; x += .75) box(.1, .03, .02, 0xd9c08a, [x + .3, 2.2, -1.79]);
+  const estufa = group([-1.6, 0, zb]); box(.8, .02, .55, 0x2b2b2b, [0, topY + .005, 0], estufa);
+  for (const [x, z] of [[-.2, -.12], [.2, -.12], [-.2, .14], [.2, .14]]) cyl(.08, .08, .015, 0x111111, [x, topY + .02, z], estufa, 10);
+  cyl(.2, .2, .02, 0x3a3a3a, [.0, topY + .04, 0], estufa, 14);   // comal
+  const ventana = box(1.2, .9, .05, o.vidrio ?? 0xbfe3ff, [.6, 1.95, -2.1], null, { emissive: o.vidrio ?? 0xbfe3ff, ei: .4 });
+  box(1.3, .07, .1, 0xffffff, [.6, 1.47, -2.06]);
+  // refrigerador
+  const rg = group([2.95, 0, -1.55]);   // gabinete hueco (se ve el interior al abrir la puerta)
+  box(.85, 1.9, .05, 0xe8ecef, [0, .95, -.325], rg, { rough: .35 }); for (const x of [-.4, .4]) box(.05, 1.9, .7, 0xe8ecef, [x, .95, 0], rg, { rough: .35 });
+  box(.85, .08, .7, 0xe8ecef, [0, 1.86, 0], rg, { rough: .35 }); box(.85, .12, .7, 0xe8ecef, [0, .06, 0], rg, { rough: .35 });
+  const luzR = new THREE.PointLight(0xcfefff, 1.2, 1.6, 1.5); luzR.position.set(0, 1.5, .1); rg.add(luzR);
+  const frio = box(.75, 1.72, .02, 0xbfe9ff, [0, .95, -.29], rg, { emissive: 0x9fdcff, ei: .7 }); frio.castShadow = false;
+  for (const y of [.45, .85, 1.25]) box(.72, .02, .55, 0xffffff, [0, y, .05], rg, { opacity: .7 });
+  const puerta = group([-.425, 0, .36], rg); box(.85, 1.9, .06, 0xf4f6f8, [.425, .95, 0], puerta, { rough: .35 });
+  box(.04, .5, .05, 0x9aa3ab, [.78, 1.25, .05], puerta);
+  return { barra, topY, refri: { g: rg, puerta, frio }, estufa, ventana };
+}
