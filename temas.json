@@ -247,5 +247,22 @@
   "mejora": "mosquito()+volar(), setPatio() (AMB.patioNoche), ronchas() y MEJORAS 0r (setAlberca, palmera, arrugas, pasa) en engine.js",
   "archivo": "shorts/2026-11-08-1330-moscos.mp4",
   "titulo": "¿Por qué los moscos te pican SOLO a ti? 🦟 #shorts"
+ },
+ {
+  "fecha": "2026-11-08",
+  "hora": "18:00",
+  "tema": "¿La regla de los cinco segundos funciona? (mito: estudio de la Universidad Rutgers 2016: las bacterias pasan a la comida en menos de un segundo; lo que más importa es la humedad: la sandía recogió más bacterias que ninguna y la gomita casi nada; en la alfombra se pasan menos que en el piso liso)",
+  "formato": "Mito o realidad + 'al final te digo'",
+  "categoria": "comida / mitos / higiene",
+  "disparadores": [
+   "¿ves? te dije (regla de casa desmentida)",
+   "eres tú (el que levanta todo del piso)",
+   "sorpresa (la sandía es la peor)",
+   "etiquetar a un amigo"
+  ],
+  "duracion": 36.5,
+  "mejora": "MEJORAS 0t: mosca(), abeja(), flor() y germenes() en engine.js",
+  "archivo": "shorts/2026-11-08-1800-cinco-segundos.mp4",
+  "titulo": "¿La regla de los 5 segundos sí funciona? 🍪 #shorts"
  }
 ]

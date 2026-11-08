@@ -1,0 +1,63 @@
+{
+ "id": "2026-11-08-1800-cinco-segundos",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Se te cae la comida y gritas: ¡cinco segundos!",
+    "¿Sí funciona? Al final te digo cuál comida es la peor."
+   ]
+  },
+  {
+   "tipo": "prueba",
+   "titulo": "",
+   "frases": [
+    "Científicos de la Universidad Rutgers tiraron comida en pisos con bacterias."
+   ]
+  },
+  {
+   "tipo": "segundo",
+   "titulo": "",
+   "frases": [
+    "Las bacterias se pasan en menos de un segundo. Cinco segundos no te salvan."
+   ]
+  },
+  {
+   "tipo": "humedad",
+   "titulo": "",
+   "frases": [
+    "Lo que más importa es la humedad.",
+    "La sandía se llevó más bacterias que ninguna. La gomita, casi nada."
+   ]
+  },
+  {
+   "tipo": "piso",
+   "titulo": "",
+   "frases": [
+    "Y en la alfombra se pasan menos que en el piso liso."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al amigo que levanta todo del piso y dice: no pasa nada."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

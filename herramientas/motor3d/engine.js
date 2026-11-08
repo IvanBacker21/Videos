@@ -653,3 +653,62 @@ export function ronchas(p, n = 10) {
   const R = sitios.slice(0, n).map(([par, pos]) => { const b = ball(.035, 0xe0504a, pos, par, 0, { emissive: 0x801818, ei: .4 }); b.scale.set(1, 1, .45); b.castShadow = false; return b; });
   return { R, update(k) { R.forEach((b, i) => { const s = Math.max(.01, spring(k * R.length * .5 - i * .5)); b.scale.set(s, s, .45 * s); b.visible = k > .01; }); } };
 }
+
+// ---------- MEJORAS 0t (8-nov 18:00, short de la regla de los cinco segundos): mosca(), abeja(), flor() y germenes() ----------
+// Rig común de insecto "chaparro" (cabeza en +z): tórax, abdomen corto, ojos grandes, 6 patas y 2 alas que aletean con
+// g.update(lt, vuela). Mismo uso que mosquito(): sirve con volar(). Tamaño real ≈ 1 cm: s=.08–.15 junto a personas, s=1 gigante.
+function insectoBase(o, cfg, parent) {
+  const g = group(o.pos ?? [0, 0, 0], parent); g.scale.setScalar(o.s ?? 1);
+  const cuerpo = group([0, 0, 0], g); g.cuerpo = cuerpo; const C = cfg.color;
+  ball(.17, C, [0, 0, .04], cuerpo, 1, { rough: .55 }).scale.set(1, .9, 1.1);
+  const ab = group([0, 0, -.16], cuerpo); g.abdomen = ab;
+  cfg.franjas.forEach((col, k) => { const r = cfg.rAb * (1 - Math.abs(k - (cfg.franjas.length - 1) * .45) * .16);
+    const seg = cyl(r, r, cfg.lAb / cfg.franjas.length, col, [0, 0, -k * cfg.lAb / cfg.franjas.length], ab, 10, { rough: cfg.rough ?? .6 }); seg.rotation.x = Math.PI / 2; });
+  if (cfg.aguijon) { const a = cyl(.004, .03, .1, 0x1a1a1a, [0, 0, -cfg.lAb - .02], ab, 5); a.rotation.x = -Math.PI / 2; }
+  const cab = group([0, .01, .25], cuerpo); g.cabeza = cab; ball(.11, C, [0, 0, 0], cab, 1);
+  g.ojos = [-1, 1].map(sx => { const e = ball(cfg.ojo, cfg.colorOjo, [sx * .085, .03, .03], cab, 1, { emissive: cfg.colorOjo, ei: .25, rough: .25 }); e.scale.set(.8, 1, 1); return e; });
+  if (cfg.antenas) for (const sx of [-1, 1]) { const a = group([sx * .03, .07, .08], cab); a.rotation.set(-.6, 0, sx * .45); cyl(.008, .008, .2, 0x1a1a1a, [0, .1, 0], a, 4); ball(.018, 0x1a1a1a, [0, .2, 0], a, 0); }
+  if (cfg.trompa) { const t = cyl(.025, .04, .1, 0x2a2420, [0, -.1, .06], cab, 6); t.rotation.x = .3; }
+  g.patas = [];
+  for (const sx of [-1, 1]) for (let k = 0; k < 3; k++) { const p = group([sx * .1, -.08, .1 - k * .09], cuerpo); p.rotation.set(-.2 + k * .35, 0, sx * -.8);
+    cyl(.014, .012, .18, 0x1a1a1a, [0, -.09, 0], p, 4); const p2 = group([0, -.18, 0], p); p2.rotation.z = sx * 1.2; cyl(.011, .008, .22, 0x1a1a1a, [0, -.11, 0], p2, 4); g.patas.push(p); }
+  const alaM = new THREE.MeshStandardMaterial({ color: cfg.colorAla, transparent: true, opacity: .5, roughness: .2, side: THREE.DoubleSide, depthWrite: false, emissive: 0x6f8ca8, emissiveIntensity: .25 });
+  g.alas = [-1, 1].map(sx => { const piv = group([sx * .07, .14, .02], cuerpo); const w = new THREE.Mesh(new THREE.CircleGeometry(.2, 10), alaM);
+    w.scale.set(.55, 1.15, 1); w.rotation.x = -Math.PI / 2; w.position.set(sx * .1, 0, -.2); w.castShadow = false; piv.add(w); piv.userData.sx = sx; return piv; });
+  g.update = (lt, vuela = 1) => { g.alas.forEach(a => { const f = Math.sin(lt * 60) * .8 * vuela; a.rotation.z = a.userData.sx * (.2 + f); a.rotation.y = a.userData.sx * (vuela ? .15 : .55); });
+    if (!vuela) g.patas.forEach((p, i) => p.rotation.x = -.2 + (i % 3) * .35 + Math.sin(lt * 9 + i) * .05); };
+  return g;
+}
+// mosca({pos, s, color}): mosca doméstica: gris oscuro, ojos rojos enormes, trompa; posada (update(lt,0)) se frota las patas.
+export function mosca(o = {}, parent) {
+  const g = insectoBase(o, { color: o.color ?? 0x3a3a3e, franjas: [0x4a4a50, 0x2e2e33, 0x4a4a50, 0x2e2e33], rAb: .14, lAb: .3, ojo: .085, colorOjo: 0xa3282a, colorAla: 0xd8e4ee, trompa: true }, parent);
+  const up = g.update; g.update = (lt, vuela = 1) => { up(lt, vuela); if (!vuela) { g.patas[0].rotation.x = -.9 + Math.sin(lt * 14) * .35; g.patas[3].rotation.x = -.9 - Math.sin(lt * 14) * .35; } };
+  return g;
+}
+// abeja({pos, s}): abeja peludita con franjas amarillo/negro, antenas y aguijón.
+export function abeja(o = {}, parent) {
+  return insectoBase(o, { color: o.color ?? 0x3a2a14, franjas: [0xf2b51d, 0x221a10, 0xf2b51d, 0x221a10, 0xf2b51d], rAb: .16, lAb: .38, ojo: .06, colorOjo: 0x1a1a1a, colorAla: 0xeef6ff, antenas: true, aguijon: true, rough: .9 }, parent);
+}
+// flor(pos, {color, h, centro}): flor low-poly (tallo, hoja, 6 pétalos, centro brillante). g.cima = posición del centro para posar insectos.
+export function flor(pos, o = {}, parent) {
+  const h = o.h ?? 1.0, g = group(pos, parent);
+  cyl(.03, .04, h, 0x3f8a3a, [0, h / 2, 0], g, 5); box(.3, .02, .1, 0x4f9a45, [.12, h * .45, 0], g).rotation.z = .5;
+  for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2; const p = ball(.14, o.color ?? 0xff7fb0, [Math.cos(a) * .17, h + .02, Math.sin(a) * .17], g, 0); p.scale.set(1, .35, 1); }
+  ball(.1, o.centro ?? 0xffd34a, [0, h + .06, 0], g, 1, { emissive: 0xffa020, ei: .3 });
+  g.cima = [pos[0], pos[1] + h + .14, pos[2]]; return g;
+}
+// germenes(n, {color, r}): bacterias low-poly (cápsulas verdes brillantes con "pelitos"). Cada una tiene .a (origen) y .b
+// (destino); update(lt, k, salto) las lleva de a→b en cascada (k 0..1) con un brinco en arco y se menean en su lugar.
+// Ideal para higiene, comida en el piso, manos sucias, estornudos. setA/setB(i, [x,y,z]) cambian los puntos.
+export function germenes(n = 30, o = {}, parent) {
+  const col = o.color ?? 0x7dff6a, r = o.r ?? .05;
+  const G = Array.from({ length: n }, (_, i) => { const g = group([0, 0, 0], parent);
+    const c = cyl(r * .8, r * .8, r * 2.2, col, [0, 0, 0], g, 6, { emissive: col, ei: .55, rough: .4 }); c.rotation.z = Math.PI / 2;
+    for (const sx of [-1, 1]) ball(r * .8, col, [sx * r * 1.1, 0, 0], g, 0, { emissive: col, ei: .55 });
+    for (let k = 0; k < 3; k++) { const p = box(r * .15, r * 1.2, r * .15, 0x3f9a3a, [(k - 1) * r * .9, r * .9, 0], g); p.castShadow = false; }
+    g.children.forEach(m => m.castShadow = false); g.a = [0, 0, 0]; g.b = null; g.rotation.y = i * 2.3; g.userData.i = i; return g; });
+  return { G, setA(i, p) { G[i].a = p; }, setB(i, p) { G[i].b = p; },
+    update(lt, k = 0, salto = .35) { G.forEach((g, i) => { const u = g.b ? cl(k * 1.6 - (i / n) * .6) : 0, e = ease(u), A = g.a, B = g.b ?? A;
+      g.position.set(lerp(A[0], B[0], e), lerp(A[1], B[1], e) + Math.sin(e * Math.PI) * salto + Math.abs(Math.sin(lt * 6 + i)) * r * .4, lerp(A[2], B[2], e));
+      g.rotation.y = i * 2.3 + lt * (1 + (i % 3) * .4); g.rotation.z = Math.sin(lt * 5 + i) * .3; g.scale.setScalar(o.s ?? 1); }); } };
+}
