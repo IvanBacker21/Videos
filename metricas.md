@@ -507,3 +507,17 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin %
 | Moscos te pican a ti (repo, 8-nov 13:30) | — | — | — | — | — | renderizado 11:25, **no programado en Metricool** (nada del 6 al 12-nov) |
 
 **Conclusión:** décima revisión sin publicaciones nuevas; ya son 5 shorts listos sin publicar por el límite de la cuenta de Metricool. El de los moscos (13:30) tampoco saldrá si no se sube a mano.
+
+## 2026-11-08 13:40 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en 10 videos. YouTube YTVP06/YTVP08 vacíos; YTEV02/YTEV13 del 8-nov = 0. Suscriptores YT (YTEV01): 29, sin cambio.
+
+| Short | Publicado | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| 10 shorts 3–6 nov | 3/6-nov | 4,763 total | s/d | s/d | s/d | sin cambio en TikTok |
+| Dedos / artritis (YT ZRVG52--b8o) | 6-nov 13:30 | s/d | s/d | s/d | s/d | +48 h; sin datos por video en Metricool; requiere Studio |
+| Gato tira cosas | 6-nov 18:00 | — | — | — | — | sigue en **ERROR: límite de cuenta de Metricool** |
+| Átomos / Pierna / Dedos arrugados (repo, 7-nov) | — | — | — | — | — | renderizados, no publicados |
+| Moscos te pican a ti (repo, 8-nov 13:30) | — | — | — | — | — | **no salió** a las 13:30: no está programado en Metricool |
+
+**Conclusión:** undécima revisión sin publicaciones nuevas; 5 shorts listos sin publicar por el límite de la cuenta de Metricool. Mientras no se libere el límite (o se suban a mano), no hay nada nuevo que medir.
