@@ -480,3 +480,16 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin %
 | Dedos arrugados en el agua (repo) | — | — | — | — | — | no publicado; nada programado en Metricool del 6 al 10-nov |
 
 **Conclusión:** octava revisión sin cambios; el bloqueo sigue siendo el límite de la cuenta de Metricool, no el algoritmo.
+
+## 2026-11-08 09:40 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en 10 videos. YouTube YTVP06/YTVP08 vacíos; YTEV13 del 8-nov = 0. Suscriptores YT (YTEV01): **29 (+6 desde 23)** — el canal sigue ganando suscriptores con los shorts viejos.
+
+| Short | Publicado | Vistas TikTok | Vistas YT | % visto | % feed | Observación |
+|---|---|---|---|---|---|---|
+| 10 shorts 3–6 nov | 3/6-nov | 4,763 total | s/d | s/d | s/d | sin cambio en TikTok |
+| Dedos / artritis (YT ZRVG52--b8o) | 6-nov 13:30 | s/d | s/d | s/d | s/d | +44 h; sin datos por video en Metricool; requiere Studio |
+| Gato tira cosas | 6-nov 18:00 | — | — | — | — | sigue en **ERROR: límite de cuenta de Metricool** |
+| Átomos / Pierna / Dedos arrugados (repo, 7-nov) | — | — | — | — | — | renderizados pero no publicados; nada programado en Metricool del 6 al 11-nov |
+
+**Conclusión:** novena revisión sin publicaciones nuevas; el bloqueo sigue siendo el límite de la cuenta de Metricool. Única novedad: +6 suscriptores en YouTube (29), señal de que los shorts anteriores siguen circulando. Hay 4 shorts listos en el repo sin publicar.
