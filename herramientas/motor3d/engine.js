@@ -548,3 +548,108 @@ export function caminar(p, lt, vel = 1, o = {}) {
   p.rotation.z = cj ? Math.sin(f) * .05 * cj : 0;
   return lt * vel * 1.05;
 }
+
+// ---------- MEJORAS 0r (8-nov 13:30, short de los moscos): alberca, arrugas y pasa pasan al motor ----------
+// setAlberca(): andador de loseta, hueco con azulejo azul, agua translúcida (y=-.12), sombrilla, camastro y palmeras.
+// La alberca ocupa x∈[-2,2], z∈[-4,1] (centro [0, -.12, -1.5]). Devuelve {agua, aguaY}.
+export function setAlberca() {
+  const deck = 0xe9dcc4;
+  box(6, .2, 16, deck, [-5, -.1, -2]); box(6, .2, 16, deck, [5, -.1, -2]);
+  box(4, .2, 5, deck, [0, -.1, 3.5]); box(4, .2, 6, deck, [0, -.1, -7]);
+  for (const x of [-2.1, 2.1]) box(.2, .06, 5.2, 0xffffff, [x, .03, -1.5]);
+  for (const z of [1.1, -4.1]) box(4.4, .06, .2, 0xffffff, [0, .03, z]);
+  box(4, .1, 5, 0x2f9fd0, [0, -1.45, -1.5]);
+  for (const x of [-2, 2]) box(.05, 1.4, 5, 0x5cc0e6, [x, -.75, -1.5]);
+  box(4, 1.4, .05, 0x5cc0e6, [0, -.75, -4]);
+  for (let k = 0; k < 8; k++) box(.5, .02, .04, 0x2a86b8, [0, -1.39, -3.6 + k * .55]).castShadow = false;
+  const agua = box(4, .02, 5, mat(0x3fc4e8, { opacity: .6, rough: .12, emissive: 0x0d6f9a, ei: .35 }), [0, -.12, -1.5]);
+  agua.material.depthWrite = false; agua.castShadow = false;
+  palmera([-4.5, 0, -6], 3.6); palmera([4.3, 0, -7.5], 4.2); palmera([-6.5, 0, -9], 3.2);
+  const somb = group([3.4, 0, -3]); cyl(.03, .03, 2.1, 0xdddddd, [0, 1.05, 0], somb, 6); cyl(.05, 1.1, .4, 0xe85a4f, [0, 2.15, 0], somb, 8);
+  box(.7, .25, 1.6, 0xf4efe6, [-.9, .2, .2], somb); box(.7, .5, .1, 0xf4efe6, [-.9, .45, -.6], somb).rotation.x = .5;
+  box(14, 1.2, .3, 0xf0e2c8, [0, .6, -10]);
+  return { agua, aguaY: -.12 };
+}
+// palmera(pos, altura): tronco segmentado con 6 hojas. Sirve para playa, alberca, jardín.
+export function palmera(pos, h = 3.6, parent) {
+  const g = group(pos, parent); for (let k = 0; k < 6; k++) cyl(.11 - k * .01, .13 - k * .01, h / 6, 0x8a6a45, [Math.sin(k * .3) * .15, h / 12 + k * h / 6, 0], g, 6);
+  for (let k = 0; k < 6; k++) { const hoja = box(1.4, .04, .32, 0x3f8f4a, [0, 0, 0], group([Math.sin(1.5) * .15, h, 0], g)); hoja.parent.rotation.y = k * 1.05; hoja.position.x = .65; hoja.rotation.z = -.35; }
+  return g;
+}
+// arrugas(m): surcos en las yemas de una mano() (cara de la palma, +z). update(k 0..1) los hace crecer y palidece la piel.
+export function arrugas(m) {
+  const R = [], S = []; const dark = mat(0xb9805e);
+  m.dedos.forEach(segs => segs.forEach((sg, k) => { if (k === 0) return; const l = sg.userData.l, zf = (.24 - k * .02) / 2 + .004;
+    const n = k === 2 ? 4 : 3; for (let j = 0; j < n; j++) { const r = box(.17 - k * .02, .016, .016, dark, [0, l * (j + .7) / (n + .4), zf], sg); r.castShadow = false; r.scale.x = .01; R.push(r); }
+    sg.children.forEach(c => { if (c.geometry && c.geometry.type === 'BoxGeometry' && c.material.color) S.push([c, c.material.color.clone()]); }); }));
+  const palida = new THREE.Color(0xeec9b4);
+  return { update(k) { R.forEach((r, i) => { r.scale.x = Math.max(.01, cl(k * 1.3 - (i % 4) * .08)); r.visible = k > .02; });
+    S.forEach(([c, c0]) => c.material.color.copy(c0).lerp(palida, .6 * k)); } };
+}
+// pasa(pos, r): uva pasa arrugada (icosaedro con relieve continuo, sin grietas). Sirve también para "cerebro", "nuez", "piel arrugada".
+export function pasa(pos, r = .25, parent, color = 0x5b2748) {
+  const geo = new THREE.IcosahedronGeometry(r, 2); const p = geo.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const n = Math.sin(v.x * 40) * Math.sin(v.y * 34) * Math.sin(v.z * 46);
+    v.multiplyScalar(1 + .16 * n); v.y *= .85; p.setXYZ(i, v.x, v.y, v.z); }
+  geo.computeVertexNormals(); const m = new THREE.Mesh(geo, mat(color, { rough: .55 })); m.castShadow = true; m.position.set(...pos); (parent ?? world).add(m); return m;
+}
+
+// ---------- 8-nov 13:30: insectos voladores — mosquito() + volar() ----------
+// mosquito({pos, s, macho, color}): mosco low-poly mirando a +z (cabeza en +z). Hembra: pico largo (probóscide);
+// macho: antenas peludas y sin pico. Abdomen con rayas blancas. m.alas (aletean con m.update(lt)), m.pico, m.patas, m.abdomen.
+// Tamaño real ≈ 1 cm: para verlo en un plano usa s=.06–.1 junto a personas, o s=1 para primer plano gigante.
+export function mosquito(o = {}, parent) {
+  const g = group(o.pos ?? [0, 0, 0], parent); g.scale.setScalar(o.s ?? 1);
+  const C = o.color ?? 0x2e2a2a, ray = 0xf2efe6;
+  const cuerpo = group([0, 0, 0], g); g.cuerpo = cuerpo;
+  ball(.16, C, [0, 0, .05], cuerpo, 1, { rough: .6 }).scale.set(1, .95, 1.15);          // tórax
+  const ab = group([0, .02, -.12], cuerpo); ab.rotation.x = -.35; g.abdomen = ab;
+  for (let k = 0; k < 6; k++) { const r = .11 - k * .012; cyl(r, r * .9, .1, k % 2 ? ray : C, [0, 0, -k * .1], ab, 8).rotation.x = Math.PI / 2; }
+  const cab = group([0, .02, .25], cuerpo); g.cabeza = cab; ball(.09, C, [0, 0, 0], cab, 1);
+  for (const sx of [-1, 1]) ball(.055, 0x8a1f24, [sx * .06, .02, .04], cab, 0, { emissive: 0x401010, ei: .5, rough: .3 });
+  if (!o.macho) { g.pico = cyl(.012, .006, .42, 0x1d1a1a, [0, -.08, .24], cab, 5); g.pico.rotation.x = Math.PI / 2 + .45; }
+  for (const sx of [-1, 1]) { const a = group([sx * .03, .05, .06], cab); a.rotation.set(-.7, 0, sx * .5); cyl(.008, .008, .28, C, [0, .14, 0], a, 4);
+    if (o.macho) for (let k = 0; k < 6; k++) { const pl = box(.12, .01, .01, 0x6b625a, [0, .05 + k * .04, 0], a); pl.rotation.y = k; } }
+  g.patas = [];
+  for (const sx of [-1, 1]) for (let k = 0; k < 3; k++) { const p = group([sx * .1, -.08, .12 - k * .1], cuerpo); p.rotation.set(-.2 + k * .35, 0, sx * -.9);
+    const p1 = cyl(.012, .01, .32, C, [0, -.16, 0], p, 4); const p2g = group([0, -.32, 0], p); p2g.rotation.z = sx * 1.4; cyl(.009, .006, .45, C, [0, -.22, 0], p2g, 4); g.patas.push(p); }
+  const alaM = new THREE.MeshStandardMaterial({ color: 0xdfe9f2, transparent: true, opacity: .45, roughness: .2, side: THREE.DoubleSide, depthWrite: false, emissive: 0x6f8ca8, emissiveIntensity: .3 });
+  g.alas = [-1, 1].map(sx => { const piv = group([sx * .08, .13, .02], cuerpo); const w = new THREE.Mesh(new THREE.PlaneGeometry(.17, .62), alaM);
+    w.rotation.x = -Math.PI / 2; w.position.set(sx * .085, 0, -.24); w.castShadow = false; piv.add(w); piv.userData.sx = sx; return piv; });
+  g.update = (lt, vuela = 1) => { g.alas.forEach(a => { const f = Math.sin(lt * 70) * .9 * vuela; a.rotation.z = a.userData.sx * (.25 + f); a.rotation.y = a.userData.sx * (vuela ? .1 : .5); }); };
+  return g;
+}
+// volar(m, lt, centro, radio, o): vuelo errático alrededor de un punto (zigzag + cambios de altura) mirando hacia donde va.
+// o: {vel (1), fase (0), alto (.4 = oscilación vertical)}. Llama también m.update(lt).
+export function volar(m, lt, centro, radio = .6, o = {}) {
+  const v = o.vel ?? 1, f = o.fase ?? 0, t = lt * v + f;
+  const p = (tt) => [centro[0] + Math.cos(tt * 1.3) * radio + Math.sin(tt * 3.7) * radio * .25,
+    centro[1] + Math.sin(tt * 2.1) * (o.alto ?? .4) * radio, centro[2] + Math.sin(tt * 1.3) * radio * .8 + Math.cos(tt * 2.9) * radio * .2];
+  const a = p(t), b = p(t + .02); m.position.set(...a); m.lookAt(b[0], b[1], b[2]); m.update(lt); return a;
+}
+// setPatio({acento}): patio de noche (fiesta, carne asada, posada): pasto, barda de tabique, foquitos de colores colgados en
+// curva entre dos postes, macetas y mesa. Usa AMB.patioNoche. Devuelve {focos, mesa, topY}. Área libre: x∈[-2.5,2.5], z∈[-2,3].
+AMB.patioNoche = { top: 0x121a3a, bottom: 0x40355e, fog: 0x1c2140, near: 7, far: 26, sunColor: 0xb4c2ff, sunInt: 1.5, hemiInt: .95, sunPos: [-5, 9, 6] };
+export function setPatio(o = {}) {
+  box(16, .06, 12, 0x3f6b3a, [0, -.03, 0]);
+  for (let k = 0; k < 40; k++) { const b = box(.04, .12, .04, 0x4f8a45, [((k * 37) % 120) / 10 - 6, .05, ((k * 53) % 80) / 10 - 3]); b.castShadow = false; }
+  for (let y = 0; y < 8; y++) for (let x = -10; x < 10; x++) box(.58, .24, .3, (x + y) % 3 ? 0xa8573a : 0x96492f, [x * .6 + (y % 2) * .3, .13 + y * .26, -3.2]);
+  box(12.4, .1, .4, 0x8a8a84, [0, 2.15, -3.2]);
+  const focos = []; const cols = [0xff5a5a, 0xffd34a, 0x5ad2ff, 0x7dff8a, 0xff8adf];
+  for (const sx of [-1, 1]) cyl(.05, .06, 2.9, 0x5a3e2a, [sx * 3.1, 1.45, -2.4]);
+  for (let k = 0; k <= 16; k++) { const u = k / 16, x = -3.1 + u * 6.2, y = 2.85 - Math.sin(u * Math.PI) * .45;
+    const f = ball(.07, cols[k % 5], [x, y, -2.4], null, 1, { emissive: cols[k % 5], ei: 1.6 }); f.castShadow = false; focos.push(f); }
+  const cable = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(focos.map(f => f.position.clone().add(new THREE.Vector3(0, .07, 0)))), 40, .01, 4), mat(0x222222)); world.add(cable);
+  const luz = new THREE.PointLight(0xffd9a0, 3, 9, 1.4); luz.position.set(0, 2.6, -1.6); world.add(luz);
+  for (const [x, z] of [[-2.6, -2.6], [2.7, -2.7], [-3.6, -1.2]]) { cyl(.22, .16, .4, o.acento ?? 0xc0583f, [x, .2, z], null, 8); ball(.35, 0x2f7a3a, [x, .62, z], null, 0); }
+  const mesa = group([1.9, 0, -1.6]); box(1.2, .06, .7, 0x8a5a36, [0, .76, 0], mesa); for (const [x, z] of [[-.5, -.28], [.5, -.28], [-.5, .28], [.5, .28]]) box(.06, .74, .06, 0x6b4428, [x, .37, z], mesa);
+  vaso([1.65, .79, -1.5], null, .8); vaso([2.1, .79, -1.7], null, .8); cyl(.18, .14, .1, 0xf4efe6, [1.95, .84, -1.45], null, 12);
+  return { focos, mesa, topY: .79, luz };
+}
+// ronchas(p, n): piquetes rojos en brazos y cara de una persona(); update(k 0..1) los hace aparecer en cascada.
+export function ronchas(p, n = 10) {
+  const sitios = [[p.head, [-.12, -.05, .19]], [p.head, [.14, .08, .19]], [p.head, [.2, -.06, .05]], [p.armL, [-.1, -.3, .05]], [p.armL, [.0, -.5, .11]],
+    [p.armR, [.1, -.2, .08]], [p.armR, [.0, -.45, .11]], [p.armL, [-.05, -.62, .1]], [p.armR, [.06, -.65, .1]], [p.head, [-.19, .1, .05]], [p.torso, [.2, .3, .17]], [p.torso, [-.15, .05, .17]]];
+  const R = sitios.slice(0, n).map(([par, pos]) => { const b = ball(.035, 0xe0504a, pos, par, 0, { emissive: 0x801818, ei: .4 }); b.scale.set(1, 1, .45); b.castShadow = false; return b; });
+  return { R, update(k) { R.forEach((b, i) => { const s = Math.max(.01, spring(k * R.length * .5 - i * .5)); b.scale.set(s, s, .45 * s); b.visible = k > .01; }); } };
+}

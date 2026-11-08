@@ -230,5 +230,22 @@
   "mejora": "caminar(p, lt, vel, {cojear}) en engine.js: ciclo de paso con cadera y rodilla desfasadas, brazos en contrafase, rebote (MEJORAS 0p)",
   "archivo": "shorts/2026-11-07-2130-dedos-pasa.mp4",
   "titulo": "¿Por qué se te arrugan los dedos en el agua? 🖐️ #shorts"
+ },
+ {
+  "fecha": "2026-11-08",
+  "hora": "13:30",
+  "tema": "¿Por qué los moscos te pican a ti y a los demás no? (mito: no es la sangre dulce; solo pican las hembras, necesitan sangre para sus huevitos; te encuentran por el aire que exhalas desde lejos; lo que decide es el olor de la piel: algunas personas sueltan más ácidos que les encantan; estudio de la Universidad Rockefeller 2022: los 'imanes de moscos' lo siguieron siendo durante años)",
+  "formato": "¿Por qué…? + mito",
+  "categoria": "animales / cuerpo humano",
+  "disparadores": [
+   "eres tú (al que siempre le pican)",
+   "¿ves? te dije (mito de la sangre dulce)",
+   "lo mexicano (fiesta en el patio)",
+   "etiquetar a alguien"
+  ],
+  "duracion": 35.1,
+  "mejora": "mosquito()+volar(), setPatio() (AMB.patioNoche), ronchas() y MEJORAS 0r (setAlberca, palmera, arrugas, pasa) en engine.js",
+  "archivo": "shorts/2026-11-08-1330-moscos.mp4",
+  "titulo": "¿Por qué los moscos te pican SOLO a ti? 🦟 #shorts"
  }
 ]

@@ -1,0 +1,63 @@
+{
+ "id": "2026-11-08-1330-moscos",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué los moscos te pican a ti y a los demás no?",
+    "Y no, no es que tengas la sangre dulce."
+   ]
+  },
+  {
+   "tipo": "hembras",
+   "titulo": "",
+   "frases": [
+    "Primero: solo pican las hembras. Necesitan sangre para sus huevitos."
+   ]
+  },
+  {
+   "tipo": "aliento",
+   "titulo": "",
+   "frases": [
+    "Te encuentran por el aire que sueltas al respirar: lo huelen desde lejos."
+   ]
+  },
+  {
+   "tipo": "piel",
+   "titulo": "",
+   "frases": [
+    "Pero lo que decide a quién pican es el olor de tu piel.",
+    "Hay personas que sueltan más de unos ácidos que les encantan."
+   ]
+  },
+  {
+   "tipo": "iman",
+   "titulo": "",
+   "frases": [
+    "En un estudio, los imanes de moscos lo siguieron siendo durante años."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien siempre se lo comen los moscos."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
