@@ -213,5 +213,22 @@
   "mejora": "persona() con rodillas y tobillos articulados + sentar(), setBano(), chispas(); gas() y lagrimas()/llorar() pasan al motor (MEJORAS 0m)",
   "archivo": "shorts/2026-11-07-1800-pierna.mp4",
   "titulo": "¿Por qué se te DUERME la pierna? 🦵 #shorts"
+ },
+ {
+  "fecha": "2026-11-07",
+  "hora": "21:30",
+  "tema": "¿Por qué se te arrugan los dedos en la alberca? (mito: no es que la piel se infle de agua como esponja; es una orden de los nervios que aprietan los vasitos de sangre de los dedos, la yema se encoge y se arruga como pasa; las arrugas funcionan como el dibujo de una llanta y sacan el agua; experimento de la Universidad de Newcastle 2013: con dedos arrugados la gente movió canicas mojadas más rápido)",
+  "formato": "¿Por qué…? + mito",
+  "categoria": "cuerpo humano / vida cotidiana",
+  "disparadores": [
+   "eres tú (alberca, regadera)",
+   "¿ves? te dije (mito de la esponja)",
+   "sorpresa (orden de los nervios)",
+   "etiquetar a alguien"
+  ],
+  "duracion": 36.6,
+  "mejora": "caminar(p, lt, vel, {cojear}) en engine.js: ciclo de paso con cadera y rodilla desfasadas, brazos en contrafase, rebote (MEJORAS 0p)",
+  "archivo": "shorts/2026-11-07-2130-dedos-pasa.mp4",
+  "titulo": "¿Por qué se te arrugan los dedos en el agua? 🖐️ #shorts"
  }
 ]

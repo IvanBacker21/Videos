@@ -529,3 +529,22 @@ export function setBano(o = {}) {
   const tapete = box(.8, .02, .55, ac, [0, .01, .55]);
   return { escusado: e, puerta, asiento: [0, .345, -.23], personaY: -.435 };   // persona sentada: pos [0, personaY, -.23] + sentar(p)
 }
+
+// ---------- MEJORAS 0p (7-nov 21:30, short de los dedos de pasa): caminar natural reutilizable ----------
+// caminar(p, lt, vel=1, o): ciclo de paso con cadera y rodilla desfasadas (la rodilla se dobla al llevar la pierna adelante),
+// brazos en contrafase, rebote suave del cuerpo y balanceo de hombros. o: {amp (.45), brazos (1), cojear (0..1: la pierna
+// derecha casi no se dobla y el cuerpo se ladea), y0 (altura base; por defecto la que tenía p al primer llamado)}.
+// Devuelve la distancia recorrida (m) para avanzar: p.position.z = z0 + caminar(...) (la persona mira a +z).
+export function caminar(p, lt, vel = 1, o = {}) {
+  const f = lt * vel * 6.4, a = o.amp ?? .45, cj = o.cojear ?? 0, br = o.brazos ?? 1;
+  if (p.userData.y0 == null) p.userData.y0 = o.y0 ?? p.position.y;
+  [['L', 0], ['R', Math.PI]].forEach(([s, d]) => { const ph = f + d, lim = s === 'R' ? 1 - cj * .7 : 1;
+    p['leg' + s].rotation.x = Math.sin(ph) * a * lim;
+    p['knee' + s].rotation.x = Math.max(0, -Math.cos(ph)) * a * 1.5 * lim + .05;
+    p['pie' + s].rotation.x = -Math.max(0, Math.cos(ph)) * a * .35 * lim;
+    const arm = p['arm' + (s === 'L' ? 'R' : 'L')]; if (arm && br) arm.rotation.x = Math.sin(ph) * a * .9 * br; });
+  p.position.y = (o.y0 ?? p.userData.y0) + Math.abs(Math.cos(f)) * .035 - (cj ? Math.max(0, Math.sin(f + Math.PI)) * .06 * cj : 0);
+  if (p.torso) p.torso.rotation.y = Math.sin(f) * .06;
+  p.rotation.z = cj ? Math.sin(f) * .05 * cj : 0;
+  return lt * vel * 1.05;
+}

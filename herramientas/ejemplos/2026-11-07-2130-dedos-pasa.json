@@ -1,0 +1,14 @@
+{
+ "id": "2026-11-07-2130-dedos-pasa",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué se te arrugan los dedos en la alberca?", "Y al final te digo para qué sirve."]},
+  {"tipo": "mito", "titulo": "", "frases": ["Casi todos creen que la piel se infla de agua, como una esponja. Pero no."]},
+  {"tipo": "nervios", "titulo": "", "frases": ["Es una orden de tus nervios: aprietan los vasitos de sangre de los dedos, la yema se encoge y se arruga como una pasa."]},
+  {"tipo": "llanta", "titulo": "", "frases": ["Esas arrugas funcionan como el dibujo de una llanta: sacan el agua para que no resbales."]},
+  {"tipo": "canicas", "titulo": "", "frases": ["En un experimento, con dedos arrugados la gente movió canicas mojadas más rápido."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien nunca se quiere salir de la alberca."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
