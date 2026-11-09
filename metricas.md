@@ -562,3 +562,30 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin %
 | Panza que ruge (repo, 8-nov 21:30) | — | — | — | — | — | renderizado, **no programado en Metricool**: no saldrá a las 21:30 |
 
 **Conclusión:** decimocuarta revisión sin publicaciones nuevas; ya son 7 shorts listos sin publicar por el límite de la cuenta de Metricool. Nada nuevo que medir hasta que se publique algo.
+
+## 2026-11-08 20:50 (CDMX) — revisión completa con YouTube Studio y TikTok (sesión principal)
+
+Nota: desde el 6-nov la publicación va por **Buffer**, no por Metricool; todos los shorts del 6 al 8-nov SÍ se publicaron (los reportes anteriores decían lo contrario porque solo miraban Metricool). Excepción: el **gato** (6-nov 18:00) falló en Metricool por el límite y nunca salió.
+
+Canal (28 días): 19.1 k vistas, 11 k "interesadas" (58 %), 381 me gusta, +35 suscriptores; 95.7 % de las vistas vienen del feed de Shorts.
+
+| Short | YT vistas | Se quedaron | Media/dur | TikTok |
+|---|---|---|---|---|
+| Dedos/artritis | 2,117 | 64.1 % | 0:24/0:36 | 672 |
+| Pan | 2,103 | 56.7 % | 0:19/0:29 | 594 |
+| Cebolla | 2,031 | 54.4 % | 0:21/0:35 | 202 |
+| Dedos arrugados | 1,818 | 62.2 % | 0:21/0:37 | 238 |
+| Moscos (horas) | 1,601 | s/d | s/d | 202 |
+| Átomos | 1,544 | 45.3 % | 0:21/0:38 | 221 |
+| Caer al dormir | 1,376 | 49.9 % | 0:23/0:35 | 697 |
+| Helado | 1,363 | 59.5 % | 0:21/0:44 | 520 |
+| Perro | 1,310 | 53.4 % | 0:14/0:32 | 970 |
+| Pulpo | 1,221 | 53.6 % | 0:19/0:40 | 555 |
+| Tráfico CDMX | 1,213 | 55.1 % | 0:24/0:45 | 768 |
+| Pierna dormida | 1,175 | 57.2 % | 0:24/0:37 | 316 |
+| Bostezo | 1,168 | 43.2 % | 0:23/0:33 | 176 |
+| Voz grabada | 1,140 | 53.8 % | 0:19/0:31 | 546 |
+| 5 segundos (horas) | 944 | s/d | s/d | 172 |
+| Picante / Nadar | 11 / 8 | atascados en YT | | 184 / 226 |
+
+**Conclusión:** ganan los mitos y experiencias cotidianas (dedos, pan, cebolla, dedos arrugados); pierden lo abstracto (átomos) y los retos (bostezo). La media vista es ~20–24 s en todos: los shorts de más de 30 s pierden %. En TikTok, los publicados por Buffer (172–316) van por debajo de los de Metricool (520–970): vigilar si es por Buffer o por ser más recientes. Reglas guardadas en GUIA.md → "📊 LO QUE FUNCIONA".

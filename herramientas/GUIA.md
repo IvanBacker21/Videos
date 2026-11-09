@@ -134,6 +134,28 @@ Antes del render completo Y antes de publicar ejecuta:
 - Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
 - Escribe los números con letra en la voz.
 
+## 📊 LO QUE FUNCIONA (datos reales al 8-nov-2026, YouTube Studio + TikTok) — OBLIGATORIO
+
+| Short | Vistas YT | Se quedaron viendo | Media / duración | Subs | Vistas TikTok |
+|---|---|---|---|---|---|
+| Tronarte los dedos (mito de mamá) | 2,117 | **64 %** | 0:24 / 0:36 | +5 | 672 |
+| Pan cae al revés | 2,103 | 57 % | 0:19 / **0:29** | +5 | 594 |
+| Cebolla (truco de cocina) | 2,031 | 54 % | 0:21 / 0:35 | +5 | 202 |
+| Dedos arrugados (1 día) | 1,818 | 62 % | 0:21 / 0:37 | +2 | 238 |
+| Átomos (tema abstracto) | 1,544 | **45 %** | 0:21 / 0:38 | +3 | 221 |
+| Perro muerde todo | 1,310 | 53 % | **0:14** / 0:32 | — | **970** |
+| Tráfico CDMX | 1,213 | 55 % | 0:24 / 0:45 | +2 | 768 |
+| Bostezo ("te reto") | 1,168 | **43 %** | 0:23 / 0:33 | +1 | 176 |
+
+Reglas que salen de los datos:
+1. **Tema = algo que TODOS han vivido + un mito o un "¿por qué SIEMPRE…?"** (tronarse los dedos, el pan, la cebolla, dedos arrugados). Mejor aún si hay "tu mamá decía…": genera discusión y compartidos. Cuerpo, comida y casa son lo más fuerte.
+2. **Nada abstracto en el gancho.** Átomos fue el que más gente deslizó (45 %). Si el tema es abstracto, el gancho debe ser algo físico y cotidiano ("tu mano nunca toca nada").
+3. **No uses ganchos de reto** ("te reto a no…"): el bostezo fue el peor en "se quedaron viendo" (43 %).
+4. **Más corto = más % visto.** La gente ve ~20–24 s sin importar la duración. Duración TOTAL ≤ 30 s (contenido 18–23 s + cierre). Los de 35–45 s pierden. Recorta frases, una idea por escena, sin repetir.
+5. **Incluye un truco útil cuando se pueda** (cebolla: 2 trucos) → se guarda y se reenvía.
+6. **En TikTok ganan mascotas y lo mexicano** (perro 970, tráfico CDMX 768). Mete contexto mexicano (Periférico, salsa, el súper, la abuela) siempre que encaje.
+7. Título: pregunta corta con UNA palabra en MAYÚSCULAS (SIEMPRE, TODO, SOLO) + 1 emoji. Funciona.
+
 ## ⭐ ESTILO ACTUAL: ANIMACIÓN 3D LOW-POLY (obligatorio desde el 4-nov tarde; reemplaza a Material y a render3)
 
 Pedido de Iván con un video de referencia: escenas 3D sencillas tipo "low-poly" (objetos y personas hechos de cubos y formas simples, sombreado plano, luz suave con sombras, niebla), cámara cinematográfica que se mueve despacio, subtítulos ARRIBA palabra por palabra (dichas en blanco, próximas en gris, la actual con recuadro azul) y rótulos inferiores en caja oscura con borde dorado (texto dorado grande + subtítulo blanco en mayúsculas). Tono narrativo, tipo documental.
