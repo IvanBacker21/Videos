@@ -1,0 +1,24 @@
+{
+ "id": "2026-11-08-2130-panza",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": [
+    "¿Por qué te ruge la panza justo en pleno silencio?",
+    "Al final te digo cómo callarla."]},
+  {"tipo": "tubo", "titulo": "", "frases": [
+    "No es solo hambre. Tu panza y tus intestinos son un tubo con músculos que aprietan todo el día."]},
+  {"tipo": "burbujas", "titulo": "", "frases": [
+    "Al apretar, empujan aire y líquidos, y las burbujas hacen ese gluglú."]},
+  {"tipo": "vacia", "titulo": "", "frases": [
+    "Con la panza vacía suena más fuerte: no hay comida que apague el ruido, como un tambor hueco."]},
+  {"tipo": "limpieza", "titulo": "", "frases": [
+    "Tras unas dos horas sin comer, llega una ola que barre lo que quedó: ¡el gran rugido!"]},
+  {"tipo": "remate", "titulo": "", "frases": [
+    "El truco: come algo o toma agua.",
+    "Mándaselo al que le ruge la panza en clase."]},
+  {"tipo": "cierre", "titulo": "", "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}

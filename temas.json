@@ -264,5 +264,22 @@
   "mejora": "MEJORAS 0t: mosca(), abeja(), flor() y germenes() en engine.js",
   "archivo": "shorts/2026-11-08-1800-cinco-segundos.mp4",
   "titulo": "¿La regla de los 5 segundos sí funciona? 🍪 #shorts"
+ },
+ {
+  "fecha": "2026-11-08",
+  "hora": "21:30",
+  "tema": "¿Por qué te ruge la panza? (la panza y los intestinos son un tubo con músculos que aprietan todo el día y empujan aire y líquidos: las burbujas hacen gluglú; con la panza vacía suena más porque no hay comida que apague el ruido, como tambor hueco; tras unas dos horas sin comer pasa una ola de limpieza que barre lo que quedó = el gran rugido; truco: comer algo o tomar agua)",
+  "formato": "¿Por qué…? + 'al final te digo' (truco)",
+  "categoria": "cuerpo humano / vida cotidiana",
+  "disparadores": [
+   "eres tú (en pleno silencio en clase)",
+   "truco útil (come algo o toma agua)",
+   "sorpresa (la ola de limpieza)",
+   "etiquetar a un compañero"
+  ],
+  "duracion": 37.3,
+  "mejora": "MEJORAS 0u + 0v: galleta(), sandia(), gomita(), loseta(), alfombra() y disco() pasan a engine.js; nuevo tuboDigestivo() (estómago + intestino translúcidos con ola que aprieta, burbujas y comida)",
+  "archivo": "shorts/2026-11-08-2130-panza.mp4",
+  "titulo": "¿Por qué te RUGE la panza en silencio? 😳 #shorts"
  }
 ]

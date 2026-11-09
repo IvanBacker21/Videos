@@ -712,3 +712,68 @@ export function germenes(n = 30, o = {}, parent) {
       g.position.set(lerp(A[0], B[0], e), lerp(A[1], B[1], e) + Math.sin(e * Math.PI) * salto + Math.abs(Math.sin(lt * 6 + i)) * r * .4, lerp(A[2], B[2], e));
       g.rotation.y = i * 2.3 + lt * (1 + (i % 3) * .4); g.rotation.z = Math.sin(lt * 5 + i) * .3; g.scale.setScalar(o.s ?? 1); }); } };
 }
+
+// ---------- MEJORAS 0u/0v (8-nov 21:30, short de la panza): utilería de comida y reparto con ángulo dorado ----------
+// disco(i, n, cx, cz, rx, rz, y): punto i de n repartido en un disco/elipse sin filas (ángulo dorado). Devuelve [x,y,z].
+export const disco = (i, n, cx = 0, cz = 0, rx = 1, rz, y = 0) => { const a = i * 2.39996, r = Math.sqrt((i + .5) / n); return [cx + Math.cos(a) * r * rx, y, cz + Math.sin(a) * r * (rz ?? rx)]; };
+// galleta(pos, r): galleta con chispas de chocolate (cara arriba).
+export function galleta(pos, r = .1, parent) { const g = group(pos, parent);
+  cyl(r, r * 1.02, r * .28, 0xd9a35a, [0, 0, 0], g, 12, { rough: .8 });
+  for (let k = 0; k < 7; k++) { const a = k * 2.4, d = r * (.25 + (k % 3) * .22); box(r * .18, r * .1, r * .18, 0x4a2a18, [Math.cos(a) * d, r * .15, Math.sin(a) * d], g).rotation.y = k; }
+  return g; }
+// sandia(pos, s): rebanada de sandía (cuña) con semillas y gotitas (g.gotas) — comida "mojada".
+export function sandia(pos, s = 1, parent) { const g = group(pos, parent); g.scale.setScalar(s);
+  const geo = (r, col, o) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, .22, 16, 1, false, -Math.PI / 4, Math.PI / 2), mat(col, o)); m.castShadow = true; m.receiveShadow = true; m.rotation.x = Math.PI / 2; g.add(m); return m; };
+  const rind = geo(.62, 0x2f8a3a); rind.scale.z = .98; const blanco = geo(.56, 0xe9f2c8); blanco.position.z = .001;
+  const pulpa = geo(.5, 0xf0434f, { rough: .25, emissive: 0x801018, ei: .2 }); pulpa.scale.set(1, 1.05, 1.05);
+  for (let k = 0; k < 7; k++) { const a = -Math.PI / 4 + .18 + (k % 4) * .38, d = .2 + (k % 2) * .16; const se = ball(.025, 0x1a1210, [Math.sin(a) * d, Math.cos(a) * d - .1, .13], g, 0); se.scale.set(1, 1.6, .6); }
+  g.gotas = Array.from({ length: 5 }, (_, k) => ball(.03, 0xbfe9ff, [-.2 + k * .1, .22 + (k % 2) * .08, .14], g, 1, { opacity: .7, rough: .05, emissive: 0x6fbfe0, ei: .4 }));
+  g.rotation.x = -Math.PI / 2; g.rotation.z = Math.PI; return g; }
+// gomita(pos, s, color): osito de gomita translúcido.
+export function gomita(pos, s = 1, color = 0x4fc46a, parent) { const g = group(pos, parent); g.scale.setScalar(s);
+  const M = mat(color, { opacity: .85, rough: .25, emissive: color, ei: .25 });
+  ball(.2, M, [0, .2, 0], g, 1).scale.set(1, 1.15, .7); ball(.15, M, [0, .5, 0], g, 1).scale.set(1, 1, .75);
+  for (const sx of [-1, 1]) { ball(.06, M, [sx * .11, .63, 0], g, 0); ball(.07, M, [sx * .2, .3, 0], g, 0); ball(.08, M, [sx * .1, .04, 0], g, 0); }
+  return g; }
+// loseta(pos, w, d, color) y alfombra(pos, w, d, color): muestras de piso (liso / con pelitos).
+export function loseta(pos, w = 1.6, d = 1.6, color = 0xd8d2c4, parent) { const g = group(pos, parent); box(w, .06, d, color, [0, -.03, 0], g, { rough: .25 });
+  box(w + .04, .02, .02, 0x9a958a, [0, 0, d / 2], g); return g; }
+export function alfombra(pos, w = 1.6, d = 1.6, color = 0xb0566a, parent) { const g = group(pos, parent); box(w, .06, d, color, [0, -.03, 0], g, { rough: 1 });
+  for (let x = 0; x < 12; x++) for (let z = 0; z < 12; z++) { const p = box(.05, .06 + ((x * 7 + z * 3) % 4) * .012, .05, (x + z) % 3 ? color : 0x9a4458, [-w / 2 + (x + .5) * w / 12, .03, -d / 2 + (z + .5) * d / 12], g); p.castShadow = false; }
+  return g; }
+
+// tuboDigestivo({pos, s, color, soloPanza, comida, parent}): estómago + intestino low-poly translúcidos hechos de cuentas
+// sobre una curva (esófago → panza → intestino en zigzag). Plano x-y (mirando a +z), ~1 m de ancho y 1.4 m de alto con s=1.
+// update(lt, {ola, apriete, burbujas, ancho}): ola = posición 0..1 de la contracción (peristalsis) que recorre el tubo,
+// apriete = cuánto aprieta (0..1), burbujas 0..1 = cuántas burbujas de aire viajan delante de la ola.
+// g.comida: pedacitos dentro de la panza (o.comida = n); g.puntoEn(t) da la posición local para etiquetas/ondas;
+// g.mundo(t) la posición en coordenadas de mundo. Sirve para digestión, hambre, hipo, cualquier "tubo con cosas dentro".
+export function tuboDigestivo(o = {}) {
+  const g = group(o.pos ?? [0, 0, 0], o.parent); g.scale.setScalar(o.s ?? 1);
+  const P = o.soloPanza
+    ? [[-.12, 1.25], [-.14, 1.0], [-.05, .8], [.18, .74], [.38, .82], [.45, .62], [.3, .45], [.12, .42]]
+    : [[-.12, 1.25], [-.14, 1.0], [-.05, .8], [.18, .74], [.38, .82], [.45, .62], [.3, .45], [.05, .42], [-.32, .36], [-.38, .22],
+       [-.1, .18], [.32, .16], [.38, .02], [.05, -.02], [-.34, -.06], [-.36, -.2], [0, -.24], [.3, -.26]];
+  const curva = new THREE.CatmullRomCurve3(P.map(([x, y], k) => new THREE.Vector3(x, y, Math.sin(k * 1.7) * .04)));
+  const panzaFin = o.soloPanza ? 1 : .36, n = o.soloPanza ? 46 : 130, col = o.color ?? 0xf08a8a;
+  const radio = (t) => { if (t < .08 / panzaFin * .36 && !o.soloPanza) return .045; const u = t / panzaFin;
+    if (u <= 1) { if (u < .12) return .045 + u * .5; return .1 + Math.sin(Math.PI * Math.min(1, (u - .1) / .85)) * .09; } return .055; };
+  const M = mat(col, { opacity: .5, rough: .4, emissive: col, ei: .18 }); M.depthWrite = false;
+  const cuentas = Array.from({ length: n }, (_, k) => { const t = k / (n - 1), b = ball(1, M, curva.getPoint(t).toArray(), g, 1); b.castShadow = false; b.t = t; b.r0 = radio(t); b.scale.setScalar(b.r0); return b; });
+  const bm = mat(0xe8fbff, { opacity: .85, rough: .05, emissive: 0x9fe6ff, ei: .6 });
+  const burb = Array.from({ length: 16 }, (_, k) => { const b = ball(1, bm, [0, 0, 0], g, 1); b.castShadow = false; b.visible = false; b.k = k; return b; });
+  g.comida = Array.from({ length: o.comida ?? 0 }, (_, k) => { const p = curva.getPoint(panzaFin * (.35 + .5 * ((k * .618) % 1))), c = [0xd9a35a, 0x7ab84a, 0xe0c060, 0xc0603a][k % 4];
+    const b = box(.06, .05, .05, c, [p.x + Math.sin(k * 2.3) * .05, p.y + Math.cos(k * 1.7) * .04 - .02, p.z + .03], g); b.rotation.set(k, k * 2, 0); b.castShadow = false; b.base = b.position.clone(); return b; });
+  g.curva = curva; g.puntoEn = (t) => curva.getPoint(cl(t)).toArray();
+  g.mundo = (t) => { g.updateMatrixWorld(true); return curva.getPoint(cl(t)).applyMatrix4(g.matrixWorld).toArray(); };
+  g.update = (lt, u = {}) => { const ola = u.ola ?? -1, ap = u.apriete ?? .45, w = u.ancho ?? .05, nb = u.burbujas ?? 0;
+    cuentas.forEach(b => { const d = b.t - ola, sq = Math.exp(-(d * d) / (w * w * .5)), bulto = Math.exp(-((d + w * 1.6) ** 2) / (w * w * .6));
+      b.scale.setScalar(b.r0 * (1 - ap * sq + .25 * ap * bulto) * (1 + .03 * Math.sin(lt * 3 + b.t * 20))); });
+    burb.forEach(b => { const on = b.k / burb.length < nb; b.visible = on; if (!on) return;
+      const t = ola >= 0 ? cl(ola + .015 + (b.k % 5) * .012 + Math.sin(lt * 4 + b.k) * .004) : ((lt * .12 + b.k / burb.length) % 1);
+      const p = curva.getPoint(t), r = radio(t) * .45; b.position.set(p.x + Math.sin(b.k * 2.1 + lt * 5) * r, p.y + Math.cos(b.k * 1.3 + lt * 6) * r, p.z + .02);
+      b.scale.setScalar(radio(t) * (.25 + (b.k % 3) * .1) * (1 + .15 * Math.sin(lt * 9 + b.k))); });
+    g.comida.forEach((c, k) => { c.position.copy(c.base); c.position.y += Math.sin(lt * 2 + k) * .01; });
+  };
+  g.update(0); return g;
+}
