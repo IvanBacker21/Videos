@@ -589,3 +589,15 @@ Canal (28 días): 19.1 k vistas, 11 k "interesadas" (58 %), 381 me gusta, +35 su
 | Picante / Nadar | 11 / 8 | atascados en YT | | 184 / 226 |
 
 **Conclusión:** ganan los mitos y experiencias cotidianas (dedos, pan, cebolla, dedos arrugados); pierden lo abstracto (átomos) y los retos (bostezo). La media vista es ~20–24 s en todos: los shorts de más de 30 s pierden %. En TikTok, los publicados por Buffer (172–316) van por debajo de los de Metricool (520–970): vigilar si es por Buffer o por ser más recientes. Reglas guardadas en GUIA.md → "📊 LO QUE FUNCIONA".
+
+## 2026-11-08 21:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en los 10 videos de Metricool. YouTube YTVP06/YTVP08 vacíos; YTEV13 8-nov = 0; YTEV01 = 29 (Metricool desfasado frente a Studio). Los shorts publicados por Buffer no aparecen en Metricool.
+
+| Short | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|
+| Panza que ruge (8-nov 21:30, Buffer) | s/d | s/d | s/d | ~11 min publicado; aún no evaluable |
+| Picante / Nadar | 11 / 8 (YT, 20:50) | s/d | s/d | atascados según la revisión de 20:50; sin datos nuevos |
+| Resto | ver tabla 20:50 | | | sin cambios medibles desde Metricool |
+
+**Conclusión:** sin datos nuevos; Metricool no ve los shorts de Buffer ni el feed de YouTube. La próxima revisión con Studio debe confirmar si la panza entra al feed y si picante/nadar siguen atascados.
