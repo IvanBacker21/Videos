@@ -601,3 +601,15 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución: sin %
 | Resto | ver tabla 20:50 | | | sin cambios medibles desde Metricool |
 
 **Conclusión:** sin datos nuevos; Metricool no ve los shorts de Buffer ni el feed de YouTube. La próxima revisión con Studio debe confirmar si la panza entra al feed y si picante/nadar siguen atascados.
+
+## 2026-11-08 23:41 (CDMX)
+
+Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución en la nube: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en los 10 videos de Metricool. YouTube YTVP06/YTVP08 vacíos; YTEV01 = 29, YTEV13 8-nov = 0 (desfasado frente a Studio). Sin posts programados en Metricool 8–10 nov; los shorts de Buffer no aparecen aquí.
+
+| Short | Vistas | % visto | % feed | Observación |
+|---|---|---|---|---|
+| Panza que ruge (8-nov 21:30, Buffer) | s/d | s/d | s/d | ~2 h publicado; no medible desde Metricool |
+| Picante / Nadar | 11 / 8 (YT, 20:50) | s/d | s/d | atascados según revisión 20:50; sin datos nuevos |
+| Resto | ver tabla 20:50 | | | sin cambios medibles |
+
+**Conclusión:** sin datos nuevos; hace falta una revisión con YouTube Studio para saber si la panza entró al feed y si picante/nadar siguen atascados.
