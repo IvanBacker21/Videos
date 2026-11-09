@@ -87,6 +87,8 @@ export const AMB = {
   cuartoDia:   { top: 0x6f8fc2, bottom: 0xf2c58e, fog: 0xc9b39a, near: 7, far: 26, sunColor: 0xffe2b8, sunInt: 2.6, hemiInt: 1.1 },
   calle:       { top: 0x3a4c7a, bottom: 0xf0a868, fog: 0xc98e6a, near: 10, far: 55, sunColor: 0xffd8a8, sunInt: 2.6, hemiInt: 1.0, sunPos: [-8, 10, 6] },
   espacio:     { top: 0x05060f, bottom: 0x1b1440, fog: 0x05060f, near: 30, far: 120, sunColor: 0xfff1dc, sunInt: 2.4, hemiInt: .6 },
+  jardin:      { top: 0x5f8fd0, bottom: 0xf5d39a, fog: 0xcfd9c0, near: 9, far: 40, sunColor: 0xfff0d0, sunInt: 2.7, hemiInt: 1.15, sunPos: [-6, 10, 7] },
+  bosqueNoche: { top: 0x0d1430, bottom: 0x2c3a66, fog: 0x141c3a, near: 6, far: 30, sunColor: 0xb0c4ff, sunInt: 1.7, hemiInt: .8, sunPos: [-6, 9, -4] },
   cielo:       { top: 0x2c3d78, bottom: 0xf3a46f, fog: 0xe9a07a, near: 6, far: 40, sunColor: 0xffe0b5, sunInt: 2.4, hemiInt: 1.2 },
 };
 // Cama low-poly (largo en z). Devuelve el grupo con .colchon, .cobija y .almohada
@@ -198,8 +200,58 @@ export function perro(o = {}, parent) {
   g.ojos = [-.09, .09].map(x => box(.05, .06, .02, 0x111111, [x, .07, .175], g.head));
   g.earL = group([-.17, .14, -.02], g.head); box(.08, .2, .14, osc, [0, -.08, 0], g.earL); g.earL.rotation.z = .5;
   g.earR = group([.17, .14, -.02], g.head); box(.08, .2, .14, osc, [0, -.08, 0], g.earR); g.earR.rotation.z = -.5;
-  if (o.collar !== false) cyl(.15, .15, .06, o.collar ?? 0xe0403a, [0, .66, .36], g, 10).rotation.x = Math.PI / 2 - .5;
+  if (o.lobo) {   // MEJORAS 0l (9-nov 18:00): variante lobo → orejas paradas, hocico largo, cola esponjada, sin collar
+    g.earL.rotation.z = Math.PI - .25; g.earR.rotation.z = Math.PI + .25; box(.18, .1, .12, m, [0, -.05, .38], g.head);
+    g.tail.children[0].scale.set(1.6, 1.6, 1.15); g.tail.rotation.x = -.35;
+  } else if (o.collar !== false) cyl(.15, .15, .06, o.collar ?? 0xe0403a, [0, .66, .36], g, 10).rotation.x = Math.PI / 2 - .5;
   return g;
+}
+// ---------- MEJORAS 0l (9-nov 18:00, short del pasto): perro sentado, comiendo, lobo, pasto que se mueve y jardín ----------
+// perroSentar(p, k): k=0 parado, k=1 sentado (cuerpo inclinado, patas traseras dobladas, patas delanteras rectas, cabeza al frente).
+// Guarda la altura original en p.userData.y0; no mezclar con perroAnda() en el mismo fotograma (si acaso con vel=0 para la cola).
+export function perroSentar(p, k = 1) {
+  if (p.userData.y0 === undefined) p.userData.y0 = p.position.y;
+  const a = .55 * k; p.rotation.x = -a; p.position.y = p.userData.y0 + .06 * k * p.scale.x;
+  p.legs[0].rotation.x = p.legs[1].rotation.x = a; p.legs[2].rotation.x = p.legs[3].rotation.x = -.7 * k;
+  p.head.rotation.x = a * .75; p.tail.rotation.x = lerp(p.tail.rotation.x, .35, k);
+}
+// perroCome(p, lt, k): agacha la cabeza al suelo y mastica (k 0..1). Con hierba=true le pone una brizna verde en el hocico.
+export function perroCome(p, lt, k = 1, hierba = true) {
+  if (!p.brizna) { p.brizna = group([0, -.02, .2], p.jaw); for (const [x, r] of [[-.05, .5], [0, -.2], [.05, .9]]) { const b = box(.018, .2, .012, 0x5fae3f, [x, 0, 0], p.brizna); b.rotation.z = r; } }
+  p.brizna.visible = hierba && k > .5; p.brizna.rotation.x = Math.sin(lt * 11) * .3;
+  p.head.rotation.x = 1.05 * k; p.head.position.y = .78 - .3 * k; p.head.position.z = .42 + .06 * k;
+  p.jaw.rotation.x = k * (.08 + .22 * Math.abs(Math.sin(lt * 9)));
+}
+// pasto({pos, w, d, n, h, color, color2, parent}): parche de briznas (InstancedMesh, barato aunque sean miles) que se mecen con
+// el viento: g.update(lt, viento=1). g.aplastar(x, z, r) dobla las briznas cerca de un punto (por donde pisa/come un animal).
+export function pasto(o = {}) {
+  const g = group(o.pos ?? [0, 0, 0], o.parent), n = o.n ?? 900, w = o.w ?? 4, d = o.d ?? 4, h = o.h ?? .22;
+  const geo = new THREE.ConeGeometry(.022, 1, 3); geo.translate(0, .5, 0);
+  const im = new THREE.InstancedMesh(geo, mat(0xffffff, { rough: .9 }), n); im.castShadow = false; im.receiveShadow = true; g.add(im);
+  const c1 = new THREE.Color(o.color ?? 0x4f9a3c), c2 = new THREE.Color(o.color2 ?? 0x9ccf55), tmp = new THREE.Color();
+  const B = Array.from({ length: n }, (_, i) => { const [x, , z] = disco(i, n, 0, 0, w / 2, d / 2); const r = ((i * 7919) % 1000) / 1000;
+    im.setColorAt(i, tmp.copy(c1).lerp(c2, r)); return { x, z, hh: h * (.6 + .8 * ((i * 4513) % 1000) / 1000), ry: i * 2.4, f: r * 6.28, bend: 0 }; });
+  const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), E3 = new THREE.Euler(), S = new THREE.Vector3(), P = new THREE.Vector3();
+  g.aplastar = (x, z, r = .3, k = 1) => B.forEach(b => { const dd = Math.hypot(b.x - x, b.z - z); b.bend = dd < r ? k * (1 - dd / r) : 0; });
+  g.update = (lt = 0, viento = 1) => { B.forEach((b, i) => { const sw = viento * (.12 * Math.sin(lt * 2.2 + b.x * 1.3 + b.z * .7) + .05 * Math.sin(lt * 5 + b.f));
+      E3.set(sw + b.bend * 1.2, b.ry, sw * .6); Q.setFromEuler(E3); S.set(1, b.hh * (1 - b.bend * .5), 1); P.set(b.x, 0, b.z);
+      M.compose(P, Q, S); im.setMatrixAt(i, M); }); im.instanceMatrix.needsUpdate = true; };
+  g.update(0); if (im.instanceColor) im.instanceColor.needsUpdate = true; return g;
+}
+// arbol(pos, h, color): árbol low-poly (tronco + copa de 3 icosaedros). Para jardines, parques y bosques.
+export function arbol(pos, h = 3, color = 0x3f7f3a, parent) { const g = group(pos, parent); cyl(.12 * h / 3, .18 * h / 3, h * .45, 0x6b4a2e, [0, h * .22, 0], g, 6);
+  [[0, .62, 0, .42], [-.2, .52, .12, .3], [.22, .55, -.1, .32]].forEach(([x, y, z, r]) => ball(r * h / 1.6, color, [x * h / 3, y * h, z * h / 3], g, 0)); return g; }
+// setJardin({noche, cerca, casa, pastoN}): jardín/parque con pasto que se mueve, cerca de madera, árboles y fachada de casa.
+// Devuelve {pasto} (llama pasto.update(lt) en update). Ambientes: AMB.jardin (día) y AMB.bosqueNoche (noche con luna).
+export function setJardin(o = {}) {
+  box(30, .06, 24, o.noche ? 0x24402c : 0x4e8a3e, [0, -.03, -4]);
+  const p = pasto({ pos: [0, 0, 0], w: o.w ?? 7, d: o.d ?? 6, n: o.pastoN ?? 1400, h: o.h ?? .26, color: o.noche ? 0x2f5a35 : 0x4f9a3c, color2: o.noche ? 0x5f8f5a : 0x9ccf55 });
+  if (o.cerca !== false) { for (let x = -6; x <= 6; x += .5) box(.12, 1.1, .06, 0xc9a06a, [x, .55, -3.4]); for (const y of [.35, .85]) box(12.4, .1, .05, 0xb58a56, [0, y, -3.43]); }
+  if (o.casa !== false && !o.noche) { box(7, 3.4, .3, 0xe9d3b0, [1.5, 1.7, -5.5]); box(1.2, 2.1, .1, 0x8a5a33, [0, 1.05, -5.33]);
+    for (const x of [-1.6, 2.2, 3.9]) { box(1.1, 1, .08, 0x9fd0ef, [x, 1.9, -5.33], null, { emissive: 0x6fa0c0, ei: .15 }); box(1.25, .08, .14, 0xffffff, [x, 1.36, -5.3]); } }
+  for (const [x, z, h] of o.arboles ?? [[-4.5, -4.6, 3.6], [5.2, -4.2, 3], [-6.5, -7, 4.2], [7, -8, 4]]) arbol([x, 0, z], h, o.noche ? 0x24502e : 0x3f7f3a);
+  if (o.noche) { const luna = ball(1.1, 0xfff6d8, [-6, 9, -24], null, 1, { emissive: 0xfff2c8, ei: 1.2 }); luna.castShadow = false; }
+  return { pasto: p };
 }
 export function perroAnda(p, lt, vel = 1, cola = 1) {
   p.legs.forEach((L, k) => { L.rotation.x = Math.sin(lt * 10 * vel + (k === 0 || k === 3 ? 0 : Math.PI)) * .45 * Math.min(vel, 1); });

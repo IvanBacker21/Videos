@@ -1,0 +1,61 @@
+{
+  "id": "2026-11-09-1800-pasto",
+  "voz": {
+    "modelo": "em_alex",
+    "lang": "es-419",
+    "speed": 1.0
+  },
+  "escenas": [
+    {
+      "tipo": "gancho",
+      "titulo": "",
+      "frases": [
+        "¿Tu perro come pasto y dicen que es porque le duele la panza?"
+      ]
+    },
+    {
+      "tipo": "mito",
+      "titulo": "",
+      "frases": [
+        "Casi siempre es mito: en un estudio, casi ningún perro estaba enfermo, y la mayoría ni vomitó."
+      ]
+    },
+    {
+      "tipo": "lobos",
+      "titulo": "",
+      "frases": [
+        "Lo heredaron de los lobos, y se cree que así barren parásitos de la tripa."
+      ]
+    },
+    {
+      "tipo": "gusto",
+      "titulo": "",
+      "frases": [
+        "Y a muchos, simplemente, les gusta."
+      ]
+    },
+    {
+      "tipo": "truco",
+      "titulo": "",
+      "frases": [
+        "Truco: que no tenga químicos, y si vomita seguido, al veterinario."
+      ]
+    },
+    {
+      "tipo": "remate",
+      "titulo": "",
+      "frases": [
+        "Mándaselo a quien cree que su perro está enfermo."
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "titulo": "",
+      "frases": [
+        "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+        "Déjalo en los comentarios y síguenos para más datos."
+      ]
+    }
+  ],
+  "resaltar": []
+}
