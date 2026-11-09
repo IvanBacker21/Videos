@@ -281,5 +281,22 @@
   "mejora": "MEJORAS 0u + 0v: galleta(), sandia(), gomita(), loseta(), alfombra() y disco() pasan a engine.js; nuevo tuboDigestivo() (estómago + intestino translúcidos con ola que aprieta, burbujas y comida)",
   "archivo": "shorts/2026-11-08-2130-panza.mp4",
   "titulo": "¿Por qué te RUGE la panza en silencio? 😳 #shorts"
+ },
+ {
+  "fecha": "2026-11-09",
+  "hora": "13:30",
+  "tema": "¿Por qué siempre te da toques al bajarte del coche? (electricidad estática: la ropa se frota con el asiento y el cuerpo se carga; al tocar el metal la carga brinca en una chispa; con aire seco pasa más porque la carga no se escapa; truco: agarrar el metal de la puerta antes de pisar el suelo para descargarse sin sentirlo)",
+  "formato": "¿Por qué SIEMPRE…? + truco",
+  "categoria": "física cotidiana / casa y coche",
+  "disparadores": [
+   "eres tú (al que siempre le dan toques)",
+   "truco útil",
+   "temporada de secas",
+   "etiquetar a alguien"
+  ],
+  "duracion": 28.7,
+  "mejora": "coche() (sedán de paneles con puerta que abre, asientos, llantas) y rayo() (arco eléctrico) en engine.js (MEJORAS 0s)",
+  "archivo": "shorts/2026-11-09-1330-toques.mp4",
+  "titulo": "¿Por qué SIEMPRE te da toques al bajarte del coche? ⚡ #shorts"
  }
 ]

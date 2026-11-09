@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-09-1330-toques",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué siempre te da toques al bajarte del coche?"]},
+    {"tipo": "frota", "titulo": "", "frases": ["Tu ropa se frota con el asiento y te cargas de electricidad."]},
+    {"tipo": "chispa", "titulo": "", "frases": ["Tocas la puerta y la carga brinca de golpe: ¡zas!"]},
+    {"tipo": "seco", "titulo": "", "frases": ["Con el aire seco pasa más, porque la carga no se escapa."]},
+    {"tipo": "truco", "titulo": "", "frases": ["El truco: agarra el metal de la puerta antes de pisar el suelo, y se descarga sin dolor."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien siempre se queja de los toques."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

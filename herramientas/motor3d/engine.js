@@ -777,3 +777,64 @@ export function tuboDigestivo(o = {}) {
   };
   g.update(0); return g;
 }
+
+// ---------- MEJORAS 0s (9-nov 13:30, short de los toques del coche): coche low-poly y rayo eléctrico ----------
+// coche({pos, color, puerta}): sedán low-poly de ~4 m (frente hacia +x, lado del conductor hacia +z) hecho de paneles,
+// así el interior se ve al abrir la puerta. Devuelve el grupo con:
+//   .puerta (grupo con bisagra al frente: rotation.y de 0 a ~1.1 la abre hacia +z), .llantas[] (rotation.z para rodar),
+//   .asiento (posición local del asiento del conductor, cubierta en y=.62), .personaY (pon persona en [asiento.x, personaY, z] + sentar),
+//   .marco (punto local del poste metálico de la puerta, para mano()/rayo()), .faros[] (emissive para encender).
+export function coche(o = {}, parent) {
+  const g = group(o.pos ?? [0, 0, 0], parent), C = o.color ?? 0xc0392b, oscuro = 0x23262d, vidrio = mat(0x9fc8e8, { opacity: .35, rough: .05, metal: .3 });
+  vidrio.depthWrite = false;
+  const P = (w, h, d, c, p, par = g, op) => box(w, h, d, c, p, par, op);
+  // chasis: cofre, cajuela, piso y lado lejano (paneles, no un bloque)
+  P(.95, .55, 1.8, C, [1.55, .62, 0], g, { metal: .35, rough: .35 }); P(.85, .58, 1.8, C, [-1.6, .64, 0], g, { metal: .35, rough: .35 });
+  P(2.3, .08, 1.8, oscuro, [0, .38, 0]); P(2.3, .62, .06, C, [0, .66, -.87], g, { metal: .35, rough: .35 });
+  P(.12, .3, 1.9, 0x9a9da3, [2.05, .45, 0], g, { metal: .7, rough: .3 }); P(.12, .3, 1.9, 0x9a9da3, [-2.05, .45, 0], g, { metal: .7, rough: .3 });   // defensas
+  P(1.1, .62, .06, C, [-.6, .66, .87], g, { metal: .35, rough: .35 });   // puerta trasera (fija)
+  // cabina: techo, postes y vidrios
+  P(2.0, .07, 1.62, C, [-.1, 1.42, 0], g, { metal: .35, rough: .35 });
+  for (const [x, rz] of [[.95, .5], [-1.15, -.45]]) for (const z of [-.8, .8]) { const m = P(.08, .5, .08, C, [x, 1.17, z]); m.rotation.z = rz; }
+  for (const z of [-.8, .8]) P(.08, .48, .08, oscuro, [0, 1.17, z]);
+  const pa = P(.06, .55, 1.55, vidrio, [1.0, 1.17, 0]); pa.rotation.z = .5; pa.castShadow = false;
+  const tr = P(.06, .52, 1.55, vidrio, [-1.2, 1.17, 0]); tr.rotation.z = -.45; tr.castShadow = false;
+  const lw = P(2.0, .44, .03, vidrio, [-.1, 1.17, -.86]); lw.castShadow = false;
+  const rw = P(1.0, .44, .03, vidrio, [-.6, 1.17, .86]); rw.castShadow = false;
+  // interior: asientos, volante y tablero
+  const seat = (x, z) => { P(.5, .14, .55, 0x3a3f4a, [x, .55, z]); const r = P(.12, .62, .55, 0x3a3f4a, [x - .26, .9, z]); r.rotation.z = .12; };
+  seat(.45, .42); seat(.45, -.42); P(.55, .14, 1.5, 0x3a3f4a, [-.75, .55, 0]); P(.12, .6, 1.5, 0x3a3f4a, [-1.05, .88, 0]);
+  P(.3, .3, 1.6, 0x2f333b, [1.05, .9, 0]); const vol = cyl(.17, .17, .04, oscuro, [.85, 1.02, .42], g, 14); vol.rotation.z = Math.PI / 2 - .5;
+  // puerta del conductor con bisagra al frente
+  g.puerta = group([1.05, 0, .88], g);
+  P(1.05, .62, .06, C, [-.53, .66, 0], g.puerta, { metal: .35, rough: .35 });
+  const pv = P(.95, .44, .03, vidrio, [-.5, 1.17, 0], g.puerta); pv.castShadow = false;
+  P(.18, .04, .05, 0xd0d3d8, [-.85, .82, .04], g.puerta, { metal: .8, rough: .2 });   // manija
+  P(.08, .5, .06, C, [-1.0, 1.17, 0], g.puerta, { metal: .35, rough: .35 });
+  // llantas con rin
+  g.llantas = [[1.35, .9], [1.35, -.9], [-1.3, .9], [-1.3, -.9]].map(([x, z]) => { const w = group([x, .36, z], g);
+    const t = cyl(.36, .36, .26, 0x1d1f24, [0, 0, 0], w, 14); t.rotation.x = Math.PI / 2;
+    const r = cyl(.2, .2, .28, 0xbfc3c8, [0, 0, 0], w, 7, { metal: .8, rough: .25 }); r.rotation.x = Math.PI / 2; return w; });
+  g.faros = [-.6, .6].map(z => P(.05, .14, .32, 0xfff2c0, [2.03, .78, z], g, { emissive: 0xfff2c0, ei: o.faros ?? .3 }));
+  [-.6, .6].forEach(z => P(.05, .12, .3, 0xff4040, [-2.03, .8, z], g, { emissive: 0xff2020, ei: .4 }));
+  g.asiento = [.45, .62, .42]; g.personaY = .62 - .78; g.marco = [0, 1.0, .92];
+  return g;
+}
+// rayo(a, b, {color, n, grosor}): arco eléctrico en zigzag de a → b (toques, chispas, cables, tormenta).
+// update(lt, k 0..1 intensidad); a/b se pueden cambiar con setAB(a, b). Incluye destello en ambos extremos.
+export function rayo(a, b, o = {}, parent) {
+  const n = o.n ?? 9, col = o.color ?? 0xbfe8ff, g = group([0, 0, 0], parent);
+  const M = new THREE.MeshBasicMaterial({ color: col, transparent: true, depthWrite: false }); const MC = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, depthWrite: false });
+  const segs = Array.from({ length: n * 2 }, (_, k) => { const m = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), k < n ? M : MC); g.add(m); return m; });
+  const glow = [0, 1].map(() => { const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshBasicMaterial({ color: col, transparent: true, depthWrite: false, opacity: .5 })); g.add(m); return m; });
+  let A = new THREE.Vector3(...a), B = new THREE.Vector3(...b);
+  g.setAB = (a2, b2) => { A = new THREE.Vector3(...a2); B = new THREE.Vector3(...b2); };
+  g.update = (lt, k = 1) => { g.visible = k > .01; if (!g.visible) return;
+    const L = A.distanceTo(B), seed = Math.floor(lt * 24), amp = (o.amp ?? .18) * L, gr = (o.grosor ?? .025) * (.6 + k);
+    const pts = [A.clone()]; for (let i = 1; i < n; i++) { const p = A.clone().lerp(B, i / n), r = (s) => Math.sin(seed * 12.9898 + i * 78.233 + s) * 43758.5453 % 1;
+      p.x += r(1) * amp; p.y += r(2) * amp; p.z += r(3) * amp * .5; pts.push(p); } pts.push(B.clone());
+    for (let i = 0; i < n; i++) { const p0 = pts[i], p1 = pts[i + 1], mid = p0.clone().add(p1).multiplyScalar(.5), d = p0.distanceTo(p1);
+      [segs[i], segs[i + n]].forEach((m, j) => { m.position.copy(mid); m.lookAt(p1); m.scale.set(gr * (j ? .4 : 1.6), gr * (j ? .4 : 1.6), d); }); }
+    M.opacity = .55 * k; MC.opacity = k; glow[0].position.copy(A); glow[1].position.copy(B); glow.forEach(m => { m.scale.setScalar(.04 + .08 * k * (1 + .3 * Math.sin(lt * 50))); m.material.opacity = .45 * k; }); };
+  g.update(0, 0); return g;
+}
