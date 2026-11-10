@@ -221,7 +221,10 @@ export function perro(o = {}, parent) {
   ball(.045, 0x1b1410, [0, .03, .36], g.head, 0, { rough: .3 });                              // nariz
   g.jaw = group([0, -.1, .15], g.head); box(.2, .06, .2, m, [0, -.03, .1], g.jaw);            // mandíbula
   g.lengua = box(.1, .02, .1, 0xe86a7a, [0, .01, .13], g.jaw);
-  g.ojos = [-.09, .09].map(x => box(.05, .06, .02, 0x111111, [x, .07, .175], g.head));
+  if (MZ && o.ojosGrandes !== false) {   // MEJORAS 0l2 (10-nov 18:00): ojos grandes con reflejo + cejas gruesas (estilo mezcla)
+    g.ojos = [-.09, .09].map(x => ojo(g.head, [x, .075, .16], 1.35, o.mira ?? [0, .2]));
+    g.cejas = [-.09, .09].map(x => box(.11, .03, .03, osc, [x, .15, .17], g.head));
+  } else g.ojos = [-.09, .09].map(x => box(.05, .06, .02, 0x111111, [x, .07, .175], g.head));
   g.earL = group([-.17, .14, -.02], g.head); box(.08, .2, .14, osc, [0, -.08, 0], g.earL); g.earL.rotation.z = .5;
   g.earR = group([.17, .14, -.02], g.head); box(.08, .2, .14, osc, [0, -.08, 0], g.earR); g.earR.rotation.z = -.5;
   if (o.lobo) {   // MEJORAS 0l (9-nov 18:00): variante lobo → orejas paradas, hocico largo, cola esponjada, sin collar
@@ -963,4 +966,27 @@ export function respirar(p, lt, o = {}) {
   g.cuerdas.forEach(c => { c.position.x = c.s * .02 * (1 - cierra * .9); });
   p.head.position.y = 1.92 + .05 * h; p.torso.position.y = 1.28 + .015 * h;
   return h;
+}
+
+// ---------- MEJORAS 0l2 (10-nov 18:00, short del perro que te sigue al baño): perro expresivo y brinco ----------
+// perro() en estilo mezcla ya trae ojos grandes con reflejo (ojo()) y cejas gruesas (p.cejas); {ojosGrandes:false} = ojos de caja.
+// perroGesto(p, tipo, lt): 'feliz' (orejas arriba, cola a mil, lengua), 'triste' (orejas caídas, cejas de perrito regañado,
+// cola quieta y cabeza baja), 'atento' (orejas paradas, cabeza ladeada, mirada fija), 'neutral'. Llamar en cada fotograma.
+export function perroGesto(p, tipo = 'neutral', lt = 0) {
+  const G = { neutral: [.5, 0, 0, .6], feliz: [.35, -.15, 0, 1], triste: [1.2, .5, .25, 0], atento: [.2, -.05, -.05, .3] }[tipo] ?? [.5, 0, 0, .6];
+  p.earL.rotation.z = G[0]; p.earR.rotation.z = -G[0];
+  if (p.cejas) { p.cejas[0].rotation.z = -G[1]; p.cejas[1].rotation.z = G[1]; p.cejas.forEach(c => c.position.y = tipo === 'atento' ? .17 : .15); }
+  p.head.rotation.x = G[2]; p.head.rotation.z = tipo === 'atento' ? Math.sin(lt * 1.6) * .22 : 0;
+  p.tail.rotation.y = Math.sin(lt * (tipo === 'feliz' ? 26 : 8)) * .7 * G[3];
+  if (p.lengua) p.lengua.scale.z = tipo === 'feliz' ? 1.8 : 1, p.jaw.rotation.x = tipo === 'feliz' ? .22 : 0;
+  if (p.ojos?.[0]?.pupila) p.ojos.forEach(e => e.pupila.scale.setScalar(tipo === 'triste' ? 1.25 : 1));
+}
+// perroSalta(p, lt, {periodo=.8, alto=.35, avanza=0}): brinco con arco (despega, se estira en el aire y cae con las patas
+// recogidas). Guarda la altura base en p.userData.y0. Devuelve la altura del brinco 0..1 (úsala para sonidos o temblor).
+export function perroSalta(p, lt, o = {}) {
+  if (p.userData.y0 === undefined) p.userData.y0 = p.position.y;
+  const per = o.periodo ?? .8, ph = ((lt % per) + per) % per / per, hop = Math.sin(ph * Math.PI);
+  p.position.y = p.userData.y0 + hop * (o.alto ?? .35) * p.scale.x; p.rotation.x = -.3 * Math.cos(ph * Math.PI);
+  p.legs.forEach((L, k) => L.rotation.x = (k < 2 ? -.7 : .7) * hop);
+  p.tail.rotation.y = Math.sin(lt * 26) * .8; return hop;
 }

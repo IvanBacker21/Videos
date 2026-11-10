@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-10-1800-perro-bano",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué tu perro te sigue hasta al baño?"]},
+  {"tipo": "manada", "titulo": "", "frases": ["Viene de los lobos, que viven en manada.", "Para él, tú eres su manada."]},
+  {"tipo": "premio", "titulo": "", "frases": ["Y aprendió que donde vas tú, hay croquetas, caricias y paseos."]},
+  {"tipo": "truco", "titulo": "", "frases": ["Truco: si llora cuando no te ve, prémialo cuando se quede tranquilo."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien ya no puede ir solo al baño por su perro."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
