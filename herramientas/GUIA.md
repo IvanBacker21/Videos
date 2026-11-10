@@ -134,6 +134,17 @@ Antes del render completo Y antes de publicar ejecuta:
 - Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
 - Escribe los números con letra en la voz.
 
+## 🎨 ESTILO VISUAL "MEZCLA" (aprobado por Iván el 9-nov-2026) — OBLIGATORIO
+
+Mezcla de low-poly pulido + plastilina: formas con esquinas redondeadas pero con carácter, **entre rudas y tiernas**, en alta definición.
+- El motor ya lo aplica solo: `box()` hace cajas redondeadas, `ball()`/`cyl()` salen lisos, materiales suaves con un poco de brillo, bloom (resplandor) y render al doble de resolución. Para facetas a propósito usa `{ facetas: true }`; para una caja de esquinas rectas `{ recto: true }`.
+- **Ojos grandes con reflejo en todo lo que tenga cara**: usa `ojo(parent, pos, escala, mira)`. `persona()` ya los trae. Animales y objetos con personalidad también llevan ojos (ver atomoH en el ejemplo de las estrellas).
+- **Toque rudo:** cejas gruesas e inclinadas, quijada o pecho fuertes, patas gruesas. **Toque tierno:** cabeza grande, ojos grandes, colores cálidos.
+- **Luz que se vea:** cosas que brillan con `emissive` (el bloom las hace resplandecer), `rayoLuz()` desde ventanas o el sol, y `polvo()` + `polvoMueve()` para motas de luz en el aire.
+- Encuadre: el personaje principal ocupa entre 1/3 y 1/2 de la altura; nunca cortado por los lados ni tapado por subtítulos o rótulos.
+- Referencias: herramientas/ejemplos/2026-11-10-1330-estrellas.* (primer short en este estilo) y la prueba herramientas/motor3d/estilos.html?s=mezcla.
+- El render tarda ~2.5 s por cuadro (≈35–40 min un short de 30 s). Empieza el render completo en cuanto aprueben los fotogramas de revisión. Si no alcanza el tiempo, usa `PR=1.5` (variable de entorno) para render más rápido.
+
 ## 📊 LO QUE FUNCIONA (datos reales al 8-nov-2026, YouTube Studio + TikTok) — OBLIGATORIO
 
 | Short | Vistas YT | Se quedaron viendo | Media / duración | Subs | Vistas TikTok |

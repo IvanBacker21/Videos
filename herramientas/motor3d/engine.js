@@ -1,7 +1,17 @@
 // Motor 3D low-poly de Dato Cósmico 2 (Three.js). Estilo: escenas 3D sencillas, sombreado plano, luz suave,
 // cámara cinematográfica, subtítulos arriba palabra por palabra y rótulos en caja oscura con borde dorado.
 import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 export { THREE };
+// ESTILO "MEZCLA" (aprobado por Iván el 9-nov-2026): formas redondeadas con carácter (entre rudas y tiernas), materiales
+// suaves con un poco de brillo, ojos grandes con reflejo, bloom suave y render al doble de resolución. ?estilo=lowpoly vuelve al viejo.
+export const ESTILO = new URLSearchParams(location.search).get('estilo') || 'mezcla';
+const MZ = ESTILO === 'mezcla';
+export const PR = MZ ? +(new URLSearchParams(location.search).get('pr') || 2) : 1;   // pixel ratio (definición)
 
 export const W = 1080, H = 1920, FPS = 30;
 export let renderer, scene, camera, world, data, offs = [], total = 0;
@@ -21,16 +31,28 @@ export function lerpV(a, b, p) { return new THREE.Vector3(lerp(a[0], b[0], p), l
 
 // ---------- materiales y primitivas low-poly ----------
 export function mat(color, o = {}) {
+  if (MZ && !o.plano) return new THREE.MeshPhysicalMaterial({ color, roughness: Math.min(o.rough ?? .5, .75), metalness: o.metal ?? 0, sheen: .45, sheenRoughness: .6, sheenColor: 0xfff4e6,
+    clearcoat: o.cc ?? .15, clearcoatRoughness: .35, emissive: o.emissive ?? 0x000000, emissiveIntensity: o.ei ?? 1, transparent: o.opacity != null, opacity: o.opacity ?? 1 });
   return new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: o.rough ?? 0.85, metalness: o.metal ?? 0.0,
     emissive: o.emissive ?? 0x000000, emissiveIntensity: o.ei ?? 1, transparent: o.opacity != null, opacity: o.opacity ?? 1 });
 }
 function finish(m, pos, parent) { m.castShadow = true; m.receiveShadow = true; if (pos) m.position.set(...pos); (parent ?? world).add(m); return m; }
-export const box = (w, h, d, color, pos, parent, o) => finish(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), color.isMaterial ? color : mat(color, o)), pos, parent);
-export const cyl = (rt, rb, h, color, pos, parent, seg = 10, o) => finish(new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), color.isMaterial ? color : mat(color, o)), pos, parent);
-export const ball = (r, color, pos, parent, detail = 1, o) => finish(new THREE.Mesh(new THREE.IcosahedronGeometry(r, detail), color.isMaterial ? color : mat(color, o)), pos, parent);
+const boxGeo = (w, h, d, o = {}) => { if (!MZ || o.recto) return new THREE.BoxGeometry(w, h, d);
+  const m = Math.min(w, h, d), r = Math.min(m * (o.r ?? .3), .14); return r < .004 ? new THREE.BoxGeometry(w, h, d) : new RoundedBoxGeometry(w, h, d, 4, r); };
+export const box = (w, h, d, color, pos, parent, o) => finish(new THREE.Mesh(boxGeo(w, h, d, o), color.isMaterial ? color : mat(color, o)), pos, parent);
+export const cyl = (rt, rb, h, color, pos, parent, seg = 10, o) => finish(new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, MZ && !(o && o.facetas) ? Math.max(seg, 24) : seg), color.isMaterial ? color : mat(color, o)), pos, parent);
+export const ball = (r, color, pos, parent, detail = 1, o) => finish(new THREE.Mesh(MZ && !(o && o.facetas) ? new THREE.SphereGeometry(r, 36, 24) : new THREE.IcosahedronGeometry(r, detail), color.isMaterial ? color : mat(color, o)), pos, parent);
 export const plane = (w, h, color, pos, parent, o) => { const m = finish(new THREE.Mesh(new THREE.PlaneGeometry(w, h), color.isMaterial ? color : mat(color, o)), pos, parent); m.rotation.x = -Math.PI / 2; m.castShadow = false; return m; };
 export const group = (pos, parent) => { const g = new THREE.Group(); if (pos) g.position.set(...pos); (parent ?? world).add(g); return g; };
 
+// Ojo grande con reflejo (estilo mezcla). mira=[x,y] desplaza la pupila (-1..1). Devuelve el grupo (.pupila).
+export function ojo(parent, pos, s = 1, mira = [0, 0]) {
+  const e = group(pos, parent);
+  ball(.05 * s, 0xffffff, [0, 0, 0], e, 2, { rough: .25, cc: .6 });
+  e.pupila = ball(.036 * s, 0x15100c, [mira[0] * .02 * s, mira[1] * .02 * s, .022 * s], e, 2, { rough: .2, cc: 1 });
+  ball(.011 * s, 0xffffff, [.012 * s, .016 * s, .054 * s], e, 1, { emissive: 0xffffff, ei: 1 });
+  return e;
+}
 // Personaje low-poly sencillo (estilo maniquí): cabeza cúbica, torso, brazos y piernas.
 export function persona(o = {}, parent) {
   const g = group(o.pos ?? [0, 0, 0], parent);
@@ -46,9 +68,10 @@ export function persona(o = {}, parent) {
   g.armL = group([-.4, 1.6, 0], g); box(.18, .7, .2, shirt, [0, -.33, 0], g.armL); box(.14, .14, .14, skin, [0, -.74, 0], g.armL);
   g.armR = group([.4, 1.6, 0], g); box(.18, .7, .2, shirt, [0, -.33, 0], g.armR); box(.14, .14, .14, skin, [0, -.74, 0], g.armR);
   g.head = group([0, 1.92, 0], g); box(.38, .44, .38, skin, [0, 0, 0], g.head); box(.4, .14, .4, o.hair ?? 0x3a2a20, [0, .22, 0], g.head);
-  box(.05, .05, .02, 0x111111, [-.09, .03, .2], g.head); box(.05, .05, .02, 0x111111, [.09, .03, .2], g.head);
+  if (MZ) { g.ojoL = ojo(g.head, [-.09, .03, .19], 1.05, o.mira ?? [0, 0]); g.ojoR = ojo(g.head, [.09, .03, .19], 1.05, o.mira ?? [0, 0]); }
+  else { box(.05, .05, .02, 0x111111, [-.09, .03, .2], g.head); box(.05, .05, .02, 0x111111, [.09, .03, .2], g.head); }
   if (o.cara !== false) {   // MEJORAS 0e: cara con cejas y boca para dar emoción (ver gesto(), pose(), hablar())
-    g.cejaL = box(.09, .022, .02, o.hair ?? 0x3a2a20, [-.09, .1, .2], g.head); g.cejaR = box(.09, .022, .02, o.hair ?? 0x3a2a20, [.09, .1, .2], g.head);
+    g.cejaL = box(.1, MZ ? .032 : .022, .03, o.hair ?? 0x3a2a20, [-.09, MZ ? .11 : .1, .2], g.head); g.cejaR = box(.1, MZ ? .032 : .022, .03, o.hair ?? 0x3a2a20, [.09, MZ ? .11 : .1, .2], g.head);
     g.boca = box(.12, .03, .02, 0x7a2e2e, [0, -.11, .2], g.head);
   }
   if (o.pelo === 'largo') { box(.42, .5, .12, o.hair ?? 0x3a2a20, [0, -.04, -.17], g.head); box(.06, .4, .3, o.hair ?? 0x3a2a20, [-.21, -.02, -.03], g.head); box(.06, .4, .3, o.hair ?? 0x3a2a20, [.21, -.02, -.03], g.head); }
@@ -318,16 +341,18 @@ export function ondas(pos, o = {}, parent) {
 // ---------- escena / luces ----------
 export async function init(wrap, d) {
   data = d; renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-  renderer.setPixelRatio(1); renderer.setSize(W, H); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setPixelRatio(PR); renderer.setSize(W, H); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; renderer.outputColorSpace = THREE.SRGBColorSpace;
   wrap.insertBefore(renderer.domElement, wrap.firstChild);
   scene = new THREE.Scene(); world = new THREE.Group(); scene.add(world);
   camera = new THREE.PerspectiveCamera(38, W / H, 0.05, 400);
   ambiente({});
+  if (MZ) { composer = new EffectComposer(renderer); composer.addPass(new RenderPass(scene, camera));
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), .35, .5, .85)); composer.addPass(new OutputPass()); }
   let acc = 0; offs = d.timings.map(t => { const o = acc; acc += t.dur; return o; }); total = acc;
   ovRoot = document.getElementById('ov'); capEl = document.getElementById('cap'); barEl = document.getElementById('bar');
 }
-let hemi, sun;
+let hemi, sun, composer;
 // Ambiente: cielo/fondo degradado, niebla y luces. Llamar desde setup de cada escena para cambiar el "mood".
 export function ambiente({ top = 0x2b3550, bottom = 0xc98b5e, fog = 0x2b3550, near = 12, far = 60, sunColor = 0xfff1dc, sunInt = 2.4, sunPos = [6, 12, 8], hemiInt = 1.1 }) {
   const c = document.createElement('canvas'); c.width = 4; c.height = 256; const g = c.getContext('2d');
@@ -335,12 +360,23 @@ export function ambiente({ top = 0x2b3550, bottom = 0xc98b5e, fog = 0x2b3550, ne
   g.fillStyle = gr; g.fillRect(0, 0, 4, 256); const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; scene.background = tex;
   scene.fog = new THREE.Fog(fog, near, far);
   if (!hemi) { hemi = new THREE.HemisphereLight(0xdfe8ff, 0x3a3028, hemiInt); scene.add(hemi); }
-  if (!sun) { sun = new THREE.DirectionalLight(sunColor, sunInt); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
+  if (!sun) { sun = new THREE.DirectionalLight(sunColor, sunInt); sun.castShadow = true; sun.shadow.mapSize.set(MZ ? 2048 : 1024, MZ ? 2048 : 1024);
     Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: .5, far: 60 }); sun.shadow.bias = -0.0005; sun.shadow.radius = 4; scene.add(sun); scene.add(sun.target); }
   hemi.intensity = hemiInt; sun.color.set(sunColor); sun.intensity = sunInt; sun.position.set(...sunPos);
 }
 export function sunFollow(x, y, z) { sun.target.position.set(x, y, z); sun.position.set(x + 6, y + 12, z + 8); }
 export function cam(pos, look, fov) { camera.position.set(...pos); camera.lookAt(...look); if (fov) { camera.fov = fov; camera.updateProjectionMatrix(); } }
+
+// Polvo / motas de luz flotando (da profundidad). centro, tamaño de caja [x,y,z], n, color. Llamar en setup; animar con polvoMueve(p, lt).
+export function polvo(centro = [0, 1.5, 0], caja = [5, 3, 4], n = 200, color = 0xfff6d8, parent) {
+  const a = new Float32Array(n * 3); for (let i = 0; i < n; i++) { a[i * 3] = (Math.random() - .5) * caja[0]; a[i * 3 + 1] = (Math.random() - .5) * caja[1]; a[i * 3 + 2] = (Math.random() - .5) * caja[2]; }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(a, 3));
+  const p = new THREE.Points(g, new THREE.PointsMaterial({ color, size: .022, transparent: true, opacity: .85, depthWrite: false })); p.position.set(...centro); (parent ?? world).add(p); return p;
+}
+export function polvoMueve(p, lt) { p.rotation.y = lt * .04; p.position.y += Math.sin(lt * .7) * .0008; }
+// Rayo de luz suave (cono transparente), p. ej. desde una ventana.
+export function rayoLuz(pos, rot = [.55, 0, .45], o = {}, parent) { const m = new THREE.Mesh(new THREE.CylinderGeometry(o.r1 ?? .45, o.r2 ?? 1.3, o.largo ?? 3.2, 24, 1, true),
+  new THREE.MeshBasicMaterial({ color: o.color ?? 0xfff1c9, transparent: true, opacity: o.op ?? .08, side: THREE.DoubleSide, depthWrite: false })); m.position.set(...pos); m.rotation.set(...rot); (parent ?? world).add(m); return m; }
 
 // ---------- registro de escenas ----------
 // E.escena('tipo', { setup(ctx) {...}, update(lt, ctx) {...} })  — ctx: {dur, w(palabra), f(n), ev(nombre,t,g)}
@@ -389,7 +425,7 @@ export function frame(gt) {
   used = 0; def.update(lt, ctx);
   for (let k = used; k < pool.length; k++) pool[k].style.display = 'none';
   captions(i, lt); barEl.style.width = (W * gt / total) + 'px';
-  renderer.render(scene, camera);
+  if (composer) composer.render(); else renderer.render(scene, camera);
   return true;
 }
 

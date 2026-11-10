@@ -23,7 +23,7 @@ const srv = http.createServer((req, res) => {
   p.on('console', m => { if (m.type() === 'error') console.error('[page]', m.text()); });
   p.on('pageerror', e => console.error('[page error]', e.message));
   const shortUrl = '/' + path.relative(ROOT, path.resolve(shortJs)).split(path.sep).join('/');
-  await p.goto(`http://localhost:${port}/motor3d/page.html?data=/__data.json&short=${shortUrl}`);
+  await p.goto(`http://localhost:${port}/motor3d/page.html?data=/__data.json&short=${shortUrl}&estilo=${process.env.ESTILO || ""}&pr=${process.env.PR || ""}`);
   await p.waitForFunction(() => window.__ready !== undefined); await p.evaluate(() => window.__ready);
   await p.evaluate(() => document.fonts.ready);
   const wrap = await p.$('#wrap');

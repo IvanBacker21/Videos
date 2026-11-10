@@ -1,0 +1,55 @@
+{
+ "id": "2026-11-10-1330-estrellas",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Nos preguntaron en los comentarios:",
+    "¿cómo brillan las estrellas?"
+   ]
+  },
+  {
+   "tipo": "sol",
+   "titulo": "",
+   "frases": [
+    "El Sol que te calienta la cara es una estrella: una bola gigante de gas."
+   ]
+  },
+  {
+   "tipo": "fusion",
+   "titulo": "",
+   "frases": [
+    "En su centro, los átomos chocan tan fuerte que se pegan… y sueltan luz."
+   ]
+  },
+  {
+   "tipo": "viaje",
+   "titulo": "",
+   "frases": [
+    "Esa luz tarda miles de años en salir del Sol… y solo ocho minutos en llegar a ti."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien siempre llega tarde: la luz del Sol también, pero ella sí tiene excusa."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

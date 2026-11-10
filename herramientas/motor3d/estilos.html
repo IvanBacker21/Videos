@@ -1,0 +1,208 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden}#bg{position:absolute;inset:0}canvas{position:absolute;inset:0}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body><div id="bg"></div>
+<script type="module">
+// Prueba de estilos visuales: la misma escena (cachorro mordiendo un tenis) en 5 estilos.  ?s=pulido|plastilina|caricatura|diorama|cosmo
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { OutlineEffect } from 'three/addons/effects/OutlineEffect.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+const S0 = new URLSearchParams(location.search).get('s') || 'pulido';
+const MZ = S0.startsWith('mezcla'), ANCHO = S0 === 'mezcla2';
+const S = MZ ? 'mezcla' : S0;
+const W = 1080, H = 1920;
+const R = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+R.setPixelRatio(MZ ? 2 : 1); R.setSize(W, H); R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = S === 'caricatura' ? 1.0 : 1.05;
+document.body.appendChild(R.domElement);
+const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(40, W / H, .05, 100);
+
+// ---------- materiales por estilo ----------
+const grad = (() => { const d = new Uint8Array([110, 200, 255]); const t = new THREE.DataTexture(d, 3, 1, THREE.RedFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const suave = S === 'plastilina' || S === 'diorama' || S === 'cosmo' || S === 'mezcla';
+function M(color, o = {}) {
+  if (S === 'mezcla') return new THREE.MeshPhysicalMaterial({ color, roughness: o.rough ?? .48, sheen: .5, sheenRoughness: .6, sheenColor: 0xfff4e6, clearcoat: o.cc ?? .18, clearcoatRoughness: .35, emissive: o.em ?? 0, emissiveIntensity: o.ei ?? 0 });
+  if (S === 'caricatura') return new THREE.MeshToonMaterial({ color, gradientMap: grad, emissive: o.em ?? 0, emissiveIntensity: o.ei ?? 0 });
+  if (suave) return new THREE.MeshPhysicalMaterial({ color, roughness: o.rough ?? .62, sheen: .6, sheenRoughness: .8, sheenColor: 0xffffff, clearcoat: o.cc ?? .08, clearcoatRoughness: .5, emissive: o.em ?? 0, emissiveIntensity: o.ei ?? 0, transparent: o.op != null, opacity: o.op ?? 1 });
+  return new THREE.MeshStandardMaterial({ color, roughness: o.rough ?? .55, metalness: 0, flatShading: !!o.flat, emissive: o.em ?? 0, emissiveIntensity: o.ei ?? 0 });
+}
+const rr = S === 'caricatura' ? .25 : S === 'pulido' ? .18 : S === 'mezcla' ? .3 : .45;   // redondez de las cajas (fracción del lado menor)
+function box(w, h, d, c, p, par = sc, o = {}) {
+  const r = Math.min(w, h, d) * (o.r ?? rr);
+  const m = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, suave ? 6 : 3, r), M(c, o)); m.position.set(...p); m.castShadow = m.receiveShadow = true; par.add(m); return m;
+}
+function ball(r, c, p, par = sc, o = {}) {
+  const g = (S === 'pulido' && !o.lisa) ? new THREE.IcosahedronGeometry(r, 1) : new THREE.SphereGeometry(r, 40, 28);
+  const m = new THREE.Mesh(g, M(c, { flat: S === 'pulido' && !o.lisa, ...o })); m.position.set(...p); m.castShadow = true; m.receiveShadow = true; par.add(m); return m;
+}
+function caps(r, l, c, p, par = sc, o = {}) { const m = new THREE.Mesh(new THREE.CapsuleGeometry(r, l, 8, 24), M(c, o)); m.position.set(...p); m.castShadow = m.receiveShadow = true; par.add(m); return m; }
+const G = (p = [0, 0, 0], par = sc) => { const g = new THREE.Group(); g.position.set(...p); par.add(g); return g; };
+
+// ---------- ojos expresivos (todos menos 'actual') ----------
+function ojo(par, x, y, z, s = 1, mira = [0, 0]) {
+  const e = G([x, y, z], par);
+  ball(.052 * s, 0xffffff, [0, 0, 0], e, { lisa: true, rough: .25, cc: .6 });
+  ball((S === 'mezcla' ? .038 : .032) * s, 0x15100c, [mira[0] * .02 * s, mira[1] * .02 * s, (S === 'mezcla' ? .022 : .03) * s], e, { lisa: true, rough: .2, cc: 1 });
+  ball(.011 * s, 0xffffff, [.012 * s, .016 * s, .058 * s], e, { lisa: true, em: 0xffffff, ei: 1 });
+  return e;
+}
+
+// ---------- cachorro (cabezón en estilos suaves) ----------
+function perroMezcla() {
+  const c = 0xcf8f52, m = 0xf6e3c6, osc = 0x6b3f22, g = G([0, 0, 0]);
+  box(.46, .4, .74, c, [0, .4, -.05], g, { r: .38 });                                       // torso robusto
+  box(.32, .2, .5, m, [0, .3, .0], g, { r: .45 });                                          // panza
+  box(.5, .14, .2, c, [0, .58, .22], g, { r: .45 });                                        // hombros/pecho fuerte
+  for (const [x, z] of [[-.15, .17], [.15, .17], [-.15, -.27], [.15, -.27]]) { box(.15, .3, .15, c, [x, .16, z], g, { r: .4 }); box(.17, .08, .2, m, [x, .04, z + .025], g, { r: .45 }); }
+  const cola = G([0, .55, -.4], g); box(.08, .08, .26, c, [0, .05, -.11], cola, { r: .45 }); cola.rotation.x = -.9;
+  const h = G([0, .74, .26], g); h.rotation.set(.32, -.15, .1);
+  box(.5, .44, .44, c, [0, 0, 0], h, { r: .32 });                                           // cabeza cuadrada redondeada (cabezón)
+  box(.3, .17, .22, m, [0, -.09, .26], h, { r: .4 });                                       // hocico
+  box(.11, .08, .08, 0x1b1410, [0, -.02, .38], h, { r: .45, rough: .2, cc: 1 });            // nariz
+  const mand = G([0, -.2, .17], h); mand.rotation.x = .42;
+  box(.28, .09, .22, m, [0, -.03, .08], mand, { r: .4 }); box(.14, .02, .12, 0xf06a7e, [0, .015, .1], mand, { r: .4 });
+  for (const sx of [-1, 1]) box(.03, .045, .03, 0xffffff, [sx * .08, .035, .17], mand, { r: .3 });   // colmillitos
+  ojo(h, -.12, .07, .23, 1.45, [.3, .2]); ojo(h, .12, .07, .23, 1.45, [.3, .2]);
+  for (const sx of [-1, 1]) { const ce = box(.12, .035, .04, osc, [sx * .12, .17, .23], h, { r: .4 }); ce.rotation.z = sx * -.28; }   // cejas marcadas (carácter)
+  for (const sx of [-1, 1]) { const o = G([sx * .25, .16, -.04], h); o.rotation.z = sx * .75; box(.09, .26, .17, osc, [0, -.13, 0], o, { r: .45 }); }
+  const col = new THREE.Mesh(new THREE.TorusGeometry(.2, .035, 12, 32), M(0xe0403a)); col.position.set(0, .62, .27); col.rotation.x = Math.PI / 2 - .55; col.castShadow = true; g.add(col);   // collar
+  ball(.04, 0xffcf4d, [0, .5, .42], g, { lisa: true, em: 0xffb020, ei: .3, rough: .2, cc: 1 });
+  g.head = h; g.mand = mand; return g;
+}
+function personaMezcla(p, ropa = 0x2f8f83) {
+  const g = G(p), piel = 0xe0a878;
+  for (const sx of [-1, 1]) { box(.15, .5, .17, 0x2a3550, [sx * .1, .3, 0], g, { r: .4 }); box(.17, .09, .25, 0xf4f4f4, [sx * .1, .05, .03], g, { r: .45 }); }
+  box(.46, .5, .28, ropa, [0, .8, 0], g, { r: .35 });
+  for (const sx of [-1, 1]) { const b = G([sx * .29, 1.0, 0], g); box(.12, .44, .14, ropa, [0, -.2, 0], b, { r: .45 }); box(.12, .12, .12, piel, [0, -.45, 0], b, { r: .45 }); b.rotation.z = sx * .15; }
+  const h = G([0, 1.33, 0], g); box(.42, .42, .38, piel, [0, 0, 0], h, { r: .34 });
+  box(.46, .16, .42, 0x2a1a12, [0, .2, -.02], h, { r: .45 }); box(.46, .26, .1, 0x2a1a12, [0, .06, -.18], h, { r: .45 });   // pelo
+  ojo(h, -.09, .02, .19, 1.0, [.6, -.4]); ojo(h, .09, .02, .19, 1.0, [.6, -.4]);
+  for (const sx of [-1, 1]) box(.09, .025, .03, 0x2a1a12, [sx * .09, .1, .19], h, { r: .4 }).rotation.z = sx * .15;
+  box(.12, .04, .03, 0xa0503a, [0, -.1, .19], h, { r: .45 });                               // sonrisa
+  h.rotation.set(.25, -.5, 0); return g;
+}
+function perro() {
+  if (S === 'mezcla') return perroMezcla();
+  const big = suave || S === 'caricatura';
+  const c = 0xd49a5e, m = 0xf6e6cc, osc = 0x7a4a2a;
+  const g = G([0, 0, 0]);
+  if (big) {
+    caps(.2, .34, c, [0, .36, -.05], g).rotation.x = Math.PI / 2;                              // cuerpo
+    caps(.12, .14, m, [0, .3, .02], g).rotation.x = Math.PI / 2;
+    for (const [x, z] of [[-.12, .14], [.12, .14], [-.12, -.24], [.12, -.24]]) { caps(.07, .14, c, [x, .14, z], g); ball(.075, m, [x, .04, z + .02], g, { lisa: true }); }
+    const cola = caps(.04, .16, c, [0, .5, -.38], g); cola.rotation.x = -.8;
+    const h = G([0, .66, .22], g); h.rotation.set(.38, -.15, .12);                           // cabeza grande, mordiendo
+    ball(.3, c, [0, 0, 0], h, { lisa: true }); h.children[0].scale.set(1, .9, .92);
+    ball(.15, m, [0, -.09, .22], h, { lisa: true }).scale.set(1.15, .8, 1);                  // hocico
+    ball(.05, 0x1b1410, [0, -.02, .36], h, { lisa: true, rough: .2, cc: 1 });                // nariz brillante
+    const mand = G([0, -.17, .16], h); mand.rotation.x = .45; ball(.11, m, [0, -.02, .06], mand, { lisa: true }).scale.set(1.1, .55, 1); ball(.06, 0xf27a8a, [0, .0, .12], mand, { lisa: true }).scale.set(1, .4, 1);
+    ojo(h, -.12, .07, .22, 1.35, [.3, .2]); ojo(h, .12, .07, .22, 1.35, [.3, .2]);
+    for (const s of [-1, 1]) { const o = G([s * .25, .1, -.02], h); o.rotation.z = s * .9; caps(.07, .2, osc, [0, -.14, 0], o).scale.set(1, 1, .5); }
+    box(.1, .03, .1, 0xffffff, [-.06, .22, .08], h, { r: .4 }).visible = false;
+    caps(.16, .02, 0xe0403a, [0, .5, .1], g).rotation.x = 1.1;                              // collar
+    g.head = h; g.mand = mand;
+  } else {                                                                                   // 'pulido': low-poly con bordes y cara
+    box(.42, .36, .8, c, [0, .5, 0], g); box(.3, .1, .6, m, [0, .33, .04], g);
+    for (const [x, z] of [[-.13, .26], [.13, .26], [-.13, -.28], [.13, -.28]]) { box(.12, .4, .12, c, [x, .2, z], g); box(.13, .06, .16, m, [x, .03, z + .02], g); }
+    const t = G([0, .62, -.4], g); box(.07, .07, .34, c, [0, .08, -.15], t); t.rotation.x = -.7;
+    const h = G([0, .78, .42], g); h.rotation.set(.3, -.15, .1);
+    box(.36, .32, .34, c, [0, 0, 0], h); box(.22, .12, .2, m, [0, -.04, .25], h);
+    ball(.045, 0x1b1410, [0, .03, .36], h, { lisa: true, rough: .2 });
+    const mand = G([0, -.1, .15], h); mand.rotation.x = .45; box(.2, .06, .2, m, [0, -.03, .1], mand); box(.1, .02, .1, 0xe86a7a, [0, .01, .13], mand);
+    ojo(h, -.09, .08, .175, .9, [.3, .2]); ojo(h, .09, .08, .175, .9, [.3, .2]);
+    for (const s of [-1, 1]) { const e = G([s * .17, .14, -.02], h); box(.08, .2, .14, osc, [0, -.08, 0], e); e.rotation.z = s * .6; }
+    g.head = h; g.mand = mand; g.scale.setScalar(.85);
+  }
+  return g;
+}
+// ---------- tenis mordido ----------
+function tenis(par, p) {
+  const g = G(p, par); const col = 0x3f7fd6;
+  box(.17, .055, .38, 0xf4f4f4, [0, .028, 0], g, { r: .45 });
+  box(.16, .12, .27, col, [0, .11, -.04], g); box(.15, .08, .13, col, [0, .085, .12], g);
+  box(.13, .025, .11, 0xffffff, [0, .175, .02], g); box(.03, .03, .3, 0xffffff, [.083, .085, -.02], g, { r: .3 });
+  return g;
+}
+
+// ---------- escena: rincón de un cuarto ----------
+const diorama = S === 'diorama';
+const bgcss = { pulido: 'linear-gradient(#8fb4e8,#f3d2b3)', mezcla: 'linear-gradient(#8fb4e8,#f3d2b3)', plastilina: 'linear-gradient(#ffd9c2,#ffeedd)', caricatura: '#9fd8ff', diorama: 'radial-gradient(circle at 50% 45%,#3a2f5c,#120f22)', cosmo: 'linear-gradient(#ffd9c2,#ffeedd)' }[S];
+document.getElementById('bg').style.background = bgcss;
+const piso = diorama ? 0xc9a27a : S === 'caricatura' ? 0xf0c08a : 0xd9b38c;
+const pared = S === 'caricatura' ? 0xfff1d6 : S === 'pulido' ? 0xe8dcc8 : 0xf7e3cf;
+let base = sc;
+if (diorama) {                                                                              // maqueta circular sobre una base
+  base = G([0, 0, 0]);
+  const cyl = new THREE.Mesh(new THREE.CylinderGeometry(1.55, 1.55, .22, 64), M(0x5b3d2a)); cyl.position.y = -.12; cyl.receiveShadow = true; base.add(cyl);
+  const top = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, .03, 64), M(piso)); top.position.y = -.0; top.receiveShadow = true; base.add(top);
+  box(2.8, 1.7, .12, pared, [0, .85, -1.05], base);
+  box(1.7, .02, 1.2, 0x2f8f83, [0, .02, .25], base, { r: .3 });
+  box(.8, .9, .05, 0xffffff, [-.6, 1.15, -.97], base, { em: 0xfff1c9, ei: .9 }); box(.88, .06, .1, 0xffffff, [-.6, .67, -.95], base);
+  const mac = G([1.0, 0, -.6], base); box(.3, .28, .3, 0xd9704a, [0, .14, 0], mac); for (let k = 0; k < 5; k++) ball(.15, 0x4caf6a, [Math.cos(k * 1.3) * .11, .42 + (k % 2) * .11, Math.sin(k * 1.3) * .11], mac);
+  ball(.11, 0xff5c7a, [.8, .11, .7], base, { lisa: true }); const lamp = G([-1.05, 0, -.55], base); caps(.02, .7, 0x333333, [0, .4, 0], lamp); ball(.13, 0xffe0a0, [0, .85, 0], lamp, { lisa: true, em: 0xffc870, ei: 1.5 });
+} else {
+  const f = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), M(piso)); f.rotation.x = -Math.PI / 2; f.receiveShadow = true; sc.add(f);
+  if (S === 'pulido' || S === 'mezcla') for (let i = -6; i < 6; i++) box(.5, .02, 12, i % 2 ? 0xc79f78 : 0xd9b38c, [i * .5 + .25, -.005, 0], sc, { r: .2 });
+  box(12, 4, .2, pared, [0, 2, -1.6], sc, { r: .05 });
+  box(2.0, .025, 1.4, S === 'caricatura' ? 0x4cc3a6 : 0x2f8f83, [0, .015, .25], sc, { r: .3 });   // tapete
+  // ventana con luz
+  box(1.0, 1.2, .06, 0xffffff, [-1.0, 2.1, -1.48], sc, { em: 0xfff1c9, ei: (S === 'pulido' || S === 'mezcla') ? 1.4 : .8 });
+  box(1.1, .07, .1, 0xffffff, [-1.0, 1.47, -1.45], sc);
+  // planta y pelota de fondo
+  const mac = G([1.15, 0, -1.1]); box(.32, .3, .32, 0xd9704a, [0, .15, 0], mac); for (let k = 0; k < 5; k++) ball(.16, 0x4caf6a, [Math.cos(k * 1.3) * .12, .45 + (k % 2) * .12, Math.sin(k * 1.3) * .12], mac);
+  ball(.12, 0xff5c7a, [.85, .12, .55]);
+}
+const d = perro(); base.add(d); d.position.set(0, 0, .25); d.rotation.y = -.35;
+const tn = tenis(d.head, S === 'mezcla' ? [0, -.27, .36] : suave || S === 'caricatura' ? [0, -.2, .34] : [0, -.17, .3]);
+if (ANCHO) { const pe = personaMezcla([-.95, 0, .05]); pe.rotation.y = .6; } tn.rotation.set(0, Math.PI / 2 + .2, -.25);
+for (let k = 0; k < 5; k++) box(.06, .025, .05, 0xffffff, [-.45 + k * .22, .02, .85 + (k % 2) * .2], base, { r: .3 }).rotation.y = k;   // pedacitos
+
+// ---------- Cosmo, la mascota ----------
+if (S === 'cosmo') {
+  const c = G([.62, 0, .75]); c.rotation.y = -.6; c.scale.setScalar(.92);
+  caps(.16, .16, 0xf4f6fb, [0, .3, 0], c);                                                 // traje
+  for (const s of [-1, 1]) { caps(.06, .1, 0xf4f6fb, [s * .08, .07, 0], c); ball(.065, 0x5a6aa8, [s * .08, .01, .02], c, { lisa: true }).scale.y = .6; }
+  const brI = G([-.17, .42, 0], c); caps(.05, .14, 0xf4f6fb, [0, -.1, 0], brI); brI.rotation.z = .5;
+  const brD = G([.17, .42, 0], c); caps(.05, .14, 0xf4f6fb, [0, -.1, 0], brD); brD.rotation.set(-1.2, 0, -1.9);   // señalando al perro
+  box(.14, .1, .05, 0xffc94d, [0, .32, .16], c, { r: .4, em: 0xffb020, ei: .3 });         // panel del pecho
+  const h = G([0, .68, 0], c);
+  ball(.24, 0xf4f6fb, [0, 0, 0], h, { lisa: true });                                       // casco
+  const vis = ball(.19, 0x1a1f4a, [0, -.01, .09], h, { lisa: true, rough: .08, cc: 1 }); vis.scale.set(1.05, .82, .7);
+  ojo(h, -.065, .0, .2, .95, [-.6, -.3]); ojo(h, .065, .0, .2, .95, [-.6, -.3]);           // ojos dentro del visor
+  ball(.03, 0xff8fb0, [0, -.08, .21], h, { lisa: true, em: 0xff7aa0, ei: .3 }).scale.set(1.4, .7, .5);   // boquita de "¡oh!"
+  caps(.012, .14, 0xcfd5e6, [0, .3, 0], h);
+  const est = new THREE.Mesh(new THREE.OctahedronGeometry(.06, 0), M(0xffd24d, { em: 0xffc020, ei: 1.2 })); est.position.set(0, .41, 0); h.add(est);
+  h.rotation.set(-.05, .25, .12);
+}
+
+// ---------- luces ----------
+sc.add(new THREE.HemisphereLight(S === 'caricatura' ? 0xffffff : 0xfff2e2, S === 'diorama' ? 0x2a2140 : 0x8a7a6a, S === 'caricatura' ? 1.4 : 1.1));
+const sol = new THREE.DirectionalLight(0xfff0dc, S === 'caricatura' ? 2.2 : 2.6); sol.position.set(-2.5, 4.5, 3); sol.castShadow = true;
+sol.shadow.mapSize.set(MZ ? 4096 : 2048, MZ ? 4096 : 2048); sol.shadow.radius = suave ? 8 : 3; sol.shadow.bias = -.0005;
+Object.assign(sol.shadow.camera, { left: -3, right: 3, top: 3, bottom: -3 }); sc.add(sol);
+const rim = new THREE.DirectionalLight(S === 'diorama' ? 0x9fb4ff : 0xffd2b0, suave ? 1.2 : .9); rim.position.set(2.5, 2, -2.5); sc.add(rim);
+if (S === 'pulido' || S === 'mezcla') {                                                                       // rayo de luz de la ventana + polvo
+  const cono = new THREE.Mesh(new THREE.CylinderGeometry(.45, 1.3, 3.2, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0xfff1c9, transparent: true, opacity: .09, side: THREE.DoubleSide, depthWrite: false }));
+  cono.position.set(-.5, 1.3, -.4); cono.rotation.set(.55, 0, .45); sc.add(cono);
+  const pts = new Float32Array(240 * 3); for (let i = 0; i < 240; i++) { pts[i * 3] = -1.6 + Math.random() * 2.4; pts[i * 3 + 1] = .2 + Math.random() * 2.4; pts[i * 3 + 2] = -1.2 + Math.random() * 2; }
+  const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+  sc.add(new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xfff6d8, size: .025, transparent: true, opacity: .8 })));
+}
+if (diorama) { const spot = new THREE.SpotLight(0xffe6c0, 30, 9, .55, .6); spot.position.set(0, 4.2, 1.8); spot.target.position.set(0, 0, .2); spot.castShadow = true; sc.add(spot, spot.target); }
+
+// ---------- cámara y render ----------
+if (diorama) cam.position.set(1.6, 2.6, 4.6), cam.lookAt(0, .45, .1), cam.fov = 38;
+else if (S === 'cosmo') cam.position.set(.55, 1.2, 4.1), cam.lookAt(.3, .5, .45), cam.fov = 44;
+else if (ANCHO) cam.position.set(.6, 1.45, 4.6), cam.lookAt(-.35, .7, .2), cam.fov = 44;
+else if (MZ) cam.position.set(.85, 1.0, 2.9), cam.lookAt(0, .55, .45), cam.fov = 40;
+else cam.position.set(.9, 1.1, 3.2), cam.lookAt(0, .5, .45), cam.fov = 40;
+cam.updateProjectionMatrix();
+if (S === 'caricatura') { const ef = new OutlineEffect(R, { defaultThickness: .011, defaultColor: [.08, .06, .1] }); ef.render(sc, cam); }
+else if (S === 'pulido' || S === 'mezcla') { const cp = new EffectComposer(R); cp.addPass(new RenderPass(sc, cam)); cp.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), .45, .5, .82)); cp.addPass(new OutputPass()); cp.render(); }
+else R.render(sc, cam);
+window.__done = true;
+</script></body></html>

@@ -72,3 +72,5 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 14. Pasar `perro()`, `perro_arriba()` y `flecha_giro()` del short del perro a `personajes.py` (base de la #10).
 
 - 2026-11-05 18:00 (perro): agregado perro({pos,s,color,mancha,oscuro,collar}) y perroAnda(p,lt,vel,cola) en engine.js. Lección: en vertical el FOV horizontal es angosto; para objetos de menos de 1 m usa fov 42–50 y cámara a 3–5 m, o se ven cortados.
+
+- 2026-11-09: NUEVO ESTILO "MEZCLA" en engine.js (cajas redondeadas, materiales suaves, bloom, PR=2, ojo(), polvo(), rayoLuz()). Prueba de estilos: motor3d/estilos.html?s=pulido|plastilina|caricatura|diorama|cosmo|mezcla|mezcla2. ?estilo=lowpoly vuelve al viejo.
