@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-09-2130-hipo",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué siempre te da hipo cuando comes rápido?"]},
+    {"tipo": "diafragma", "titulo": "", "frases": ["Bajo tus pulmones hay un músculo, el diafragma. Si comes rápido, se irrita y brinca."]},
+    {"tipo": "hic", "titulo": "", "frases": ["El aire entra de golpe y tus cuerdas vocales se cierran: ¡hic!"]},
+    {"tipo": "susto", "titulo": "", "frases": ["¿El susto de la abuela? No está comprobado."]},
+    {"tipo": "truco", "titulo": "", "frases": ["Mejor aguanta la respiración o toma agua fría a sorbitos."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo al que le da hipo con el refresco."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

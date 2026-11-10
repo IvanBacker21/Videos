@@ -315,5 +315,23 @@
   "mejora": "perroSentar(), perroCome(), perro({lobo}), pasto() con InstancedMesh, arbol() y setJardin() + AMB.jardin/bosqueNoche en engine.js (MEJORAS 0l)",
   "archivo": "shorts/2026-11-09-1800-pasto.mp4",
   "titulo": "¿Tu perro come pasto porque le DUELE la panza? 🐶 #shorts"
+ },
+ {
+  "fecha": "2026-11-09",
+  "hora": "21:30",
+  "tema": "¿Por qué siempre te da hipo cuando comes rápido? (el diafragma, músculo bajo los pulmones, se irrita al comer rápido o tomar refresco y se contrae de golpe; el aire entra y las cuerdas vocales se cierran = 'hic'; el susto de la abuela no está comprobado; truco: aguantar la respiración o agua fría a sorbitos)",
+  "formato": "¿Por qué siempre…? + mito + truco",
+  "categoria": "cuerpo humano / comida",
+  "disparadores": [
+   "eres tú (al que siempre le da hipo)",
+   "¿ves? te dije (el susto de la abuela)",
+   "truco útil",
+   "lo mexicano (tacos y refresco)",
+   "etiquetar a alguien"
+  ],
+  "duracion": 27.9,
+  "mejora": "rayosX(), verRayosX(), respirar() e hipoDesde() en engine.js: persona con pulmones, diafragma, tráquea y cuerdas vocales que respira y le da hipo (MEJORAS 0x)",
+  "archivo": "shorts/2026-11-09-2130-hipo.mp4",
+  "titulo": "¿Por qué SIEMPRE te da hipo al comer rápido? 😮 #shorts"
  }
 ]

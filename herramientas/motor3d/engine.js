@@ -53,6 +53,7 @@ export function persona(o = {}, parent) {
   }
   if (o.pelo === 'largo') { box(.42, .5, .12, o.hair ?? 0x3a2a20, [0, -.04, -.17], g.head); box(.06, .4, .3, o.hair ?? 0x3a2a20, [-.21, -.02, -.03], g.head); box(.06, .4, .3, o.hair ?? 0x3a2a20, [.21, -.02, -.03], g.head); }
   if (o.bata) { box(.64, .62, .34, 0xf4f4f0, [0, 1.12, 0], g); g.torso.scale.set(1.04, 1, 1.05); g.torso.material = mat(0xf4f4f0); }
+  if (o.rayosX) rayosX(g);   // MEJORAS 0x: órganos (pulmones, diafragma, cuerdas vocales); ver verRayosX() y respirar()
   return g;
 }
 // ---------- MEJORAS 0e: expresiones y poses de persona() ----------
@@ -889,4 +890,41 @@ export function rayo(a, b, o = {}, parent) {
       [segs[i], segs[i + n]].forEach((m, j) => { m.position.copy(mid); m.lookAt(p1); m.scale.set(gr * (j ? .4 : 1.6), gr * (j ? .4 : 1.6), d); }); }
     M.opacity = .55 * k; MC.opacity = k; glow[0].position.copy(A); glow[1].position.copy(B); glow.forEach(m => { m.scale.setScalar(.04 + .08 * k * (1 + .3 * Math.sin(lt * 50))); m.material.opacity = .45 * k; }); };
   g.update(0, 0); return g;
+}
+
+// ---------- MEJORAS 0x (9-nov 21:30, short del hipo): persona con rayos X y respiración ----------
+// rayosX(p, {lobulos}) mete órganos dentro del torso de una persona(): p.rx (grupo) con .pulmones[2], .corazon, .diafragma (cúpula
+// bajo los pulmones), .traquea y .cuerdas[2] (cuerdas vocales en el cuello). También: persona({rayosX:true}).
+// verRayosX(p, k 0..1): vuelve transparente el torso (y la bata) y muestra los órganos con un pop.
+// respirar(p, lt, {k, vel, hipo}): pulmones que se inflan, diafragma que baja al inhalar; hipo = segundos desde el último "hic"
+// (usa hipoDesde(lt, [t1, t2, ...])): el diafragma brinca, se ilumina, las cuerdas se cierran y la cabeza da un respingo. Devuelve
+// la intensidad del brinco (0..1) para sincronizar sonido, etiquetas o temblor de cámara. Sirve para hipo, respirar, nadar, correr, cantar.
+export function rayosX(p) {
+  if (p.rx) return p.rx; const g = group([0, 0, 0], p); g.visible = false;
+  const M = (c, op = .72, ei = .35) => { const m = mat(c, { opacity: op, rough: .5, emissive: c, ei }); m.depthWrite = false; return m; };
+  g.pulmones = [-1, 1].map(s => { const b = ball(1, M(0xff8fa8), [s * .125, 1.4, .0], g, 1); b.s0 = [.115, .2, .1]; b.scale.set(...b.s0); b.castShadow = false; return b; });
+  g.corazon = ball(.07, M(0xe0304a, .9, .5), [.04, 1.3, .07], g, 1); g.corazon.castShadow = false;
+  g.traquea = cyl(.03, .03, .3, M(0xf2d0b8, .85, .2), [0, 1.6, .0], g, 8); g.traquea.castShadow = false;
+  g.cuerdas = [-1, 1].map(s => { const c = box(.03, .015, .05, M(0xff6a7a, .95, .5), [s * .02, 1.71, 0], g); c.castShadow = false; c.s = s; return c; });
+  const dg = new THREE.SphereGeometry(1, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2);
+  g.diafragma = new THREE.Mesh(dg, mat(0xff6a4a, { opacity: .85, rough: .5, emissive: 0xff5a3a, ei: .3 })); g.diafragma.material.depthWrite = false;
+  g.diafragma.material.side = THREE.DoubleSide; g.diafragma.position.set(0, 1.14, 0); g.diafragma.s0 = [.27, .1, .14]; g.diafragma.scale.set(...g.diafragma.s0); g.add(g.diafragma);
+  p.rx = g; return g;
+}
+export function verRayosX(p, k = 1) {
+  const g = rayosX(p); g.visible = k > .01; g.scale.setScalar(1); g.children.forEach(c => c.material && (c.material.opacity = (c === g.diafragma ? .85 : .75) * cl(k * 1.5)));
+  const mats = [p.torso.material]; p.children.forEach(c => { if (c.isMesh && c !== p.torso && Math.abs(c.position.y - 1.12) < .02) mats.push(c.material); });  // bata
+  mats.forEach(m => { m.transparent = true; m.opacity = 1 - .82 * k; m.depthWrite = k < .05; });
+}
+export const hipoDesde = (lt, ts) => { let d = -1; ts.forEach(t => { if (lt >= t) d = lt - t; }); return d; };
+export function respirar(p, lt, o = {}) {
+  const g = rayosX(p), k = o.k ?? 1, b = (.5 - .5 * Math.cos(lt * Math.PI * 2 * (o.vel ?? .3))) * k, hp = o.hipo ?? -1;
+  const h = hp >= 0 ? Math.min(1, hp / .04) * Math.exp(-hp * 5) : 0;
+  g.pulmones.forEach(l => l.scale.set(l.s0[0] * (1 + .08 * b + .12 * h), l.s0[1] * (1 + .06 * b + .1 * h), l.s0[2] * (1 + .1 * b + .12 * h)));
+  const d = g.diafragma; d.position.y = 1.14 - .03 * b - .08 * h; d.scale.set(d.s0[0], d.s0[1] * (1 - .35 * b - .55 * h), d.s0[2]);
+  d.material.emissiveIntensity = .3 + 1.6 * h + (o.brillo ?? 0);
+  const cierra = hp >= .035 ? Math.exp(-(hp - .035) * 4) : 0;   // la glotis se cierra ~35 ms después del brinco
+  g.cuerdas.forEach(c => { c.position.x = c.s * .02 * (1 - cierra * .9); });
+  p.head.position.y = 1.92 + .05 * h; p.torso.position.y = 1.28 + .015 * h;
+  return h;
 }
