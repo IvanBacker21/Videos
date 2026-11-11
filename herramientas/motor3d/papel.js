@@ -17,7 +17,7 @@ export function kitPapel(E) {
   const S = () => new THREE.Shape();
   const F = {
     rect(w, h, r = .03) { const s = S(), a = -w / 2, b = -h / 2; r = Math.min(r, w / 2, h / 2); s.moveTo(a + r, b); s.lineTo(-a - r, b); s.quadraticCurveTo(-a, b, -a, b + r); s.lineTo(-a, -b - r); s.quadraticCurveTo(-a, -b, -a - r, -b); s.lineTo(a + r, -b); s.quadraticCurveTo(a, -b, a, -b - r); s.lineTo(a, b + r); s.quadraticCurveTo(a, b, a + r, b); return s; },
-    elipse(rx, ry = rx, irr = .015) { const s = S(); for (let i = 0; i <= 56; i++) { const t = i / 56 * Math.PI * 2, k = 1 + Math.sin(t * 5 + rx * 9) * irr; i ? s.lineTo(Math.cos(t) * rx * k, Math.sin(t) * ry * k) : s.moveTo(rx * k, 0); } return s; },
+    elipse(rx, ry = rx) { const s = S(); s.absellipse(0, 0, rx, ry, 0, Math.PI * 2, false, 0); return s; },
     circ(r) { return F.elipse(r, r); },
     poly(pts) { const s = S(); pts.forEach(([a, b], i) => i ? s.lineTo(a, b) : s.moveTo(a, b)); s.lineTo(pts[0][0], pts[0][1]); return s; },
     estrella(n = 8, r1 = .5, r2 = .25) { const p = []; for (let i = 0; i < n * 2; i++) { const a = i / (n * 2) * Math.PI * 2 + Math.PI / 2, r = i % 2 ? r2 : r1 * (1 + (i % 4 ? .0 : .15)); p.push([Math.cos(a) * r, Math.sin(a) * r]); } return F.poly(p); },
@@ -29,13 +29,16 @@ export function kitPapel(E) {
   };
   // borde blanco de recorte: copia agrandada detrás (para formas más o menos convexas)
   function agrandada(shape, d) {
-    const pts = shape.getPoints(48); let cx = 0, cy = 0; pts.forEach(p => { cx += p.x; cy += p.y; }); cx /= pts.length; cy /= pts.length;
-    return F.poly(pts.map(p => { const dx = p.x - cx, dy = p.y - cy, L = Math.hypot(dx, dy) || 1; return [p.x + dx / L * d, p.y + dy / L * d]; }));
+    const pts = shape.getSpacedPoints(220); let cx = 0, cy = 0; pts.forEach(p => { cx += p.x; cy += p.y; }); cx /= pts.length; cy /= pts.length;
+    // desplaza cada punto hacia afuera por la normal local (borde del mismo grosor en toda la orilla)
+    let area = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; area += p.x * q.y - q.x * p.y; } const sg = area >= 0 ? 1 : -1;
+    const out = pts.map((p, i) => { const a = pts[(i - 1 + pts.length) % pts.length], b = pts[(i + 1) % pts.length]; let nx = (b.y - a.y) * sg, ny = -(b.x - a.x) * sg; const L = Math.hypot(nx, ny) || 1; return [p.x + nx / L * d, p.y + ny / L * d]; });
+    return F.poly(out);
   }
   // pieza de papel: forma + color en (x, y, z). o: {borde (0 = sin borde), grosor, rot, sombra}
   function pieza(shape, color, pos = [0, 0, 0], parent, o = {}) {
     const g = group(pos, parent); const gr = o.grosor ?? .02;
-    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: gr, bevelEnabled: false, curveSegments: 10 }), M(color)); m.castShadow = o.sombra !== false; m.receiveShadow = true; g.add(m); g.papel = m;
+    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: gr, bevelEnabled: false, curveSegments: 36 }), M(color)); m.castShadow = o.sombra !== false; m.receiveShadow = true; g.add(m); g.papel = m;
     const b = o.borde ?? 0;
     if (b > 0) { const bm = new THREE.Mesh(new THREE.ExtrudeGeometry(agrandada(shape, b), { depth: gr * .9, bevelEnabled: false }), M(o.colorBorde ?? 0xfffaf0)); bm.position.z = -gr * .6; bm.castShadow = o.sombra !== false; bm.receiveShadow = true; g.add(bm); }
     if (o.rot) g.rotation.z = o.rot; return g;
@@ -64,8 +67,8 @@ export function kitPapel(E) {
   // parte del cuerpo: relleno al frente + contorno agrandado muy atrás (detrás de todo el personaje)
   function parte(shape, color, pos, parent, o = {}) {
     const g = group(pos, parent);
-    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: .01, bevelEnabled: false, curveSegments: 12 }), M(color)); m.castShadow = true; m.receiveShadow = true; g.add(m); g.papel = m;
-    if (o.borde !== 0) { const bm = new THREE.Mesh(new THREE.ExtrudeGeometry(agrandada(shape, o.borde ?? .03), { depth: .01, bevelEnabled: false }), M(INK)); bm.position.z = -(o.atras ?? .09); bm.castShadow = true; g.add(bm); }
+    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: .01, bevelEnabled: false, curveSegments: 36 }), M(color)); m.castShadow = true; m.receiveShadow = true; g.add(m); g.papel = m;
+    if (o.borde !== 0) { const bm = new THREE.Mesh(new THREE.ExtrudeGeometry(agrandada(shape, o.borde ?? .03), { depth: .01, bevelEnabled: false, curveSegments: 36 }), M(INK)); bm.position.z = -(o.atras ?? .09); bm.castShadow = true; g.add(bm); }
     if (o.trama) { const tm = new THREE.Mesh(new THREE.ExtrudeGeometry(o.trama, { depth: .005, bevelEnabled: false }), new THREE.MeshStandardMaterial({ map: tramas[color] ?? (tramas[color] = trama(color)), roughness: 1 })); tm.position.z = .006; g.add(tm); }
     return g; }
   // logo 14 en chiquito (para playeras, tazas, carteles)
@@ -154,6 +157,102 @@ export function kitPapel(E) {
   // PROTAGONISTA del canal (aprobado 11-nov-2026): playera azul eléctrico con el logo del planeta curioso, copete castaño, sin barba ni audífonos, tenis menta.
   function protagonista(pos = [0, 0, 0], o = {}, parent) {
     return persona(pos, { piel: 0xe2ab83, ropa: 0x3d6bff, pantalon: 0x1f1b2e, tenis: 0x2ec4a6, pelo: 'copete', colPelo: 0x3a2416, logo: true, ...o }, parent); }
+
+  // ---------- MASCOTAS (curvas suaves; contorno detrás) ----------
+  // tubo suave que sigue una curva (colas, cuellos)
+  function tubo(ctrl, w1, w2, puntas = true) { const c = new THREE.CatmullRomCurve3(ctrl.map(([a, b]) => new THREE.Vector3(a, b, 0))); const n = 60, L = [], R = [];
+    for (let i = 0; i <= n; i++) { const t = i / n, p = c.getPoint(t), d = c.getTangent(t), w = (w1 + (w2 - w1) * Math.pow(t, 1.3)) / 2; L.push(new THREE.Vector2(p.x - d.y * w, p.y + d.x * w)); R.unshift(new THREE.Vector2(p.x + d.y * w, p.y - d.x * w)); }
+    const s = S(); s.moveTo(L[0].x, L[0].y); s.splineThru(L.slice(1)); if (puntas) { const e = c.getPoint(1), r = w2 / 2; s.absarc(e.x, e.y, r, Math.atan2(L[n].y - e.y, L[n].x - e.x), Math.atan2(R[0].y - e.y, R[0].x - e.x), true); } s.splineThru(R); s.lineTo(L[0].x, L[0].y); return s; }
+  // forma cerrada suave que pasa por puntos (spline cerrada)
+  function blob(pts) { const c = new THREE.CatmullRomCurve3(pts.map(([a, b]) => new THREE.Vector3(a, b, 0)), true, 'centripetal'); const s = S(); const P = c.getPoints(120); s.moveTo(P[0].x, P[0].y); for (let i = 1; i < P.length; i++) s.lineTo(P[i].x, P[i].y); return s; }
+  const ojoAnimal = (par, pos, o = {}) => { const e = group(pos, par), sx = o.s ?? 1;
+    pieza(o.forma ?? F.elipse(.07 * sx, .06 * sx), o.iris ?? 0xffffff, [0, 0, 0], e, { sombra: false, grosor: .004 });
+    e.pupila = pieza(o.rendija ? F.elipse(.018 * sx, .05 * sx) : F.circ((o.pupila ?? .04) * sx), INK, [(o.mira ?? .012) * sx, -.004, .004], e, { sombra: false, grosor: .004 });
+    pieza(F.circ(.016 * sx), 0xffffff, [.028 * sx, .022 * sx, .008], e, { sombra: false, grosor: .003 }); if (o.brillo2) pieza(F.circ(.008 * sx), 0xffffff, [-.006 * sx, -.02 * sx, .008], e, { sombra: false, grosor: .003 });
+    if (o.delineado) pieza(o.delineado, INK, [0, 0, -.001], e, { sombra: false, grosor: .003 }); return e; };
+
+  // PERRO LOBO gris con pecho y patitas blancas (de perfil, mira a la derecha). Partes animables: .cola .cabeza .patas[4]
+  function perro(pos = [0, 0, 0], o = {}, parent) {
+    const g = group(pos, parent); g.scale.setScalar(o.escala ?? 1);
+    const GR = o.color ?? 0x7f8896, OS = 0x5b6270, CL = 0xc5ccd6, BL = 0xf6f1e6, PI = 0xf0d3c8;
+    // cola esponjada que cuelga
+    g.cola = group([-.62, .92, -.01], g); parte(tubo([[0, 0], [-.22, -.1], [-.34, -.32], [-.32, -.55]], .26, .2), GR, [0, 0, 0], g.cola);
+    parte(tubo([[-.3, -.38], [-.33, -.5], [-.3, -.6]], .16, .1), CL, [0, 0, .004], g.cola, { borde: 0 });
+    // patas (traseras con muslo, delanteras rectas), calcetines blancos
+    const pata = (x, z, trasera, color) => { const p = group([x, .78, z], g);
+      if (trasera) { parte(blob([[-.17, .05], [.1, .1], [.16, -.12], [.06, -.36], [-.12, -.3]]), color, [0, 0, 0], p); parte(tubo([[.0, -.3], [.03, -.55], [.0, -.7]], .13, .11), color, [0, 0, .002], p); }
+      else parte(tubo([[0, .02], [.01, -.35], [0, -.7]], .16, .12), color, [0, 0, 0], p);
+      parte(tubo([[0, -.56], [.0, -.7]], .125, .12), BL, [0, 0, .004], p, { borde: 0 }); parte(F.elipse(.1, .055), BL, [.04, -.74, .005], p, { atras: .1 }); return p; };
+    g.patas = [pata(-.42, -.03, true, OS), pata(.38, -.03, false, OS)];
+    // cuerpo: pecho profundo, cintura delgada, lomo recto; "silla" más oscura en el lomo
+    parte(blob([[-.66, .92], [-.4, 1.12], [.1, 1.12], [.45, 1.08], [.6, .9], [.52, .62], [.3, .52], [.0, .62], [-.35, .66], [-.62, .7]]), GR, [0, 0, 0], g);
+    parte(blob([[-.6, 1.0], [-.35, 1.13], [.1, 1.13], [.38, 1.08], [.1, 1.0], [-.3, .98]]), OS, [0, 0, .003], g, { borde: 0 });
+    parte(blob([[.3, .95], [.56, .9], [.58, .68], [.44, .56], [.28, .62], [.24, .8]]), BL, [0, 0, .004], g, { borde: 0 });       // pecho blanco
+    g.patas.push(pata(-.3, .03, true, GR), pata(.46, .03, false, GR));
+    // melena / cuello con mechones suaves
+    parte(blob([[.32, .98], [.42, 1.28], [.62, 1.42], [.78, 1.3], [.74, 1.05], [.62, .86], [.46, .82]]), GR, [0, 0, .006], g, { atras: .1 });
+    parte(blob([[.5, .88], [.62, .98], [.72, 1.1], [.7, .9], [.6, .8]]), CL, [0, 0, .008], g, { borde: 0 });
+    // cabeza de lobo: cráneo + hocico largo, mejillas claras
+    const h = group([.72, 1.42, .02], g); g.cabeza = h;
+    parte(blob([[-.22, .02], [-.12, .2], [.08, .22], [.24, .12], [.5, .04], [.58, -.02], [.52, -.1], [.3, -.12], [.1, -.18], [-.12, -.16]]), GR, [0, 0, 0], h);
+    parte(blob([[.06, -.06], [.3, -.06], [.52, -.07], [.5, -.11], [.3, -.13], [.1, -.17], [-.04, -.15]]), BL, [0, 0, .003], h, { borde: 0 });   // hocico/mejilla blancos
+    parte(blob([[-.18, -.02], [-.05, -.12], [-.15, -.2], [-.24, -.1]]), CL, [0, 0, .003], h, { borde: 0 });
+    // orejas grandes y paradas (curvas), interior rosado
+    for (const [x, z] of [[-.1, -.006], [.04, .006]]) { parte(blob([[x - .1, .14], [x - .07, .34], [x - .02, .48], [x + .06, .36], [x + .1, .16]]), OS, [0, 0, z], h); parte(blob([[x - .05, .17], [x - .03, .34], [x + .02, .4], [x + .05, .3], [x + .06, .18]]), PI, [0, 0, z + .003], h, { borde: 0 }); }
+    pieza(F.elipse(.06, .045), INK, [.56, -.02, .012], h, { sombra: false, grosor: .004 });                                     // nariz
+    pieza(F.arco(.08, .016, Math.PI * 1.25, Math.PI * 1.7), INK, [.42, -.06, .012], h, { sombra: false, grosor: .004 });        // boca
+    // ojo almendrado ámbar, delineado y ceja clara (mirada de lobo)
+    const alm = blob([[-.07, 0], [-.02, .04], [.06, .03], [.08, -.005], [.02, -.035], [-.04, -.03]]);
+    h.ojo = ojoAnimal(h, [.12, .06, .012], { forma: alm, iris: 0xf2b84a, pupila: .025, s: 1.15, mira: .01 });
+    pieza(blob([[-.06, .055], [.04, .075], [.11, .05], [.03, .05]]), CL, [.11, .08, .013], h, { sombra: false, grosor: .003 });
+    if (o.collar !== false) { parte(tubo([[.47, 1.26], [.6, 1.16], [.75, 1.07]], .075, .075), 0xff6b5b, [0, 0, .012], g, { borde: .018, atras: .005 }); pieza(F.circ(.045), 0xffc83d, [.74, 1.0, .03], g, { borde: .015, colorBorde: INK }); }
+    return g;
+  }
+  // GATO TIERNO negro con panza, pecho, hocico y patitas blancos. pose: 'sentado' (de frente) | 'camina' (de perfil)
+  function gato(pos = [0, 0, 0], o = {}, parent) {
+    const g = group(pos, parent); g.scale.setScalar(o.escala ?? 1);
+    const NE = 0x2f2d38, NEc = 0x3d3a48, BL = 0xf6f1e6, PI = 0xf2a7b8, IR = 0xc9e36b;
+    const cara = (h, frente) => {
+      for (const sx of frente ? [-1, 1] : [1]) {
+        const ex = frente ? sx * .12 : .1; h.ojos = h.ojos ?? [];
+        h.ojos.push(ojoAnimal(h, [ex, .04, .014], { forma: F.elipse(.085, .09), iris: IR, pupila: .062, s: 1, mira: frente ? 0 : .015, brillo2: true }));
+      }
+      const nx = frente ? 0 : .26;
+      pieza(blob([[-.035, .0], [.035, .0], [0, -.035]]).constructor ? (() => { const n = S(); n.moveTo(-.035, 0); n.quadraticCurveTo(0, .012, .035, 0); n.quadraticCurveTo(.02, -.03, 0, -.038); n.quadraticCurveTo(-.02, -.03, -.035, 0); return n; })() : null, 0xe88aa0, [nx, -.075, .016], h, { sombra: false, grosor: .004 });
+      for (const sx of [-1, 1]) pieza(F.arco(.03, .011, Math.PI * 1.1, Math.PI * 1.9), INK, [nx + sx * .03, -.115, .016], h, { sombra: false, grosor: .004 });
+      for (const [sx, y, r] of frente ? [[-1, -.08, .12], [-1, -.11, -.05], [1, -.08, -.12], [1, -.11, .05]] : [[1, -.08, .1], [1, -.11, -.05]]) pieza(F.rect(.26, .009, .004), 0xf6f1e6, [nx + sx * .24, y, .017], h, { rot: r, sombra: false, grosor: .003 });
+    };
+    const oreja = (h, x, rot, z) => { const e = group([x, .2, z], h); e.rotation.z = rot; parte(blob([[-.1, -.02], [-.07, .14], [0, .22], [.06, .14], [.1, -.02]]), NE, [0, 0, 0], e); parte(blob([[-.05, .0], [-.035, .1], [0, .15], [.03, .1], [.05, .0]]), PI, [0, 0, .003], e, { borde: 0 }); return e; };
+    if ((o.pose ?? 'sentado') === 'sentado') {
+      // cola esponjada que se enrosca al frente
+      g.cola = group([0, 0, .02], g); parte(tubo([[.3, .22], [.46, .1], [.38, .0], [.12, .0], [-.04, .06]], .13, .1), NE, [0, 0, 0], g.cola); parte(F.circ(.05), BL, [-.05, .06, .004], g.cola, { borde: 0 });
+      // cuerpo de pera
+      parte(blob([[-.32, .02], [-.36, .3], [-.26, .58], [0, .7], [.26, .58], [.36, .3], [.32, .02], [0, -.02]]), NE, [0, 0, 0], g);
+      parte(blob([[-.15, .05], [-.18, .3], [-.1, .52], [0, .58], [.1, .52], [.18, .3], [.15, .05], [0, .02]]), BL, [0, 0, .004], g, { borde: 0 });   // pecho y panza
+      for (const sx of [-1, 1]) { parte(tubo([[sx * .09, .4], [sx * .1, .2], [sx * .09, .06]], .13, .13), BL, [0, 0, .006], g, { atras: .02 }); parte(F.elipse(.08, .055), BL, [sx * .09, .04, .009], g, { atras: .02 }); }
+      const h = group([0, .86, .02], g); g.cabeza = h;
+      oreja(h, -.17, .32, -.006); oreja(h, .17, -.32, -.006);
+      parte(blob([[-.3, .02], [-.26, .2], [0, .27], [.26, .2], [.3, .02], [.22, -.16], [0, -.21], [-.22, -.16]]), NE, [0, 0, 0], h);
+      parte(blob([[-.13, -.05], [0, .0], [.13, -.05], [.12, -.15], [0, -.19], [-.12, -.15]]), BL, [0, 0, .004], h, { borde: 0 });               // hocico blanco
+      cara(h, true);
+      if (o.collar !== false) { parte(blob([[-.2, .66], [0, .62], [.2, .66], [.18, .72], [0, .69], [-.18, .72]]), 0x2ec4a6, [0, 0, .012], g, { borde: .015, atras: .005 }); pieza(F.circ(.035), 0xffc83d, [0, .62, .03], g, { borde: .012, colorBorde: INK }); }
+    } else {
+      g.cola = group([-.5, .58, -.01], g); parte(tubo([[0, 0], [-.22, .1], [-.3, .38], [-.18, .58], [-.05, .56]], .14, .13), NE, [0, 0, 0], g.cola);
+      const pata = (x, z, color) => { const p = group([x, .5, z], g); parte(tubo([[0, 0], [.01, -.24], [0, -.46]], .14, .12), color, [0, 0, 0], p); parte(F.elipse(.08, .05), BL, [.03, -.47, .004], p, { atras: .1 }); return p; };
+      g.patas = [pata(-.32, -.03, NEc), pata(.28, -.03, NEc)];
+      parte(blob([[-.55, .62], [-.35, .86], [.1, .88], [.42, .78], [.48, .55], [.3, .4], [-.1, .38], [-.45, .42]]), NE, [0, 0, 0], g);
+      parte(blob([[-.25, .42], [.1, .4], [.38, .48], [.42, .66], [.3, .6], [0, .5], [-.25, .5]]), BL, [0, 0, .004], g, { borde: 0 });
+      g.patas.push(pata(-.22, .03, NE), pata(.36, .03, NE));
+      const h = group([.55, .95, .02], g); g.cabeza = h;
+      oreja(h, -.1, .15, -.006); oreja(h, .08, -.1, .006);
+      parte(blob([[-.24, .0], [-.18, .19], [.04, .25], [.24, .16], [.32, -.02], [.24, -.16], [.04, -.21], [-.18, -.15]]), NE, [0, 0, 0], h);
+      parte(blob([[.06, -.04], [.3, -.03], [.28, -.15], [.1, -.19]]), BL, [0, 0, .004], h, { borde: 0 });
+      cara(h, false);
+      if (o.collar !== false) parte(blob([[.3, .72], [.42, .66], [.52, .86], [.44, .9]]), 0x2ec4a6, [0, 0, .012], g, { borde: .015, atras: .005 });
+    }
+    return g;
+  }
+
   // caminar de papel (a saltitos): piernas y brazos alternan, el cuerpo rebota
   function caminar(p, t, on = 1) { const k = Math.sin(t * 9) * on; p.legL.rotation.z = k * .35; p.legR.rotation.z = -k * .35; p.armL.rotation.z = -k * .4; p.armR.rotation.z = k * .4; p.position.y = Math.abs(Math.sin(t * 9)) * .05 * on; }
 
@@ -191,5 +290,5 @@ export function kitPapel(E) {
         E.rotulo('Síguenos', 'datos curiosos cada día', lt - ts, 1530); if (lt > ts) c.ev('ding', ts, .6); }
     });
   }
-  return { F, M, pieza, parte, capsula, agrandada, INK, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
+  return { F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
 }
