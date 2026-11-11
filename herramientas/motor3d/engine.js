@@ -307,9 +307,16 @@ export function gato(o = {}, parent) {
   g.earL = group([-.08, .11, 0], g.head); g.earR = group([.08, .11, 0], g.head);
   [g.earL, g.earR].forEach((e, k) => { const m = new THREE.Mesh(new THREE.ConeGeometry(.065, .13, 4), mat(c)); m.position.y = .06; m.rotation.y = Math.PI / 4; m.castShadow = true; e.add(m);
     const i = new THREE.Mesh(new THREE.ConeGeometry(.035, .08, 4), mat(0xf2a7b0)); i.position.set(0, .05, .025); i.rotation.y = Math.PI / 4; e.add(i); e.rotation.z = k ? -.2 : .2; });
+  if (MZ && o.ojosGrandes !== false) {   // MEJORAS 0l3 (10-nov 21:30): ojos grandes de gato (iris de color, pupila de rendija que se dilata, reflejo) y cejas
+    g.ojos = [-.068, .068].map(x => { const e = ball(.052, iris, [x, .035, .1], g.head, 2, { emissive: iris, ei: .3, rough: .2, cc: .8 }); e.scale.z = .7; return e; });
+    g.pupilas = [-.068, .068].map(x => { const pu = ball(.04, 0x0d0d0d, [x, .035, .128], g.head, 2, { rough: .2, cc: 1 }); pu.userData.sx = .32; pu.scale.set(.32, 1, .5); return pu; });
+    g.brillo = [-.068, .068].map(x => { const b = ball(.012, 0xffffff, [x + .016, .055, .138], g.head, 1, { emissive: 0xffffff, ei: 1 }); b.castShadow = false; return b; });
+    g.cejas = [-.068, .068].map(x => box(.08, .02, .02, ray !== false ? ray : 0x5a3a22, [x, .1, .115], g.head));
+  } else {
   g.ojos = [-.065, .065].map(x => box(.07, .06, .02, iris, [x, .03, .112], g.head, { emissive: iris, ei: .25 }));
   g.pupilas = [-.065, .065].map(x => box(.018, .055, .01, 0x0d0d0d, [x, .03, .123], g.head));
   g.brillo = [-.065, .065].map(x => { const b = box(.014, .014, .005, 0xffffff, [x + .018, .045, .128], g.head, { emissive: 0xffffff, ei: 1 }); b.castShadow = false; return b; });
+  }
   g.bigotes = [];
   for (const s of [-1, 1]) for (const k of [0, 1]) { const b = box(.16, .006, .006, 0xffffff, [s * .14, -.05 - k * .025, .12], g.head); b.rotation.z = s * (k ? -.12 : .1); b.castShadow = false; g.bigotes.push(b); }
   g.cola = []; let par = group([0, .38, -.27], g);
@@ -326,7 +333,7 @@ export function gatoAnda(g, lt, vel = 1, cola = 1) {
 // Levanta una pata delantera hacia adelante (k 0..1). lado 1 = derecha, 0 = izquierda. Para "toquecitos": k = |sin(lt*f)|.
 export function patita(g, k = 1, lado = 1) { const L = g.legs[lado]; L.rotation.x = -1.5 * k; L.position.y = .26 + .06 * k; }
 // Pupilas grandes (k=1, cazador) o rendija (k=0).
-export function ojosCazador(g, k = 1) { g.pupilas.forEach(p => p.scale.set(1 + 2.4 * k, 1, 1)); }
+export function ojosCazador(g, k = 1) { g.pupilas.forEach(p => p.scale.x = (p.userData.sx ?? 1) * (1 + 2.4 * k)); }
 
 // Ondas (sonido, wifi, señal): anillos que salen de un punto y se desvanecen. Crear en setup, animar con ondas.update(lt).
 // o: {color, n, vel (anillos/s), alcance (m), grosor, dir: rotación [x,y,z] del plano del anillo}
@@ -989,4 +996,20 @@ export function perroSalta(p, lt, o = {}) {
   p.position.y = p.userData.y0 + hop * (o.alto ?? .35) * p.scale.x; p.rotation.x = -.3 * Math.cos(ph * Math.PI);
   p.legs.forEach((L, k) => L.rotation.x = (k < 2 ? -.7 : .7) * hop);
   p.tail.rotation.y = Math.sin(lt * 26) * .8; return hop;
+}
+
+// ---------- MEJORAS 0l3 (10-nov 21:30, short del gato rehecho en estilo mezcla): gato expresivo y sentado ----------
+// gato() en estilo mezcla trae ojos grandes de gato (iris que brilla, pupila de rendija que ojosCazador() dilata) y cejas (g.cejas);
+// {ojosGrandes:false} = ojos de caja. gatoGesto(g, 'travieso'|'feliz'|'sorpresa'|'enojado'|'neutral'): cejas, orejas y párpados
+// (ojos entrecerrados en 'travieso' y 'feliz'). gatoSentar(g, k): sentado sobre las patas traseras con el pecho erguido.
+export function gatoGesto(g, tipo = 'neutral') {
+  const G = { neutral: [0, .2, 1], travieso: [-.35, .25, .55], feliz: [.15, .1, .45], sorpresa: [.2, .05, 1.2], enojado: [-.5, .7, .75] }[tipo] ?? [0, .2, 1];
+  if (g.cejas) { g.cejas[0].rotation.z = G[0]; g.cejas[1].rotation.z = -G[0]; g.cejas.forEach(c => c.position.y = tipo === 'sorpresa' ? .125 : .1); }
+  g.earL.rotation.z = G[1]; g.earR.rotation.z = -G[1];
+  [...g.ojos, ...g.pupilas, ...g.brillo].forEach(o => o.scale.y = G[2]);
+}
+export function gatoSentar(g, k = 1) {
+  g.body.rotation.x = -.55 * k; g.body.position.y = .3 + .05 * k;
+  g.legs[2].rotation.x = g.legs[3].rotation.x = -.9 * k; g.legs[2].position.y = g.legs[3].position.y = .26 - .06 * k;
+  g.legs[0].rotation.x = g.legs[1].rotation.x = .1 * k; g.head.position.y = .52 + .12 * k; g.head.position.z = .32 - .06 * k;
 }

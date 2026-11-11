@@ -369,17 +369,17 @@
  {
   "fecha": "2026-11-10",
   "hora": "21:30",
-  "tema": "REPUBLICACIÓN (pedido de Iván): ¿Por qué los gatos tiran cosas de la mesa? (instinto de cazador: prueban con la pata si algo está vivo; curiosidad: ver qué pasa cuando cae; aprendieron que si tiran algo tú llegas corriendo; truco: jugar a diario con juguetes que se muevan). No se publicó el 6-nov por el límite de Metricool; se programó con Buffer",
-  "formato": "¿Por qué…? (3 razones)",
+  "tema": "¿Por qué los gatos tiran cosas de la mesa? REHECHO en estilo mezcla (pedido de Iván; el original del 6-nov no se publicó por el límite de Metricool): instinto de cazador, curiosidad por ver caer, aprendió que tú llegas corriendo; truco: jugar a diario con juguetes que se muevan",
+  "formato": "Top 3 razones + truco",
   "categoria": "animales",
   "disparadores": [
    "eres tú / tu gato",
    "truco útil",
    "mascotas"
   ],
-  "duracion": 33.7,
-  "mejora": "—",
-  "archivo": "shorts/2026-11-06-1800-gato.mp4",
+  "duracion": "28.3 s (21.7 s de contenido)",
+  "mejora": "MEJORAS 0l3: gato() con ojos grandes y cejas, gatoGesto(), gatoSentar()",
+  "archivo": "shorts/2026-11-10-2130-gato.mp4",
   "titulo": "¿Por qué tu gato tira TODO de la mesa? 🐱 #shorts"
  }
 ]

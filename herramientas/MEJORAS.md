@@ -42,6 +42,8 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-10 18:00 (perro te sigue al baño) · **MEJORAS 0l (parte perroSalta) + 0l2 hecha en `engine.js`**: `perro()` en estilo mezcla ahora trae **ojos grandes con reflejo** (`ojo()`) y **cejas gruesas** (`p.cejas`) — `{ojosGrandes:false}` regresa a los ojos de caja; nuevo **`perroGesto(p, 'feliz'|'triste'|'atento'|'neutral', lt)`** (orejas, cejas de perrito regañado, cabeza ladeada, cola y lengua) y **`perroSalta(p, lt, {periodo, alto})`** (brinco con arco, patas recogidas; devuelve la altura 0..1). En el short: persona sentada en el escusado con el perro mirándola fijo (`setBano()` + `sentar()`), manada de lobos de noche con la persona y su perro al frente, cocina donde el perro la sigue caminando, croquetas que caen al plato y caricias con corazones, perro triste junto a la puerta con ondas de llanto y corte a su camita con galleta que cae y paloma verde, remate con el perro brincando. Lección: en vertical, un perro que mira a una puerta de espaldas a cámara no transmite nada; voltéalo hacia cámara junto a la puerta. Las etiquetas por encima de ~1.6 m con cámara a 3 m chocan con el encabezado/subtítulos. Prueba de regresión: fotogramas del pan OK.
 
+- 2026-11-10 21:30 (gato tira cosas, REHECHO en estilo mezcla a pedido de Iván) · **MEJORAS 0l3 hecha en `engine.js`**: `gato()` en estilo mezcla trae **ojos grandes de gato** (iris de color que brilla, pupila de rendija que `ojosCazador()` dilata, reflejo) y **cejas** (`g.cejas`); `{ojosGrandes:false}` = ojos de caja. Nuevos **`gatoGesto(g, 'travieso'|'feliz'|'sorpresa'|'enojado'|'neutral')`** (cejas, orejas y ojos entrecerrados) y **`gatoSentar(g, k)`**. El short reutiliza las escenas del 6-nov con guion recortado a 28 s (sin "tres razones" en el gancho), cámaras ligadas a `c.dur` y gestos nuevos. Lección: con el gato a escala 1.5 sobre la mesa, la cámara va a ≥4.2 m o la cabeza se sale de cuadro. Prueba de regresión: fotogramas del pan OK.
+
 ## Siguientes (toma la primera de las 3D)
 0w. (3D) Pasar `salon()` (pupitres en filas con alumnos sentados) del short de la panza a `engine.js` como `setSalon()` con pizarrón y maestro.
 0x2. (3D) Falta de 0x: meter `tuboDigestivo({soloPanza})` dentro de `rayosX()` como opción `panza:true` y un cerebro para shorts de sueño/dolor de cabeza.
@@ -49,7 +51,6 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 0s. (3D) Falta: `lluvia(n)` y rocío de agua de las llantas para escenas de calle mojada (el `coche()` ya existe).
 0y. (3D) `cocheAnda(c, lt, vel)`: llantas que ruedan + leve balanceo de suspensión, y `trafico(n)` con coches de colores para escenas de Periférico.
 0q. (3D) Pasar `piernaRig()`/nervio con pulsos del short de la pierna a `engine.js` como `nervio(curva)` (señales que viajan por un cable: nervios, cables, internet).
-0l. (3D) Falta: pose 'sentado' para `gato()` y gestos de gato (`gatoGesto`) como `perroGesto()`.
 0ab. (3D) `perroAcostado(p, k)` (echado con la cabeza sobre las patas) y `correa(p, mano)` para escenas de paseo.
 0z. (3D) `setParque()` sobre `setJardin()`: banca, juegos, camino de tierra y personas paseando perros (TikTok: mascotas).
 0n. (3D) Pasar `estadio()` del short de los átomos a `engine.js` como `setEstadio()` (sirve para multitudes, 0f) y `taco()` como utilería mexicana.
