@@ -702,5 +702,24 @@ if (S.startsWith('pm')) {
   if (S === 'pm3') { [prota, ella, abue].forEach(x => x.rotation.y = .62); cam.position.set(.6, 1.4, 7.4); cam.lookAt(0, 1.2, 0); }
 }
 
+if (S.startsWith('mpm')) {
+  const PM = kitPM(P, THREE, group); PM.diorama(); luces({ pos: [-3, 5, 8], hemi: 1.75, sol: 1.5, radio: 6 });
+  if (S === 'mpm1') { PM.chibi([-1.25, .02, .1], { logo: true, boca: 'abierta', inclina: -.05, mira: 1 }); PM.perroPM([.15, .02, .3], { pose: 'frente', escala: 1.05 }); PM.gatoPM([1.4, .02, .35], { pose: 'frente', escala: .95 });
+    cam.position.set(.1, 1.2, 13.2); cam.lookAt(.1, 1.1, 0); }
+  if (S === 'mpm2') { PM.perroPM([-1.05, .02, .3], { pose: 'perfil', escala: 1.05 }); PM.gatoPM([1.15, .02, .35], { pose: 'perfil', escala: 1.0 });
+    cam.position.set(.05, 1.0, 12.4); cam.lookAt(.05, .85, 0); }
+  if (S === 'mpm3') { PM.perroPM([-.62, .02, .3], { pose: 'frente' }); PM.gatoPM([.62, .02, .35], { pose: 'frente' }); cam.position.set(0, 1.05, 5.0); cam.lookAt(0, .95, 0); }
+}
+
+if (S.startsWith('uno')) {
+  const PM = kitPM(P, THREE, group); PM.diorama(); luces({ pos: [-3, 5, 8], hemi: 1.75, sol: 1.5, radio: 6 });
+  const k = S.slice(3);
+  if (k === 'DF') { PM.perroPM([0, .02, .3], { pose: 'frente' }); cam.position.set(0, .95, 6.4); cam.lookAt(0, .85, 0); }
+  if (k === 'GF') { PM.gatoPM([0, .02, .3], { pose: 'frente' }); cam.position.set(0, .85, 5.8); cam.lookAt(0, .75, 0); }
+  if (k === 'DP') { PM.perroPM([-.3, .02, .3], { pose: 'perfil' }); cam.position.set(0, .85, 7.6); cam.lookAt(0, .75, 0); }
+  if (k === 'GP') { PM.gatoPM([-.22, .02, .3], { pose: 'perfil' }); cam.position.set(0, .75, 6.6); cam.lookAt(0, .65, 0); }
+  if (k === 'CA') { PM.perroPM([-.62, .02, .3], { pose: 'frente' }); PM.gatoPM([.62, .02, .35], { pose: 'frente' }); cam.position.set(0, 1.0, 7.0); cam.lookAt(0, .95, 0); }
+}
+
 cam.updateProjectionMatrix(); R.render(world, cam); window.__done = true;
 </script></body></html>

@@ -97,5 +97,94 @@ export function kitPM(P, THREE, group) {
     const piso = pz(F.rect(30, .06, 0), 0xd4a96e, [0, .03, -1.69], null, { tinta: false, papel: false });
     for (let i = -14; i < 14; i++) det(F.rect(.18, .03, .01), 0xfff3dc, [i * .4, -.35, -1.68]);                                       // puntadas
   }
-  return { chibi, diorama, pz, det };
+
+  // ================= MASCOTAS en cartulina chibi =================
+  // ojo grande de mascota: iris de color, pupila, dos brillos (sx = -1|1 para reflejar el brillo)
+  function ojoM(par, pos, rx, ry, iris, pup = .55) { const e = group(pos, par);
+    det(F.elipse(rx + .016, ry + .016), INK, [0, 0, 0], e); det(F.elipse(rx, ry), iris, [0, 0, .002], e); det(F.elipse(rx * .62, ry * .62), osc(iris, .7), [0, -ry * .18, .003], e);
+    det(F.elipse(rx * pup, ry * pup * 1.05), INK, [0, -ry * .05, .004], e); det(F.elipse(rx * .32, ry * .28), 0xffffff, [rx * .3, ry * .38, .006], e); det(F.circ(rx * .14), 0xffffff, [-rx * .3, -ry * .38, .006], e); return e; }
+  const sombraPiso = (g, r = .5) => { const sh = new THREE.Mesh(new THREE.CircleGeometry(r, 40), new THREE.MeshBasicMaterial({ color: 0x3a2a18, transparent: true, opacity: .22 })); sh.rotation.x = -Math.PI / 2; sh.scale.y = .32; sh.position.set(0, .002, .05); g.add(sh); };
+  const oreja = (par, pos, rot, c, ci, alto = .36) => { const e = group(pos, par); e.rotation.z = rot;
+    pz(blob([[-.13, 0], [-.08, alto * .55], [0, alto], [.08, alto * .55], [.13, 0]]), c, [0, 0, 0], e); det(blob([[-.065, .03], [-.04, alto * .5], [0, alto * .8], [.04, alto * .5], [.065, .03]]), ci, [0, 0, .014], e); return e; };
+  const pata = (par, pos, L, c, cp, w = .17, sombra) => { const p = group(pos, par); pz(capsula(L, w, w * .92), c, [0, 0, 0], p);
+    if (sombra) det(capsula(L * .8, w * .3, w * .25), sombra, [w * .22, -.02, .014], p);
+    pz(F.elipse(w * .62, w * .42), cp, [.015, -L, .02], p); for (const dx of [-.03, .03]) linea([[dx + .015, -L - .02], [dx + .015, -L - .06]], .01, osc(cp, .75), p, .04); return p; };
+
+  // PERRO LOBO oficial: gris, patas y pecho blancos, ojos ámbar, collar coral con placa. pose 'frente' (sentado) | 'perfil' (de pie, mira a la derecha)
+  function perroPM(pos, o = {}) {
+    const g = group(pos); const es = o.escala ?? 1; g.scale.set(es, es, es * .2);
+    const GR = 0x8a93a3, OS = 0x6a7282, SH = 0x7a8292, BL = 0xfaf6ec, AM = 0xf2b23a, PI = 0xf2b8b8, CL = 0xc9d0dc;
+    const collar = (par, pos, w, rot = 0) => { const c = group(pos, par); c.rotation.z = rot; pz(tubo([[-w, .03], [0, -.03], [w, .03]], .085, .085), 0xff6b5b, [0, 0, 0], c, { papel: false });
+      for (const x of [-w * .6, 0, w * .6]) det(F.circ(.012), osc(0xff6b5b, .7), [x, x === 0 ? -.03 : 0, .016], c); const pl = pz(F.circ(.065), 0xffc83d, [0, -.1, .02], c, { papel: false }); det(F.estrella(5, .035, .016), osc(0xffc83d, .75), [0, 0, .014], pl); return c; };
+    if ((o.pose ?? 'frente') === 'frente') {
+      pz(tubo([[.3, .12], [.58, .2], [.72, .42], [.66, .66], [.56, .74]], .2, .15), GR, [0, 0, -.03], g); det(tubo([[.62, .64], [.56, .74]], .12, .1), BL, [0, 0, -.015], g);   // cola esponjada
+      for (const sx of [-1, 1]) { pz(F.elipse(.2, .17), GR, [sx * .3, .14, -.01], g); pz(F.elipse(.12, .07), BL, [sx * .38, .05, .005], g, { papel: false }); }     // ancas y patitas traseras
+      const cu = pz(blob([[-.36, .04], [-.4, .3], [-.3, .6], [0, .7], [.3, .6], [.4, .3], [.36, .04], [0, 0]]), GR, [0, 0, 0], g);
+      det(blob([[.18, .08], [.36, .1], [.38, .34], [.28, .58], [.2, .4]]), SH, [0, 0, .014], cu);
+      det(blob([[-.17, .14], [-.2, .42], [-.1, .64], [0, .68], [.1, .64], [.2, .42], [.17, .14], [0, .1]]), BL, [0, 0, .016], cu);                                    // pecho blanco
+      for (const [x, y] of [[-.08, .5], [.06, .44], [-.04, .32]]) linea([[x - .03, y], [x, y - .04], [x + .03, y]], .01, 0xd9d3c4, cu, .022);                          // pelito del pecho
+      for (const sx of [-1, 1]) pata(g, [sx * .13, .48, .03], .42, GR, BL, .16, SH);
+      const h = group([0, 1.05, .06], g); h.rotation.z = o.inclina ?? -.06;
+      oreja(h, [-.28, .3, -.02], .28, GR, PI, .4); oreja(h, [.28, .3, -.02], -.28, GR, PI, .4);
+      pz(blob([[-.48, .08], [-.44, .3], [-.26, .42], [0, .44], [.26, .42], [.44, .3], [.48, .08], [.58, -.1], [.44, -.12], [.38, -.28], [.2, -.38], [0, -.4], [-.2, -.38], [-.38, -.28], [-.44, -.12], [-.58, -.1]]), GR, [0, 0, 0], h);
+      det(blob([[.28, -.3], [.42, -.16], [.5, -.08], [.44, .08], [.36, -.04]]), SH, [0, 0, .014], h);
+      det(blob([[-.07, .42], [.07, .42], [.06, .14], [.2, -.04], [.36, -.14], [.3, -.28], [.16, -.37], [0, -.39], [-.16, -.37], [-.3, -.28], [-.36, -.14], [-.2, -.04], [-.06, .14]]), BL, [0, 0, .016], h);   // máscara blanca de lobo
+      for (const sx of [-1, 1]) { ojoM(h, [sx * .19, .06, .03], .085, .105, AM, .5); det(F.rect(.11, .03, .015), CL, [sx * .19, .21, .03], h, -sx * .2); det(F.elipse(.07, .04), mez(BL, 0xff6f86, .4), [sx * .3, -.12, .028], h); }
+      const hoc = group([0, -.17, .03], h); det(F.elipse(.075, .055), INK, [0, .03, .004], hoc); det(F.elipse(.025, .014), 0x6b6680, [-.02, .05, .008], hoc);
+      det(F.arco(.045, .014, Math.PI * 1.1, Math.PI * 1.9), INK, [-.045, -.04, .004], hoc); det(F.arco(.045, .014, Math.PI * 1.1, Math.PI * 1.9), INK, [.045, -.04, .004], hoc);
+      det(blob([[-.04, -.06], [.04, -.06], [.04, -.13], [0, -.16], [-.04, -.13]]), 0xff8a9a, [0, 0, .002], hoc); linea([[0, -.07], [0, -.12]], .008, osc(0xff8a9a, .75), hoc, .006);
+      collar(g, [0, .7, .07], .25);
+    } else {
+      pz(tubo([[-.5, .55], [-.74, .62], [-.86, .84], [-.8, 1.04]], .22, .16), GR, [0, 0, -.03], g); det(tubo([[-.83, .96], [-.8, 1.04]], .14, .12), BL, [0, 0, -.015], g);
+      pata(g, [-.34, .42, -.02], .4, OS, mez(BL, OS, .25), .16); pata(g, [.32, .42, -.02], .4, OS, mez(BL, OS, .25), .16);                                          // patas lejanas
+      const cu = pz(blob([[-.56, .36], [-.54, .62], [-.25, .72], [.2, .72], [.5, .66], [.58, .44], [.44, .3], [-.42, .3]]), GR, [0, 0, 0], g);
+      det(blob([[-.5, .36], [.45, .32], [.52, .44], [-.4, .42]]), SH, [0, 0, .014], cu); det(blob([[.3, .34], [.56, .44], [.5, .64], [.36, .56]]), BL, [0, 0, .016], cu);
+      pata(g, [-.24, .42, .03], .42, GR, BL, .17, SH); pata(g, [.42, .42, .03], .42, GR, BL, .17, SH);
+      const h = group([.62, 1.0, .06], g); h.rotation.z = o.inclina ?? .04;
+      oreja(h, [-.12, .3, -.02], .35, GR, PI, .38); oreja(h, [.06, .32, -.03], .1, OS, PI, .34);
+      pz(blob([[-.38, -.02], [-.34, .26], [-.14, .38], [.1, .36], [.28, .2], [.36, .04], [.6, -.02], [.66, -.12], [.58, -.22], [.3, -.24], [.12, -.34], [-.18, -.34], [-.34, -.22]]), GR, [0, 0, 0], h);
+      det(blob([[.06, -.06], [.34, .0], [.6, -.04], [.64, -.12], [.56, -.21], [.3, -.23], [.12, -.33], [-.12, -.32], [-.02, -.18]]), BL, [0, 0, .016], h);
+      ojoM(h, [.14, .08, .03], .075, .1, AM, .5); det(F.rect(.11, .03, .015), CL, [.13, .22, .03], h, -.2); det(F.elipse(.07, .04), mez(BL, 0xff6f86, .4), [.08, -.14, .028], h);
+      det(F.elipse(.06, .045), INK, [.63, -.06, .03], h); det(F.elipse(.02, .012), 0x6b6680, [.61, -.04, .034], h);
+      det(F.arco(.06, .014, Math.PI * 1.15, Math.PI * 1.7), INK, [.5, -.1, .03], h); det(blob([[.42, -.17], [.5, -.17], [.5, -.26], [.46, -.29], [.42, -.26]]), 0xff8a9a, [0, 0, .028], h);
+      collar(g, [.46, .76, .07], .14, 1.0);
+    }
+    sombraPiso(g, .62); return g; }
+
+  // GATO TIERNO oficial: negro con patitas, pecho y panza blancos, ojos verde-amarillo. pose 'frente' (sentado) | 'perfil' (caminando, mira a la derecha)
+  function gatoPM(pos, o = {}) {
+    const g = group(pos); const es = o.escala ?? 1; g.scale.set(es, es, es * .2);
+    const NE = 0x2b2833, LU = 0x36323f, BL = 0xfaf6ec, OJ = 0xb9e05a, PI = 0xf4a7b6;
+    const bigotes = (par, x, y, sx) => { for (const [dy, a] of [[.02, .12], [-.03, -.04], [-.08, -.2]]) linea([[x, y + dy], [x + sx * .26, y + dy + a * .45]], .009, 0xe9e4da, par, .036); };
+    if ((o.pose ?? 'frente') === 'frente') {
+      pz(tubo([[.28, .08], [.5, .1], [.62, .3], [.56, .54], [.46, .6]], .15, .12), NE, [0, 0, -.03], g); det(tubo([[.6, .4], [.56, .54]], .1, .08), LU, [0, 0, -.015], g);
+      for (const sx of [-1, 1]) { pz(F.elipse(.19, .16), NE, [sx * .27, .13, -.01], g); pz(F.elipse(.11, .065), BL, [sx * .35, .05, .005], g, { papel: false }); }
+      const cu = pz(blob([[-.32, .04], [-.36, .28], [-.26, .54], [0, .62], [.26, .54], [.36, .28], [.32, .04], [0, 0]]), NE, [0, 0, 0], g);
+      det(blob([[-.3, .1], [-.32, .3], [-.24, .5], [-.18, .3]]), LU, [0, 0, .014], cu);
+      det(blob([[-.16, .1], [-.18, .36], [-.08, .56], [0, .6], [.08, .56], [.18, .36], [.16, .1], [0, .06]]), BL, [0, 0, .016], cu);
+      for (const sx of [-1, 1]) pata(g, [sx * .11, .42, .03], .38, NE, BL, .14);
+      const h = group([0, .94, .06], g); h.rotation.z = o.inclina ?? .08;
+      oreja(h, [-.27, .24, -.02], .3, NE, PI, .34); oreja(h, [.27, .24, -.02], -.3, NE, PI, .34);
+      pz(blob([[-.46, .02], [-.42, .26], [-.24, .38], [0, .4], [.24, .38], [.42, .26], [.46, .02], [.54, -.12], [.42, -.14], [.32, -.28], [.16, -.34], [0, -.35], [-.16, -.34], [-.32, -.28], [-.42, -.14], [-.54, -.12]]), NE, [0, 0, 0], h);
+      det(blob([[-.4, .04], [-.36, .24], [-.2, .34], [-.3, .16]]), LU, [0, 0, .014], h);
+      det(blob([[-.2, -.06], [-.06, -.08], [0, -.04], [.06, -.08], [.2, -.06], [.22, -.2], [.12, -.31], [0, -.33], [-.12, -.31], [-.22, -.2]]), BL, [0, 0, .016], h);   // hocico blanco
+      for (const sx of [-1, 1]) { ojoM(h, [sx * .19, .08, .03], .1, .12, OJ, .6); det(F.elipse(.07, .04), mez(NE, 0xff6f86, .55), [sx * .32, -.1, .028], h); bigotes(h, sx * .2, -.14, sx); }
+      det(blob([[-.04, -.08], [.04, -.08], [0, -.13]]), 0xff8aa0, [0, 0, .03], h);
+      det(F.arco(.035, .012, Math.PI * 1.1, Math.PI * 1.9), INK, [-.035, -.16, .03], h); det(F.arco(.035, .012, Math.PI * 1.1, Math.PI * 1.9), INK, [.035, -.16, .03], h);
+      if (o.collar !== false) { pz(tubo([[-.2, .62], [0, .58], [.2, .62]], .06, .06), 0x7b5cff, [0, 0, .07], g, { papel: false }); pz(F.circ(.05), 0xffc83d, [0, .52, .09], g, { papel: false }); }
+    } else {
+      pz(tubo([[-.46, .5], [-.62, .7], [-.6, 1.0], [-.48, 1.14], [-.38, 1.1]], .13, .1), NE, [0, 0, -.03], g);                                                     // cola en gancho
+      pata(g, [-.3, .38, -.02], .36, 0x23202a, mez(BL, NE, .2), .13); pata(g, [.26, .38, -.02], .36, 0x23202a, mez(BL, NE, .2), .13);
+      const cu = pz(blob([[-.5, .34], [-.46, .58], [-.2, .64], [.2, .62], [.44, .56], [.5, .4], [.38, .28], [-.38, .28]]), NE, [0, 0, 0], g);
+      det(blob([[-.42, .56], [.0, .62], [.38, .55], [0, .58]]), LU, [0, 0, .014], cu); det(blob([[-.3, .3], [.36, .3], [.48, .42], [.3, .38], [-.2, .36]]), BL, [0, 0, .016], cu);   // panza blanca
+      pata(g, [-.2, .38, .03], .38, NE, BL, .14); pata(g, [.36, .38, .03], .38, NE, BL, .14);
+      const h = group([.52, .88, .06], g); h.rotation.z = o.inclina ?? -.05;
+      oreja(h, [-.18, .24, -.02], .25, NE, PI, .34); oreja(h, [.12, .26, -.03], -.1, 0x23202a, PI, .3);
+      pz(blob([[-.4, .0], [-.36, .24], [-.16, .36], [.12, .36], [.32, .24], [.4, .04], [.44, -.1], [.36, -.2], [.16, -.3], [-.12, -.3], [-.34, -.18]]), NE, [0, 0, 0], h);
+      det(blob([[.04, -.08], [.2, -.05], [.4, -.06], [.42, -.12], [.34, -.21], [.16, -.29], [.02, -.24]]), BL, [0, 0, .016], h);
+      ojoM(h, [.14, .07, .03], .09, .115, OJ, .6); det(F.elipse(.065, .038), mez(NE, 0xff6f86, .55), [.04, -.12, .028], h);
+      det(blob([[.36, -.06], [.43, -.06], [.41, -.11]]), 0xff8aa0, [0, 0, .03], h); det(F.arco(.04, .012, Math.PI * 1.15, Math.PI * 1.8), INK, [.36, -.14, .03], h); bigotes(h, .3, -.12, 1);
+    }
+    sombraPiso(g, .5); return g; }
+  return { chibi, diorama, pz, det, perroPM, gatoPM };
 }
