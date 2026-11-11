@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-11-paper-cola",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Tu perro mueve la cola porque está feliz? No siempre."]},
+    {"tipo": "derecha", "titulo": "", "frases": ["Si la mueve más hacia su derecha, está contento: te reconoce."]},
+    {"tipo": "izquierda", "titulo": "", "frases": ["Pero si la carga hacia su izquierda, algo lo pone nervioso."]},
+    {"tipo": "gato", "titulo": "", "frases": ["Y en los gatos es al revés: cola que azota rápido es gato molesto."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Fíjate hoy hacia dónde mueve la cola tu perro… y mándaselo a quien tenga uno."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}
