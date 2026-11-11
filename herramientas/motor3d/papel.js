@@ -95,7 +95,7 @@ export function kitPapel(E) {
     g.torso = parte(tor, ropa, [0, cad - .06, .03], g, { trama: conTrama ? trT : null });
     if (!o.vestido) parte(F.rect(.56, .1, .05), pan, [0, cad - .02, .025], g, { borde: 0 });   // cintura del pantalón
     if (o.estampado) parte(F.estrella(5, .12, .055), 0xffc83d, [0, cad + .5, .045], g, { borde: .02, atras: .005 });
-    if (o.logo) { const lg = group([0, cad + .5, .046], g); lg.scale.setScalar(.15); logoMini(lg); g.logo = lg; }
+    if (o.logo) { const lg = group([-.13, cad + .62, .046], g); lg.scale.setScalar(.075); logoMini(lg); g.logo = lg; }
     // brazos: hombro → codo → mano (cápsulas que se traslapan; los contornos quedan detrás)
     const topY = cad - .06 + T;
     const brazo = (sx) => { const b = group([sx * .3, topY - .1, .05], g);
