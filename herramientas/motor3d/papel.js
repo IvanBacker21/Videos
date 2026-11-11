@@ -93,27 +93,34 @@ export function kitPapel(E) {
     // torso con hombros redondos y cintura (o vestido)
     const T = .92, tor = S();
     if (o.vestido) { tor.moveTo(-.44, -.28); tor.lineTo(.44, -.28); tor.quadraticCurveTo(.3, .3, .32, T - .14); tor.quadraticCurveTo(.3, T, 0, T + .02); tor.quadraticCurveTo(-.3, T, -.32, T - .14); tor.quadraticCurveTo(-.3, .3, -.44, -.28); }
-    else { tor.moveTo(-.27, 0); tor.lineTo(.27, 0); tor.quadraticCurveTo(.31, .45, .34, T - .16); tor.quadraticCurveTo(.33, T, 0, T + .02); tor.quadraticCurveTo(-.33, T, -.34, T - .16); tor.quadraticCurveTo(-.31, .45, -.27, 0); }
-    const trT = S(); trT.moveTo(0, o.vestido ? -.28 : 0); trT.lineTo(o.vestido ? .44 : .27, o.vestido ? -.28 : 0); trT.quadraticCurveTo(.31, .45, .34, T - .16); trT.quadraticCurveTo(.33, T, 0, T + .02);
+    else { // hombros caídos y redondos que bajan del cuello: una sola silueta (los brazos salen DEBAJO del torso, no encima)
+      tor.moveTo(-.25, 0); tor.lineTo(.25, 0); tor.quadraticCurveTo(.3, .32, .325, .58); tor.quadraticCurveTo(.37, T - .12, .29, T - .03); tor.quadraticCurveTo(.2, T + .03, .09, T + .03);
+      tor.lineTo(-.09, T + .03); tor.quadraticCurveTo(-.2, T + .03, -.29, T - .03); tor.quadraticCurveTo(-.37, T - .12, -.325, .58); tor.quadraticCurveTo(-.3, .32, -.25, 0); }
+    // trama: media luna suave en el costado de sombra (antes partía el torso a la mitad)
+    const trT = S(); if (o.vestido) { trT.moveTo(.14, -.28); trT.lineTo(.44, -.28); trT.quadraticCurveTo(.3, .3, .32, T - .14); trT.quadraticCurveTo(.3, T - .04, .2, T - .02); trT.quadraticCurveTo(.12, .4, .14, -.28); }
+    else { trT.moveTo(.13, 0); trT.lineTo(.25, 0); trT.quadraticCurveTo(.3, .32, .325, .58); trT.quadraticCurveTo(.37, T - .12, .29, T - .03); trT.quadraticCurveTo(.2, T + .02, .15, T - .02); trT.quadraticCurveTo(.1, .45, .13, 0); }
     g.torso = parte(tor, ropa, [0, cad - .06, .03], g, { trama: conTrama ? trT : null });
     if (!o.vestido) parte(F.rect(.56, .1, .05), pan, [0, cad - .02, .025], g, { borde: 0 });   // cintura del pantalón
     if (o.estampado) parte(F.estrella(5, .12, .055), 0xffc83d, [0, cad + .5, .045], g, { borde: .02, atras: .005 });
     if (o.logo) { const lg = group([-.13, cad + .62, .046], g); lg.scale.setScalar(.075); logoMini(lg); g.logo = lg; }
     // brazos: hombro → codo → mano (cápsulas que se traslapan; los contornos quedan detrás)
     const topY = cad - .06 + T;
-    const brazo = (sx) => { const b = group([sx * .3, topY - .1, .05], g);
+    const brazo = (sx) => { const b = group([sx * .255, topY - .13, .018], g);   // pivote DENTRO del hombro y detrás del torso: el hombro del torso tapa la punta del brazo
       const largo = o.manga === 'larga';
       parte(capsula(.46, .17, .14), largo ? ropa : (o.manga === 'corta' ? piel : piel), [0, 0, 0], b);
-      if (!largo) parte(capsula(.2, .19, .17), ropa, [0, 0, .004], b, { atras: .095 });            // manga corta
+      if (!largo) parte(capsula(.3, .2, .18), ropa, [0, 0, .004], b, { atras: .095 });            // manga corta
       const a = group([0, -.44, .006], b); b.ante = a;
       parte(capsula(.4, .14, .11), largo ? ropa : piel, [0, 0, 0], a);
       const m = group([0, -.42, .004], a); a.mano = m;                                                  // mano con pulgar
       parte(F.elipse(.075, .088), piel, [0, -.03, 0], m); const pul = parte(F.elipse(.03, .055), piel, [-sx * .065, .0, .002], m); pul.rotation.z = sx * .5;
       return b; };
-    g.armL = brazo(-1); g.armR = brazo(1); g.armL.rotation.z = -.12; g.armR.rotation.z = .12;
+    g.armL = brazo(-1); g.armR = brazo(1);
+    // postura natural en reposo (contrapposto ligero): nada perfectamente simétrico
+    g.armL.rotation.z = -.16; g.armL.ante.rotation.z = -.22; g.armR.rotation.z = .1; g.armR.ante.rotation.z = .3;
+    g.legL.rotation.z = -.035; g.legR.rotation.z = .055;
     // cuello y cabeza (huevo con mandíbula, orejas)
     parte(capsula(.18, .14, .15), piel, [0, topY + .1, .02], g);
-    const h = group([0, topY + .36, .08], g); g.head = h;
+    const h = group([0, topY + .36, .08], g); g.head = h; h.rotation.z = .05;
     if (o.pelo === 'cola' || o.pelo === 'largo') { const c = S(); c.moveTo(.08, .22); c.quadraticCurveTo(.5, .2, .52, -.15); c.quadraticCurveTo(.5, -.45, .36, -.42); c.quadraticCurveTo(.4, -.1, .1, .05); parte(o.pelo === 'largo' ? F.poly([[-.27, .2], [.27, .2], [.31, -.42], [-.31, -.42]]) : c, colPelo, [0, 0, -.01], h); }
     if (o.pelo === 'afro') for (let k = 0; k < 9; k++) { const t = k / 8 * Math.PI; parte(F.circ(.15), colPelo, [Math.cos(t) * .27, .1 + Math.sin(t) * .2, -.01], h); }
     for (const sx of [-1, 1]) parte(F.elipse(.05, .07), piel, [sx * .245, -.01, -.004], h);          // orejas
@@ -149,11 +156,86 @@ export function kitPapel(E) {
     g.cara = (b, cejas = 0) => { for (const k in h.bocas) h.bocas[k].visible = k === b; h.cejas.forEach((c, i) => { c.rotation.z = (i ? -1 : 1) * cejas; c.position.y = .125 + Math.abs(cejas) * .04; }); };
     g.mira = (dx, dy) => h.ojos.forEach(e => e.pupila.position.set(dx * .02, dy * .02 - .006, .004));
     // poses rápidas: 'jarra', 'senala', 'pulgar', 'saluda', 'brazosArriba', 'normal'
-    g.pose = (lado, tipo) => { const b = lado === 'R' ? g.armR : g.armL, sx = lado === 'R' ? 1 : -1;
+    g.pose = (lado, tipo) => { const b = lado === 'R' ? g.armR : g.armL, sx = lado === 'R' ? 1 : -1; g['_pose' + lado] = tipo !== 'normal';
       const P = { normal: [.12, 0], jarra: [.55, -2.0], senala: [2.5, .25], pulgar: [.25, 1.6], saluda: [2.3, .7], brazosArriba: [2.9, .15], cruzado: [.35, 1.9] }[tipo] ?? [.12, 0];
-      b.rotation.z = sx * P[0]; b.ante.rotation.z = sx * P[1]; };
+      const base = { normal: sx > 0 ? [.1, .3] : [.16, .22] }[tipo];   // reposo con codo un poco doblado
+      b.rotation.z = sx * (base ? base[0] : P[0]); b.ante.rotation.z = sx * (base ? base[1] : P[1]); };
+    // respiración / balanceo en reposo: llamar cada cuadro con t (segundos). No toca brazos que estén en pose.
+    g.respira = (t, k = 1) => { const s = Math.sin(t * 2.2), c = Math.sin(t * 1.1 + .7);
+      h.rotation.z = .05 + c * .04 * k; h.position.y = topY + .36 + s * .012 * k; g.rotation.z = c * .012 * k;
+      if (!g._poseL) g.armL.rotation.z = -.16 - s * .03 * k; if (!g._poseR) g.armR.rotation.z = .1 + s * .03 * k; };
     g.cara('feliz'); return g;
   }
+
+  // PERRO OFICIAL (aprobado 11-nov-2026, propuesta 1 "más lobo"): gris con patas y pecho blancos, hocico largo, melena, ojos ámbar, collar coral con placa.
+  // pose: 'perfil' (de pie, mira a la derecha; voltear con scale.x = -1) | 'frente' (sentado, para acercamientos). Escala 1 ≈ 1.6 de alto.
+  function perroLobo(pos = [0, 0, 0], o = {}, parent) {
+  const GR = 0x808996, OS = 0x5d6472, CL = 0xc8ced8, BL = 0xf6f1e6, PI = 0xeec9c0;
+  const ojoDe = (par, pos, forma, iris, pup, dos) => { const e = group(pos, par); pieza(forma, iris, [0, 0, 0], e, { sombra: false, grosor: .004 }); pieza(F.circ(pup), INK, [.012, -.004, .004], e, { sombra: false, grosor: .004 }); pieza(F.circ(.015), 0xffffff, [.024, .018, .008], e, { sombra: false, grosor: .003 }); if (dos) pieza(F.circ(.008), 0xffffff, [-.004, -.018, .008], e, { sombra: false, grosor: .003 }); return e; };
+  // mechones: borde ondulado (para melena, pecho y cola)
+  const mechones = (cx, cy, rx, ry, a0, a1, k = 9, amp = .22) => { const pts = []; for (let i = 0; i <= 60; i++) { const a = a0 + (a1 - a0) * i / 60, r = 1 + amp * Math.max(0, Math.sin(i / 60 * Math.PI * k)) ; pts.push([cx + Math.cos(a) * rx * r, cy + Math.sin(a) * ry * r]); } pts.push([cx, cy]); return F.poly(pts); };
+  const v = { hocico: 1.2, cab: 1, robusto: false, melena: true, textura: false, husky: false, tierno: false };
+  const g = group(pos, parent); g.scale.setScalar(o.escala ?? 1);
+  if ((o.pose ?? 'perfil') === 'perfil') {
+    const mx = (x) => x > .84 ? .84 + (x - .84) * v.hocico : x;            // alarga o acorta el hocico
+    const R = v.robusto;
+    // patas lejanas
+    parte(blob(R ? [[.28, .66], [.3, .3], [.28, .04], [.4, 0], [.54, .02], [.48, .14], [.49, .4], [.48, .62]] : [[.32, .66], [.36, .3], [.34, .04], [.42, 0], [.52, .02], [.46, .12], [.47, .4], [.46, .62]]), OS, [0, 0, -.04], g);
+    parte(blob(R ? [[-.54, .62], [-.44, .4], [-.56, .22], [-.52, .02], [-.4, 0], [-.28, .02], [-.36, .14], [-.32, .3], [-.26, .55]] : [[-.5, .62], [-.42, .4], [-.52, .22], [-.48, .02], [-.4, 0], [-.32, .02], [-.38, .14], [-.34, .3], [-.28, .55]]), OS, [0, 0, -.04], g);
+    // cola
+    if (v.husky) parte(tubo([[-.6, .98], [-.82, 1.1], [-.78, 1.32], [-.56, 1.36], [-.42, 1.22]], .22, .2), GR, [0, 0, -.02], g);
+    else if (v.textura) parte(blob([[-.6, 1.0], [-.75, .98], [-.88, .86], [-.98, .78], [-.92, .7], [-1.0, .6], [-.92, .52], [-.96, .4], [-.88, .34], [-.84, .44], [-.8, .62], [-.68, .84]]), GR, [0, 0, -.02], g);
+    else parte(tubo([[-.62, .95], [-.82, .82], [-.9, .58], [-.86, .36]], v.tierno ? .2 : .24, .18), GR, [0, 0, -.02], g);
+    if (!v.husky) parte(tubo([[-.88, .48], [-.88, .38]], .17, .12), CL, [0, 0, -.016], g, { borde: 0 });
+    // silueta
+    const sil = [[-.62, .98], [-.32, 1.04], [.08, 1.05], [.36, 1.12], [.5, 1.32], [.6, 1.5], [.7, 1.56], [.8, 1.54], [.88, 1.48], [1.08, 1.43], [1.18, 1.39], [1.16, 1.32], [.98, 1.28], [.84, 1.24], [.72, 1.12], [.64, .96],
+      ...(R ? [[.64, .78], [.66, .5], [.66, .22], [.72, .06], [.72, 0], [.48, 0], [.48, .22], [.46, .52], [.42, .66]] : [[.6, .78], [.6, .52], [.6, .22], [.66, .06], [.66, 0], [.5, 0], [.49, .22], [.48, .52], [.43, .66]]),
+      [.18, .66], [-.1, .7], [-.26, .66], ...(R ? [[-.22, .44], [-.28, .24], [-.22, .04], [-.22, 0], [-.46, 0], [-.46, .12], [-.52, .26], [-.64, .5], [-.72, .78]] : [[-.24, .44], [-.32, .24], [-.26, .04], [-.28, 0], [-.44, 0], [-.44, .12], [-.5, .26], [-.62, .5], [-.7, .78]])]
+      .map(([x, y]) => [mx(x), y]);
+    const silT = v.tierno ? sil.map(([x, y]) => (x > .45 && y > 1.15) ? [.7 + (x - .7) * v.cab, 1.4 + (y - 1.4) * v.cab] : [x, y]) : sil;
+    parte(blob(silT), GR, [0, 0, 0], g);
+    const H = (x, y) => v.tierno ? [.7 + (mx(x) - .7) * v.cab, 1.4 + (y - 1.4) * v.cab] : [mx(x), y];
+    // manchas
+    pieza(blob([[-.5, .98], [-.3, 1.025], [.1, 1.035], [.3, 1.08], [.12, 1.0], [-.25, .97]]), 0x737b89, [0, 0, .012], g, { sombra: false, grosor: .003 });
+    if (v.husky) { pieza(blob([[.66, 1.42], [.76, 1.5], [.86, 1.46], [1.06, 1.4], [1.16, 1.36], [1.14, 1.31], [.98, 1.27], [.84, 1.22], [.72, 1.12], [.62, 1.0], [.56, 1.1], [.6, 1.3]].map(([x, y]) => H(x, y))), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(blob([[.64, 1.56], [.74, 1.6], [.84, 1.54], [.8, 1.48], [.72, 1.5]].map(([x, y]) => H(x, y))), OS, [0, 0, .013], g, { sombra: false, grosor: .003 }); }
+    else pieza(blob([[.74, 1.3], [.98, 1.3], [1.12, 1.36], [1.14, 1.32], [.98, 1.27], [.84, 1.23], [.76, 1.2]].map(([x, y]) => H(x, y))), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+    pieza(blob([[.66, 1.2], [.72, 1.1], [.64, .94], [.6, .76], [.5, .7], [.48, .9], [.56, 1.08]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+    pieza(blob(R ? [[.48, .18], [.66, .18], [.72, .06], [.72, .01], [.48, .01]] : [[.5, .16], [.6, .16], [.66, .06], [.66, .01], [.5, .01]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+    pieza(blob(R ? [[-.22, .16], [-.22, .03], [-.24, .01], [-.46, .01], [-.46, .14]] : [[-.27, .14], [-.26, .03], [-.28, .01], [-.44, .01], [-.44, .12]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+    // melena con mechones (y mechones de pecho)
+    if (v.melena) { pieza(mechones(.62, 1.22, .2, .22, -1.3, 1.6, 7, .18), GR, [0, 0, .014], g, { sombra: false, grosor: .003 }); pieza(mechones(.6, .95, .1, .16, Math.PI * .9, Math.PI * 1.6, 4, .3), BL, [0, 0, .016], g, { sombra: false, grosor: .003 }); }
+    if (false) { for (const [x, y, r] of [[-.3, .96, .5], [0, .98, .3], [.25, 1.02, .2], [-.5, .78, 1.7], [.1, .7, 2.6]]) pieza(F.arco(.08, .014, Math.PI * .1, Math.PI * .7), OS, [x, y, .014], g, { rot: r, sombra: false, grosor: .003 }); }
+    // nariz, boca, lengua, orejas, ojo
+    const [nx, ny] = H(1.16, 1.4); pieza(F.elipse(.055, .04), INK, [nx, ny, .02], g, { sombra: false, grosor: .004 });
+    const [bx, by] = H(1.0, 1.33); pieza(F.arco(.07, .015, Math.PI * 1.25, Math.PI * 1.7), INK, [bx, by, .02], g, { sombra: false, grosor: .004 });
+    if (v.tierno) { const [lx, ly] = H(.98, 1.25); parte(blob([[-.035, .02], [.035, .02], [.035, -.06], [0, -.085], [-.035, -.06]]), 0xff8a9a, [lx, ly, .018], g, { borde: .012, atras: .004 }); }
+    const [hx, hy] = H(.72, 1.48);
+    for (const [dx, z] of [[-.06, -.008], [.07, .008]]) { const kk = v.tierno ? 1.05 : 1, tilt = v.tierno ? .25 : 0;
+      const e = group([hx + dx, hy, z], g); e.rotation.z = tilt; e.scale.setScalar(kk);
+      parte(blob([[-.1, .02], [-.06, .22], [-.01, .36], [.05, .22], [.08, .03]]), z < 0 ? OS : GR, [0, 0, 0], e); if (z > 0) parte(blob([[-.05, .05], [-.03, .2], [0, .27], [.03, .18], [.04, .05]]), PI, [0, 0, .003], e, { borde: 0 }); }
+    if (v.tierno) ojoDe(g, [hx + .13, hy - .02, .02], F.elipse(.065, .065), 0x2a2420, .0001, true).children[0].material = M(0x2a2420);
+    else ojoDe(g, [hx + .12, hy - .03, .02], blob([[-.065, 0], [-.02, .035], [.05, .03], [.07, -.004], [.02, -.03], [-.04, -.026]]), v.husky ? 0x7cc8f2 : 0xf2b84a, .024);
+    pieza(blob([[-.06, .0], [.03, .025], [.1, .005], [.03, .0]]), v.husky ? OS : CL, [hx + .12, hy + .03, .021], g, { sombra: false, grosor: .003 });
+    if (v.husky) pieza(blob([[-.04, -.01], [.08, -.06], [.14, -.03], [.06, .0]]), OS, [hx + .12, hy - .04, .019], g, { sombra: false, grosor: .003 });
+    parte(tubo([[.52, 1.36], [.66, 1.24], [.78, 1.16]], .07, .07), 0xff6b5b, [0, 0, .016], g, { borde: .018, atras: .005 }); pieza(F.circ(.042), 0xffc83d, [.76, 1.1, .03], g, { borde: .015, colorBorde: INK });
+  } else {
+    // 6 · sentado de FRENTE (cara expresiva para acercamientos)
+    parte(tubo([[.32, .06], [.55, .1], [.66, .24], [.6, .36]], .2, .16), GR, [0, 0, -.02], g);
+    parte(blob([[-.34, 0], [-.4, .3], [-.32, .62], [-.16, .86], [0, .92], [.16, .86], [.32, .62], [.4, .3], [.34, 0], [.16, 0], [.12, .2], [-.12, .2], [-.16, 0]]), GR, [0, 0, 0], g);
+    pieza(blob([[-.14, .22], [-.18, .5], [-.1, .78], [0, .84], [.1, .78], [.18, .5], [.14, .22]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+    pieza(mechones(0, .82, .2, .14, Math.PI * 1.05, Math.PI * 1.95, 5, .3), BL, [0, 0, .014], g, { sombra: false, grosor: .003 });
+    for (const sx of [-1, 1]) { parte(blob([[sx * .03, .02], [sx * .04, .44], [sx * .12, .5], [sx * .18, .42], [sx * .18, .0]]), GR, [0, 0, .008], g, { atras: .02 }); pieza(blob([[sx * .03, .02], [sx * .03, .14], [sx * .18, .14], [sx * .18, .0]]), BL, [0, 0, .02], g, { sombra: false, grosor: .003 }); }
+    const h = group([0, 1.12, .03], g);
+    for (const sx of [-1, 1]) { const e = group([sx * .2, .2, -.006], h); e.rotation.z = -sx * .2; parte(blob([[-.1, .0], [-.06, .22], [0, .36], [.06, .22], [.1, .0]]), OS, [0, 0, 0], e); parte(blob([[-.05, .03], [-.03, .2], [0, .28], [.03, .2], [.05, .03]]), PI, [0, 0, .003], e, { borde: 0 }); }
+    parte(blob([[-.3, .08], [-.24, .26], [0, .3], [.24, .26], [.3, .08], [.26, -.12], [.14, -.24], [0, -.28], [-.14, -.24], [-.26, -.12]]), GR, [0, 0, 0], h);
+    pieza(blob([[-.06, .18], [.06, .18], [.12, -.06], [.16, -.2], [0, -.27], [-.16, -.2], [-.12, -.06]]), BL, [0, 0, .012], h, { sombra: false, grosor: .003 });
+    for (const sx of [-1, 1]) { ojoDe(h, [sx * .12, .06, .014], blob([[-.06, 0], [-.02, .035], [.05, .028], [.065, -.004], [.02, -.03], [-.04, -.026]].map(([x, y]) => [x * sx, y])), 0xf2b84a, .024); pieza(F.rect(.1, .026, .01), CL, [sx * .12, .13, .015], h, { rot: -sx * .2, sombra: false, grosor: .003 }); }
+    pieza(F.elipse(.065, .045), INK, [0, -.12, .016], h, { sombra: false, grosor: .004 });
+    for (const sx of [-1, 1]) pieza(F.arco(.045, .014, Math.PI * 1.1, Math.PI * 1.85), INK, [sx * .045, -.19, .016], h, { sombra: false, grosor: .004 });
+    parte(tubo([[-.2, .9], [0, .86], [.2, .9]], .065, .065), 0xff6b5b, [0, 0, .016], g, { borde: .018, atras: .005 }); pieza(F.circ(.042), 0xffc83d, [0, .83, .03], g, { borde: .015, colorBorde: INK });
+  }
+  return g; }
   // PROTAGONISTA del canal (aprobado 11-nov-2026): playera azul eléctrico con el logo del planeta curioso, copete castaño, sin barba ni audífonos, tenis menta.
   function protagonista(pos = [0, 0, 0], o = {}, parent) {
     return persona(pos, { piel: 0xe2ab83, ropa: 0x3d6bff, pantalon: 0x1f1b2e, tenis: 0x2ec4a6, pelo: 'copete', colPelo: 0x3a2416, logo: true, ...o }, parent); }
@@ -290,5 +372,5 @@ export function kitPapel(E) {
         E.rotulo('Síguenos', 'datos curiosos cada día', lt - ts, 1530); if (lt > ts) c.ev('ding', ts, .6); }
     });
   }
-  return { F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
+  return { F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, perroLobo, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
 }
