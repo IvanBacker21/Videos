@@ -512,5 +512,104 @@ if (S === 'mascotas2' || S === 'perro2' || S === 'gato2') {
     cam.position.set(0, 1.3, 12.5); cam.lookAt(0, 1.2, 0); etq('Perro lobo', 760); etq('Gato tierno', 1650); }
 }
 
+// ===================== MASCOTAS v3: siluetas continuas (sin óvalos sueltos) =====================
+if (S === 'perros3' || S === 'gatos3') {
+  const { parte, blob, tubo, INK } = P;
+  fondo(0xfff1dc, -2.4); pieza(F.rect(12, 6, 0), 0xffd9b0, [0, -3, -.7], null, { sombra: false });
+  luces({ pos: [-2.5, 4, 7], hemi: 1.45 });
+  const etq = (txt, y) => { const d = document.createElement('div'); d.className = 'tag'; d.style.bottom = 'auto'; d.style.top = y + 'px'; d.innerHTML = `<span>${txt}</span>`; TX.appendChild(d); };
+  const ojo = (par, pos, forma, iris, pup, s = 1) => { const e = group(pos, par); pieza(forma, iris, [0, 0, 0], e, { sombra: false, grosor: .004 }); pieza(F.circ(pup), INK, [.012 * s, -.004, .004], e, { sombra: false, grosor: .004 }); pieza(F.circ(.014 * s), 0xffffff, [.024 * s, .016 * s, .008], e, { sombra: false, grosor: .003 }); return e; };
+  if (S === 'perros3') {
+    const GR = 0x808996, OS = 0x5d6472, CL = 0xc8ced8, BL = 0xf6f1e6, PI = 0xeec9c0;
+    const cabezaLobo = (g, o) => {   // orejas, ojo, nariz y mancha blanca sobre la silueta (coordenadas del perro)
+      const [hx, hy] = o;
+      for (const [dx, z] of [[-.06, -.008], [.07, .008]]) { parte(blob([[hx + dx - .1, hy + .02], [hx + dx - .06, hy + .22], [hx + dx - .01, hy + .36], [hx + dx + .05, hy + .22], [hx + dx + .08, hy + .03]]), z < 0 ? OS : GR, [0, 0, z], g); if (z > 0) parte(blob([[hx + dx - .05, hy + .05], [hx + dx - .03, hy + .2], [hx + dx + .0, hy + .27], [hx + dx + .03, hy + .18], [hx + dx + .04, hy + .05]]), PI, [0, 0, z + .003], g, { borde: 0 }); }
+      ojo(g, [hx + .12, hy - .03, .02], blob([[-.065, 0], [-.02, .035], [.05, .03], [.07, -.004], [.02, -.03], [-.04, -.026]]), 0xf2b84a, .024);
+      pieza(blob([[-.06, .0], [.03, .025], [.1, .005], [.03, .0]]), CL, [hx + .12, hy + .03, .021], g, { sombra: false, grosor: .003 });
+    };
+    function loboDePie(pos, trota) { const g = group(pos); g.scale.setScalar(1.05);
+      const pf = trota ? [[.5, .62], [.62, .45], [.74, .34], [.8, .22], [.7, .2], [.6, .3], [.47, .42]] : null;
+      // patas del lado lejano (más oscuras, detrás)
+      parte(blob([[.32, .66], [.36, .3], [.34, .04], [.42, 0], [.52, .02], [.46, .12], [.47, .4], [.46, .62]]), OS, [0, 0, -.04], g);
+      parte(blob([[-.5, .62], [-.42, .4], [-.52, .22], [-.48, .02], [-.4, 0], [-.32, .02], [-.38, .14], [-.34, .3], [-.28, .55]]), OS, [0, 0, -.04], g);
+      // cola esponjada
+      parte(tubo([[-.62, .95], [-.82, .82], [-.9, .58], [-.86, .36]], .24, .18), GR, [0, 0, -.02], g); parte(tubo([[-.88, .48], [-.88, .38]], .17, .12), CL, [0, 0, -.016], g, { borde: 0 });
+      // silueta principal: lomo, cuello, cabeza, hocico, pecho, pata delantera y trasera en un solo trazo
+      const front = trota ? [[.6, .78], [.66, .62], [.78, .48], [.86, .36], [.9, .26], [.84, .2], [.74, .26], [.62, .38], [.5, .5], [.44, .62]]
+                          : [[.6, .78], [.6, .52], [.6, .22], [.66, .06], [.66, 0], [.5, 0], [.49, .22], [.48, .52], [.43, .66]];
+      const sil = [[-.62, .98], [-.32, 1.04], [.08, 1.05], [.36, 1.12], [.5, 1.32], [.6, 1.5], [.7, 1.56], [.8, 1.54], [.88, 1.48], [1.08, 1.43], [1.18, 1.39], [1.16, 1.32], [.98, 1.28], [.84, 1.24], [.72, 1.12], [.64, .96],
+        ...front, [.18, .66], [-.1, .7], [-.26, .66], [-.24, .44], [-.32, .24], [-.26, .04], [-.28, 0], [-.44, 0], [-.44, .12], [-.5, .26], [-.62, .5], [-.7, .78]];
+      g.cuerpo = parte(blob(sil), GR, [0, 0, 0], g);
+      // silla oscura en el lomo, mejillas/hocico y pecho blancos, calcetines
+      pieza(blob([[-.5, .98], [-.3, 1.025], [.1, 1.035], [.3, 1.08], [.12, 1.0], [-.25, .97]]), 0x737b89, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(blob([[.74, 1.3], [.98, 1.3], [1.12, 1.36], [1.14, 1.32], [.98, 1.27], [.84, 1.23], [.76, 1.2]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(blob([[.66, 1.2], [.72, 1.1], [.64, .94], [.6, .76], [.5, .7], [.48, .9], [.56, 1.08]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      if (!trota) pieza(blob([[.5, .16], [.6, .16], [.66, .06], [.66, .01], [.5, .01]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      else pieza(blob([[.8, .3], [.88, .27], [.86, .21], [.76, .22]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(blob([[-.27, .14], [-.26, .03], [-.28, .01], [-.44, .01], [-.44, .12]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(F.elipse(.055, .04), INK, [1.16, 1.4, .02], g, { sombra: false, grosor: .004 });
+      pieza(F.arco(.07, .015, Math.PI * 1.25, Math.PI * 1.7), INK, [1.0, 1.33, .02], g, { sombra: false, grosor: .004 });
+      cabezaLobo(g, [.72, 1.48]);
+      parte(tubo([[.52, 1.36], [.66, 1.24], [.78, 1.16]], .07, .07), 0xff6b5b, [0, 0, .016], g, { borde: .018, atras: .005 }); pieza(F.circ(.042), 0xffc83d, [.76, 1.1, .03], g, { borde: .015, colorBorde: INK });
+      return g; }
+    function loboSentado(pos) { const g = group(pos); g.scale.setScalar(1.05);
+      parte(tubo([[-.36, .05], [-.05, .02], [.28, .04], [.5, .1]], .2, .14), GR, [0, 0, .03], g); parte(tubo([[.42, .08], [.52, .11]], .14, .1), CL, [0, 0, .034], g, { borde: 0 });
+      parte(blob([[.18, .7], [.2, .35], [.18, .05], [.26, 0], [.36, .02], [.3, .12], [.3, .4], [.3, .68]]), OS, [0, 0, -.04], g);
+      const sil = [[-.42, .02], [-.58, .3], [-.52, .62], [-.3, .9], [-.08, 1.12], [.06, 1.34], [.14, 1.56], [.24, 1.7], [.36, 1.72], [.44, 1.66], [.66, 1.6], [.78, 1.56], [.76, 1.48], [.6, 1.44], [.48, 1.4], [.4, 1.28], [.36, 1.06],
+        [.38, .8], [.42, .5], [.42, .2], [.5, .06], [.5, 0], [.32, 0], [.3, .2], [.28, .46], [.16, .4], [.2, .1], [.18, 0]];
+      parte(blob(sil), GR, [0, 0, 0], g);
+      pieza(blob([[-.5, .3], [-.42, .55], [-.2, .62], [-.05, .45], [-.12, .2], [-.3, .12]]), OS, [0, 0, .012], g, { sombra: false, grosor: .003 });   // anca
+      pieza(blob([[.44, 1.42], [.62, 1.45], [.74, 1.5], [.72, 1.46], [.56, 1.4], [.42, 1.36]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(blob([[.36, 1.3], [.4, 1.12], [.38, .86], [.3, .72], [.22, .84], [.24, 1.1], [.3, 1.26]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(blob([[.31, .16], [.42, .16], [.5, .06], [.5, .01], [.32, .01]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      pieza(F.elipse(.05, .038), INK, [.76, 1.53, .02], g, { sombra: false, grosor: .004 });
+      cabezaLobo(g, [.3, 1.62]);
+      parte(tubo([[.08, 1.3], [.22, 1.22], [.38, 1.18]], .07, .07), 0xff6b5b, [0, 0, .016], g, { borde: .018, atras: .005 }); pieza(F.circ(.042), 0xffc83d, [.37, 1.12, .03], g, { borde: .015, colorBorde: INK });
+      return g; }
+    loboDePie([-.45, 3.0, 0], false); loboDePie([-.45, .6, 0], true); loboSentado([-.1, -1.85, 0]);
+    cam.position.set(0, 1.25, 14.5); cam.lookAt(0, 1.2, 0);
+    etq('Lobo A · de pie', 520); etq('Lobo B · trotando', 1110); etq('Lobo C · sentado', 1690);
+  } else {
+    const NE = 0x2f2d38, NEo = 0x24222b, BL = 0xf6f1e6, PI = 0xf2a7b8, IR = 0xc9e36b;
+    const cabezaGato = (par, pos, frente) => { const h = group(pos, par);
+      for (const [x, r, z] of frente ? [[-.17, .32, -.006], [.17, -.32, -.006]] : [[-.1, .15, -.006], [.08, -.1, .006]]) { const e = group([x, .2, z], h); e.rotation.z = r; parte(blob([[-.1, -.02], [-.07, .14], [0, .22], [.06, .14], [.1, -.02]]), NE, [0, 0, 0], e); parte(blob([[-.05, .0], [-.035, .1], [0, .15], [.03, .1], [.05, .0]]), PI, [0, 0, .003], e, { borde: 0 }); }
+      parte(blob(frente ? [[-.3, .02], [-.26, .2], [0, .27], [.26, .2], [.3, .02], [.22, -.16], [0, -.21], [-.22, -.16]] : [[-.24, .0], [-.18, .19], [.04, .25], [.24, .16], [.32, -.02], [.24, -.16], [.04, -.21], [-.18, -.15]]), NE, [0, 0, 0], h);
+      pieza(blob(frente ? [[-.13, -.05], [0, .0], [.13, -.05], [.12, -.15], [0, -.19], [-.12, -.15]] : [[.06, -.04], [.3, -.03], [.28, -.15], [.1, -.19]]), BL, [0, 0, .012], h, { sombra: false, grosor: .003 });
+      for (const x of frente ? [-.12, .12] : [.1]) ojo(h, [x, .04, .014], F.elipse(.085, .09), IR, .062, 1);
+      const nx = frente ? 0 : .26; const n = new THREE.Shape(); n.moveTo(-.035, 0); n.quadraticCurveTo(0, .012, .035, 0); n.quadraticCurveTo(.02, -.03, 0, -.038); n.quadraticCurveTo(-.02, -.03, -.035, 0);
+      pieza(n, 0xe88aa0, [nx, -.075, .016], h, { sombra: false, grosor: .004 });
+      for (const sx of [-1, 1]) pieza(F.arco(.03, .011, Math.PI * 1.1, Math.PI * 1.9), INK, [nx + sx * .03, -.115, .016], h, { sombra: false, grosor: .004 });
+      for (const [sx, y, r] of frente ? [[-1, -.08, .12], [-1, -.11, -.05], [1, -.08, -.12], [1, -.11, .05]] : [[1, -.08, .1], [1, -.11, -.05]]) pieza(F.rect(.26, .009, .004), 0xf6f1e6, [nx + sx * .24, y, .017], h, { rot: r, sombra: false, grosor: .003 });
+      return h; };
+    // A · sentado (el que te gustó), ahora con silueta continua
+    { const g = group([-.95, 2.9, 0]); g.scale.setScalar(1.25);
+      parte(tubo([[.3, .22], [.46, .1], [.38, .0], [.12, .0], [-.04, .06]], .13, .1), NE, [0, 0, .02], g); parte(F.circ(.05), BL, [-.05, .06, .024], g, { borde: 0 });
+      parte(blob([[-.3, 0], [-.36, .26], [-.28, .54], [-.12, .7], [.12, .7], [.28, .54], [.36, .26], [.3, 0], [.14, 0], [.12, .18], [0, .24], [-.12, .18], [-.14, 0]]), NE, [0, 0, 0], g);
+      pieza(blob([[-.15, .2], [-.17, .4], [-.08, .58], [.08, .58], [.17, .4], [.15, .2], [.06, .24], [-.06, .24]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      for (const sx of [-1, 1]) parte(blob([[sx * .02, .02], [sx * .03, .3], [sx * .1, .38], [sx * .16, .3], [sx * .16, .0]]), BL, [0, 0, .006], g, { atras: .02 });
+      cabezaGato(g, [0, .86, .02], true);
+      parte(tubo([[-.2, .68], [0, .64], [.2, .68]], .06, .06), 0x2ec4a6, [0, 0, .016], g, { borde: .015, atras: .005 }); pieza(F.circ(.035), 0xffc83d, [0, .61, .03], g, { borde: .012, colorBorde: INK }); }
+    // B · caminando (silueta continua)
+    { const g = group([.35, 3.05, 0]); g.scale.setScalar(1.1);
+      parte(tubo([[-.5, .62], [-.72, .74], [-.78, 1.0], [-.64, 1.18], [-.5, 1.16]], .13, .12), NE, [0, 0, -.02], g);
+      parte(blob([[.3, .6], [.32, .3], [.3, .04], [.38, 0], [.46, .02], [.4, .1], [.4, .32], [.4, .56]]), NEo, [0, 0, -.04], g);
+      parte(blob([[-.42, .52], [-.32, .3], [-.36, .05], [-.3, 0], [-.22, .02], [-.26, .1], [-.24, .32], [-.22, .5]]), NEo, [0, 0, -.04], g);
+      const sil = [[-.52, .64], [-.2, .74], [.16, .74], [.32, .76], [.44, .84], [.5, .7], [.44, .5], [.44, .26], [.48, .04], [.48, 0], [.34, 0], [.33, .24], [.3, .44], [.12, .42], [-.12, .42], [-.18, .3], [-.14, .04], [-.14, 0], [-.3, 0], [-.31, .2], [-.4, .36], [-.56, .5]];
+      parte(blob(sil), NE, [0, 0, 0], g);
+      pieza(blob([[-.12, .44], [.12, .44], [.3, .46], [.42, .56], [.42, .68], [.32, .6], [.1, .52], [-.1, .52]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      for (const x of [.41, -.22]) pieza(blob([[x - .08, .12], [x + .07, .12], [x + .08, .02], [x + .07, .0], [x - .08, .0]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      cabezaGato(g, [.58, .95, .02], false); }
+    // C · echado tipo "panecito"
+    { const g = group([-.2, .55, 0]); g.scale.setScalar(1.3);
+      parte(tubo([[.45, .06], [.2, .02], [-.2, .02], [-.5, .08], [-.6, .18]], .12, .1), NE, [0, 0, .03], g);
+      parte(blob([[-.55, .02], [-.62, .22], [-.5, .42], [-.2, .52], [.15, .52], [.4, .42], [.52, .22], [.5, .02]]), NE, [0, 0, 0], g);
+      pieza(blob([[.18, .05], [.2, .28], [.32, .38], [.44, .3], [.46, .08]]), BL, [0, 0, .012], g, { sombra: false, grosor: .003 });
+      for (const x of [.28, .42]) parte(F.elipse(.07, .045), BL, [x, .03, .02], g, { atras: .02 });
+      cabezaGato(g, [.3, .62, .03], true).scale.setScalar(.95); }
+    cam.position.set(0, 1.85, 12.6); cam.lookAt(0, 1.75, 0);
+    etq('Gato A · sentado', 690); TX.lastChild.style.right = '480px'; etq('Gato B · caminando', 690); TX.lastChild.style.left = '520px'; etq('Gato C · echado tipo panecito', 1420);
+  }
+}
+
 cam.updateProjectionMatrix(); R.render(world, cam); window.__done = true;
 </script></body></html>
