@@ -143,6 +143,7 @@ Todos los videos nuevos se hacen en **papel recortado** con el kit `herramientas
 - Personajes: `P.protagonista(pos)` (el que vive o explica el dato) y `P.persona(pos, o)` para los demás (ver sección de personajes). Contorno oscuro, colores vivos, trama de puntitos.
 - Cámara casi frontal: `cam([x, y, 8–12], [x, y, 0], 30–36)`. Profundidades: fondo z≈-2.2, escenario -1.5…0, personajes 0…0.4.
 - Rótulos abajo (`rotulo(..., 1590)`) para no tapar pies ni caras; etiquetas con fondo (`etiqueta(txt, pos, p, size, color, true)`).
+- Piezas listas del kit (11-nov 18:00): `papelPicado()`, `mesa()`, `plato()`, `relojPapel()`, `zzz()`, `F.gota()`, `F.letraZ()` y `p.sueno(k)` (ver `ejemplos/2026-11-11-1800-mal-del-puerco.js`).
 - Plantilla aprobada: `herramientas/ejemplos/2026-11-11-papel-dedo.json/.js` (cuarto, pie, corte del dedo, silueta con rayo y ardor, remate con dos personas).
 - Render: `PR=1.5 node render3d.js ...` (~1 hora para 30 s). Empieza el render completo en cuanto los fotogramas de revisión estén bien.
 - Lo de "MEZCLA" y "3D LOW-POLY" de abajo queda solo como referencia histórica.

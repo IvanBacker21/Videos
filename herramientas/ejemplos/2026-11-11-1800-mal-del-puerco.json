@@ -1,0 +1,54 @@
+{
+  "id": "2026-11-11-1800-mal-del-puerco",
+  "voz": {
+    "modelo": "em_alex",
+    "lang": "es-419",
+    "speed": 1.0
+  },
+  "escenas": [
+    {
+      "tipo": "gancho",
+      "titulo": "",
+      "frases": [
+        "¿Por qué después de comer SIEMPRE te da el mal del puerco?"
+      ]
+    },
+    {
+      "tipo": "mito",
+      "titulo": "",
+      "frases": [
+        "Dicen que la sangre se va a la panza y deja al cerebro sin nada. ¡Falso! Le sigue llegando igual."
+      ]
+    },
+    {
+      "tipo": "reloj",
+      "titulo": "",
+      "frases": [
+        "Tu reloj del cuerpo tiene un bajón natural por la tarde… aunque no comas."
+      ]
+    },
+    {
+      "tipo": "comida",
+      "titulo": "",
+      "frases": [
+        "Y una comida grande, con harina y grasa, lo empeora. Truco: sírvete menos y camina un ratito."
+      ]
+    },
+    {
+      "tipo": "remate",
+      "titulo": "",
+      "frases": [
+        "Mándaselo al que se duerme en la sobremesa del domingo."
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "titulo": "",
+      "frases": [
+        "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+        "Déjalo en los comentarios y síguenos para más datos."
+      ]
+    }
+  ],
+  "resaltar": []
+}

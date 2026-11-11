@@ -25,6 +25,8 @@ export function kitPapel(E) {
     ola(w, amp, y0, n = 7, fondo = -4) { const s = S(); s.moveTo(-w / 2, fondo); for (let i = 0; i <= 60; i++) { const xx = -w / 2 + i / 60 * w; s.lineTo(xx, y0 + Math.sin(i / 60 * Math.PI * n) * amp); } s.lineTo(w / 2, fondo); return s; },
     rayo(s = 1) { return F.poly([[-.08, .5], [.22, .5], [.04, .1], [.24, .1], [-.18, -.55], [-.02, -.06], [-.22, -.06]].map(([a, b]) => [a * s, b * s])); },
     arco(r, grosor, a0, a1) { const s = S(); s.absarc(0, 0, r + grosor / 2, a0, a1, false); s.absarc(0, 0, r - grosor / 2, a1, a0, true); return s; },
+    gota(s = 1) { const h = S(); h.moveTo(0, .5 * s); h.bezierCurveTo(.12 * s, .25 * s, .32 * s, .02 * s, .32 * s, -.16 * s); h.absarc(0, -.16 * s, .32 * s, 0, Math.PI, true); h.bezierCurveTo(-.32 * s, .02 * s, -.12 * s, .25 * s, 0, .5 * s); return h; },
+    letraZ(s = 1) { return F.poly([[-.3, .3], [.3, .3], [.3, .18], [-.08, -.18], [.3, -.18], [.3, -.3], [-.3, -.3], [-.3, -.18], [.08, .18], [-.3, .18]].map(([a, b]) => [a * s, b * s])); },
     nube(s = 1) { const h = S(); h.moveTo(-.6 * s, -.15 * s); h.bezierCurveTo(-.75 * s, .2 * s, -.35 * s, .35 * s, -.2 * s, .2 * s); h.bezierCurveTo(-.1 * s, .5 * s, .35 * s, .45 * s, .35 * s, .2 * s); h.bezierCurveTo(.65 * s, .3 * s, .75 * s, -.1 * s, .5 * s, -.15 * s); h.lineTo(-.6 * s, -.15 * s); return h; },
   };
   // borde blanco de recorte: copia agrandada detrás (para formas más o menos convexas)
@@ -155,6 +157,8 @@ export function kitPapel(E) {
     if (o.audifonos) { for (const sx of [-1, 1]) parte(F.elipse(.07, .09), o.audifonos, [sx * .17, topY + .02, .1], g, { borde: .02, atras: .005 }); parte(F.arco(.17, .035, Math.PI * 1.05, Math.PI * 1.95), INK, [0, topY + .02, .095], g, { borde: 0 }); }
     g.cara = (b, cejas = 0) => { for (const k in h.bocas) h.bocas[k].visible = k === b; h.cejas.forEach((c, i) => { c.rotation.z = (i ? -1 : 1) * cejas; c.position.y = .125 + Math.abs(cejas) * .04; }); };
     g.mira = (dx, dy) => h.ojos.forEach(e => e.pupila.position.set(dx * .02, dy * .02 - .006, .004));
+    // sueño: k 0 (despierto) → 1 (ojos cerrados); los párpados bajan aplastando los ojos
+    g.sueno = (k) => h.ojos.forEach(e => { e.scale.y = Math.max(.12, 1 - k * .88); e.position.y = .03 - k * .02; });
     // poses rápidas: 'jarra', 'senala', 'pulgar', 'saluda', 'brazosArriba', 'normal'
     g.pose = (lado, tipo) => { const b = lado === 'R' ? g.armR : g.armL, sx = lado === 'R' ? 1 : -1; g['_pose' + lado] = tipo !== 'normal';
       const P = { normal: [.12, 0], jarra: [.55, -2.0], senala: [2.5, .25], pulgar: [.25, 1.6], saluda: [2.3, .7], brazosArriba: [2.9, .15], cruzado: [.35, 1.9] }[tipo] ?? [.12, 0];
@@ -372,5 +376,42 @@ export function kitPapel(E) {
         E.rotulo('Síguenos', 'datos curiosos cada día', lt - ts, 1530); if (lt > ts) c.ev('ding', ts, .6); }
     });
   }
-  return { F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, perroLobo, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
+
+  // ---------- COMEDOR MEXICANO, MESA, PLATOS, RELOJ, ZZZ (11-nov-2026, short del mal del puerco) ----------
+  // papel picado: tira de banderitas recortadas que se mecen. g.update(t)
+  function papelPicado(y = 3.6, o = {}, parent) { const g = group([0, y, o.z ?? -2.0], parent), cols = o.colores ?? [0xff6b5b, 0xffc83d, 0x2ec4a6, 0x7b5cff, 0x3d6bff, 0xff8fc0], n = o.n ?? 7, w = o.w ?? 6;
+    pieza(F.rect(w + .4, .025, 0), 0xffffff, [0, 0, 0], g, { sombra: false });
+    g.flags = []; for (let i = 0; i < n; i++) { const fl = group([-w / 2 + (i + .5) * w / n, -.02, .02], g); const sh = S(), a = .3, b = .5; sh.moveTo(-a, 0); sh.lineTo(a, 0); sh.lineTo(a, -b); for (let k = 0; k <= 6; k++) sh.lineTo(a - k * a / 3, -b - (k % 2 ? .08 : 0)); sh.lineTo(-a, 0);
+      for (const [hx, hy] of [[-.14, -.15], [.14, -.15], [0, -.3], [-.14, -.42], [.14, -.42]]) { const p = new THREE.Path(); p.absarc(hx, hy, .05, 0, Math.PI * 2, true); sh.holes.push(p); }
+      const h2 = new THREE.Path(); h2.moveTo(-.04, -.2); h2.lineTo(.04, -.2); h2.lineTo(0, -.26); h2.lineTo(-.04, -.2); sh.holes.push(h2);
+      pieza(sh, cols[i % cols.length], [0, 0, 0], fl, { sombra: true }); fl.i = i; g.flags.push(fl); }
+    g.update = (t) => g.flags.forEach(fl => { fl.rotation.z = Math.sin(t * 2.4 + fl.i * 1.3) * .06; fl.rotation.x = Math.sin(t * 1.7 + fl.i) * .15; });
+    return g; }
+  // mesa con mantel (vista casi de frente, cubierta en trapecio). g.top = altura de la cubierta; pon platos en [x, g.top + .02, z]
+  function mesa(pos = [0, 0, .4], o = {}, parent) { const g = group(pos, parent), w = o.w ?? 3.4, top = o.top ?? 1.25, man = o.mantel ?? 0xfff4e0, flor = o.flores ?? 0xff6b5b;
+    pieza(F.poly([[-w / 2, 0], [w / 2, 0], [w / 2 - .25, .32], [-w / 2 + .25, .32]]), man, [0, top, -.05], g, { borde: .02 });
+    pieza(F.rect(w, .55, .04), man, [0, top - .26, 0], g, { borde: .025 });
+    for (let k = 0; k < Math.round(w * 2); k++) { const fx = -w / 2 + .25 + k * .5; if (fx > w / 2 - .1) break; pieza(F.estrella(5, .08, .04), k % 2 ? 0x2ec4a6 : flor, [fx, top - .26, .03], g, { sombra: false }); }
+    for (const sx of [-1, 1]) pieza(F.rect(.14, top - .5, .03), o.patas ?? 0x8a5a33, [sx * (w / 2 - .3), (top - .5) / 2, -.05], g, { borde: .02 });
+    g.top = top; return g; }
+  // plato con comida: o.comida = 'tortillas' | 'guisado' | 'pan' | 'vacio'; o.r radio. g.monton(k) sube/baja la pila (0..1)
+  function plato(pos, o = {}, parent) { const g = group(pos, parent), r = o.r ?? .42;
+    pieza(F.elipse(r, r * .28), 0xffffff, [0, 0, 0], g, { borde: .02, colorBorde: 0xc9c2b4 }); pieza(F.elipse(r * .7, r * .18), 0xf1ece2, [0, .01, .01], g, { sombra: false });
+    const pila = group([0, .02, .02], g); g.pila = pila; const c = o.comida ?? 'guisado';
+    if (c === 'tortillas') for (let k = 0; k < 6; k++) pieza(F.elipse(r * .62, r * .12), k % 2 ? 0xf3d9a0 : 0xe9c97e, [0, k * .055, .005 * k], pila, { borde: .012, colorBorde: 0xc79a52 });
+    if (c === 'guisado') { pieza(F.elipse(r * .62, r * .32), 0xb4472e, [0, .08, .01], pila, { borde: .015 }); pieza(F.elipse(r * .45, r * .22), 0xf3e2b0, [-.12, .14, .02], pila, { borde: .012 }); for (let k = 0; k < 4; k++) pieza(F.circ(.035), 0x3f9e4a, [-.15 + k * .1, .2 + (k % 2) * .04, .03], pila, { sombra: false }); }
+    if (c === 'pan') for (let k = 0; k < 3; k++) pieza(F.elipse(.15, .1), 0xd98b3a, [(k - 1) * .2, .1 + (k === 1 ? .1 : 0), .01 + k * .005], pila, { borde: .015, colorBorde: 0xa35d22 });
+    g.monton = (k) => { pila.scale.set(1, Math.max(.01, k), 1); pila.visible = k > .02; };
+    return g; }
+  // reloj de pared de papel. g.hora(h) pone las manecillas (h en horas, p. ej. 15.5 = 3:30)
+  function relojPapel(pos, o = {}, parent) { const g = group(pos, parent), r = o.r ?? .9;
+    pieza(F.circ(r), o.color ?? 0xff6b5b, [0, 0, 0], g, { borde: .04 }); pieza(F.circ(r * .84), 0xfffaf0, [0, 0, .02], g, { sombra: false });
+    for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2; pieza(F.rect(k % 3 ? .04 : .07, k % 3 ? .1 : .16, .01), INK, [Math.sin(a) * r * .7, Math.cos(a) * r * .7, .03], g, { sombra: false, rot: -a }); }
+    const mano = (L, w, col) => { const m = group([0, 0, .05], g); pieza(F.rect(w, L, w / 2), col, [0, L / 2 - .05, 0], m, { sombra: true }); return m; };
+    g.hor = mano(r * .45, .09, INK); g.min = mano(r * .66, .06, INK); pieza(F.circ(.07), o.color ?? 0xff6b5b, [0, 0, .08], g, { sombra: false });
+    g.hora = (h) => { g.hor.rotation.z = -(h % 12) / 12 * Math.PI * 2; g.min.rotation.z = -(h % 1) * Math.PI * 2; }; g.hora(o.h ?? 12); return g; }
+  // "Zzz" que flotan y se desvanecen en bucle. g.update(t, on)
+  function zzz(pos, o = {}, parent) { const g = group(pos, parent); g.zs = [0, 1, 2].map(i => { const z = group([0, 0, 0], g); pieza(F.letraZ(.32 + i * .1), o.color ?? 0x7b5cff, [0, 0, 0], z, { borde: .025 }); z.i = i; return z; });
+    g.update = (t, on = 1) => g.zs.forEach(z => { const u = ((t * .7 + z.i / 3) % 1); z.position.set(u * .55 + Math.sin(u * 6) * .06, u * .9, 0); z.scale.setScalar(Math.max(.01, on * (.5 + u * .7) * (u < .85 ? 1 : (1 - u) / .15))); z.rotation.z = .15 - u * .3; }); return g; }
+  return { F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, perroLobo, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex, papelPicado, mesa, plato, relojPapel, zzz };
 }

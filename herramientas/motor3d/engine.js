@@ -5,6 +5,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 export { THREE };
 import { kitPapel } from './papel.js';
@@ -359,6 +360,9 @@ export async function init(wrap, d) {
   camera = new THREE.PerspectiveCamera(38, W / H, 0.05, 400);
   ambiente({});
   if (MZ) { composer = new EffectComposer(renderer); composer.addPass(new RenderPass(scene, camera));
+    // limpia píxeles NaN/infinitos antes del bloom (con SwiftShader unos pocos NaN se esparcían en el bloom como bloques negros)
+    composer.addPass(new ShaderPass({ uniforms: { tDiffuse: { value: null } }, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+      fragmentShader: 'uniform sampler2D tDiffuse; varying vec2 vUv; void main(){ vec4 c = texture2D(tDiffuse, vUv); if (any(isnan(c)) || any(isinf(c))) { vec4 s = vec4(0.0); float n = 0.0; for (int i = -1; i <= 1; i++) for (int j = -1; j <= 1; j++) { vec4 q = texture2D(tDiffuse, vUv + vec2(float(i), float(j)) / vec2(textureSize(tDiffuse, 0))); if (!(any(isnan(q)) || any(isinf(q)))) { s += q; n += 1.0; } } c = n > 0.0 ? s / n : vec4(0.0, 0.0, 0.0, 1.0); } gl_FragColor = c; }' }));
     composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), .35, .5, .85)); composer.addPass(new OutputPass()); }
   let acc = 0; offs = d.timings.map(t => { const o = acc; acc += t.dur; return o; }); total = acc;
   ovRoot = document.getElementById('ov'); capEl = document.getElementById('cap'); barEl = document.getElementById('bar');

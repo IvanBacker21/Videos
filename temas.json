@@ -397,5 +397,22 @@
   "mejora": "marcoPuerta(), pensamiento() e interrogacion() en engine.js",
   "archivo": "shorts/2026-11-11-1330-puerta.mp4",
   "titulo": "¿Por qué SIEMPRE olvidas a qué entraste? 🚪 #shorts"
+ },
+ {
+  "fecha": "2026-11-11",
+  "hora": "18:00",
+  "tema": "¿Por qué después de comer SIEMPRE te da el mal del puerco? (mito: la sangre no abandona al cerebro, le sigue llegando igual; el cuerpo tiene un bajón natural de energía por la tarde aunque no comas; una comida grande con mucha harina y grasa lo empeora; truco: servirse menos y caminar un ratito después). Fuentes: Sleep Foundation, Healthline",
+  "formato": "¿Por qué siempre…? + mito (la sangre a la panza) + truco",
+  "categoria": "cuerpo / comida",
+  "disparadores": [
+   "eres tú",
+   "lo mexicano (mal del puerco, sobremesa del domingo)",
+   "¿ves? te dije (mito)",
+   "truco útil"
+  ],
+  "duracion": "29.5 s (22.9 s de contenido)",
+  "mejora": "papel.js: papelPicado(), mesa(), plato(), relojPapel(), zzz(), p.sueno(); engine.js: filtro de NaN antes del bloom (bloques negros)",
+  "archivo": "shorts/2026-11-11-1800-mal-del-puerco.mp4",
+  "titulo": "¿Por qué SIEMPRE te da sueño después de comer? 😴 #shorts"
  }
 ]
