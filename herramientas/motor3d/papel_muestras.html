@@ -393,5 +393,22 @@ if (S === 'pN' || S === 'pN2') {
   else { cam.position.set(-.1, 2.15, 6.2); cam.lookAt(-.1, 2.05, 0); etiqueta('J · fluido (acercamiento)'); }
 }
 
+// ===================== PROTAGONISTA =====================
+if (S === 'prota' || S === 'prota2' || S === 'barba') {
+  fondo(0xfff1dc, -2.4);
+  pieza(F.circ(1.2), 0xffc83d, [-1.6, 3.9, -2.3], null, { sombra: false }); pieza(F.estrella(4, .5, .15), 0x2ec4a6, [1.7, 4.3, -2.3], null, { sombra: false });
+  pieza(F.ola(3.5, .1, 0, 5, -.1), 0xff6b5b, [.6, 3.1, -2.3], null, { sombra: false });
+  pieza(F.rect(12, 3, 0), 0xffd9b0, [0, -1.5, -.6], null, { sombra: false }); luces({ pos: [-2.5, 4, 7], hemi: 1.45 });
+  if (S === 'prota') { const p = P.protagonista([0, 0, .3]); p.pose('R', 'saluda'); p.pose('L', 'normal'); p.cara('feliz', -.12); p.mira(.3, .1);
+    cam.position.set(0, 1.55, 8.6); cam.lookAt(0, 1.45, 0); etiqueta('Protagonista'); }
+  else if (S === 'prota2') {
+    const a = P.persona([-1.35, 0, 0], { piel: 0xb9774f, ropa: 0xff6b5b, pantalon: 0x283a8a, tenis: 0xffc83d, pelo: 'cola', colPelo: 0x1e1410, aretes: true }); a.pose('L', 'cruzado'); a.cara('o', .2); a.mira(1, 0);
+    const p = P.protagonista([0, 0, .3]); p.pose('R', 'senala'); p.cara('abierta', .22); p.mira(.4, .4);
+    const c = P.persona([1.35, 0, 0], { piel: 0xd99b74, ropa: 0x2ec4a6, manga: 'larga', pantalon: 0x4a3f6b, tenis: 0xff6b5b, pelo: 'chongo', colPelo: 0xe8e4dc, lentes: 0x7b5cff }); c.pose('R', 'pulgar'); c.cara('feliz', -.05); c.mira(-1, 0);
+    cam.position.set(0, 1.6, 12.4); cam.lookAt(0, 1.5, 0); etiqueta('Protagonista con otros personajes'); }
+  else { const b = P.persona([0, 0, .3], { piel: 0xe2ab83, ropa: 0xffc83d, pantalon: 0x283a8a, tenis: 0xff6b5b, pelo: 'corto', colPelo: 0x3a2416, barba: true }); b.cara('feliz', -.1);
+    cam.position.set(0, 2.3, 3.6); cam.lookAt(0, 2.25, 0); etiqueta('Barba nueva (secundarios)'); }
+}
+
 cam.updateProjectionMatrix(); R.render(world, cam); window.__done = true;
 </script></body></html>

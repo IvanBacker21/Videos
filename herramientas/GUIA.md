@@ -138,6 +138,8 @@ Antes del render completo Y antes de publicar ejecuta:
 
 - **Cierre:** el logo 14 "planeta curioso" (planeta morado con un ojo que mira y parpadea, ceja que se levanta, anillo amarillo y "DATO CÓSMICO 2" en letras gruesas con contorno). Ya es el cierre por defecto del motor (engine.js → papel.js `cierre()`), en TODOS los estilos. No hagas otro cierre.
 - **Personajes (estilo J "cómic de papel", cuerpos fluidos):** `kitPapel(E).persona(pos, o)`: proporciones de adulto, contorno oscuro, colores vivos, trama de puntitos en el lado de sombra, cejas expresivas, manos con pulgar, tenis de color. Ni infantiles (nada de ojos gigantes ni chapitas) ni serios. Poses: `p.pose('R'|'L', 'jarra'|'senala'|'pulgar'|'saluda'|'brazosArriba'|'cruzado'|'normal')`; caras: `p.cara('feliz'|'abierta'|'o'|'grito'|'risa'|'seria'|'ladeada', cejas)`; `p.mira(x, y)`. Muestras: motor3d/papel_muestras.html?s=pN.
+- **PROTAGONISTA:** `kitPapel(E).protagonista(pos)`: playera azul eléctrico con el logo del planeta curioso en el pecho, copete castaño, pantalón oscuro, tenis menta. **Sin barba y sin audífonos.** Es el que vive o explica el dato en cada video; los demás personajes son secundarios y NO usan playera azul con logo.
+- **Barbas:** úsalas poco y solo en secundarios. La barba del kit ya sigue la quijada y deja ver la boca; nunca dibujes una barba como un parche encima de la cara.
 - Paleta: coral #ff6b5b, azul eléctrico #3d6bff, menta #2ec4a6, amarillo #ffc83d, morado #7b5cff, tinta #1f1b2e.
 
 ## 🎨 ESTILO VISUAL "MEZCLA" (aprobado por Iván el 9-nov-2026) — OBLIGATORIO

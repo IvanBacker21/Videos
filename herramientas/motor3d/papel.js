@@ -68,6 +68,13 @@ export function kitPapel(E) {
     if (o.borde !== 0) { const bm = new THREE.Mesh(new THREE.ExtrudeGeometry(agrandada(shape, o.borde ?? .03), { depth: .01, bevelEnabled: false }), M(INK)); bm.position.z = -(o.atras ?? .09); bm.castShadow = true; g.add(bm); }
     if (o.trama) { const tm = new THREE.Mesh(new THREE.ExtrudeGeometry(o.trama, { depth: .005, bevelEnabled: false }), new THREE.MeshStandardMaterial({ map: tramas[color] ?? (tramas[color] = trama(color)), roughness: 1 })); tm.position.z = .006; g.add(tm); }
     return g; }
+  // logo 14 en chiquito (para playeras, tazas, carteles)
+  function logoMini(par) { const BD = { borde: .07, colorBorde: INK };
+    pieza(F.arco(1.6, .22, Math.PI * .02, Math.PI * .98), 0xffc83d, [0, -.1, -.02], par, BD).scale.y = .34;
+    pieza(F.circ(1.1), 0x7b5cff, [0, 0, 0], par, BD); pieza(F.circ(.25), 0x6a4ce0, [.5, -.5, .01], par, { sombra: false });
+    pieza(F.elipse(.42, .36), 0xffffff, [-.05, .18, .015], par, { borde: .05, colorBorde: INK, sombra: false }); pieza(F.circ(.2), INK, [.06, .14, .025], par, { sombra: false }); pieza(F.circ(.06), 0xffffff, [.12, .22, .03], par, { sombra: false });
+    pieza(F.rect(.6, .12, .05), INK, [-.05, .68, .02], par, { rot: .18, sombra: false });
+    pieza(F.arco(1.6, .22, Math.PI * 1.02, Math.PI * 1.98), 0xffc83d, [0, -.1, .04], par, BD).scale.y = .34; }
   // o: {piel, ropa, manga ('corta'|'larga'), pantalon, tenis, pelo, colPelo, barba, lentes, aretes, audifonos, estampado, vestido, escala, trama}
   function persona(pos = [0, 0, 0], o = {}, parent) {
     const g = group(pos, parent); g.scale.setScalar(o.escala ?? 1);
@@ -88,6 +95,7 @@ export function kitPapel(E) {
     g.torso = parte(tor, ropa, [0, cad - .06, .03], g, { trama: conTrama ? trT : null });
     if (!o.vestido) parte(F.rect(.56, .1, .05), pan, [0, cad - .02, .025], g, { borde: 0 });   // cintura del pantalón
     if (o.estampado) parte(F.estrella(5, .12, .055), 0xffc83d, [0, cad + .5, .045], g, { borde: .02, atras: .005 });
+    if (o.logo) { const lg = group([0, cad + .5, .046], g); lg.scale.setScalar(.15); logoMini(lg); g.logo = lg; }
     // brazos: hombro → codo → mano (cápsulas que se traslapan; los contornos quedan detrás)
     const topY = cad - .06 + T;
     const brazo = (sx) => { const b = group([sx * .3, topY - .1, .05], g);
@@ -114,7 +122,14 @@ export function kitPapel(E) {
     if (o.pelo === 'copete' || o.pelo === undefined) parte(F.poly([[-.26, .06], [-.24, .27], [-.05, .41], [.25, .45], [.15, .31], [.27, .16], [.1, .21], [-.12, .19]]), colPelo, [0, 0, z], h, enc);
     if (o.pelo === 'chongo') { parte(F.circ(.13), colPelo, [.05, .37, -.01], h); parte(F.elipse(.28, .14), colPelo, [0, .21, z], h, enc); }
     if (o.pelo === 'corto') parte(F.elipse(.28, .13), colPelo, [0, .23, z], h, enc);
-    if (o.barba) parte(F.poly([[-.24, -.03], [-.2, -.2], [-.1, -.3], [0, -.34], [.1, -.3], [.2, -.2], [.24, -.03], [.12, -.12], [-.12, -.12]]), colPelo, [0, 0, z], h, { borde: .015, atras: .004 });
+    if (o.barba) {   // barba que sigue la quijada (misma curva que la cabeza), con hueco para la boca y patillas: se ve como barba, no como un parche
+      const bb = S(); bb.moveTo(-.262, .05); bb.lineTo(-.22, .05); bb.quadraticCurveTo(-.2, -.08, -.13, -.1); bb.lineTo(.13, -.1); bb.quadraticCurveTo(.2, -.08, .22, .05); bb.lineTo(.262, .05);
+      bb.bezierCurveTo(.29, -.02, .27, -.08, .25, -.12); bb.quadraticCurveTo(.18, -.3, 0, -.33); bb.quadraticCurveTo(-.18, -.3, -.25, -.12); bb.bezierCurveTo(-.27, -.08, -.29, -.02, -.262, .05);
+      const hueco = new THREE.Path(); hueco.absellipse(0, -.155, .105, .058, 0, Math.PI * 2, true); bb.holes.push(hueco);
+      const col = new THREE.Color(colPelo).lerp(new THREE.Color(piel), .18).getHex();
+      const m = new THREE.Mesh(new THREE.ExtrudeGeometry(bb, { depth: .004, bevelEnabled: false, curveSegments: 16 }), M(col)); m.position.z = z + .002; h.add(m);
+      const bigote = S(); bigote.moveTo(-.11, -.085); bigote.quadraticCurveTo(0, -.045, .11, -.085); bigote.quadraticCurveTo(.06, -.115, 0, -.1); bigote.quadraticCurveTo(-.06, -.115, -.11, -.085);
+      const mb = new THREE.Mesh(new THREE.ExtrudeGeometry(bigote, { depth: .004, bevelEnabled: false }), M(col)); mb.position.z = z + .024; h.add(mb); }
     // cara expresiva
     h.ojos = [-1, 1].map(sx => { const e = group([sx * .095, .03, z + .004], h);
       pieza(F.elipse(.054, .062), 0xffffff, [0, 0, 0], e, { sombra: false, grosor: .004 }); e.pupila = pieza(F.circ(.031), INK, [.012, -.006, .004], e, { sombra: false, grosor: .004 });
@@ -136,6 +151,9 @@ export function kitPapel(E) {
       b.rotation.z = sx * P[0]; b.ante.rotation.z = sx * P[1]; };
     g.cara('feliz'); return g;
   }
+  // PROTAGONISTA del canal (aprobado 11-nov-2026): playera azul eléctrico con el logo del planeta curioso, copete castaño, sin barba ni audífonos, tenis menta.
+  function protagonista(pos = [0, 0, 0], o = {}, parent) {
+    return persona(pos, { piel: 0xe2ab83, ropa: 0x3d6bff, pantalon: 0x1f1b2e, tenis: 0x2ec4a6, pelo: 'copete', colPelo: 0x3a2416, logo: true, ...o }, parent); }
   // caminar de papel (a saltitos): piernas y brazos alternan, el cuerpo rebota
   function caminar(p, t, on = 1) { const k = Math.sin(t * 9) * on; p.legL.rotation.z = k * .35; p.legR.rotation.z = -k * .35; p.armL.rotation.z = -k * .4; p.armR.rotation.z = k * .4; p.position.y = Math.abs(Math.sin(t * 9)) * .05 * on; }
 
@@ -173,5 +191,5 @@ export function kitPapel(E) {
         E.rotulo('Síguenos', 'datos curiosos cada día', lt - ts, 1530); if (lt > ts) c.ev('ding', ts, .6); }
     });
   }
-  return { F, M, pieza, fondo, luces, tw, persona, caminar, bam, rayitas, cierre, tex };
+  return { F, M, pieza, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
 }
