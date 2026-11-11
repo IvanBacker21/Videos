@@ -134,6 +134,19 @@ Antes del render completo Y antes de publicar ejecuta:
 - Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
 - Escribe los números con letra en la voz.
 
+## ✂️ ESTILO ACTUAL: PAPEL RECORTADO (aprobado por Iván el 11-nov-2026) — OBLIGATORIO, reemplaza a "MEZCLA" y a la animación 3D low-poly
+
+Todos los videos nuevos se hacen en **papel recortado** con el kit `herramientas/motor3d/papel.js`:
+- `import { kitPapel } from '../motor3d/papel.js'; const P = kitPapel(E);` dentro de `build(E)`. El motor sigue manejando tiempos, voz, subtítulos, rótulos, etiquetas y el cierre.
+- Piezas planas de papel en capas (`P.pieza`, `P.parte`, formas en `P.F`: rect, elipse, circ, poly, estrella, corazon, ola, rayo, arco, nube), textura de papel, sombras suaves entre capas (`P.luces`), fondos con `P.fondo`.
+- Movimiento "a saltitos" de stop-motion: anima con `const t = P.tw(lt)` (12 cuadros por segundo). La cámara puede moverse suave.
+- Personajes: `P.protagonista(pos)` (el que vive o explica el dato) y `P.persona(pos, o)` para los demás (ver sección de personajes). Contorno oscuro, colores vivos, trama de puntitos.
+- Cámara casi frontal: `cam([x, y, 8–12], [x, y, 0], 30–36)`. Profundidades: fondo z≈-2.2, escenario -1.5…0, personajes 0…0.4.
+- Rótulos abajo (`rotulo(..., 1590)`) para no tapar pies ni caras; etiquetas con fondo (`etiqueta(txt, pos, p, size, color, true)`).
+- Plantilla aprobada: `herramientas/ejemplos/2026-11-11-papel-dedo.json/.js` (cuarto, pie, corte del dedo, silueta con rayo y ardor, remate con dos personas).
+- Render: `PR=1.5 node render3d.js ...` (~1 hora para 30 s). Empieza el render completo en cuanto los fotogramas de revisión estén bien.
+- Lo de "MEZCLA" y "3D LOW-POLY" de abajo queda solo como referencia histórica.
+
 ## 🪐 CIERRE OFICIAL Y PERSONAJES (aprobado por Iván el 11-nov-2026) — OBLIGATORIO
 
 - **Cierre:** el logo 14 "planeta curioso" (planeta morado con un ojo que mira y parpadea, ceja que se levanta, anillo amarillo y "DATO CÓSMICO 2" en letras gruesas con contorno). Ya es el cierre por defecto del motor (engine.js → papel.js `cierre()`), en TODOS los estilos. No hagas otro cierre.
