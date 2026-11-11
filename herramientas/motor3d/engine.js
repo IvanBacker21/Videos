@@ -1013,3 +1013,61 @@ export function gatoSentar(g, k = 1) {
   g.legs[2].rotation.x = g.legs[3].rotation.x = -.9 * k; g.legs[2].position.y = g.legs[3].position.y = .26 - .06 * k;
   g.legs[0].rotation.x = g.legs[1].rotation.x = .1 * k; g.head.position.y = .52 + .12 * k; g.head.position.z = .32 - .06 * k;
 }
+
+// ---------- MEJORA 11-nov 13:30 (short de la puerta): marcoPuerta(), pensamiento() e interrogacion() ----------
+// marcoPuerta({pos, rotY, ancho, alto, hueco, pared, marco, hoja, abre}): pared con hueco de puerta, marco de madera y hoja con
+// bisagra a la izquierda (g.puerta.rotation.y: 0 cerrada → -1.6 abierta hacia +z). La pared corre a lo largo de x (con rotY=PI/2,
+// a lo largo de z) y el hueco queda centrado en pos. g.brillo(k, color) enciende el marco (para señalar "la culpa es de la puerta").
+export function marcoPuerta(o = {}, parent) {
+  const g = group(o.pos ?? [0, 0, 0], parent); g.rotation.y = o.rotY ?? 0;
+  const A = o.ancho ?? 6, H = o.alto ?? 2.9, h = o.hueco ?? 1.0, hp = 2.15, pc = o.pared ?? 0xe9dcc6, mc = o.marco ?? 0x8a5a36, gr = .16;
+  const lado = (A - h) / 2; box(lado, H, gr, pc, [-(h / 2 + lado / 2), H / 2, 0], g, { recto: true }); box(lado, H, gr, pc, [h / 2 + lado / 2, H / 2, 0], g, { recto: true });
+  box(h, H - hp, gr, pc, [0, hp + (H - hp) / 2, 0], g, { recto: true });
+  const mm = mat(mc, { emissive: 0x000000 }); g.marco = [box(.1, hp + .05, gr + .06, mm, [-h / 2 - .02, hp / 2, 0], g), box(.1, hp + .05, gr + .06, mm, [h / 2 + .02, hp / 2, 0], g), box(h + .14, .1, gr + .06, mm, [0, hp + .02, 0], g)];
+  box(A, .12, gr + .03, 0xf6f0e6, [0, .06, 0], g);   // zoclo
+  g.puerta = group([-h / 2 + .02, 0, gr / 2 + .02], g);
+  if (o.hoja !== false) { box(h - .05, hp - .04, .05, o.hojaColor ?? 0xa8703f, [(h - .05) / 2, hp / 2, 0], g.puerta);
+    box(h * .6, hp * .3, .02, 0x8d5a30, [(h - .05) / 2, hp * .68, .03], g.puerta); box(h * .6, hp * .3, .02, 0x8d5a30, [(h - .05) / 2, hp * .3, .03], g.puerta);
+    ball(.045, 0xd9c08a, [h - .14, 1.0, .06], g.puerta, 1, { metal: .6 }); }
+  g.puerta.rotation.y = o.abre ?? -1.6;
+  g.brillo = (k, color = 0xffb347) => { mm.emissive.setHex(color); mm.emissiveIntensity = k * 1.6; };
+  g.centro = (y = 1.1) => { const v = new THREE.Vector3(0, y, 0); g.localToWorld(v); return [v.x, v.y, v.z]; };
+  return g;
+}
+// pensamiento({pos, r, cola, color}): globo de pensamiento 3D (nube de esferas translúcidas + burbujitas hacia la cabeza `cola`).
+// Mete cualquier objeto en g.contenido. g.update(lt, k, rompe): k 0..1 aparece con rebote; rompe 0..1 lo revienta en gotitas
+// que salen volando (para "se te olvidó"). g.seguir(pos, cola) lo mueve con la persona.
+export function pensamiento(o = {}, parent) {
+  const g = group(o.pos ?? [0, 2.6, 0], parent), r = o.r ?? .42, col = o.color ?? 0xffffff;
+  const m = new THREE.MeshPhysicalMaterial({ color: col, roughness: .25, transmission: 0, transparent: true, opacity: .55, clearcoat: 1, emissive: 0x9fc8ff, emissiveIntensity: .25, depthWrite: false });
+  const nube = new THREE.Group(); g.add(nube);
+  [[0, 0, 0, 1], [-.8, -.1, 0, .62], [.8, -.08, 0, .66], [-.42, .45, 0, .62], [.42, .48, 0, .6], [0, -.42, 0, .6]].forEach(([x, y, z, s]) => {
+    const b = new THREE.Mesh(new THREE.SphereGeometry(r * s, 28, 18), m); b.position.set(x * r, y * r, z); nube.add(b); });
+  g.contenido = group([0, 0, r * .35], g);
+  const bur = [.16, .11, .07].map(s => { const b = new THREE.Mesh(new THREE.SphereGeometry(r * s, 16, 12), m); world.add(b); return b; });
+  const gotas = Array.from({ length: 18 }, (_, i) => { const b = new THREE.Mesh(new THREE.SphereGeometry(r * (.08 + (i % 3) * .04), 10, 8), m); b.visible = false; g.add(b);
+    const a = i * 2.39996, e = (i % 5 - 2) * .35; b.userData.d = new THREE.Vector3(Math.cos(a) * Math.cos(e), Math.sin(e) + .2, Math.sin(a) * Math.cos(e) * .6); return b; });
+  let cola = o.cola ?? null;
+  g.seguir = (pos, c) => { g.position.set(...pos); if (c) cola = c; };
+  g.update = (lt, k = 1, rompe = 0) => {
+    const s = Math.max(.001, spring(k * 1.2, 1.3, 7)) * (1 + rompe * .25); const vis = rompe < .2;
+    nube.scale.setScalar(rompe > 0 ? Math.max(.001, s * (1 - rompe * 4)) : s); nube.visible = nube.scale.x > .01;
+    nube.rotation.z = Math.sin(lt * 1.3) * .04; g.position.y += Math.sin(lt * 2.1) * .002;
+    g.contenido.scale.setScalar(Math.max(.001, (rompe > 0 ? Math.max(0, 1 - rompe * 3) : 1) * spring(k * 1.2 - .15, 1.3, 7)));
+    g.contenido.rotation.y = Math.sin(lt * 1.5) * .35;
+    gotas.forEach((b, i) => { b.visible = rompe > 0 && rompe < 1; const u = eout(rompe); b.position.copy(b.userData.d).multiplyScalar(r * (.4 + u * 2.6)); b.position.y -= u * u * r * 1.2; b.scale.setScalar(Math.max(.001, 1 - rompe)); });
+    g.updateMatrixWorld(); const c0 = new THREE.Vector3(0, -r * .9, 0); g.localToWorld(c0);
+    bur.forEach((b, i) => { const t = (i + 1) / 4; b.visible = !!cola && vis && k > .05 + i * .12;
+      if (cola) b.position.set(lerp(c0.x, cola[0], t), lerp(c0.y, cola[1], t), lerp(c0.z, cola[2], t)); b.scale.setScalar(Math.max(.001, k)); });
+  };
+  g.mundo = () => { const v = new THREE.Vector3(); g.getWorldPosition(v); return [v.x, v.y, v.z]; };
+  return g;
+}
+// interrogacion(pos, s, color): signo "?" 3D grueso que brilla (dudas, olvido, preguntas). Gíralo con rotation.y para animar.
+export function interrogacion(pos, s = 1, color = 0xf3c54d, parent) {
+  const g = group(pos, parent), m = mat(color, { emissive: color, ei: .55 });
+  const arco = new THREE.Mesh(new THREE.TorusGeometry(.2 * s, .065 * s, 12, 32, Math.PI * 1.35), m); arco.rotation.z = -Math.PI * .42; arco.position.y = .3 * s; g.add(arco);
+  const tallo = new THREE.Mesh(new THREE.CylinderGeometry(.065 * s, .065 * s, .2 * s, 14), m); tallo.position.set(0, -.0 * s, 0); g.add(tallo);
+  const punto = new THREE.Mesh(new THREE.SphereGeometry(.08 * s, 16, 12), m); punto.position.y = -.26 * s; g.add(punto);
+  g.children.forEach(c => { c.castShadow = true; }); return g;
+}

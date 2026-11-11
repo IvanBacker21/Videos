@@ -381,5 +381,21 @@
   "mejora": "MEJORAS 0l3: gato() con ojos grandes y cejas, gatoGesto(), gatoSentar()",
   "archivo": "shorts/2026-11-10-2130-gato.mp4",
   "titulo": "¿Por qué tu gato tira TODO de la mesa? 🐱 #shorts"
+ },
+ {
+  "fecha": "2026-11-11",
+  "hora": "13:30",
+  "tema": "¿Por qué entras a la cocina y se te olvida a qué ibas? (efecto puerta: el cerebro guarda lo que vives por escenas o capítulos; cruzar una puerta cierra el capítulo y la intención se queda en el cuarto anterior; estudio de Gabriel Radvansky, Universidad de Notre Dame, 2011: la gente olvidaba más al cruzar una puerta que al recorrer lo mismo en un solo cuarto). Fuentes: Notre Dame News, Live Science",
+  "formato": "¿Por qué siempre…? + mito (no es la edad) + estudio",
+  "categoria": "cuerpo / mente / casa",
+  "disparadores": [
+   "eres tú",
+   "¿ves? te dije (no es la edad)",
+   "mamá en la cocina"
+  ],
+  "duracion": "29.0 s (22.4 s de contenido)",
+  "mejora": "marcoPuerta(), pensamiento() e interrogacion() en engine.js",
+  "archivo": "shorts/2026-11-11-1330-puerta.mp4",
+  "titulo": "¿Por qué SIEMPRE olvidas a qué entraste? 🚪 #shorts"
  }
 ]

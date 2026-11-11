@@ -1,0 +1,14 @@
+{
+ "id": "2026-11-11-1330-puerta",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué entras a la cocina… y se te olvida a qué ibas?"]},
+  {"tipo": "culpa", "titulo": "", "frases": ["No es la edad. La culpa es… de la puerta."]},
+  {"tipo": "capitulos", "titulo": "", "frases": ["Tu cerebro guarda lo que vives por escenas, como capítulos."]},
+  {"tipo": "corte", "titulo": "", "frases": ["Al cruzar una puerta, cierra el capítulo… y lo que ibas a hacer se queda atrás."]},
+  {"tipo": "estudio", "titulo": "", "frases": ["Un estudio lo comprobó: al cruzar una puerta, la gente olvidaba más."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a tu mamá, que entra a la cocina y se queda parada."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
