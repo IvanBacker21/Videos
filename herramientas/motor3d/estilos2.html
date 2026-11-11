@@ -1,0 +1,190 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden}#bg{position:absolute;inset:0}canvas{position:absolute;inset:0}
+.k{position:absolute;left:0;right:0;text-align:center;font-family:Poppins,sans-serif;font-weight:900;line-height:1}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body><div id="bg"></div><div id="txt"></div>
+<script type="module">
+// Prueba de estilos de tendencia 2026. ?s=esqueleto|frijolito|stopmotion|papel|pizarron
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+const S = new URLSearchParams(location.search).get('s') || 'esqueleto';
+const W = 1080, H = 1920, TX = document.getElementById('txt'), BG = document.getElementById('bg');
+const texto = (html, top, css = '') => { const d = document.createElement('div'); d.className = 'k'; d.style.cssText = `top:${top}px;${css}`; d.innerHTML = html; TX.appendChild(d); };
+function ruido(c1 = '#ffffff', fuerza = 40, tam = 512, escala = 1) {   // textura de ruido (papel / plastilina)
+  const cv = document.createElement('canvas'); cv.width = cv.height = tam; const x = cv.getContext('2d'); x.fillStyle = c1; x.fillRect(0, 0, tam, tam);
+  const im = x.getImageData(0, 0, tam, tam); for (let i = 0; i < im.data.length; i += 4) { const n = (Math.random() - .5) * fuerza; im.data[i] += n; im.data[i + 1] += n; im.data[i + 2] += n; }
+  x.putImageData(im, 0, 0); for (let k = 0; k < 90; k++) { x.strokeStyle = `rgba(0,0,0,${Math.random() * .05})`; x.lineWidth = 1 + Math.random() * 2; x.beginPath(); const a = Math.random() * tam, b = Math.random() * tam; x.arc(a, b, 4 + Math.random() * 14, 0, Math.PI * (1 + Math.random())); x.stroke(); }
+  const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(escala, escala); return t;
+}
+
+// =================== 5 · PIZARRÓN (2D, dibujado a mano) ===================
+if (S === 'pizarron') {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; document.body.insertBefore(cv, TX); const x = cv.getContext('2d');
+  x.fillStyle = '#fbfaf6'; x.fillRect(0, 0, W, H);
+  const tem = (v, a = 3) => v + (Math.random() - .5) * a;                     // temblor de trazo a mano
+  const linea = (pts, w = 9, col = '#1d1d1f') => { x.strokeStyle = col; x.lineWidth = w; x.lineCap = x.lineJoin = 'round'; for (let pasada = 0; pasada < 2; pasada++) { x.beginPath(); pts.forEach(([a, b], i) => i ? x.lineTo(tem(a), tem(b)) : x.moveTo(tem(a), tem(b))); x.stroke(); } };
+  const circ = (cx, cy, r, w = 9, col = '#1d1d1f', fill) => { const p = []; for (let i = 0; i <= 40; i++) { const a = i / 40 * Math.PI * 2.05; p.push([cx + Math.cos(a) * tem(r, 4), cy + Math.sin(a) * tem(r, 4)]); } if (fill) { x.fillStyle = fill; x.beginPath(); p.forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.fill(); } linea(p, w, col); };
+  // resaltador amarillo detrás del dato
+  x.fillStyle = 'rgba(255,214,64,.55)'; x.beginPath(); x.ellipse(560, 1035, 300, 190, -.08, 0, 7); x.fill();
+  // monito de palitos sorprendido
+  circ(330, 860, 85, 10, '#1d1d1f', '#ffffff'); circ(300, 845, 9, 8); circ(362, 845, 9, 8); circ(332, 905, 18, 7);                // cabeza, ojos, boca de "¡oh!"
+  linea([[285, 795], [315, 805]], 7); linea([[350, 805], [380, 793]], 7);                                                         // cejas arriba
+  linea([[330, 945], [330, 1200]], 11); linea([[330, 1000], [470, 920], [560, 870]], 11); linea([[330, 1000], [230, 1110]], 11);  // cuerpo, brazo señalando
+  linea([[330, 1200], [255, 1390]], 11); linea([[330, 1200], [410, 1390]], 11);
+  [[205, 830], [215, 780], [440, 800]].forEach(([a, b]) => linea([[a, b], [a + 22, b - 40]], 7, '#e0453a'));                  // rayitas de sorpresa
+  // el dato: corazón del pulpo dibujado x3
+  const cora = (cx, cy, s) => { const p = []; for (let i = 0; i <= 50; i++) { const t = i / 50 * Math.PI * 2; p.push([cx + 16 * Math.pow(Math.sin(t), 3) * s, cy - (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * s]); } x.fillStyle = '#e0453a'; x.beginPath(); p.forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.fill(); linea(p, 7); };
+  cora(560, 1010, 4.2); cora(700, 980, 3.2); cora(790, 1060, 2.6);
+  linea([[600, 1180], [640, 1150], [690, 1185], [740, 1150], [790, 1180]], 8);                                                    // tentáculo
+  texto('<span style="font-family:Poppins;font-weight:700;font-size:62px;color:#1d1d1f">El pulpo tiene</span>', 470);
+  texto('<span style="font-size:150px;color:#e0453a;letter-spacing:-3px">3 CORAZONES</span>', 545);
+  texto('<span style="font-family:Poppins;font-weight:700;font-size:44px;color:#1d1d1f;background:#ffd640;padding:6px 18px;border-radius:6px">y sangre azul</span>', 1480);
+  window.__done = true;
+} else {
+
+// =================== escenas 3D ===================
+const R = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+R.setPixelRatio(1.5); R.setSize(W, H); R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; R.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.insertBefore(R.domElement, TX);
+const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(40, W / H, .05, 100);
+const G = (p = [0, 0, 0], par = sc) => { const g = new THREE.Group(); g.position.set(...p); par.add(g); return g; };
+const add = (geo, mat, p, par = sc) => { const m = new THREE.Mesh(geo, mat); m.position.set(...p); m.castShadow = m.receiveShadow = true; par.add(m); return m; };
+const sol = (int = 2.6, pos = [-2.5, 5, 3], col = 0xfff0dc) => { const s = new THREE.DirectionalLight(col, int); s.position.set(...pos); s.castShadow = true; s.shadow.mapSize.set(2048, 2048); s.shadow.radius = 6; s.shadow.bias = -.0005; Object.assign(s.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4 }); sc.add(s); return s; };
+let bloom = 0;
+
+if (S === 'esqueleto') {
+  // ====== 1 · ESQUELETO 3D (tendencia "skull videos") ======
+  BG.style.background = 'radial-gradient(circle at 50% 42%,#1d4a5a 0%,#0b1a24 55%,#05090d 100%)'; bloom = .28;
+  const hueso = new THREE.MeshPhysicalMaterial({ color: 0xf1e6cf, roughness: .45, clearcoat: .3, clearcoatRoughness: .4, sheen: .3, sheenColor: 0xffffff });
+  const negro = new THREE.MeshStandardMaterial({ color: 0x0a0a0c, roughness: .8 });
+  const cap = (r, l, p, rot = [0, 0, 0], par) => { const m = add(new THREE.CapsuleGeometry(r, l, 6, 18), hueso, p, par); m.rotation.set(...rot); return m; };
+  const bola = (r, p, par, mat = hueso) => add(new THREE.SphereGeometry(r, 32, 22), mat, p, par);
+  const esq = G([0, 0, 0]); esq.rotation.y = .35;
+  // cráneo
+  const cr = G([0, 2.02, 0], esq); cr.rotation.set(-.12, -.15, .08);
+  bola(.3, [0, 0, 0], cr).scale.set(1, 1.05, 1.08);
+  add(new RoundedBoxGeometry(.36, .2, .3, 4, .07), hueso, [0, -.2, .07], cr);                                     // maxilar
+  const mand = G([0, -.27, .02], cr); mand.rotation.x = .38; add(new RoundedBoxGeometry(.34, .09, .3, 4, .04), hueso, [0, -.04, .07], mand);   // mandíbula abierta (sorpresa)
+  for (let i = 0; i < 6; i++) { add(new RoundedBoxGeometry(.04, .05, .03, 2, .012), hueso, [-.1 + i * .04, -.3, .21], cr); add(new RoundedBoxGeometry(.04, .045, .03, 2, .012), hueso, [-.1 + i * .04, .0, .16], mand); }
+  for (const s of [-1, 1]) { const o = bola(.085, [s * .11, .02, .24], cr, negro); o.scale.set(1, 1.1, .6); const br = bola(.03, [s * .11, .03, .3], cr, new THREE.MeshBasicMaterial({ color: 0x7ff3ff })); }   // órbitas con brillo cian
+  add(new THREE.ConeGeometry(.04, .07, 3), negro, [0, -.1, .3], cr).rotation.x = Math.PI;                       // nariz
+  // columna, costillas, pelvis
+  for (let i = 0; i < 9; i++) add(new RoundedBoxGeometry(.11, .07, .1, 3, .025), hueso, [0, 1.68 - i * .085, -.04], esq);
+  for (let i = 0; i < 5; i++) { const t = add(new THREE.TorusGeometry(.26 - i * .012, .022, 8, 40, Math.PI * 1.5), hueso, [0, 1.55 - i * .085, .04], esq); t.rotation.set(Math.PI / 2, 0, Math.PI * .25); t.scale.set(1, .8, 1); }
+  add(new RoundedBoxGeometry(.18, .24, .05, 3, .02), hueso, [0, 1.4, .25], esq);                                   // esternón
+  add(new THREE.TorusGeometry(.2, .05, 10, 30, Math.PI), hueso, [0, .9, 0], esq).rotation.set(Math.PI * .55, 0, 0);
+  // clavículas y brazos (uno señalando hacia el dato)
+  for (const s of [-1, 1]) cap(.025, .26, [s * .17, 1.76, .05], [0, 0, Math.PI / 2]);
+  const hI = G([-.32, 1.74, 0], esq); hI.rotation.z = -.25; cap(.035, .4, [0, -.24, 0], [0, 0, 0], hI); bola(.05, [0, -.47, 0], hI); const aI = G([0, -.47, 0], hI); aI.rotation.z = .5; cap(.028, .36, [0, -.22, 0], [0, 0, 0], aI); bola(.06, [0, -.44, 0], aI);
+  const hD = G([.32, 1.74, 0], esq); hD.rotation.set(0, 0, 2.2); cap(.035, .4, [0, -.24, 0], [0, 0, 0], hD); bola(.05, [0, -.47, 0], hD); const aD = G([0, -.47, 0], hD); aD.rotation.z = .35; cap(.028, .36, [0, -.22, 0], [0, 0, 0], aD);
+  for (let f = 0; f < 4; f++) cap(.012, .08, [-.03 + f * .02, -.5, 0], [0, 0, 0], aD); cap(.014, .16, [.0, -.56, .0], [0, 0, 0], aD);
+  for (const s of [-1, 1]) { const p = G([s * .14, .86, 0], esq); p.rotation.z = s * .06; cap(.045, .5, [0, -.3, 0], [0, 0, 0], p); bola(.06, [0, -.6, 0], p); cap(.035, .46, [0, -.9, 0], [0, 0, 0], p); add(new RoundedBoxGeometry(.12, .05, .22, 3, .02), hueso, [0, -1.18, .06], p); }
+  // corazón brillante flotando (el dato)
+  const cv = new THREE.Shape(); cv.moveTo(0, -.25); cv.bezierCurveTo(-.5, .1, -.25, .45, 0, .2); cv.bezierCurveTo(.25, .45, .5, .1, 0, -.25);
+  const cor = add(new THREE.ExtrudeGeometry(cv, { depth: .14, bevelEnabled: true, bevelSize: .05, bevelThickness: .05, bevelSegments: 4 }), new THREE.MeshStandardMaterial({ color: 0xff4060, emissive: 0xff2050, emissiveIntensity: .55 }), [.85, 2.35, .2]);
+  cor.scale.setScalar(.75); cor.rotation.y = -.4;
+  const piso = add(new THREE.CircleGeometry(3, 48), new THREE.MeshStandardMaterial({ color: 0x0d2630, roughness: .9 }), [0, 0, 0]); piso.rotation.x = -Math.PI / 2;
+  sc.add(new THREE.HemisphereLight(0x9fe8ff, 0x0b1a24, .8)); sol(2.2, [-2, 5, 4], 0xfff3e0);
+  const rim = new THREE.DirectionalLight(0x5fe3ff, 3); rim.position.set(2.5, 2.5, -3); sc.add(rim);
+  const pl = new THREE.PointLight(0xff3060, 2.5, 3); pl.position.set(.85, 2.35, .7); sc.add(pl);
+  cam.position.set(.5, 1.65, 3.7); cam.lookAt(.25, 1.35, 0);
+  texto('<span style="font-size:96px;color:#fff;text-shadow:0 6px 0 #000">TU CORAZÓN</span>', 200);
+  texto('<span style="font-size:72px;color:#5fe3ff;text-shadow:0 5px 0 #000">late 100 mil veces al día</span>', 310);
+} else if (S === 'frijolito') {
+  // ====== 2 · CARICATURA 3D "FRIJOLITO" (cabeza bola con cara dibujada, cuerpo de frijol, bracitos de palito) ======
+  BG.style.background = 'linear-gradient(#7fd3ff,#d9f3ff)';
+  const M = (c, o = {}) => new THREE.MeshPhysicalMaterial({ color: c, roughness: .5, clearcoat: .25, ...o });
+  const flat = c => new THREE.MeshBasicMaterial({ color: c });
+  const suelo = add(new THREE.PlaneGeometry(30, 30), M(0x7ed957, { roughness: .9 }), [0, 0, 0]); suelo.rotation.x = -Math.PI / 2;
+  for (let k = 0; k < 7; k++) { const a = G([(k - 3) * 1.6 + (k % 2) * .4, 0, -3 - (k % 3) * 1.4]); add(new THREE.CylinderGeometry(.08, .1, .8, 10), M(0x8a5a33), [0, .4, 0], a); add(new THREE.SphereGeometry(.45 + (k % 3) * .1, 24, 16), M(0x3fbf5f), [0, 1.0, 0], a); }
+  function frijol(p, cuerpo, ry, cara) {
+    const g = G(p); g.rotation.y = ry;
+    add(new THREE.CapsuleGeometry(.26, .32, 10, 24), M(cuerpo), [0, .52, 0], g);                                  // cuerpo frijol
+    const h = G([0, 1.13, 0], g); add(new THREE.SphereGeometry(.3, 40, 28), M(0xffd9b8), [0, 0, 0], h);            // cabeza bola
+    // cara DIBUJADA (planos planos negros)
+    const ojo = (x, y, r) => { const o = add(new THREE.CircleGeometry(r, 24), flat(0x111111), [x, y, .296], h); o.castShadow = false; const b = add(new THREE.CircleGeometry(r * .35, 16), flat(0xffffff), [x + r * .3, y + r * .3, .297], h); b.castShadow = false; };
+    if (cara === 'sorpresa') { ojo(-.1, .05, .065); ojo(.1, .05, .065); const bo = add(new THREE.CircleGeometry(.05, 24), flat(0x6b1f1f), [0, -.11, .296], h); bo.scale.y = 1.3; }
+    else { ojo(-.1, .04, .05); ojo(.1, .04, .05); const sm = add(new THREE.TorusGeometry(.07, .012, 6, 20, Math.PI), flat(0x111111), [0, -.08, .29], h); sm.rotation.z = Math.PI; }
+    for (const s of [-1, 1]) add(new THREE.CircleGeometry(.04, 16), flat(0xff9aa0), [s * .19, -.04, .26], h).rotation.y = s * .5;
+    const brazo = (s, rz) => { const b = G([s * .26, .72, 0], g); b.rotation.z = rz; add(new THREE.CylinderGeometry(.022, .022, .42, 8), M(0x222222), [0, -.21, 0], b); add(new THREE.SphereGeometry(.05, 12, 10), M(0xffd9b8), [0, -.43, 0], b); };
+    for (const s of [-1, 1]) add(new THREE.CylinderGeometry(.024, .024, .34, 8), M(0x222222), [s * .1, .14, 0], g);
+    for (const s of [-1, 1]) add(new THREE.SphereGeometry(.07, 16, 10), M(0x222222), [s * .1, .03, .04], g).scale.set(1, .6, 1.4);
+    return { g, brazo };
+  }
+  const a = frijol([-.45, 0, .3], 0xff6b4a, .4, 'sorpresa'); a.brazo(-1, -.4); a.brazo(1, 2.4);
+  const b = frijol([.55, 0, -.1], 0x4a8bff, -.5, 'feliz'); b.brazo(-1, -2.0); b.brazo(1, .3);
+  add(new THREE.SphereGeometry(.12, 20, 14), M(0xff4060, { emissive: 0xff2040, emissiveIntensity: .4 }), [.05, 1.65, 0]);   // corazoncito-bola del dato
+  sc.add(new THREE.HemisphereLight(0xffffff, 0x88aa66, 1.3)); sol(2.4, [-3, 6, 4]);
+  cam.position.set(.15, 1.2, 4.6); cam.lookAt(.05, .85, 0); cam.fov = 42;
+  texto('<span style="font-size:110px;color:#fff;-webkit-text-stroke:10px #111;paint-order:stroke">¿SABÍAS</span>', 250);
+  texto('<span style="font-size:110px;color:#ffd640;-webkit-text-stroke:10px #111;paint-order:stroke">QUE…?</span>', 370);
+} else if (S === 'stopmotion') {
+  // ====== 3 · PLASTILINA STOP-MOTION EN MINIATURA (textura con huellas + tilt-shift) ======
+  BG.style.background = '#2a1d16';
+  const tex = ruido('#ffffff', 26, 512, 2);
+  const C = c => new THREE.MeshStandardMaterial({ color: c, roughness: .82, bumpMap: tex, bumpScale: 2.2, map: tex });
+  const bulto = (geo, c, p, par, def = .025) => { const pos = geo.attributes.position; for (let i = 0; i < pos.count; i++) { const k = 1 + (Math.sin(pos.getX(i) * 23) + Math.cos(pos.getY(i) * 19 + pos.getZ(i) * 17)) * def; pos.setXYZ(i, pos.getX(i) * k, pos.getY(i) * k, pos.getZ(i) * k); } geo.computeVertexNormals(); return add(geo, C(c), p, par); };
+  // mesa de madera de la "maqueta"
+  add(new THREE.CylinderGeometry(2.2, 2.2, .3, 64), new THREE.MeshStandardMaterial({ color: 0x6b4428, roughness: .7, map: ruido('#9a6a44', 50, 256, 3) }), [0, -.15, 0]);
+  bulto(new THREE.CylinderGeometry(1.9, 1.95, .06, 48, 2), 0x6fbf73, [0, .03, 0]);
+  // personaje de plastilina
+  const p = G([-.25, .06, .2]); p.rotation.y = .4;
+  bulto(new THREE.CapsuleGeometry(.24, .28, 10, 24), 0xe86a3a, [0, .5, 0], p);
+  const h = G([0, 1.05, 0], p); bulto(new THREE.SphereGeometry(.28, 40, 28), 0xf2c29b, [0, 0, 0], h, .02);
+  for (const s of [-1, 1]) { bulto(new THREE.SphereGeometry(.06, 20, 14), 0xffffff, [s * .1, .04, .24], h, .04); bulto(new THREE.SphereGeometry(.032, 16, 12), 0x1a1210, [s * .1, .04, .3], h, .03); }
+  bulto(new THREE.SphereGeometry(.05, 16, 12), 0x8a2a2a, [0, -.12, .25], h, .05).scale.set(1, 1.3, .6);
+  bulto(new THREE.SphereGeometry(.3, 30, 16, 0, Math.PI * 2, 0, Math.PI * .45), 0x4a2a1a, [0, .03, -.02], h, .05);   // pelo
+  for (const s of [-1, 1]) { const b = G([s * .26, .68, 0], p); b.rotation.z = s > 0 ? 2.3 : -.3; bulto(new THREE.CapsuleGeometry(.06, .3, 8, 16), 0xe86a3a, [0, -.2, 0], b); bulto(new THREE.SphereGeometry(.07, 16, 12), 0xf2c29b, [0, -.42, 0], b); }
+  for (const s of [-1, 1]) bulto(new THREE.CapsuleGeometry(.08, .18, 8, 16), 0x3a5aa8, [s * .1, .17, 0], p);
+  // pulpo de plastilina (el dato) con 3 corazoncitos
+  const pu = G([.75, .06, -.25]); bulto(new THREE.SphereGeometry(.34, 36, 24), 0xb76ad9, [0, .55, 0], pu).scale.set(1, 1.15, 1);
+  for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2, t = bulto(new THREE.CapsuleGeometry(.05, .35, 6, 12), 0xa45ac6, [Math.cos(a) * .25, .2, Math.sin(a) * .25], pu); t.rotation.set(Math.sin(a) * .9, 0, -Math.cos(a) * .9); }
+  for (const s of [-1, 1]) { bulto(new THREE.SphereGeometry(.07, 20, 14), 0xffffff, [s * .12, .6, .3], pu, .03); bulto(new THREE.SphereGeometry(.035, 14, 10), 0x111111, [s * .12, .6, .36], pu, .02); }
+  for (let k = 0; k < 3; k++) bulto(new THREE.SphereGeometry(.07, 20, 14), 0xe0453a, [-.25 + k * .25, 1.15 + (k % 2) * .1, 0], pu, .05);
+  for (let k = 0; k < 6; k++) { const f = G([Math.cos(k * 1.1) * 1.5, .06, Math.sin(k * 1.1) * 1.1 - .2]); bulto(new THREE.CylinderGeometry(.02, .02, .2, 6), 0x3f8f4a, [0, .1, 0], f); bulto(new THREE.SphereGeometry(.07, 14, 10), [0xffd640, 0xff7a9a, 0xffffff][k % 3], [0, .22, 0], f, .06); }
+  sc.add(new THREE.HemisphereLight(0xfff0dd, 0x3a2a20, .9)); sol(3.0, [-2.5, 4, 2.5], 0xffe2c0);
+  const sp = new THREE.SpotLight(0xffd8a8, 25, 9, .6, .7); sp.position.set(1.5, 4, 3); sp.target.position.set(0, .4, 0); sc.add(sp, sp.target);
+  cam.position.set(.3, 2.3, 4.6); cam.lookAt(.2, .55, 0); cam.fov = 40;
+  texto('<span style="font-size:88px;color:#fff5e6;text-shadow:0 6px 18px rgba(0,0,0,.6)">El pulpo tiene</span>', 260);
+  texto('<span style="font-size:130px;color:#ffd640;text-shadow:0 6px 18px rgba(0,0,0,.6)">3 corazones</span>', 360);
+} else if (S === 'papel') {
+  // ====== 4 · PAPEL RECORTADO (2D en espacio 3D, capas con sombra y textura de papel) ======
+  BG.style.background = '#f4ead8';
+  const pap = (c, rep = 1) => new THREE.MeshStandardMaterial({ color: c, roughness: 1, map: ruido('#ffffff', 22, 256, rep), side: THREE.DoubleSide });
+  const capa = (shape, c, z, p = [0, 0], par = sc) => { const m = add(new THREE.ExtrudeGeometry(shape, { depth: .015, bevelEnabled: false }), pap(c), [p[0], p[1], z], par); return m; };
+  const rect = (w, h, r = .02) => { const s = new THREE.Shape(); s.moveTo(-w / 2 + r, -h / 2); s.lineTo(w / 2 - r, -h / 2); s.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r); s.lineTo(w / 2, h / 2 - r); s.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2); s.lineTo(-w / 2 + r, h / 2); s.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r); s.lineTo(-w / 2, -h / 2 + r); s.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2); return s; };
+  const circ = (r, irr = .02) => { const s = new THREE.Shape(); for (let i = 0; i <= 48; i++) { const a = i / 48 * Math.PI * 2, rr = r * (1 + (Math.random() - .5) * irr); i ? s.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : s.moveTo(rr, 0); } return s; };
+  const ola = (w, amp, y0) => { const s = new THREE.Shape(); s.moveTo(-w / 2, -3); for (let i = 0; i <= 40; i++) { const x = -w / 2 + i / 40 * w; s.lineTo(x, y0 + Math.sin(i * .7) * amp); } s.lineTo(w / 2, -3); return s; };
+  capa(rect(6, 9), 0x1f4e79, -.6); capa(circ(.45), 0xffe08a, -.5, [.85, 1.9]);                                         // fondo mar de noche + luna
+  for (let k = 0; k < 14; k++) capa(circ(.03, .3), 0xffffff, -.55, [(Math.random() - .5) * 2.6, 1 + Math.random() * 2.2]);
+  capa(ola(6, .08, .25), 0x2a6aa8, -.4); capa(ola(6, .1, -.15), 0x3a86c8, -.25); capa(ola(6, .12, -.6), 0x56a8e0, -.1);
+  // pulpo de papel
+  const pu = G([0, .25, 0]);
+  const cab = new THREE.Shape(); cab.moveTo(-.4, -.05); cab.bezierCurveTo(-.55, .75, .55, .75, .4, -.05); cab.quadraticCurveTo(0, -.18, -.4, -.05);
+  capa(cab, 0xd95a9a, 0, [0, 0], pu);
+  for (let k = 0; k < 6; k++) {                                       // tentáculos enroscados de papel
+    const x0 = -.33 + k * .132, dir = k < 3 ? -1 : 1, t = new THREE.Shape();
+    t.moveTo(x0 - .05, -.05); t.bezierCurveTo(x0 - .06, -.35, x0 + dir * .25, -.45, x0 + dir * .22, -.62); t.bezierCurveTo(x0 + dir * .14, -.7, x0 + dir * .08, -.6, x0 + dir * .14, -.56);
+    t.bezierCurveTo(x0 + dir * .12, -.45, x0 + .02, -.35, x0 + .05, -.05); t.lineTo(x0 - .05, -.05);
+    capa(t, k % 2 ? 0xc94a8a : 0xe06aa6, -.01 + (k % 2) * .005, [0, 0], pu);
+    for (let v = 0; v < 2; v++) capa(circ(.018), 0xffc2dc, .01, [x0 + dir * (.03 + v * .1), -.2 - v * .17], pu);
+  }
+  for (const s of [-1, 1]) { capa(circ(.1), 0xffffff, .03, [s * .15, .22], pu); capa(circ(.05), 0x111111, .05, [s * .15, .22], pu); }
+  const bo = capa(circ(.05), 0x7a1f3a, .03, [0, .02], pu); bo.scale.y = 1.3;
+  for (let k = 0; k < 3; k++) { const c = new THREE.Shape(); c.moveTo(0, -.12); c.bezierCurveTo(-.22, .05, -.11, .2, 0, .09); c.bezierCurveTo(.11, .2, .22, .05, 0, -.12); capa(c, 0xff4060, .1 + k * .01, [-.45 + k * .45, .95 + (k % 2) * .12], pu); }
+  capa(ola(6, .1, -1.05), 0x7cc6f2, .15);                                                                               // ola de enfrente
+  sc.add(new THREE.HemisphereLight(0xffffff, 0xbba98a, 1.6)); const s = sol(2.0, [-1.5, 2.5, 5]); s.shadow.radius = 10;
+  cam.position.set(0, .55, 5.4); cam.lookAt(0, .55, 0); cam.fov = 38;
+  texto('<span style="font-size:84px;color:#fff8ea;text-shadow:3px 4px 0 #1f4e79">El pulpo tiene</span>', 260);
+  texto('<span style="font-size:126px;color:#ffe08a;text-shadow:4px 6px 0 #1f4e79">3 corazones</span>', 355);
+}
+cam.updateProjectionMatrix();
+if (bloom) { const cp = new EffectComposer(R); cp.addPass(new RenderPass(sc, cam)); cp.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), bloom, .5, .8)); cp.addPass(new OutputPass()); cp.render(); }
+else R.render(sc, cam);
+window.__done = true;
+}
+</script></body></html>

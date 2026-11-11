@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-11-papel-dedo",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué pegarte en el dedo chiquito del pie duele TANTO?"]},
+    {"tipo": "fuerza", "titulo": "", "frases": ["Porque chocas con una fuerza de hasta tres veces tu peso… en un solo dedito."]},
+    {"tipo": "cojin", "titulo": "", "frases": ["Y casi no tiene grasa que amortigüe: el golpe va directo a los nervios."]},
+    {"tipo": "olas", "titulo": "", "frases": ["Por eso duele dos veces: primero el rayo… y luego el ardor."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien siempre se pega con la pata de la cama."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}
