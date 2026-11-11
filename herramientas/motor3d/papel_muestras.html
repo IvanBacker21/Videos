@@ -410,5 +410,95 @@ if (S === 'prota' || S === 'prota2' || S === 'barba') {
     cam.position.set(0, 2.3, 3.6); cam.lookAt(0, 2.25, 0); etiqueta('Barba nueva (secundarios)'); }
 }
 
+// ===================== PERROS Y GATOS (estilo J, de perfil) =====================
+if (S === 'perros' || S === 'gatos') {
+  const { parte, capsula, INK } = P;
+  // tubo que sigue una curva (colas, cuellos): puntos de control, ancho inicial y final
+  function tubo(ctrl, w1, w2) { const c = new THREE.CatmullRomCurve3(ctrl.map(([a, b]) => new THREE.Vector3(a, b, 0))); const n = 40, L = [], R2 = [];
+    for (let i = 0; i <= n; i++) { const t = i / n, p = c.getPoint(t), d = c.getTangent(t), w = (w1 + (w2 - w1) * t) / 2; L.push([p.x - d.y * w, p.y + d.x * w]); R2.unshift([p.x + d.y * w, p.y - d.x * w]); }
+    const sh = F.poly([...L, ...R2]); return sh; }
+  const ojoA = (par, pos, s = 1, gato = false) => { const e = group(pos, par);
+    pieza(F.elipse(.075 * s, .07 * s), gato ? 0xd8e86a : 0xffffff, [0, 0, 0], e, { sombra: false, grosor: .004 });
+    if (gato) pieza(F.elipse(.016 * s, .055 * s), INK, [.012 * s, 0, .004], e, { sombra: false, grosor: .004 });
+    else pieza(F.circ(.042 * s), INK, [.018 * s, -.004, .004], e, { sombra: false, grosor: .004 });
+    pieza(F.circ(.014 * s), 0xffffff, [.03 * s, .02 * s, .008], e, { sombra: false, grosor: .003 }); return e; };
+  fondo(0xfff1dc, -2.4); pieza(F.rect(12, 6, 0), 0xffd9b0, [0, -3, -.7], null, { sombra: false });
+  pieza(F.circ(1.0), 0xffc83d, [1.9, 4.6, -2.3], null, { sombra: false }); pieza(F.estrella(4, .4, .12), 0x2ec4a6, [-1.9, 4.3, -2.3], null, { sombra: false });
+  luces({ pos: [-2.5, 4, 7], hemi: 1.45 });
+  const etq = (txt, y) => { const d = document.createElement('div'); d.className = 'tag'; d.style.bottom = 'auto'; d.style.top = y + 'px'; d.innerHTML = `<span>${txt}</span>`; TX.appendChild(d); };
+
+  if (S === 'perros') {
+    const GR = 0x8a8f9c, GRo = 0x6f7482, BL = 0xf6f1e6;
+    function perro(pos, v) { const g = group(pos); const tr = v.trama !== false;
+      // cola
+      const cola = v.cola === 'pluma' ? tubo([[-.55, .55], [-.85, .75], [-.95, 1.1], [-.8, 1.3]], .2, .12) : v.cola === 'corta' ? tubo([[-.55, .55], [-.75, .62], [-.85, .72]], .11, .06) : tubo([[-.55, .55], [-.8, .7], [-.88, .98], [-.78, 1.12]], .12, .05);
+      parte(cola, GR, [0, 0, -.01], g);
+      // patas de atrás (muslo grueso) y de adelante, con calcetín blanco
+      const pata = (x, z, grosa, color) => { const p = group([x, v.alto ?? .62, z], g); parte(capsula(.42, grosa, .13), color, [0, 0, 0], p); parte(capsula(.16, .14, .135), BL, [0, -.3, .003], p, { atras: .1 }); parte(F.elipse(.1, .055), BL, [.04, -.47, .004], p, { atras: .1 }); return p; };
+      pata(-.42, -.02, .26, GRo); pata(.35, -.02, .16, GRo);
+      // cuerpo
+      const c = S0(); const L = v.largo ?? 1.0, Hc = v.panza ?? .5; c.moveTo(-.55, .5); c.bezierCurveTo(-.6, .95, -.2, 1.0, .1, .98); c.bezierCurveTo(.45, .98, .6, .9, .55, .6); c.bezierCurveTo(.5, .42, .2, .45, 0, .5); c.bezierCurveTo(-.25, .52, -.5, .35, -.55, .5);
+      parte(c, GR, [0, 0, 0], g, { trama: tr ? F.poly([[-.55, .5], [-.55, .62], [.5, .58], [.5, .45]]) : null });
+      parte(F.elipse(.2, .28), BL, [.42, .66, .004], g, { atras: .1 });                                                    // pecho blanco
+      pata(-.32, .03, .28, GR); pata(.42, .03, .17, GR);
+      // cuello + cabeza
+      const h = group([.62, 1.08 + (v.cuello ?? 0), .02], g);
+      parte(tubo([[.48, .55], [.56, .8], [.62, 1.05 + (v.cuello ?? 0)]], .34, .3), GR, [0, 0, .006], g, { atras: .1 });
+      const cab = S0(); const bx = v.cabeza ?? 1; cab.moveTo(-.2 * bx, .05); cab.bezierCurveTo(-.22 * bx, .3, .12, .32, .2, .18); cab.lineTo(.42 * bx, .08); cab.quadraticCurveTo(.5 * bx, .02, .44 * bx, -.08); cab.lineTo(.16, -.12); cab.quadraticCurveTo(-.05, -.2, -.2 * bx, .05);
+      parte(cab, GR, [0, 0, 0], h);
+      if (v.hocicoBlanco) parte(F.poly([[.12, -.06], [.42 * bx, .0], [.44 * bx, -.07], [.16, -.12]]), BL, [0, 0, .004], h, { borde: 0 });
+      pieza(F.elipse(.055, .042), INK, [.44 * bx, .03, .012], h, { sombra: false, grosor: .004 });                          // nariz
+      pieza(F.arco(.06, .018, Math.PI * 1.2, Math.PI * 1.75), INK, [.3 * bx, -.06, .012], h, { sombra: false, grosor: .004 });   // boca
+      if (v.lengua) pieza(F.elipse(.035, .06), 0xff7a8a, [.3 * bx, -.13, .008], h, { sombra: false, grosor: .004 });
+      ojoA(h, [.08, .12, .012], 1); pieza(F.rect(.1, .028, .01), 0x4a4e5a, [.08, .2, .014], h, { rot: -.15, sombra: false, grosor: .004 });   // ceja
+      // orejas
+      if (v.orejas === 'caidas') { const o = parte(tubo([[-.05, .22], [-.16, .12], [-.2, -.08], [-.14, -.2]], .2, .14), 0x5f6472, [0, 0, .006], h, { atras: .02 }); }
+      else if (v.orejas === 'paradas') { parte(F.poly([[-.14, .2], [-.05, .52], [.06, .22]]), GRo, [0, 0, -.004], h); parte(F.poly([[-.1, .22], [-.05, .42], [.02, .23]]), 0xe7b8b8, [0, 0, .004], h, { borde: 0 }); }
+      else { parte(F.poly([[-.16, .2], [-.02, .34], [.02, .2], [-.08, .14]]), 0x5f6472, [0, 0, .006], h, { atras: .02 }); }
+      // collar
+      parte(F.rect(.1, .32, .04), 0xff6b5b, [.6, .9, .012], g, { rot: -.35, borde: .02, atras: .005 }); pieza(F.circ(.05), 0xffc83d, [.66, .76, .03], g, { borde: .015, colorBorde: INK });
+      return g; }
+    function S0() { return new THREE.Shape(); }
+    window.S0 = S0;
+    perro([-.3, 3.05, 0], { orejas: 'caidas', cola: 'curva', lengua: true });
+    perro([-.3, .78, 0], { orejas: 'paradas', cola: 'pluma', hocicoBlanco: true, cuello: .06 });
+    perro([-.3, -1.25, 0], { orejas: 'dobladas', cola: 'corta', cabeza: .9, panza: .45 });
+    cam.position.set(0, 1.25, 14.5); cam.lookAt(0, 1.2, 0);
+    etq('Perro 1 · orejas caídas, cola curva', 530); etq('Perro 2 · orejas paradas, cola esponjada', 1065); etq('Perro 3 · compacto, orejas dobladas', 1600);
+  } else {
+    const NE = 0x34323e, NEo = 0x2a2833, BL = 0xf6f1e6;
+    function S0() { return new THREE.Shape(); }
+    function gato(pos, v) { const g = group(pos); const sent = v.pose === 'sentado';
+      const cola = v.cola === 'alta' ? tubo([[-.5, .55], [-.75, .8], [-.72, 1.2], [-.55, 1.42], [-.4, 1.4]], .12, .08) : sent ? tubo([[-.35, .1], [-.1, -.02], [.25, .0], [.45, .1]], .13, .08) : tubo([[-.5, .55], [-.85, .55], [-1.05, .75], [-1.12, 1.0]], .11, .07);
+      parte(cola, NE, [0, 0, sent ? .03 : -.01], g); if (v.puntaBlanca) parte(F.circ(.06), BL, [-.4, 1.4, .005], g, { atras: .02 });
+      const pata = (x, z, alto, color) => { const p = group([x, alto, z], g); parte(capsula(alto - .07, .14, .1), color, [0, 0, 0], p); parte(capsula(.14, .11, .1), BL, [0, -alto + .2, .003], p, { atras: .1 }); parte(F.elipse(.075, .045), BL, [.03, -alto + .06, .004], p, { atras: .1 }); return p; };
+      if (!sent) { pata(-.38, -.02, .58, NEo); pata(.32, -.02, .58, NEo); }
+      const c = S0();
+      if (sent) { c.moveTo(-.42, .05); c.bezierCurveTo(-.5, .5, -.2, 1.1, .12, 1.08); c.bezierCurveTo(.32, 1.06, .34, .7, .3, .4); c.lineTo(.3, .05); c.lineTo(-.42, .05); }
+      else { const gord = v.gordo ? .14 : 0; c.moveTo(-.55, .55); c.bezierCurveTo(-.6, .9 + gord, -.2, .95 + gord, .1, .92); c.bezierCurveTo(.4, .9, .52, .82, .5, .62); c.bezierCurveTo(.45, .4 - gord, .15, .4 - gord, -.1, .45 - gord); c.bezierCurveTo(-.35, .46, -.52, .4, -.55, .55); }
+      parte(c, NE, [0, 0, 0], g, { trama: F.poly(sent ? [[-.38, .05], [-.45, .4], [.0, .3], [.1, .05]] : [[-.55, .55], [-.5, .6], [.4, .52], [.4, .42]]) });
+      if (sent) { parte(F.elipse(.3, .28), NEo, [-.2, .28, .008], g, { atras: .1 }); parte(F.elipse(.15, .3), BL, [.18, .58, .004], g, { atras: .1 }); pata(.24, .03, .62, NE); pata(.1, .05, .62, NE); }
+      else { parte(F.elipse(.3, .12), BL, [.02, .5, .004], g, { atras: .1 }); parte(F.elipse(.16, .24), BL, [.4, .66, .005], g, { atras: .1 }); pata(-.28, .03, .58, NE); pata(.4, .03, .58, NE); }
+      const h = group(sent ? [.2, 1.25, .03] : [.6, 1.08, .02], g);
+      if (!sent) parte(tubo([[.42, .62], [.52, .85], [.58, 1.05]], .3, .26), NE, [0, 0, .006], g, { atras: .1 });
+      const cab = S0(); cab.moveTo(-.22, .02); cab.bezierCurveTo(-.24, .28, .22, .3, .26, .06); cab.quadraticCurveTo(.3, -.08, .2, -.16); cab.quadraticCurveTo(0, -.24, -.16, -.14); cab.quadraticCurveTo(-.24, -.08, -.22, .02);
+      parte(cab, NE, [0, 0, 0], h);
+      for (const [x, k] of [[-.13, -1], [.12, 1]]) { parte(F.poly([[x - .1, .14], [x + k * .02, .42], [x + .1, .16]]), NE, [0, 0, -.004], h); parte(F.poly([[x - .055, .17], [x + k * .01, .34], [x + .055, .18]]), 0xe7a0b0, [0, 0, .004], h, { borde: 0 }); }
+      parte(F.poly([[-.02, -.02], [.24, .0], [.24, -.17], [-.04, -.2]]), BL, [0, 0, .004], h, { borde: 0 });                // hocico/mejilla blanca (esmoquin)
+      pieza(F.poly([[.17, -.03], [.24, -.03], [.205, -.07]]), 0xe78a9a, [0, 0, .012], h, { sombra: false, grosor: .004 });   // naricita rosa
+      pieza(F.arco(.035, .012, Math.PI * 1.1, Math.PI * 1.9), INK, [.18, -.1, .012], h, { sombra: false, grosor: .004 }); pieza(F.arco(.035, .012, Math.PI * 1.1, Math.PI * 1.9), INK, [.235, -.1, .012], h, { sombra: false, grosor: .004 });
+      for (const [y, r] of [[-.06, .1], [-.1, -.05]]) pieza(F.rect(.3, .01, .004), 0xf6f1e6, [.38, y, .014], h, { rot: r, sombra: false, grosor: .003 });   // bigotes
+      ojoA(h, [-.02, .06, .012], .95, true); ojoA(h, [.15, .07, .012], .85, true);
+      pieza(F.rect(.08, .022, .008), 0x5a5866, [.15, .15, .014], h, { rot: v.picaro ? -.35 : .1, sombra: false, grosor: .004 });
+      if (v.collar) { parte(F.rect(.34, .07, .03), 0x2ec4a6, sent ? [.18, 1.02, .02] : [.55, .9, .012], g, { rot: sent ? 0 : -.5, borde: .015, atras: .005 }); }
+      return g; }
+    gato([-.2, 3.05, 0], { cola: 'alta', puntaBlanca: true, collar: true });
+    gato([.1, .72, 0], { pose: 'sentado', picaro: true });
+    gato([-.2, -1.3, 0], { gordo: true, cola: 'larga', collar: true });
+    cam.position.set(0, 1.25, 14.5); cam.lookAt(0, 1.2, 0);
+    etq('Gato 1 · esbelto, cola en alto', 530); etq('Gato 2 · sentado, mirada pícara', 1080); etq('Gato 3 · gordito, cola larga', 1600);
+  }
+}
+
 cam.updateProjectionMatrix(); R.render(world, cam); window.__done = true;
 </script></body></html>

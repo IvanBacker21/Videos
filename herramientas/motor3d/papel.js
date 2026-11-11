@@ -191,5 +191,5 @@ export function kitPapel(E) {
         E.rotulo('Síguenos', 'datos curiosos cada día', lt - ts, 1530); if (lt > ts) c.ev('ding', ts, .6); }
     });
   }
-  return { F, M, pieza, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
+  return { F, M, pieza, parte, capsula, agrandada, INK, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex };
 }
