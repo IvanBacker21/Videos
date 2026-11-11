@@ -50,36 +50,90 @@ export function kitPapel(E) {
   // tiempo "a saltitos" (12 cuadros por segundo, como stop-motion)
   const tw = (lt, fps = 12) => Math.floor(lt * fps) / fps;
 
-  // ---------- personaje de papel (muñeco recortado, de frente) ----------
-  // o: {piel, ropa, pantalon, pelo, peinado: 'corto'|'largo'|'chino', escala}
+  // ---------- personaje de papel FLUIDO (estilo "J", aprobado 11-nov-2026) ----------
+  // Extremidades = cápsulas que se adelgazan; los contornos oscuros van DETRÁS de todos los rellenos,
+  // así codos, rodillas, muñecas y hombros se funden sin costuras. Trama de cómic en el lado de sombra.
+  const INK = 0x1f1b2e;
+  function capsula(L, w1, w2) {                 // de (0,0) hacia abajo hasta (0,-L), ancho w1 arriba y w2 abajo, puntas redondas
+    const s = S(), r1 = w1 / 2, r2 = w2 / 2; s.moveTo(-r1, 0); s.absarc(0, 0, r1, Math.PI, 0, true); s.lineTo(r2, -L); s.absarc(0, -L, r2, 0, Math.PI, true); s.lineTo(-r1, 0); return s; }
+  function trama(color, paso = 12, r = 3.2) {
+    const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); x.fillStyle = '#' + new THREE.Color(color).getHexString(); x.fillRect(0, 0, 256, 256); x.fillStyle = 'rgba(31,27,46,.42)';
+    for (let i = 0; i < 256; i += paso) for (let j = 0; j < 256; j += paso) { x.beginPath(); x.arc(i + (j / paso % 2) * paso / 2, j, r, 0, 7); x.fill(); }
+    const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1.3, 1.3); t.colorSpace = THREE.SRGBColorSpace; return t; }
+  const tramas = {};
+  // parte del cuerpo: relleno al frente + contorno agrandado muy atrás (detrás de todo el personaje)
+  function parte(shape, color, pos, parent, o = {}) {
+    const g = group(pos, parent);
+    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: .01, bevelEnabled: false, curveSegments: 12 }), M(color)); m.castShadow = true; m.receiveShadow = true; g.add(m); g.papel = m;
+    if (o.borde !== 0) { const bm = new THREE.Mesh(new THREE.ExtrudeGeometry(agrandada(shape, o.borde ?? .03), { depth: .01, bevelEnabled: false }), M(INK)); bm.position.z = -(o.atras ?? .09); bm.castShadow = true; g.add(bm); }
+    if (o.trama) { const tm = new THREE.Mesh(new THREE.ExtrudeGeometry(o.trama, { depth: .005, bevelEnabled: false }), new THREE.MeshStandardMaterial({ map: tramas[color] ?? (tramas[color] = trama(color)), roughness: 1 })); tm.position.z = .006; g.add(tm); }
+    return g; }
+  // o: {piel, ropa, manga ('corta'|'larga'), pantalon, tenis, pelo, colPelo, barba, lentes, aretes, audifonos, estampado, vestido, escala, trama}
   function persona(pos = [0, 0, 0], o = {}, parent) {
     const g = group(pos, parent); g.scale.setScalar(o.escala ?? 1);
-    const piel = o.piel ?? 0xf0b98e, ropa = o.ropa ?? 0x2f8f83, pan = o.pantalon ?? 0x2f3e66, pelo = o.pelo ?? 0x3a2418, B = { borde: .022 };
-    const pierna = (sx) => { const p = group([sx * .13, .95, .0], g); pieza(F.rect(.2, .95, .07), pan, [0, -.47, 0], p, B); pieza(F.elipse(.17, .08), 0x222222, [sx * .05, -.97, .03], p, B); return p; };
+    if (typeof o.pelo === 'number') o = { ...o, colPelo: o.colPelo ?? o.pelo, pelo: { chino: 'afro', largo: 'largo', corto: 'copete' }[o.peinado ?? 'corto'] ?? 'copete' };   // compatibilidad con el formato anterior
+    const piel = o.piel ?? 0xd99b74, ropa = o.ropa ?? 0x3d6bff, pan = o.pantalon ?? 0x283a8a, ten = o.tenis ?? 0xffc83d, colPelo = o.colPelo ?? o.pelo ?? 0x2a1a12, conTrama = o.trama !== false;
+    const Lp = 1.02, cad = Lp + .14;                                     // largo de pierna, altura de cadera
+    // piernas (muslo+pantorrilla en una cápsula afilada) + tenis que salen de la pierna
+    const pierna = (sx) => { const p = group([sx * .13, cad, .0], g);
+      parte(capsula(Lp, .25, .18), pan, [0, 0, 0], p, { trama: sx > 0 && conTrama ? capsula(Lp, .125, .09) : null });
+      const t = group([sx * .03, -Lp - .02, .02], p); const z = S(); z.moveTo(-.13, .06); z.quadraticCurveTo(-.15, -.08, -.02, -.08); z.lineTo(.2, -.08); z.quadraticCurveTo(.27, -.07, .25, .0); z.quadraticCurveTo(.18, .07, .05, .1); z.quadraticCurveTo(-.08, .14, -.13, .06);
+      parte(z, ten, [0, 0, 0], t); parte(F.rect(.38, .035, .015), 0xffffff, [.055, -.065, .012], t, { borde: 0 }); if (sx < 0) t.scale.x = -1; p.tenis = t; return p; };
     g.legL = pierna(-1); g.legR = pierna(1);
-    g.torso = pieza(F.rect(.62, .8, .16), ropa, [0, 1.3, .05], g, B);
-    const brazo = (sx) => { const b = group([sx * .33, 1.62, sx > 0 ? .1 : .0], g); pieza(F.rect(.15, .62, .07), ropa, [0, -.28, 0], b, B); b.mano = pieza(F.circ(.09), piel, [0, -.62, .02], b, B); return b; };
-    g.armL = brazo(-1); g.armR = brazo(1);
-    pieza(F.rect(.13, .12, .03), piel, [0, 1.74, .08], g);                                                // cuello
-    const h = group([0, 2.02, .14], g); g.head = h;
-    pieza(F.elipse(.29, .32), piel, [0, 0, 0], h, B);
-    const peinado = o.peinado ?? 'corto';
-    if (peinado === 'largo') { pieza(F.rect(.66, .62, .25), pelo, [0, -.06, -.04], h, B); pieza(F.elipse(.32, .17), pelo, [0, .2, .03], h); }
-    else if (peinado === 'chino') { for (let k = 0; k < 7; k++) pieza(F.circ(.12), pelo, [Math.cos(k / 6 * Math.PI) * .26, .18 + Math.sin(k / 6 * Math.PI) * .14, .02], h); }
-    else pieza(F.poly([[-.31, .08], [-.28, .3], [-.05, .38], [.22, .34], [.31, .12], [.18, .2], [-.1, .22]]), pelo, [0, 0, .03], h);
-    for (const sx of [-1, 1]) pieza(F.circ(.05), 0xff9aa0, [sx * .17, -.1, .02], h, { sombra: false });   // chapitas
-    h.ojos = [-1, 1].map(sx => { const e = group([sx * .1, .03, .03], h); pieza(F.elipse(.06, .07), 0xffffff, [0, 0, 0], e); e.pupila = pieza(F.circ(.032), 0x161210, [0, -.005, .015], e); return e; });
-    h.cejas = [-1, 1].map(sx => pieza(F.rect(.1, .028, .012), pelo, [sx * .1, .13, .04], h));
-    // bocas intercambiables
-    h.bocas = {
-      feliz: pieza(F.arco(.08, .028, Math.PI * 1.1, Math.PI * 1.9), 0x5a1a1a, [0, -.1, .035], h, { sombra: false }),
-      o: pieza(F.elipse(.04, .055), 0x5a1a1a, [0, -.14, .035], h, { sombra: false }),
-      grito: pieza(F.elipse(.09, .07), 0x5a1a1a, [0, -.15, .035], h, { sombra: false }),
-      risa: pieza(F.poly([[-.1, -.08], [.1, -.08], [.06, -.17], [-.06, -.17]]), 0x5a1a1a, [0, 0, .035], h, { sombra: false }),
-      seria: pieza(F.rect(.1, .022, .01), 0x5a1a1a, [0, -.12, .035], h, { sombra: false }),
-    };
-    g.cara = (b, cejas = 0) => { for (const k in h.bocas) h.bocas[k].visible = k === b; h.cejas.forEach((c, i) => { c.rotation.z = (i ? -1 : 1) * cejas; c.position.y = .13 + Math.abs(cejas) * .05; }); };
-    g.mira = (dx, dy) => h.ojos.forEach(e => e.pupila.position.set(dx * .022, dy * .022 - .005, .015));
+    // torso con hombros redondos y cintura (o vestido)
+    const T = .92, tor = S();
+    if (o.vestido) { tor.moveTo(-.44, -.28); tor.lineTo(.44, -.28); tor.quadraticCurveTo(.3, .3, .32, T - .14); tor.quadraticCurveTo(.3, T, 0, T + .02); tor.quadraticCurveTo(-.3, T, -.32, T - .14); tor.quadraticCurveTo(-.3, .3, -.44, -.28); }
+    else { tor.moveTo(-.27, 0); tor.lineTo(.27, 0); tor.quadraticCurveTo(.31, .45, .34, T - .16); tor.quadraticCurveTo(.33, T, 0, T + .02); tor.quadraticCurveTo(-.33, T, -.34, T - .16); tor.quadraticCurveTo(-.31, .45, -.27, 0); }
+    const trT = S(); trT.moveTo(0, o.vestido ? -.28 : 0); trT.lineTo(o.vestido ? .44 : .27, o.vestido ? -.28 : 0); trT.quadraticCurveTo(.31, .45, .34, T - .16); trT.quadraticCurveTo(.33, T, 0, T + .02);
+    g.torso = parte(tor, ropa, [0, cad - .06, .03], g, { trama: conTrama ? trT : null });
+    if (!o.vestido) parte(F.rect(.56, .1, .05), pan, [0, cad - .02, .025], g, { borde: 0 });   // cintura del pantalón
+    if (o.estampado) parte(F.estrella(5, .12, .055), 0xffc83d, [0, cad + .5, .045], g, { borde: .02, atras: .005 });
+    // brazos: hombro → codo → mano (cápsulas que se traslapan; los contornos quedan detrás)
+    const topY = cad - .06 + T;
+    const brazo = (sx) => { const b = group([sx * .3, topY - .1, .05], g);
+      const largo = o.manga === 'larga';
+      parte(capsula(.46, .17, .14), largo ? ropa : (o.manga === 'corta' ? piel : piel), [0, 0, 0], b);
+      if (!largo) parte(capsula(.2, .19, .17), ropa, [0, 0, .004], b, { atras: .095 });            // manga corta
+      const a = group([0, -.44, .006], b); b.ante = a;
+      parte(capsula(.4, .14, .11), largo ? ropa : piel, [0, 0, 0], a);
+      const m = group([0, -.42, .004], a); a.mano = m;                                                  // mano con pulgar
+      parte(F.elipse(.075, .088), piel, [0, -.03, 0], m); const pul = parte(F.elipse(.03, .055), piel, [-sx * .065, .0, .002], m); pul.rotation.z = sx * .5;
+      return b; };
+    g.armL = brazo(-1); g.armR = brazo(1); g.armL.rotation.z = -.12; g.armR.rotation.z = .12;
+    // cuello y cabeza (huevo con mandíbula, orejas)
+    parte(capsula(.18, .14, .15), piel, [0, topY + .1, .02], g);
+    const h = group([0, topY + .36, .08], g); g.head = h;
+    if (o.pelo === 'cola' || o.pelo === 'largo') { const c = S(); c.moveTo(.08, .22); c.quadraticCurveTo(.5, .2, .52, -.15); c.quadraticCurveTo(.5, -.45, .36, -.42); c.quadraticCurveTo(.4, -.1, .1, .05); parte(o.pelo === 'largo' ? F.poly([[-.27, .2], [.27, .2], [.31, -.42], [-.31, -.42]]) : c, colPelo, [0, 0, -.01], h); }
+    if (o.pelo === 'afro') for (let k = 0; k < 9; k++) { const t = k / 8 * Math.PI; parte(F.circ(.15), colPelo, [Math.cos(t) * .27, .1 + Math.sin(t) * .2, -.01], h); }
+    for (const sx of [-1, 1]) parte(F.elipse(.05, .07), piel, [sx * .245, -.01, -.004], h);          // orejas
+    const cab = S(); cab.moveTo(0, .32); cab.bezierCurveTo(.3, .32, .29, .02, .25, -.12); cab.quadraticCurveTo(.18, -.3, 0, -.32); cab.quadraticCurveTo(-.18, -.3, -.25, -.12); cab.bezierCurveTo(-.29, .02, -.3, .32, 0, .32);
+    parte(cab, piel, [0, 0, 0], h);
+    if (o.aretes) for (const sx of [-1, 1]) parte(F.circ(.032), 0xffc83d, [sx * .25, -.1, .006], h, { borde: .015, atras: .003 });
+    const z = .012, enc = { atras: .004, borde: .018 };
+    if (o.pelo === 'cola' || o.pelo === 'largo') parte(F.poly([[-.27, .04], [-.25, .25], [-.05, .35], [.2, .31], [.28, .1], [.14, .19], [-.12, .21]]), colPelo, [0, 0, z], h, enc);
+    if (o.pelo === 'copete' || o.pelo === undefined) parte(F.poly([[-.26, .06], [-.24, .27], [-.05, .41], [.25, .45], [.15, .31], [.27, .16], [.1, .21], [-.12, .19]]), colPelo, [0, 0, z], h, enc);
+    if (o.pelo === 'chongo') { parte(F.circ(.13), colPelo, [.05, .37, -.01], h); parte(F.elipse(.28, .14), colPelo, [0, .21, z], h, enc); }
+    if (o.pelo === 'corto') parte(F.elipse(.28, .13), colPelo, [0, .23, z], h, enc);
+    if (o.barba) parte(F.poly([[-.24, -.03], [-.2, -.2], [-.1, -.3], [0, -.34], [.1, -.3], [.2, -.2], [.24, -.03], [.12, -.12], [-.12, -.12]]), colPelo, [0, 0, z], h, { borde: .015, atras: .004 });
+    // cara expresiva
+    h.ojos = [-1, 1].map(sx => { const e = group([sx * .095, .03, z + .004], h);
+      pieza(F.elipse(.054, .062), 0xffffff, [0, 0, 0], e, { sombra: false, grosor: .004 }); e.pupila = pieza(F.circ(.031), INK, [.012, -.006, .004], e, { sombra: false, grosor: .004 });
+      pieza(F.circ(.011), 0xffffff, [.022, .006, .009], e, { sombra: false, grosor: .003 }); return e; });
+    const colCeja = (o.colPelo ?? 0) === 0xe8e4dc ? 0x8a8478 : INK;
+    h.cejas = [-1, 1].map(sx => pieza(F.rect(.11, .032, .015), colCeja, [sx * .095, .125, z + .01], h, { sombra: false, grosor: .004 }));
+    pieza(F.poly([[0, .0], [.035, -.075], [-.02, -.075]]), new THREE.Color(piel).multiplyScalar(.8).getHex(), [0, 0, z + .004], h, { sombra: false, grosor: .004 });
+    const B = (shape, y = 0) => pieza(shape, 0x6a1d2a, [0, y, z + .02], h, { sombra: false, grosor: .004 });
+    h.bocas = { feliz: B(F.arco(.085, .028, Math.PI * 1.15, Math.PI * 1.85), -.1), abierta: B(F.poly([[-.1, -.12], [.1, -.12], [.07, -.2], [0, -.225], [-.07, -.2]])),
+      o: B(F.elipse(.04, .055), -.15), grito: B(F.elipse(.085, .07), -.16), risa: B(F.poly([[-.11, -.09], [.11, -.09], [.07, -.19], [-.07, -.19]])),
+      seria: B(F.rect(.1, .022, .01), -.13), ladeada: B(F.arco(.08, .025, Math.PI * 1.35, Math.PI * 1.95), -.1) };
+    if (o.lentes) for (const sx of [-1, 1]) pieza(F.arco(.07, .022, 0, Math.PI * 2), o.lentes, [sx * .095, .03, z + .014], h, { sombra: false, grosor: .004 });
+    if (o.audifonos) { for (const sx of [-1, 1]) parte(F.elipse(.07, .09), o.audifonos, [sx * .17, topY + .02, .1], g, { borde: .02, atras: .005 }); parte(F.arco(.17, .035, Math.PI * 1.05, Math.PI * 1.95), INK, [0, topY + .02, .095], g, { borde: 0 }); }
+    g.cara = (b, cejas = 0) => { for (const k in h.bocas) h.bocas[k].visible = k === b; h.cejas.forEach((c, i) => { c.rotation.z = (i ? -1 : 1) * cejas; c.position.y = .125 + Math.abs(cejas) * .04; }); };
+    g.mira = (dx, dy) => h.ojos.forEach(e => e.pupila.position.set(dx * .02, dy * .02 - .006, .004));
+    // poses rápidas: 'jarra', 'senala', 'pulgar', 'saluda', 'brazosArriba', 'normal'
+    g.pose = (lado, tipo) => { const b = lado === 'R' ? g.armR : g.armL, sx = lado === 'R' ? 1 : -1;
+      const P = { normal: [.12, 0], jarra: [.55, -2.0], senala: [2.5, .25], pulgar: [.25, 1.6], saluda: [2.3, .7], brazosArriba: [2.9, .15], cruzado: [.35, 1.9] }[tipo] ?? [.12, 0];
+      b.rotation.z = sx * P[0]; b.ante.rotation.z = sx * P[1]; };
     g.cara('feliz'); return g;
   }
   // caminar de papel (a saltitos): piernas y brazos alternan, el cuerpo rebota
@@ -90,25 +144,33 @@ export function kitPapel(E) {
   // marcas de movimiento (rayitas)
   function rayitas(pos, n = 3, color = 0x2a2a2a, parent) { const g = group(pos, parent); for (let k = 0; k < n; k++) pieza(F.rect(.05, .26, .02), color, [k * .14 - (n - 1) * .07, Math.abs(k - (n - 1) / 2) * -.06, 0], g, { rot: (k - (n - 1) / 2) * .35 }); return g; }
 
-  // ---------- cierre de papel (reemplaza al planeta 3D) ----------
+  // ---------- CIERRE OFICIAL: logo 14 "planeta curioso" (aprobado por Iván el 11-nov-2026) ----------
   function cierre() {
     E.escena('cierre', {
-      setup() { E.ambiente({ top: 0x1f2a5a, bottom: 0x1f2a5a, fog: 0x1f2a5a, near: 60, far: 120, sunInt: .01, hemiInt: .01 });
-        fondo(0x22306a, -2.5); luces({ sol: 1.6, hemi: 1.3, suelo: 0x1a2040 });
-        for (let k = 0; k < 40; k++) pieza(F.estrella(5, .05 + Math.random() * .05, .025), k % 4 ? 0xfff4d0 : 0xffd640, [(Math.random() - .5) * 6, -3 + Math.random() * 9, -2.3], null, { sombra: false });
-        this.g = group([0, 1.4, 0]);
-        pieza(F.circ(1.15), 0x7a6cff, [0, 0, 0], this.g, { borde: .04 });
-        for (const [a, b, r] of [[-.4, .35, .25], [.35, -.3, .32], [.45, .45, .14]]) pieza(F.circ(r), 0x5f52e0, [a, b, .03], this.g);
-        pieza(F.arco(1.55, .16, Math.PI * .05, Math.PI * .95), 0xff6fa8, [0, -.1, .06], this.g, { borde: .02 }).scale.y = .35;
-        this.luna = pieza(F.circ(.28), 0xffd640, [1.7, .5, .1], this.g, { borde: .03 });
-        for (const sx of [-1, 1]) { pieza(F.elipse(.13, .15), 0xffffff, [sx * .32, .12, .05], this.g); pieza(F.circ(.065), 0x161210, [sx * .32, .1, .07], this.g); }
-        pieza(F.arco(.22, .06, Math.PI * 1.15, Math.PI * 1.85), 0x2a1a50, [0, -.08, .06], this.g, { sombra: false }); },
-      update(lt, c) { const t = tw(lt); const k = Math.max(.01, E.spring(lt / .7)); this.g.scale.setScalar(k); this.g.rotation.z = Math.sin(t * 2) * .06;
-        const a = t * 2; this.luna.position.set(Math.cos(a) * 1.7, Math.sin(a) * .7, .1);
-        E.cam([0, .9, 9.5], [0, 1.0, 0], 34);
+      setup() { E.ambiente({ top: 0x2b2350, bottom: 0x2b2350, fog: 0x2b2350, near: 60, far: 120, sunInt: .01, hemiInt: .01 });
+        fondo(0x2b2350, -.35); luces({ pos: [-1.5, 2.5, 8], suelo: 0x15102e, hemi: 1.35, sol: 1.8, radio: 3 });
+        for (let k = 0; k < 40; k++) pieza(k % 3 ? F.circ(.03 + (k % 4) * .01) : F.estrella(4, .08, .025), k % 4 ? 0x5a4f8a : 0xffc83d, [((k * 71) % 100 / 100 - .5) * 5.2, ((k * 43) % 100 / 100) * 8 - 2.5, -.3], null, { sombra: false });
+        const BD = { borde: .045, colorBorde: INK }, L = group([0, 2.1, 0]); this.L = L;
+        pieza(F.arco(1.6, .2, Math.PI * .02, Math.PI * .98), 0xffc83d, [0, -.1, -.1], L, BD).scale.y = .34;
+        pieza(F.circ(1.1), 0x7b5cff, [0, 0, 0], L, BD); pieza(F.circ(.25), 0x6a4ce0, [.5, -.5, .03], L); pieza(F.circ(.14), 0x6a4ce0, [-.55, -.35, .03], L);
+        this.ojo = group([-.05, .18, .05], L); pieza(F.elipse(.42, .36), 0xffffff, [0, 0, 0], this.ojo, { borde: .03, colorBorde: INK });
+        this.pupila = group([0, 0, .03], this.ojo); pieza(F.circ(.2), INK, [0, 0, 0], this.pupila, { sombra: false }); pieza(F.circ(.06), 0xffffff, [.06, .08, .02], this.pupila, { sombra: false });
+        this.ceja = pieza(F.rect(.6, .1, .05), INK, [-.05, .68, .06], L); this.ceja.rotation.z = .18;
+        pieza(F.arco(1.6, .2, Math.PI * 1.02, Math.PI * 1.98), 0xffc83d, [0, -.1, .22], L, BD).scale.y = .34;
+        let d = document.getElementById('marcaCierre'); if (!d) { d = document.createElement('div'); d.id = 'marcaCierre'; document.body.appendChild(d); }
+        d.style.cssText = 'position:absolute;left:0;right:0;top:975px;text-align:center;font-family:Poppins;font-weight:900;line-height:1;z-index:5;pointer-events:none';
+        d.innerHTML = '<div style="display:inline-block;transform:rotate(-4deg)"><div style="font-size:128px;color:#fff;-webkit-text-stroke:12px #1f1b2e;paint-order:stroke;filter:drop-shadow(8px 10px 0 #1f1b2e);letter-spacing:2px">DATO</div><div style="font-size:105px;color:#7b5cff;-webkit-text-stroke:12px #1f1b2e;paint-order:stroke;filter:drop-shadow(8px 10px 0 #1f1b2e);margin-top:-8px">CÓSMICO <span style="color:#ff6b5b">2</span></div></div>';
+        this.marca = d; },
+      update(lt, c) { const t = tw(lt);
+        const k = Math.max(.01, E.spring(lt / .7)) * .78; this.L.scale.setScalar(k); this.L.rotation.z = Math.sin(t * 2) * .05;
+        this.pupila.position.set(Math.sin(t * 1.3) * .12, Math.cos(t * .9) * .06, .03);                        // mira de un lado a otro, con curiosidad
+        this.ojo.scale.y = (t % 2.4) > 2.25 ? .12 : 1;                                                         // parpadea
+        this.ceja.position.y = .68 + (Math.sin(t * 2.2) > .6 ? .08 : 0);                                        // levanta la ceja
+        const pm = E.spring(Math.max(0, lt - .25) / .5); this.marca.style.opacity = Math.min(1, lt / .3); this.marca.firstChild.style.transform = `rotate(-4deg) scale(${Math.max(.01, pm).toFixed(3)})`;
+        E.cam([0, 1.0, 12.5], [0, 1.0, 0], 30);
         const tc = c.w('comentarios') || 1.5, ts = c.w('síguenos') || 3;
-        E.rotulo('¿Qué dato quieres ver?', 'déjalo en los comentarios', lt - tc, 1180); if (lt > tc) c.ev('pop', tc);
-        E.rotulo('Síguenos', 'Dato Cósmico 2 · datos curiosos cada día', lt - ts, 1380); if (lt > ts) c.ev('ding', ts, .6); }
+        E.rotulo('¿Qué dato quieres ver?', 'déjalo en los comentarios', lt - tc, 1330); if (lt > tc) c.ev('pop', tc);
+        E.rotulo('Síguenos', 'datos curiosos cada día', lt - ts, 1530); if (lt > ts) c.ev('ding', ts, .6); }
     });
   }
   return { F, M, pieza, fondo, luces, tw, persona, caminar, bam, rayitas, cierre, tex };

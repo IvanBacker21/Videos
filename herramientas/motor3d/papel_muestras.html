@@ -1,0 +1,397 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}canvas{position:absolute;inset:0}
+#txt{position:absolute;inset:0;pointer-events:none}
+.t{position:absolute;left:0;right:0;text-align:center;font-family:Poppins;font-weight:900;line-height:1}
+.l{display:inline-block;paint-order:stroke;-webkit-text-stroke:14px #fffaf0;filter:drop-shadow(6px 9px 0 rgba(0,0,0,.28))}
+.tag{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-family:Poppins;font-weight:800;font-size:46px;color:#f3c54d}
+.tag span{background:rgba(18,16,12,.88);padding:14px 30px;border-radius:14px;border:3px solid #d9a93a}.w{position:absolute;left:0;right:0;text-align:center;font-family:Poppins;color:#f2ead8;filter:drop-shadow(3px 5px 0 rgba(0,0,0,.35))}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body><div id="txt"></div>
+<script type="module">
+// Muestras en papel recortado: ?s=pA|pB|pC|pD (personajes) o lA..lE (logo del cierre)
+import * as THREE from 'three';
+import { kitPapel } from './papel.js';
+const S = new URLSearchParams(location.search).get('s') || 'pA';
+const W = 1080, H = 1920, TX = document.getElementById('txt');
+const R = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); R.setPixelRatio(1.5); R.setSize(W, H);
+R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; R.toneMapping = THREE.ACESFilmicToneMapping; R.outputColorSpace = THREE.SRGBColorSpace;
+document.body.insertBefore(R.domElement, TX);
+const world = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, W / H, .1, 100);
+const group = (pos, parent) => { const g = new THREE.Group(); if (pos) g.position.set(...pos); (parent ?? world).add(g); return g; };
+const P = kitPapel({ THREE, group, world }), { F, pieza, fondo, luces } = P;
+const etiqueta = t => { const d = document.createElement('div'); d.className = 'tag'; d.innerHTML = `<span>${t}</span>`; TX.appendChild(d); };
+// letras recortadas: cada letra con su color, borde blanco y un giro chiquito
+function letras(txt, top, size, cols, gap = 0) {
+  const d = document.createElement('div'); d.className = 't'; d.style.top = top + 'px'; d.style.fontSize = size + 'px'; d.style.letterSpacing = gap + 'px';
+  d.innerHTML = [...txt].map((c, i) => c === ' ' ? '<span style="display:inline-block;width:.3em"></span>' : `<span class="l" style="color:${cols[i % cols.length]};transform:rotate(${((i * 37) % 9 - 4) * 1.2}deg) translateY(${((i * 53) % 7 - 3) * 2}px)">${c}</span>`).join('');
+  TX.appendChild(d);
+}
+const DARK = 0x1d1446;
+
+// ===================== PERSONAJES =====================
+// 3 personas distintas por estilo: joven de pelo largo, señor con barba, abuelita con lentes
+function personaje(est, o) {
+  const g = group(o.pos); const piel = o.piel, ropa = o.ropa, pelo = o.pelo, B = { borde: .022 };
+  const proporcion = { pA: { cab: 1, tor: [.62, .8], pie: .95, br: .62, cy: 2.02 }, pB: { cab: 1.55, tor: [.58, .6], pie: .5, br: .45, cy: 1.72 },
+                       pC: { cab: .78, tor: [.48, 1.05], pie: 1.3, br: .85, cy: 2.75 }, pD: { cab: 1.05, tor: [.7, .85], pie: .9, br: .6, cy: 2.0 } }[est];
+  const k = proporcion, top = k.pie + k.tor[1];
+  // piernas
+  for (const sx of [-1, 1]) {
+    if (est === 'pD') pieza(F.rect(.09, k.pie, .02), 0x2a2a2a, [sx * .13, k.pie / 2, 0], g);
+    else { pieza(F.rect(est === 'pC' ? .15 : .2, k.pie, .07), o.pan, [sx * .12, k.pie / 2, 0], g, B); pieza(F.elipse(.16, .075), 0x222222, [sx * .16, .03, .03], g, B); }
+  }
+  // torso
+  if (est === 'pD') pieza(F.poly([[-.5, 0], [.5, 0], [.24, k.tor[1]], [-.24, k.tor[1]]]), ropa, [0, k.pie, .05], g, B);
+  else if (o.vestido) pieza(F.poly([[-.42, -.15], [.42, -.15], [.22, k.tor[1]], [-.22, k.tor[1]]]), ropa, [0, k.pie, .05], g, B);
+  else pieza(F.rect(k.tor[0], k.tor[1], est === 'pC' ? .1 : .16), ropa, [0, k.pie + k.tor[1] / 2, .05], g, B);
+  // brazos
+  for (const sx of [-1, 1]) { const b = group([sx * (k.tor[0] / 2 + .04), top - .08, .02], g); b.rotation.z = sx * (o.saluda && sx > 0 ? 2.5 : .12);
+    if (est === 'pD') pieza(F.rect(.07, k.br, .02), 0x2a2a2a, [0, -k.br / 2, 0], b); else pieza(F.rect(.14, k.br, .07), ropa, [0, -k.br / 2, 0], b, B);
+    pieza(F.circ(est === 'pB' ? .09 : .08), piel, [0, -k.br, .02], b, B); }
+  // cabeza
+  const h = group([0, top + (est === 'pB' ? .38 : est === 'pC' ? .38 : .3), .14], g); h.scale.setScalar(k.cab);
+  if (est === 'pC') pieza(F.rect(.1, .22, .03), piel, [0, -.3, -.02], h);                                         // cuello largo
+  if (o.largo) pieza(F.rect(.66, .7, .28), pelo, [0, -.1, -.05], h, B);
+  if (est === 'pD') pieza(F.rect(.56, .6, .08), piel, [0, 0, 0], h, B); else pieza(F.elipse(est === 'pC' ? .25 : .29, est === 'pC' ? .32 : .32), piel, [0, 0, 0], h, B);
+  // pelo de arriba
+  if (o.chongo) { pieza(F.circ(.17), pelo, [0, .4, -.03], h, B); pieza(F.elipse(.31, .16), pelo, [0, .22, .02], h); }
+  else if (o.calvo) { pieza(F.elipse(.09, .14), pelo, [-.27, .02, .02], h); pieza(F.elipse(.09, .14), pelo, [.27, .02, .02], h); }
+  else pieza(F.elipse(.31, .15), pelo, [0, .22, .02], h);
+  // barba
+  if (o.barba) pieza(F.poly([[-.27, -.02], [.27, -.02], [.18, -.3], [0, -.38], [-.18, -.3]]), pelo, [0, 0, .03], h, { sombra: false });
+  // cara según estilo
+  const fz = .04;
+  if (est === 'pD' || est === 'pC') { for (const sx of [-1, 1]) pieza(F.circ(est === 'pC' ? .028 : .035), 0x161210, [sx * .1, .04, fz], h, { sombra: false });
+    if (est === 'pC') pieza(F.poly([[0, .02], [.05, -.08], [-.01, -.08]]), 0xd88f6a, [0, 0, fz], h, { sombra: false });
+    pieza(F.arco(.07, .022, Math.PI * 1.15, Math.PI * 1.85), 0x5a1a1a, [0, -.1, fz], h, { sombra: false }); }
+  else { const ro = est === 'pB' ? .085 : .06;
+    for (const sx of [-1, 1]) { pieza(F.elipse(ro, ro * 1.15), 0xffffff, [sx * .11, .03, fz], h); pieza(F.circ(ro * .55), 0x161210, [sx * .11, .02, fz + .015], h); pieza(F.circ(ro * .2), 0xffffff, [sx * .11 + ro * .2, .045, fz + .03], h, { sombra: false });
+      pieza(F.circ(.045), 0xff9aa0, [sx * .19, -.11, fz], h, { sombra: false }); }
+    pieza(F.arco(.075, .026, Math.PI * 1.12, Math.PI * 1.88), 0x5a1a1a, [0, -.12, fz], h, { sombra: false }); }
+  if (o.lentes) for (const sx of [-1, 1]) { const r = pieza(F.arco(.085, .022, 0, Math.PI * 2), 0x2a2a2a, [sx * .11, .03, fz + .04], h, { sombra: false }); }
+  return g;
+}
+const gente = [
+  { pos: [-1.35, 0, 0], piel: 0xc98b62, ropa: 0xff7a59, pan: 0x2f3e66, pelo: 0x2a1a12, largo: true, vestido: true },
+  { pos: [0, 0, .2], piel: 0xf0c19a, ropa: 0x2f8f83, pan: 0x3a3f4a, pelo: 0x5a3220, barba: true, saluda: true },
+  { pos: [1.35, 0, 0], piel: 0xe7b08a, ropa: 0xb28bd6, pan: 0x5a5f6a, pelo: 0xd8d8d8, chongo: true, lentes: true },
+];
+const NOM = { pA: 'A · Clásico redondo', pB: 'B · Cabezón tierno', pC: 'C · Estilizado ilustrado', pD: 'D · Geométrico simple' };
+if (['pA','pB','pC','pD'].includes(S)) {
+  fondo(0xf3e3c3, -2); luces({ pos: [-2.5, 4, 7] });
+  pieza(F.rect(12, 3, 0), 0xe0b97a, [0, -1.5, -.5], null, { sombra: false });
+  for (let k = 0; k < 5; k++) pieza(F.circ(.25 + k % 2 * .1), 0xf8eed8, [-2 + k, 3.5 + (k % 2) * .5, -1.9], null, { sombra: false });
+  gente.forEach(o => personaje(S, o));
+  cam.position.set(0, 1.5, 13.6); cam.lookAt(0, 1.4, 0);
+  etiqueta(NOM[S]);
+}
+
+// ===================== LOGOS DEL CIERRE =====================
+function estrellas(n = 46, z = -1.8) { for (let k = 0; k < n; k++) pieza(F.estrella(5, .05 + (k % 3) * .03, .022 + (k % 3) * .012), k % 5 ? 0xfff4d0 : 0xffd640, [((k * 73) % 100 / 100 - .5) * 6.5, ((k * 37) % 100 / 100) * 9 - 2.5, z], null, { sombra: false }); }
+function interrogacion(parent, s = 1, color = 0xffffff, z = .06) {
+  const g = group([0, 0, z], parent); g.scale.setScalar(s);
+  pieza(F.arco(.28, .16, -Math.PI * .45, Math.PI * 1.05), color, [0, .25, 0], g);
+  pieza(F.rect(.16, .26, .05), color, [.02, -.12, 0], g); pieza(F.circ(.1), color, [.02, -.45, 0], g); return g;
+}
+const badges = [];
+function badge2(pos, r = .3, parent) { const g = group(pos, parent); badges.push([g, r]); pieza(F.circ(r), 0xffd640, [0, 0, 0], g, { borde: .04, colorBorde: 0x1d1446 }); return g; }
+const NL = { lA: '1 · Planeta "?" (tu marca, en papel)', lB: '2 · Cohete curioso', lC: '3 · Insignia / sello', lD: '4 · Foco-planeta (idea + cosmos)', lE: '5 · Cometa con estela' };
+if (['lA','lB','lC','lD','lE'].includes(S)) {
+  fondo(DARK, -2.2); luces({ pos: [-2, 3.5, 7], suelo: 0x22184a, hemi: 1.3, sol: 1.8 }); estrellas();
+  const L = group([0, 1.35, 0]);
+  if (S === 'lA') {
+    pieza(F.arco(1.55, .16, Math.PI * .02, Math.PI * .98), 0xff5c9a, [0, -.05, -.1], L).scale.y = .32;            // anillo detrás
+    pieza(F.circ(1.15), 0x2a1f6a, [0, 0, 0], L, { borde: .1, colorBorde: 0x5fe3ff });
+    pieza(F.circ(.3), 0x332780, [-.45, .5, .03], L); pieza(F.circ(.18), 0x332780, [.55, -.5, .03], L);
+    interrogacion(L, 1.6);
+    pieza(F.arco(1.55, .16, Math.PI * 1.02, Math.PI * 1.98), 0xff5c9a, [0, -.05, .2], L).scale.y = .32;           // anillo enfrente
+    badge2([1.0, 1.0, .25], .36, L);
+    letras('DATO', 1210, 150, ['#ffd640', '#ff5c9a', '#5fe3ff', '#ffffff']); letras('CÓSMICO 2', 1370, 120, ['#ffffff', '#5fe3ff', '#ff5c9a', '#ffd640']);
+  } else if (S === 'lB') {
+    const C = group([0, -.2, 0], L); C.rotation.z = -.35;
+    pieza(F.poly([[-.45, -1.0], [.45, -1.0], [.5, .3], [0, 1.25], [-.5, .3]]), 0xfffaf0, [0, 0, 0], C, { borde: .05, colorBorde: 0x1d1446 });
+    pieza(F.poly([[-.48, .3], [0, 1.25], [.48, .3]]), 0xff5c9a, [0, 0, .03], C);
+    pieza(F.circ(.3), 0x5fe3ff, [0, .05, .04], C, { borde: .06, colorBorde: 0x2a1f6a }); interrogacion(C, .55, 0x1d1446, .08).position.y = .07;
+    for (const sx of [-1, 1]) pieza(F.poly([[sx * .45, -.4], [sx * .85, -1.15], [sx * .45, -1.0]]), 0xff5c9a, [0, 0, .02], C, { borde: .03, colorBorde: 0x1d1446 });
+    pieza(F.poly([[-.35, -1.0], [.35, -1.0], [0, -2.0]]), 0xff8a3a, [0, 0, -.03], C); pieza(F.poly([[-.2, -1.0], [.2, -1.0], [0, -1.6]]), 0xffd640, [0, 0, -.01], C);
+    for (let k = 0; k < 3; k++) pieza(F.circ(.22 - k * .05), 0xd9d2f0, [(k - 1) * .35, -2.35 - k * .25, -.1], C, { sombra: false });
+    badge2([.95, 1.25, .2], .32, L);
+    letras('DATO CÓSMICO', 1240, 108, ['#ffffff', '#ff5c9a', '#5fe3ff', '#ffd640']); letras('2', 1370, 170, ['#ffd640']);
+  } else if (S === 'lC') {
+    pieza(F.estrella(24, 1.62, 1.48), 0xffd640, [0, 0, -.06], L, { borde: .05, colorBorde: 0xfffaf0 });
+    pieza(F.circ(1.36), 0x2a1f6a, [0, 0, 0], L, { borde: .05, colorBorde: 0xff5c9a });
+    pieza(F.circ(.9), 0x332780, [0, 0, .02], L);
+    pieza(F.circ(.5), 0x7a6cff, [0, .05, .05], L, { borde: .05, colorBorde: 0x5fe3ff }); interrogacion(L, .7, 0xffffff, .1).position.y = .1;
+    pieza(F.arco(.75, .08, Math.PI * 1.05, Math.PI * 1.95), 0xff5c9a, [0, .05, .12], L).scale.y = .35;
+    for (const sx of [-1, 1]) pieza(F.estrella(5, .1, .045), 0xffd640, [sx * .95, -.05, .06], L);
+    // texto en círculo (SVG)
+    const sv = document.createElement('div'); sv.style.cssText = 'position:absolute;inset:0';
+    sv.innerHTML = `<svg width="1080" height="1920"><defs><path id="c" d="M 230 735 A 310 310 0 0 1 850 735"/><path id="d" d="M 280 830 A 265 265 0 0 0 800 830"/></defs>
+      <text font-family="Poppins" font-weight="900" font-size="74" fill="#ffffff" letter-spacing="6"><textPath href="#c" startOffset="50%" text-anchor="middle">DATO CÓSMICO</textPath></text>
+      <text font-family="Poppins" font-weight="800" font-size="40" fill="#ffd640" letter-spacing="10"><textPath href="#d" startOffset="50%" text-anchor="middle">★ CIENCIA DIARIA ★</textPath></text></svg>`;
+    TX.appendChild(sv); badge2([1.25, 1.15, .2], .34, L);
+    letras('DATO CÓSMICO 2', 1290, 96, ['#ffffff', '#ffd640']);
+  } else if (S === 'lD') {
+    for (let k = 0; k < 10; k++) { const a = k / 10 * Math.PI * 2; pieza(F.rect(.1, .42, .04), 0xffd640, [Math.cos(a) * 1.75, .3 + Math.sin(a) * 1.75, -.1], L, { rot: a - Math.PI / 2 }); }
+    pieza(F.circ(1.2), 0xfff3b0, [0, .3, 0], L, { borde: .06, colorBorde: 0xfffaf0 });
+    pieza(F.rect(.9, .5, .08), 0xfff3b0, [0, -.85, -.01], L);
+    for (let k = 0; k < 3; k++) pieza(F.rect(1.0 - k * .08, .16, .06), k % 2 ? 0x9a9fb0 : 0xbfc4d4, [0, -1.15 - k * .18, .03], L, { borde: .015 });
+    pieza(F.rect(.4, .14, .06), 0x6a6f80, [0, -1.72, .02], L);
+    pieza(F.circ(.62), 0x7a6cff, [0, .3, .05], L, { borde: .04, colorBorde: 0x2a1f6a }); interrogacion(L, .85, 0xffffff, .09).position.y = .34;
+    pieza(F.arco(.95, .1, Math.PI * .05, Math.PI * .95), 0xff5c9a, [0, .25, .02], L).scale.y = .3; pieza(F.arco(.95, .1, Math.PI * 1.05, Math.PI * 1.95), 0xff5c9a, [0, .25, .12], L).scale.y = .3;
+    badge2([1.1, 1.3, .2], .32, L);
+    letras('DATO CÓSMICO', 1300, 104, ['#fff3b0', '#ffd640', '#ffffff']); letras('2', 1420, 150, ['#ff5c9a']);
+  } else if (S === 'lE') {
+    const C = group([.3, .3, 0], L); C.rotation.z = .55;
+    [[0x5fe3ff, .55, 3.0], [0xff5c9a, .4, 2.6], [0xffd640, .25, 2.2]].forEach(([c, w, l], i) => pieza(F.poly([[0, w], [-l, .05], [0, -w]]), c, [-.2, 0, -.05 + i * .02], C, { borde: .03, colorBorde: 0xfffaf0 }));
+    pieza(F.estrella(8, .85, .55), 0xffd640, [.15, 0, .05], C, { borde: .05, colorBorde: 0xfffaf0 });
+    pieza(F.circ(.48), 0xff9a3a, [.15, 0, .08], C); const q = interrogacion(C, .6, 0x2a1f6a, .12); q.position.x = .15; q.rotation.z = -.55;
+    badge2([1.2, 1.1, .2], .32, L);
+    letras('DATO', 1220, 160, ['#5fe3ff', '#ffffff', '#ff5c9a', '#ffd640']); letras('CÓSMICO 2', 1390, 118, ['#ffffff', '#ffd640']);
+  }
+  // el "2" del distintivo amarillo
+  const d2 = document.createElement('div'); d2.className = 't'; d2.style.cssText = 'font-size:1px'; TX.appendChild(d2);
+  cam.position.set(0, .7, 12.5); cam.lookAt(0, .7, 0);
+  cam.updateMatrixWorld(); world.updateMatrixWorld(true);
+  badges.forEach(([o, r]) => { const v = new THREE.Vector3(); o.getWorldPosition(v); v.project(cam); const s = document.createElement('div');
+    s.style.cssText = `position:absolute;left:${(v.x + 1) / 2 * W - 80}px;top:${(1 - v.y) / 2 * H - 64}px;width:160px;text-align:center;font:900 ${Math.round(r * 300)}px/1.1 Poppins;color:#1d1446`; s.textContent = '2'; TX.appendChild(s); });
+  etiqueta(NL[S]);
+}
+
+// ===================== PROPUESTAS ADULTAS (E–H personajes, F–J logos) =====================
+function halftone(fg = '#000', bg = '#fff', paso = 10, r = 3) { const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); x.fillStyle = bg; x.fillRect(0, 0, 256, 256); x.fillStyle = fg;
+  for (let i = 0; i < 256; i += paso) for (let j = 0; j < 256; j += paso) { x.beginPath(); x.arc(i + (j / paso % 2) * paso / 2, j, r, 0, 7); x.fill(); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1.2, 1.2); t.colorSpace = THREE.SRGBColorSpace; return t; }
+function piezaMat(shape, mat, pos, parent, o = {}) { const g = group(pos, parent); const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: .02, bevelEnabled: false }), mat); m.castShadow = o.sombra !== false; m.receiveShadow = true; g.add(m); if (o.borde) { const b = pieza(shape, o.colorBorde ?? 0xfffaf0, [0, 0, -.012], g, { sombra: false }); b.scale.setScalar(1 + o.borde); } return g; }
+function facetas(pts, c1, c2, pos, parent) {   // polígono partido en triángulos de dos tonos (papercraft)
+  const g = group(pos, parent); let cx = 0, cy = 0; pts.forEach(([a, b]) => { cx += a; cy += b; }); cx /= pts.length; cy /= pts.length;
+  pts.forEach((p, i) => { const q = pts[(i + 1) % pts.length]; pieza(F.poly([[cx, cy], p, q]), (p[0] + q[0]) / 2 < cx ? c1 : c2, [0, 0, 0], g, { sombra: i === 0 }); }); return g; }
+function adulto(est, o) {
+  const g = group(o.pos); const sil = est === 'pF', col = (c) => sil ? 0x1a1d26 : c;
+  const B = sil ? { borde: .03, colorBorde: 0xffc07a } : { borde: est === 'pH' ? 0 : .018 };
+  const ht = est === 'pG' ? halftone('rgba(20,15,10,.7)', '#' + o.ropa.toString(16).padStart(6, '0'), 16, 5) : null;
+  const ropaP = (shape, pos, par) => ht ? piezaMat(shape, new THREE.MeshStandardMaterial({ map: ht, roughness: 1 }), pos, par, { borde: .02 }) : pieza(shape, col(o.ropa), pos, par, B);
+  const L = 1.25, T = 1.0;
+  for (const sx of [-1, 1]) { pieza(F.rect(.2, L, .05), col(o.pan), [sx * .12, L / 2 + .06, 0], g, B); pieza(F.elipse(.15, .06), col(0x2a2622), [sx * .15, .06, .03], g, B); }
+  if (est === 'pH') { facetas([[-.32, 0], [.32, 0], [.36, .55], [.3, 1.0], [-.3, 1.0], [-.36, .55]], o.ropa, sombraDe(o.ropa), [0, L + .06, .05], g); }
+  else if (o.vestido) ropaP(F.poly([[-.4, -.25], [.4, -.25], [.29, T], [-.29, T]]), [0, L + .06, .05], g);
+  else ropaP(F.rect(.62, T, .1), [0, L + .06 + T / 2, .05], g);
+  if (!sil && est !== 'pH') pieza(F.poly([[-.12, 0], [.12, 0], [0, -.16]]), o.cuello ?? 0xf2ead8, [0, L + .06 + T - .01, .09], g, { sombra: false });   // cuello de camisa
+  for (const sx of [-1, 1]) { const b = group([sx * .35, L + T - .02, .02], g); b.rotation.z = sx * (o.saluda && sx > 0 ? 2.6 : .08);
+    est === 'pH' ? facetas([[-.07, 0], [.07, 0], [.06, -.8], [-.06, -.8]], o.ropa, sombraDe(o.ropa), [0, 0, 0], b) : ropaP(F.rect(.13, .82, .05), [0, -.41, 0], b);
+    pieza(F.elipse(.065, .08), col(o.piel), [0, -.86, .02], b, B); }
+  const top = L + .06 + T; pieza(F.rect(.11, .16, .02), col(o.piel), [0, top + .06, 0], g, B);
+  const h = group([0, top + .33, .14], g);
+  if (o.largo) pieza(F.poly([[-.25, .2], [.25, .2], [.29, -.38], [-.29, -.38]]), col(o.pelo), [0, 0, -.05], h, B);
+  if (est === 'pH') facetas([[-.2, .1], [0, .29], [.2, .1], [.19, -.14], [0, -.3], [-.19, -.14]], o.piel, sombraDe(o.piel), [0, 0, 0], h);
+  else pieza(F.elipse(.2, .27), col(o.piel), [0, 0, 0], h, B);
+  if (o.chongo) pieza(F.circ(.12), col(o.pelo), [0, .32, -.03], h, B);
+  if (!o.calvo) pieza(F.poly([[-.22, .05], [-.2, .22], [-.05, .3], [.12, .29], [.22, .18], [.21, .04], [.1, .17], [-.1, .16]]), col(o.pelo), [0, 0, .03], h, sil ? {} : { sombra: false });
+  if (o.barba) pieza(F.poly([[-.2, -.04], [.2, -.04], [.14, -.24], [0, -.31], [-.14, -.24]]), col(o.pelo), [0, 0, .03], h, { sombra: false });
+  if (!sil) { const osc = 0x2a2420;
+    for (const sx of [-1, 1]) { pieza(F.elipse(.022, .018), osc, [sx * .075, .03, .04], h, { sombra: false }); pieza(F.rect(.07, .014, .006), o.pelo, [sx * .075, .08, .04], h, { sombra: false }).rotation.z = sx * -.08; }
+    pieza(F.poly([[0, .02], [.03, -.07], [-.01, -.07]]), sombraDe(o.piel), [0, 0, .04], h, { sombra: false });
+    pieza(F.rect(.07, .012, .005), 0x6a3a30, [0, -.13, .04], h, { sombra: false });
+    if (o.lentes) for (const sx of [-1, 1]) pieza(F.arco(.05, .012, 0, Math.PI * 2), osc, [sx * .075, .03, .06], h, { sombra: false }); }
+  return g;
+}
+function sombraDe(c) { const k = new THREE.Color(c); k.multiplyScalar(.78); return k.getHex(); }
+const adultos = [
+  { pos: [-1.3, 0, 0], piel: 0xb07a55, ropa: 0xb5543a, pan: 0x33363d, pelo: 0x1e1612, largo: true, vestido: true },
+  { pos: [0, 0, .2], piel: 0xd9a57f, ropa: 0x5f7a5a, pan: 0x2e3440, pelo: 0x3d2a1e, barba: true, saluda: true, cuello: 0xe8e0cc },
+  { pos: [1.3, 0, 0], piel: 0xcf9a78, ropa: 0x4a6a8a, pan: 0x4a4d55, pelo: 0xbdb7ae, chongo: true, lentes: true },
+];
+const NOM2 = { pE: 'E · Editorial (proporciones reales)', pF: 'F · Siluetas con luz', pG: 'G · Collage con trama', pH: 'H · Papercraft facetado' };
+if (['pE', 'pF', 'pG', 'pH'].includes(S)) {
+  const sil = S === 'pF';
+  if (sil) { [[0xf2a65a, 4], [0xe07b5a, 2.4], [0x9c4f6e, .8], [0x4a3260, -1]].forEach(([c, y], i) => pieza(F.ola(14, .12, y, 3 + i), c, [0, 0, -2 + i * .05], null, { sombra: false })); pieza(F.rect(14, 12, 0), 0xf6c98a, [0, 4, -2.05], null, { sombra: false }); pieza(F.circ(.7), 0xfff0c8, [1.1, 4.4, -1.98], null, { sombra: false }); }
+  else { fondo(S === 'pG' ? 0xe8e0cf : 0xe9e2d3, -2); pieza(F.rect(12, 3, 0), S === 'pG' ? 0xcfc4ad : 0xb9a98c, [0, -1.5, -.5], null, { sombra: false });
+    if (S === 'pG') { for (let k = 0; k < 9; k++) pieza(F.rect(2.2, .05, 0), 0xbfb59f, [-1.2 + (k % 2) * 2.2, 4.6 - k * .22, -1.95], null, { sombra: false });
+      piezaMat(F.poly([[-3, 0], [3, .3], [3, 2.2], [-3, 1.8]]), new THREE.MeshStandardMaterial({ map: halftone('rgba(20,15,10,.35)', '#d8cdb6', 14, 4), roughness: 1 }), [0, 1.2, -1.9], null, { sombra: false });
+      pieza(F.poly([[-.9, 0], [.8, .1], [.7, .7], [-.85, .6]]), 0xb5543a, [1.6, 3.6, -1.85], null, { borde: .03 }); pieza(F.circ(.4), 0xd9b45a, [-1.7, 3.9, -1.85], null, { borde: .03 }); }
+  }
+  luces({ pos: sil ? [2, 3, 6] : [-2.5, 4, 7], hemi: sil ? 1.0 : 1.4 });
+  adultos.forEach(o => adulto(S, o));
+  cam.position.set(0, 1.6, 13.0); cam.lookAt(0, 1.55, 0); etiqueta(NOM2[S]);
+}
+
+const NL2 = { lF: '6 · Monograma DC2', lG: '7 · Planeta minimal', lH: '8 · Emblema de constelación', lI: '9 · Logotipo con planeta en la O', lJ: '10 · Constelación "?"' };
+const NAVY = 0x0f1530, GOLD = 0xd9b45a, CREAM = 0xf2ead8, ROSE = 0xc9667e;
+const texto2 = (html, top, css = '') => { const d = document.createElement('div'); d.className = 'w'; d.style.cssText = `top:${top}px;${css}`; d.innerHTML = html; TX.appendChild(d); return d; };
+function puntitos(n = 70) { for (let k = 0; k < n; k++) pieza(F.circ(.012 + (k % 4) * .008), k % 6 ? 0xd8d2c0 : GOLD, [((k * 71) % 100 / 100 - .5) * 5.2, ((k * 43) % 100 / 100) * 8 - 2.5, -.3], null, { sombra: false }); }
+const estrellita = (pos, s, par, c = GOLD) => pieza(F.estrella(4, .11 * s, .03 * s), c, pos, par, { sombra: false });
+const linea = (a, b, par, c = 0xb9b2a0, w = .018) => { const dx = b[0] - a[0], dy = b[1] - a[1]; const g = pieza(F.rect(Math.hypot(dx, dy), w, 0), c, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, -.02], par, { sombra: false }); g.rotation.z = Math.atan2(dy, dx); return g; };
+if (['lF', 'lG', 'lH', 'lI', 'lJ'].includes(S)) {
+  await document.fonts.ready; fondo(NAVY, -.35); luces({ pos: [-1.5, 2.5, 8], suelo: 0x0a0e20, hemi: 1.3, sol: 1.7, radio: 4 }); puntitos();
+  const L = group([0, 1.35, 0]);
+  if (S === 'lF') {
+    pieza(F.arco(1.45, .03, 0, Math.PI * 2), GOLD, [0, .05, -.05], L).scale.y = .42; L.children[0].rotation.z = -.35;
+    pieza(F.circ(.09), CREAM, [1.3, .55, .05], L);
+    texto2('<span style="font-size:330px;font-weight:800;letter-spacing:-18px;color:#d9b45a;position:relative;left:14px;top:12px">DC</span>', 520, 'filter:none;opacity:.9');
+    texto2('<span style="font-size:330px;font-weight:800;letter-spacing:-18px">DC</span>', 508);
+    texto2('<span style="font-size:110px;font-weight:700;color:#0f1530;background:#d9b45a;border-radius:50%;display:inline-block;width:150px;height:150px;line-height:160px">2</span>', 540, 'left:600px;right:auto;width:150px');
+    texto2('<span style="font-size:64px;font-weight:600;letter-spacing:22px">DATO CÓSMICO</span>', 1160);
+    texto2('<span style="font-size:30px;font-weight:500;letter-spacing:12px;color:#d9b45a">CIENCIA · CADA · DÍA</span>', 1265, 'filter:none');
+  } else if (S === 'lG') {
+    pieza(F.arco(1.5, .035, Math.PI * .02, Math.PI * .98), GOLD, [0, 0, -.06], L).scale.y = .3;
+    pieza(F.circ(1.0), 0x1d2a55, [0, 0, 0], L, { borde: .02, colorBorde: GOLD });
+    pieza(F.elipse(1.0, .2), 0x24336a, [0, .25, .02], L, { sombra: false }); pieza(F.elipse(.95, .14), 0x24336a, [0, -.3, .02], L, { sombra: false });
+    pieza(F.arco(1.5, .035, Math.PI * 1.02, Math.PI * 1.98), GOLD, [0, 0, .08], L).scale.y = .3;
+    pieza(F.circ(.14), CREAM, [-1.25, .75, .1], L);
+    texto2('<span style="font-size:96px;font-weight:700;letter-spacing:16px">DATO CÓSMICO</span>', 1180);
+    texto2('<span style="font-size:44px;font-weight:500;letter-spacing:14px;color:#d9b45a">— Nº 2 —</span>', 1310, 'filter:none');
+  } else if (S === 'lH') {
+    pieza(F.arco(1.5, .04, 0, Math.PI * 2), GOLD, [0, 0, 0], L); pieza(F.arco(1.32, .015, 0, Math.PI * 2), 0xb9b2a0, [0, 0, 0], L);
+    const pts = [[-.7, .35], [-.25, .6], [.2, .3], [.62, .5], [.35, -.15], [-.15, -.35], [.6, -.55]];
+    pts.forEach((p, i) => { if (i) linea(pts[i - 1], p, L); estrellita([p[0], p[1], .03], i === 3 ? 1.5 : 1, L, i % 3 ? CREAM : GOLD); });
+    const sv = document.createElement('div'); sv.style.cssText = 'position:absolute;inset:0';
+    sv.innerHTML = `<svg width="1080" height="1920"><defs><path id="c" d="M 220 760 A 320 320 0 0 1 860 760"/><path id="d" d="M 250 800 A 290 290 0 0 0 830 800"/></defs>
+      <text font-family="Poppins" font-weight="700" font-size="56" fill="#f2ead8" letter-spacing="14"><textPath href="#c" startOffset="50%" text-anchor="middle">DATO CÓSMICO</textPath></text>
+      <text font-family="Poppins" font-weight="500" font-size="30" fill="#d9b45a" letter-spacing="12"><textPath href="#d" startOffset="50%" text-anchor="middle">CIENCIA · CADA · DÍA</textPath></text></svg>`;
+    TX.appendChild(sv);
+    texto2('<span style="font-size:58px;font-weight:600;letter-spacing:10px;color:#d9b45a">Nº 2</span>', 1170, 'filter:none');
+  } else if (S === 'lI') {
+    const d = texto2('<span style="font-size:118px;font-weight:700;letter-spacing:10px">DATO</span><br><span style="font-size:118px;font-weight:700;letter-spacing:10px">CÓSMIC<span id="ph" style="display:inline-block;width:118px"></span> 2</span>', 720, 'line-height:1.15');
+    const r = document.getElementById('ph').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .55;
+    cam.position.set(0, .7, 12.5); cam.lookAt(0, .7, 0); cam.updateMatrixWorld();
+    const v = new THREE.Vector3((cx / W) * 2 - 1, -(cy / H) * 2 + 1, .5).unproject(cam).sub(cam.position).normalize(); const t = -cam.position.z / v.z; const P0 = cam.position.clone().add(v.multiplyScalar(t));
+    const O = group([P0.x, P0.y, 0]); O.scale.setScalar(.36);
+    pieza(F.arco(1.55, .1, Math.PI * .02, Math.PI * .98), GOLD, [0, 0, -.06], O).scale.y = .3; pieza(F.circ(1.0), ROSE, [0, 0, 0], O, { borde: .02, colorBorde: CREAM });
+    pieza(F.elipse(.9, .16), 0xb3566d, [0, .3, .02], O, { sombra: false }); pieza(F.arco(1.55, .1, Math.PI * 1.02, Math.PI * 1.98), GOLD, [0, 0, .08], O).scale.y = .3;
+    texto2('<span style="font-size:30px;font-weight:500;letter-spacing:14px;color:#d9b45a">DATOS CURIOSOS · CIENCIA</span>', 1060, 'filter:none');
+  } else if (S === 'lJ') {
+    const q = [[-.45, .75], [-.3, 1.05], [.05, 1.2], [.42, 1.02], [.52, .65], [.25, .32], [0, .05], [0, -.3]];
+    q.forEach((p, i) => { if (i) linea(q[i - 1], p, L, 0xb9b2a0, .02); estrellita([p[0], p[1], .03], i === 2 ? 1.6 : 1.05, L, i % 2 ? CREAM : GOLD); });
+    estrellita([0, -.75, .03], 1.9, L, GOLD);
+    for (let k = 0; k < 8; k++) estrellita([((k * 61) % 100 / 100 - .5) * 2.8, ((k * 29) % 100 / 100) * 2.4 - .9, .02], .5, L, 0x8f8a7c);
+    texto2('<span style="font-size:96px;font-weight:700;letter-spacing:16px">DATO CÓSMICO</span>', 1180);
+    texto2('<span style="font-size:40px;font-weight:500;letter-spacing:16px;color:#d9b45a">· 2 ·</span>', 1305, 'filter:none');
+  }
+  cam.position.set(0, .7, 12.5); cam.lookAt(0, .7, 0); etiqueta(NL2[S]);
+}
+
+// ===================== PUNTO MEDIO: llamativo con actitud (I–K personajes, K–O logos) =====================
+const INK = 0x1f1b2e, CORAL = 0xff6b5b, AZUL = 0x3d6bff, MENTA = 0x2ec4a6, SOL = 0xffc83d, MORADO = 0x7b5cff;
+function pop(est, o) {
+  const g = group(o.pos); const BD = { borde: .035, colorBorde: INK }, cab = est === 'pK' ? 1.22 : 1.08;
+  const L = 1.05, T = .9;
+  // piernas y tenis de color
+  for (const sx of [-1, 1]) { pieza(F.rect(.21, L, .08), o.pan, [sx * .12, L / 2 + .1, 0], g, BD);
+    const t = group([sx * .16, .07, .04], g); pieza(F.poly([[-.17, -.06], [.2, -.06], [.2, .02], [.05, .1], [-.17, .1]]), o.tenis, [0, 0, 0], t, BD); pieza(F.rect(.38, .04, .02), 0xffffff, [.01, -.05, .02], t, { sombra: false }); }
+  // torso
+  const torso = o.vestido ? F.poly([[-.42, -.2], [.42, -.2], [.3, T], [-.3, T]]) : F.rect(.64, T, .2);
+  const tz = pieza(torso, o.ropa, [0, L + .1 + (o.vestido ? 0 : T / 2), .05], g, BD);
+  if (est === 'pJ') piezaMat(o.vestido ? F.poly([[0, -.2], [.42, -.2], [.3, T], [0, T]]) : F.rect(.32, T, .05), new THREE.MeshStandardMaterial({ map: halftone('rgba(31,27,46,.45)', '#' + o.ropa.toString(16).padStart(6, '0'), 12, 3.2), roughness: 1 }), [o.vestido ? 0 : .16, L + .1 + (o.vestido ? 0 : T / 2), .08], g, { sombra: false });
+  if (o.estampado) pieza(F.estrella(5, .13, .06), SOL, [0, L + .1 + T * .55, .1], g, { borde: .02, colorBorde: INK, sombra: false });
+  // brazos con pose
+  const top = L + .1 + T;
+  const brazo = (sx, r1, r2) => { const b = group([sx * .36, top - .1, .03], g); b.rotation.z = r1; pieza(F.rect(.14, .45, .07), o.ropa, [0, -.2, 0], b, BD);
+    const a = group([0, -.42, 0], b); a.rotation.z = r2; pieza(F.rect(.13, .42, .06), o.manga ?? o.piel, [0, -.19, 0], a, BD); pieza(F.elipse(.075, .085), o.piel, [0, -.42, .02], a, BD); return b; };
+  const P = { jarra: [.5, -1.9], senala: [2.6, .3], pulgar: [-.2, 1.5], baja: [.1, 0] };
+  brazo(-1, -(P[o.pI ?? 'baja'][0]), -(P[o.pI ?? 'baja'][1])); brazo(1, P[o.pD ?? 'baja'][0], P[o.pD ?? 'baja'][1]);
+  // cuello + cabeza
+  pieza(F.rect(.12, .14, .03), o.piel, [0, top + .04, 0], g, BD);
+  const h = group([0, top + .33 * cab, .15], g); h.scale.setScalar(cab); h.rotation.z = o.ladeo ?? 0;
+  if (o.pelo === 'cola') { const c = pieza(F.poly([[.1, .2], [.45, .12], [.55, -.2], [.4, -.42], [.3, -.1], [.12, .05]]), o.colPelo, [0, 0, -.04], h, BD); }
+  if (o.pelo === 'afro') for (let k = 0; k < 9; k++) { const a = k / 8 * Math.PI; pieza(F.circ(.15), o.colPelo, [Math.cos(a) * .27, .1 + Math.sin(a) * .2, -.04], h, BD); }
+  pieza(F.elipse(.26, .3), o.piel, [0, 0, 0], h, BD);
+  if (o.aretes) for (const sx of [-1, 1]) pieza(F.circ(.035), SOL, [sx * .26, -.12, .02], h, { borde: .015, colorBorde: INK });
+  if (o.pelo === 'cola') pieza(F.poly([[-.28, .02], [-.26, .24], [-.05, .34], [.2, .3], [.29, .1], [.14, .18], [-.12, .2]]), o.colPelo, [0, 0, .03], h, { borde: .02, colorBorde: INK });
+  if (o.pelo === 'copete') pieza(F.poly([[-.27, .05], [-.25, .26], [-.05, .4], [.25, .44], [.15, .3], [.28, .15], [.1, .2], [-.12, .18]]), o.colPelo, [0, 0, .03], h, { borde: .02, colorBorde: INK });
+  if (o.pelo === 'chongo') { pieza(F.circ(.13), o.colPelo, [.05, .36, -.03], h, BD); pieza(F.elipse(.28, .14), o.colPelo, [0, .2, .03], h, { borde: .02, colorBorde: INK }); }
+  if (o.barba) pieza(F.poly([[-.24, -.04], [.24, -.04], [.16, -.26], [0, -.33], [-.16, -.26]]), o.colPelo, [0, 0, .035], h, { borde: .015, colorBorde: INK, sombra: false });
+  // cara expresiva (ni bebé ni seria)
+  const z = .045;
+  for (const sx of [-1, 1]) { const e = group([sx * .095, .03, z], h);
+    pieza(F.elipse(.055, .062), 0xffffff, [0, 0, 0], e, { sombra: false }); pieza(F.circ(.032), INK, [o.miraX ?? .012, -.006, .012], e, { sombra: false }); pieza(F.circ(.011), 0xffffff, [(o.miraX ?? .012) + .01, .006, .02], e, { sombra: false });
+    if (est === 'pK' || o.parpado) pieza(F.poly([[-.06, .005], [.06, .005], [.06, .07], [-.06, .07]]), o.piel, [0, 0, .025], e, { sombra: false });
+    const c = pieza(F.rect(.11, .032, .015), o.colPelo === 0xe8e4dc ? 0x8a8478 : INK, [0, .095, .02], e, { sombra: false }); c.rotation.z = sx * (o.ceja ?? -.15); }
+  pieza(F.poly([[0, .0], [.035, -.075], [-.02, -.075]]), sombraDe(o.piel), [0, 0, z], h, { sombra: false });
+  if (o.boca === 'abierta') { pieza(F.poly([[-.1, -.12], [.1, -.12], [.07, -.2], [0, -.225], [-.07, -.2]]), 0x6a1d2a, [0, 0, z], h, { sombra: false }); pieza(F.rect(.15, .025, .01), 0xffffff, [0, -.13, z + .01], h, { sombra: false }); }
+  else if (o.boca === 'ladeada') pieza(F.arco(.08, .025, Math.PI * 1.35, Math.PI * 1.95), 0x6a1d2a, [.02, -.1, z], h, { sombra: false });
+  else pieza(F.arco(.085, .028, Math.PI * 1.15, Math.PI * 1.85), 0x6a1d2a, [0, -.1, z], h, { sombra: false });
+  if (o.lentes) for (const sx of [-1, 1]) pieza(F.arco(.07, .022, 0, Math.PI * 2), o.lentes, [sx * .095, .03, z + .04], h, { sombra: false });
+  if (o.audifonos) { pieza(F.arco(.3, .045, Math.PI * 1.15, Math.PI * 1.85), INK, [0, top - .05 - (top + .33 * cab), -.02], h).visible = false; for (const sx of [-1, 1]) pieza(F.elipse(.07, .09), o.audifonos, [sx * .17, top - .02, .2], g, { borde: .02, colorBorde: INK }); pieza(F.arco(.17, .035, Math.PI * 1.05, Math.PI * 1.95), INK, [0, top - .02, .19], g, { sombra: false }); }
+  return g;
+}
+const pops = [
+  { pos: [-1.3, 0, 0], piel: 0xb9774f, ropa: CORAL, pan: 0x283a8a, tenis: SOL, pelo: 'cola', colPelo: 0x1e1410, vestido: false, pI: 'jarra', pD: 'baja', aretes: true, boca: 'normal', ceja: -.2, ladeo: .06 },
+  { pos: [0, 0, .25], piel: 0xe2ab83, ropa: AZUL, pan: 0x1f1b2e, tenis: MENTA, pelo: 'copete', colPelo: 0x3a2416, barba: true, pD: 'senala', boca: 'abierta', ceja: .25, audifonos: CORAL, estampado: true, miraX: .016 },
+  { pos: [1.3, 0, 0], piel: 0xd99b74, ropa: MENTA, pan: 0x4a3f6b, tenis: CORAL, pelo: 'chongo', colPelo: 0xe8e4dc, lentes: MORADO, pD: 'pulgar', boca: 'normal', ceja: -.05, ladeo: -.05 },
+];
+const NOM3 = { pI: 'I · Pop con contorno', pJ: 'J · Cómic de papel', pK: 'K · Estilizado con actitud' };
+if (['pI', 'pJ', 'pK'].includes(S)) {
+  fondo(S === 'pK' ? 0x2b2350 : 0xfff1dc, -2);
+  const deco = S === 'pK' ? [MORADO, MENTA, CORAL] : [SOL, MENTA, CORAL];
+  pieza(F.circ(1.2), deco[0], [-1.6, 3.8, -1.9], null, { sombra: false }); pieza(F.estrella(4, .5, .15), deco[1], [1.7, 4.3, -1.9], null, { sombra: false });
+  pieza(F.ola(3.5, .1, 0, 5, -.1), deco[2], [.6, 3.0, -1.9], null, { sombra: false });
+  for (let k = 0; k < 14; k++) pieza(F.circ(.05), S === 'pK' ? 0x5a4f8a : 0xf5d9b8, [((k * 67) % 100 / 100 - .5) * 5, 1 + ((k * 31) % 100 / 100) * 4, -1.95], null, { sombra: false });
+  pieza(F.rect(12, 3, 0), S === 'pK' ? 0x1d1838 : 0xffd9b0, [0, -1.5, -.5], null, { sombra: false });
+  if (S === 'pJ') for (const [x, y, r] of [[-.4, 3.2, .3], [.45, 3.35, -.3], [.0, 3.5, 0]]) pieza(F.rect(.06, .32, .02), INK, [x, y, -.3], null, { rot: r });
+  luces({ pos: [-2.5, 4, 7], hemi: S === 'pK' ? 1.25 : 1.45 });
+  pops.forEach(o => pop(S, o));
+  cam.position.set(0, 1.55, 12.6); cam.lookAt(0, 1.5, 0); etiqueta(NOM3[S]);
+}
+
+const NL3 = { lK: '11 · Planeta "?" pop', lL: '12 · Globo de diálogo-planeta', lM: '13 · Wordmark inclinado', lN: '14 · Planeta curioso (con ojo)', lO: '15 · Constelación "?" neón' };
+const marca = (top, colA = '#ffffff', colB = '#ffc83d', size = 128, tilt = -4) => {
+  const d = document.createElement('div'); d.className = 't'; d.style.top = top + 'px';
+  d.innerHTML = `<div style="display:inline-block;transform:rotate(${tilt}deg)"><div style="font-size:${size}px;color:${colA};-webkit-text-stroke:12px #1f1b2e;paint-order:stroke;filter:drop-shadow(8px 10px 0 #1f1b2e);letter-spacing:2px">DATO</div><div style="font-size:${size * .82}px;color:${colB};-webkit-text-stroke:12px #1f1b2e;paint-order:stroke;filter:drop-shadow(8px 10px 0 #1f1b2e);margin-top:-8px">CÓSMICO <span style="color:#ff6b5b">2</span></div></div>`;
+  TX.appendChild(d); };
+if (['lK', 'lL', 'lM', 'lN', 'lO'].includes(S)) {
+  await document.fonts.ready; fondo(0x2b2350, -.35); luces({ pos: [-1.5, 2.5, 8], suelo: 0x15102e, hemi: 1.35, sol: 1.8, radio: 3 });
+  for (let k = 0; k < 40; k++) pieza(k % 3 ? F.circ(.03 + (k % 4) * .01) : F.estrella(4, .08, .025), k % 4 ? 0x5a4f8a : SOL, [((k * 71) % 100 / 100 - .5) * 5.2, ((k * 43) % 100 / 100) * 8 - 2.5, -.3], null, { sombra: false });
+  const L = group([0, 1.4, 0]); const BD = { borde: .045, colorBorde: INK };
+  const preg = (par, s = 1, c = 0xffffff, z = .08) => { const g = interrogacion(par, s, c, z); return g; };
+  if (S === 'lK') { L.rotation.z = -.12;
+    pieza(F.arco(1.6, .2, Math.PI * .02, Math.PI * .98), CORAL, [0, -.05, -.1], L, BD).scale.y = .34;
+    pieza(F.circ(1.1), AZUL, [0, 0, 0], L, BD); pieza(F.circ(.32), 0x3358e0, [-.48, .45, .03], L); pieza(F.circ(.2), 0x3358e0, [.5, -.55, .03], L);
+    preg(L, 1.5, SOL); pieza(F.arco(1.6, .2, Math.PI * 1.02, Math.PI * 1.98), CORAL, [0, -.05, .22], L, BD).scale.y = .34;
+    marca(1180); }
+  else if (S === 'lL') {
+    pieza(F.poly([[-.35, -.95], [-.05, -.85], [-.6, -1.45]]), MENTA, [0, 0, -.02], L, BD);
+    pieza(F.circ(1.05), MENTA, [0, 0, 0], L, BD); preg(L, 1.4, INK);
+    pieza(F.arco(1.5, .16, Math.PI * 1.02, Math.PI * 1.98), SOL, [0, .1, .2], L, BD).scale.y = .32; pieza(F.arco(1.5, .16, Math.PI * .02, Math.PI * .98), SOL, [0, .1, -.1], L, BD).scale.y = .32;
+    marca(1180, '#ffffff', '#2ec4a6'); }
+  else if (S === 'lM') {
+    const B2 = group([0, -.2, 0], L); B2.rotation.z = .1;
+    pieza(F.poly([[-1.7, -.75], [1.8, -.75], [1.6, .75], [-1.9, .75]]), CORAL, [0, 0, 0], B2, BD);
+    pieza(F.circ(.42), SOL, [1.5, .85, .1], B2, BD); preg(B2, .5, INK, .14).position.set(1.5, .87, .14);
+    for (const [x, y] of [[-1.7, 1.0], [1.95, -.5], [-1.2, -1.05]]) pieza(F.estrella(4, .14, .04), 0xffffff, [x, y, .05], B2, { sombra: false });
+    const d = document.createElement('div'); d.className = 't'; d.style.top = '700px'; d.innerHTML = `<div style="display:inline-block;transform:rotate(-6deg) skewX(-8deg);line-height:.95"><div style="font-size:150px;color:#fff;-webkit-text-stroke:12px #1f1b2e;paint-order:stroke">DATO</div><div style="font-size:112px;color:#ffc83d;-webkit-text-stroke:12px #1f1b2e;paint-order:stroke">CÓSMICO 2</div></div>`; TX.appendChild(d); }
+  else if (S === 'lN') {
+    pieza(F.arco(1.6, .2, Math.PI * .02, Math.PI * .98), SOL, [0, -.1, -.1], L, BD).scale.y = .34;
+    pieza(F.circ(1.1), MORADO, [0, 0, 0], L, BD); pieza(F.circ(.25), 0x6a4ce0, [.5, -.5, .03], L);
+    pieza(F.elipse(.42, .36), 0xffffff, [-.05, .18, .05], L, { borde: .03, colorBorde: INK }); pieza(F.circ(.2), INK, [.06, .14, .08], L, { sombra: false }); pieza(F.circ(.06), 0xffffff, [.12, .22, .1], L, { sombra: false });
+    pieza(F.rect(.6, .1, .05), INK, [-.05, .68, .06], L, { rot: .18 });   // ceja levantada: curiosidad
+    pieza(F.arco(1.6, .2, Math.PI * 1.02, Math.PI * 1.98), SOL, [0, -.1, .22], L, BD).scale.y = .34;
+    marca(1180, '#ffffff', '#7b5cff'); }
+  else if (S === 'lO') {
+    const q = [[-.45, .75], [-.3, 1.05], [.05, 1.2], [.42, 1.02], [.52, .65], [.25, .32], [0, .05], [0, -.3]];
+    const cs = [CORAL, SOL, MENTA, AZUL, MORADO, CORAL, SOL, MENTA];
+    q.forEach((p, i) => { if (i) linea(q[i - 1], p, L, 0xfff1dc, .035); pieza(F.estrella(4, i === 2 ? .2 : .14, .05), cs[i], [p[0], p[1], .04], L, { borde: .03, colorBorde: INK }); });
+    pieza(F.estrella(4, .26, .07), SOL, [0, -.75, .04], L, { borde: .035, colorBorde: INK });
+    marca(1180, '#ffffff', '#2ec4a6'); }
+  cam.position.set(0, .7, 12.5); cam.lookAt(0, .7, 0); etiqueta(NL3[S]);
+}
+
+// ===================== J FLUIDO (persona() nuevo del kit) =====================
+if (S === 'pN' || S === 'pN2') {
+  fondo(0xfff1dc, -2.4);
+  pieza(F.circ(1.2), 0xffc83d, [-1.6, 3.9, -2.3], null, { sombra: false }); pieza(F.estrella(4, .5, .15), 0x2ec4a6, [1.7, 4.3, -2.3], null, { sombra: false });
+  pieza(F.ola(3.5, .1, 0, 5, -.1), 0xff6b5b, [.6, 3.1, -2.3], null, { sombra: false });
+  for (let k = 0; k < 14; k++) pieza(F.circ(.05), 0xf5d9b8, [((k * 67) % 100 / 100 - .5) * 5, 1 + ((k * 31) % 100 / 100) * 4, -2.35], null, { sombra: false });
+  pieza(F.rect(12, 3, 0), 0xffd9b0, [0, -1.5, -.6], null, { sombra: false });
+  luces({ pos: [-2.5, 4, 7], hemi: 1.45 });
+  const a = P.persona([-1.3, 0, 0], { piel: 0xb9774f, ropa: 0xff6b5b, pantalon: 0x283a8a, tenis: 0xffc83d, pelo: 'cola', colPelo: 0x1e1410, aretes: true });
+  a.pose('L', 'jarra'); a.pose('R', 'normal'); a.cara('feliz', -.2); a.head.rotation.z = .06;
+  const b = P.persona([0, 0, .25], { piel: 0xe2ab83, ropa: 0x3d6bff, pantalon: 0x1f1b2e, tenis: 0x2ec4a6, pelo: 'copete', colPelo: 0x3a2416, barba: true, audifonos: 0xff6b5b, estampado: true });
+  b.pose('R', 'senala'); b.pose('L', 'normal'); b.cara('abierta', .25); b.mira(.8, .3);
+  const c = P.persona([1.3, 0, 0], { piel: 0xd99b74, ropa: 0x2ec4a6, manga: 'larga', pantalon: 0x4a3f6b, tenis: 0xff6b5b, pelo: 'chongo', colPelo: 0xe8e4dc, lentes: 0x7b5cff });
+  c.pose('R', 'pulgar'); c.pose('L', 'normal'); c.cara('feliz', -.05); c.head.rotation.z = -.05;
+  if (S === 'pN') { cam.position.set(0, 1.6, 12.4); cam.lookAt(0, 1.5, 0); etiqueta('J · fluido (cuerpo completo)'); }
+  else { cam.position.set(-.1, 2.15, 6.2); cam.lookAt(-.1, 2.05, 0); etiqueta('J · fluido (acercamiento)'); }
+}
+
+cam.updateProjectionMatrix(); R.render(world, cam); window.__done = true;
+</script></body></html>

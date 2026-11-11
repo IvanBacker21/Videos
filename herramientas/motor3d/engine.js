@@ -7,6 +7,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 export { THREE };
+import { kitPapel } from './papel.js';
 // ESTILO "MEZCLA" (aprobado por Iván el 9-nov-2026): formas redondeadas con carácter (entre rudas y tiernas), materiales
 // suaves con un poco de brillo, ojos grandes con reflejo, bloom suave y render al doble de resolución. ?estilo=lowpoly vuelve al viejo.
 export const ESTILO = new URLSearchParams(location.search).get('estilo') || 'mezcla';
@@ -1071,3 +1072,6 @@ export function interrogacion(pos, s = 1, color = 0xf3c54d, parent) {
   const punto = new THREE.Mesh(new THREE.SphereGeometry(.08 * s, 16, 12), m); punto.position.y = -.26 * s; g.add(punto);
   g.children.forEach(c => { c.castShadow = true; }); return g;
 }
+
+// Cierre oficial (logo 14 "planeta curioso", en papel) para TODOS los estilos. Reemplaza al planeta 3D de arriba.
+kitPapel({ THREE, group, get world() { return world; }, escena, ambiente, spring, cam, rotulo }).cierre();

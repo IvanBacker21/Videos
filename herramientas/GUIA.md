@@ -134,6 +134,12 @@ Antes del render completo Y antes de publicar ejecuta:
 - Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
 - Escribe los números con letra en la voz.
 
+## 🪐 CIERRE OFICIAL Y PERSONAJES (aprobado por Iván el 11-nov-2026) — OBLIGATORIO
+
+- **Cierre:** el logo 14 "planeta curioso" (planeta morado con un ojo que mira y parpadea, ceja que se levanta, anillo amarillo y "DATO CÓSMICO 2" en letras gruesas con contorno). Ya es el cierre por defecto del motor (engine.js → papel.js `cierre()`), en TODOS los estilos. No hagas otro cierre.
+- **Personajes (estilo J "cómic de papel", cuerpos fluidos):** `kitPapel(E).persona(pos, o)`: proporciones de adulto, contorno oscuro, colores vivos, trama de puntitos en el lado de sombra, cejas expresivas, manos con pulgar, tenis de color. Ni infantiles (nada de ojos gigantes ni chapitas) ni serios. Poses: `p.pose('R'|'L', 'jarra'|'senala'|'pulgar'|'saluda'|'brazosArriba'|'cruzado'|'normal')`; caras: `p.cara('feliz'|'abierta'|'o'|'grito'|'risa'|'seria'|'ladeada', cejas)`; `p.mira(x, y)`. Muestras: motor3d/papel_muestras.html?s=pN.
+- Paleta: coral #ff6b5b, azul eléctrico #3d6bff, menta #2ec4a6, amarillo #ffc83d, morado #7b5cff, tinta #1f1b2e.
+
 ## 🎨 ESTILO VISUAL "MEZCLA" (aprobado por Iván el 9-nov-2026) — OBLIGATORIO
 
 Mezcla de low-poly pulido + plastilina: formas con esquinas redondeadas pero con carácter, **entre rudas y tiernas**, en alta definición.
