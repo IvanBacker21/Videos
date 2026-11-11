@@ -11,6 +11,7 @@
 // Muestras en papel recortado: ?s=pA|pB|pC|pD (personajes) o lA..lE (logo del cierre)
 import * as THREE from 'three';
 import { kitPapel } from './papel.js';
+import { kitPM } from './papel_pm.js';
 const S = new URLSearchParams(location.search).get('s') || 'pA';
 const W = 1080, H = 1920, TX = document.getElementById('txt');
 const R = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); R.setPixelRatio(1.5); R.setSize(W, H);
@@ -689,6 +690,16 @@ if (S === 'oficial') {
   const pr = P.protagonista([-1.0, 0, .3]); pr.pose('R', 'saluda'); pr.cara('feliz', -.1);
   P.perroLobo([.7, 0, .2], { escala: .95 }); P.perroLobo([1.9, 0, .1], { pose: 'frente', escala: .8 });
   cam.position.set(.4, 1.3, 9.5); cam.lookAt(.4, 1.25, 0);
+}
+
+if (S.startsWith('pm')) {
+  const PM = kitPM(P, THREE, group); PM.diorama(); luces({ pos: [-3, 5, 8], hemi: 1.75, sol: 1.5, radio: 6 });
+  const prota = PM.chibi([0, .02, .4], { logo: true, saluda: true, inclina: .07 });
+  const ella = PM.chibi([-1.3, .02, .1], { piel: 0xb9784f, ropa: 0xff7a5c, pantalon: 0x3b4fa8, tenis: 0xffc83d, pelo: 'cola', colPelo: 0x1d120c, aretes: true, boca: 'feliz', inclina: -.06, mira: 1 });
+  const abue = PM.chibi([1.32, .02, .1], { piel: 0xf0c4a0, ropa: 0x3fbf9b, falda: 0x7b5cff, tenis: 0xff8a5b, pelo: 'chongo', colPelo: 0xe6e1d8, lentes: 0x7b5cff, boca: 'feliz', inclina: .08, mira: -1 });
+  if (S === 'pm1') { cam.position.set(0, 1.4, 12.8); cam.lookAt(0, 1.3, 0); }
+  if (S === 'pm2') { cam.position.set(0, 1.5, 5.6); cam.lookAt(0, 1.4, 0); [ella, abue].forEach(x => x.visible = false); }
+  if (S === 'pm3') { [prota, ella, abue].forEach(x => x.rotation.y = .62); cam.position.set(.6, 1.4, 7.4); cam.lookAt(0, 1.2, 0); }
 }
 
 cam.updateProjectionMatrix(); R.render(world, cam); window.__done = true;
