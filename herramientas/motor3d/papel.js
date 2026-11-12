@@ -158,6 +158,7 @@ export function kitPapel(E) {
     g.cara = (b, cejas = 0) => { for (const k in h.bocas) h.bocas[k].visible = k === b; h.cejas.forEach((c, i) => { c.rotation.z = (i ? -1 : 1) * cejas; c.position.y = .125 + Math.abs(cejas) * .04; }); };
     g.mira = (dx, dy) => h.ojos.forEach(e => e.pupila.position.set(dx * .02, dy * .02 - .006, .004));
     // sueño: k 0 (despierto) → 1 (ojos cerrados); los párpados bajan aplastando los ojos
+    g.sentar = (k) => { for (const L of [g.legL, g.legR]) L.scale.y = Math.max(.2, 1 - .62 * k); };   // sentado de frente: piernas cortas (quedan tras el asiento); baja al personaje ~.62 m
     g.sueno = (k) => h.ojos.forEach(e => { e.scale.y = Math.max(.12, 1 - k * .88); e.position.y = .03 - k * .02; });
     // poses rápidas: 'jarra', 'senala', 'pulgar', 'saluda', 'brazosArriba', 'normal'
     g.pose = (lado, tipo) => { const b = lado === 'R' ? g.armR : g.armL, sx = lado === 'R' ? 1 : -1; g['_pose' + lado] = tipo !== 'normal';
@@ -315,12 +316,15 @@ export function kitPapel(E) {
       // cuerpo de pera
       parte(blob([[-.32, .02], [-.36, .3], [-.26, .58], [0, .7], [.26, .58], [.36, .3], [.32, .02], [0, -.02]]), NE, [0, 0, 0], g);
       parte(blob([[-.15, .05], [-.18, .3], [-.1, .52], [0, .58], [.1, .52], [.18, .3], [.15, .05], [0, .02]]), BL, [0, 0, .004], g, { borde: 0 });   // pecho y panza
-      for (const sx of [-1, 1]) { parte(tubo([[sx * .09, .4], [sx * .1, .2], [sx * .09, .06]], .13, .13), BL, [0, 0, .006], g, { atras: .02 }); parte(F.elipse(.08, .055), BL, [sx * .09, .04, .009], g, { atras: .02 }); }
+      g.manos = [-1, 1].map(sx => { const m = group([sx * .09, .4, .006], g); parte(tubo([[0, 0], [sx * .01, -.2], [0, -.34]], .13, .13), BL, [0, 0, 0], m, { atras: .02 }); parte(F.elipse(.08, .055), BL, [0, -.36, .003], m, { atras: .02 }); return m; });
+      // AMASAR ("hacer pancito"): patitas delanteras que suben y bajan alternadas; k 0..1
+      g.amasa = (t, k = 1, vel = 7) => g.manos.forEach((m, i) => { const s = Math.max(0, Math.sin(t * vel + i * Math.PI)); m.position.y = .4 + s * .1 * k; m.rotation.z = (i ? -1 : 1) * s * .12 * k; m.scale.y = 1 - s * .12 * k; });
       const h = group([0, .86, .02], g); g.cabeza = h;
       oreja(h, -.17, .32, -.006); oreja(h, .17, -.32, -.006);
       parte(blob([[-.3, .02], [-.26, .2], [0, .27], [.26, .2], [.3, .02], [.22, -.16], [0, -.21], [-.22, -.16]]), NE, [0, 0, 0], h);
       parte(blob([[-.13, -.05], [0, .0], [.13, -.05], [.12, -.15], [0, -.19], [-.12, -.15]]), BL, [0, 0, .004], h, { borde: 0 });               // hocico blanco
       cara(h, true);
+      g.feliz = (k) => h.ojos.forEach(e => { e.scale.y = Math.max(.15, 1 - k * .85); });   // ojitos entrecerrados de gusto
       if (o.collar !== false) { parte(blob([[-.2, .66], [0, .62], [.2, .66], [.18, .72], [0, .69], [-.18, .72]]), 0x2ec4a6, [0, 0, .012], g, { borde: .015, atras: .005 }); pieza(F.circ(.035), 0xffc83d, [0, .62, .03], g, { borde: .012, colorBorde: INK }); }
     } else {
       g.cola = group([-.5, .58, -.01], g); parte(tubo([[0, 0], [-.22, .1], [-.3, .38], [-.18, .58], [-.05, .56]], .14, .13), NE, [0, 0, 0], g.cola);
@@ -413,5 +417,24 @@ export function kitPapel(E) {
   // "Zzz" que flotan y se desvanecen en bucle. g.update(t, on)
   function zzz(pos, o = {}, parent) { const g = group(pos, parent); g.zs = [0, 1, 2].map(i => { const z = group([0, 0, 0], g); pieza(F.letraZ(.32 + i * .1), o.color ?? 0x7b5cff, [0, 0, 0], z, { borde: .025 }); z.i = i; return z; });
     g.update = (t, on = 1) => g.zs.forEach(z => { const u = ((t * .7 + z.i / 3) % 1); z.position.set(u * .55 + Math.sin(u * 6) * .06, u * .9, 0); z.scale.setScalar(Math.max(.01, on * (.5 + u * .7) * (u < .85 ? 1 : (1 - u) / .15))); z.rotation.z = .15 - u * .3; }); return g; }
-  return { F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, perroLobo, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex, papelPicado, mesa, plato, relojPapel, zzz };
+
+  // ---------- SALA (12-nov): sillón, cobija, huella de patita ----------
+  // sillón de frente: respaldo, cojines y asiento delantero (tapa piernas de quien se sienta con p.sentar(1)); g.asientoY = altura del cojín
+  function sillon(pos = [0, 0, 0], o = {}, parent) { const g = group(pos, parent), w = o.w ?? 3.2, c = o.color ?? 0x3d6bff, c2 = new THREE.Color(c).multiplyScalar(.78).getHex();
+    pieza(F.rect(w, 1.5, .3), c2, [0, 1.25, -.5], g, { borde: .04, colorBorde: INK });
+    for (const sx of [-1, 1]) pieza(F.rect(w / 2 - .25, 1.0, .25), c, [sx * (w / 4 - .02), 1.3, -.4], g, { borde: .03, colorBorde: INK });
+    for (const sx of [-1, 1]) pieza(F.rect(.42, 1.4, .2), c2, [sx * (w / 2 - .05), .72, .45], g, { borde: .04, colorBorde: INK });
+    pieza(F.rect(w - .3, .75, .12), c, [0, .45, .5], g, { borde: .04, colorBorde: INK });
+    for (const sx of [-1, 1]) pieza(F.rect(.14, .2, .03), 0x6b4a2e, [sx * (w / 2 - .25), -.02, .48], g, { borde: .02, colorBorde: INK });
+    g.asientoY = .85; return g; }
+  // cobija doblada con cuadros (sobre las piernas)
+  function cobija(pos = [0, 0, 0], o = {}, parent) { const g = group(pos, parent), w = o.w ?? 1.3, h = o.h ?? .5, c = o.color ?? 0xff6b5b;
+    pieza(F.rect(w, h, .12), c, [0, 0, 0], g, { borde: .03, colorBorde: INK });
+    for (let k = 1; k < 5; k++) pieza(F.rect(.05, h - .04, 0), 0xffffff, [-w / 2 + k * w / 5, 0, .022], g, { sombra: false, grosor: .004 });
+    pieza(F.rect(w - .04, .05, 0), 0xffffff, [0, 0, .024], g, { sombra: false, grosor: .004 }); return g; }
+  // huella de patita (cojinete + 4 deditos)
+  function huella(pos = [0, 0, 0], s = 1, color = 0xf2a7b8, parent) { const g = group(pos, parent); g.scale.setScalar(s);
+    pieza(blob([[-.17, -.08], [-.1, .06], [0, .09], [.1, .06], [.17, -.08], [0, -.15]]), color, [0, -.06, 0], g, { borde: .025, colorBorde: INK });
+    for (const [x, y] of [[-.19, .1], [-.07, .19], [.07, .19], [.19, .1]]) pieza(F.elipse(.055, .07), color, [x, y, 0], g, { borde: .02, colorBorde: INK }); return g; }
+  return { sillon, cobija, huella, F, M, pieza, parte, capsula, agrandada, INK, tubo, blob, perro, perroLobo, gato, fondo, luces, tw, persona, protagonista, logoMini, caminar, bam, rayitas, cierre, tex, papelPicado, mesa, plato, relojPapel, zzz };
 }

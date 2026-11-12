@@ -414,5 +414,22 @@
   "mejora": "papel.js: papelPicado(), mesa(), plato(), relojPapel(), zzz(), p.sueno(); engine.js: filtro de NaN antes del bloom (bloques negros)",
   "archivo": "shorts/2026-11-11-1800-mal-del-puerco.mp4",
   "titulo": "¿Por qué SIEMPRE te da sueño después de comer? 😴 #shorts"
+ },
+ {
+  "fecha": "2026-11-11",
+  "hora": "21:30",
+  "tema": "¿Por qué tu gato SIEMPRE te hace pancito encima? (lo aprendió de bebé: amasaba la panza de su mamá para que saliera más leche; de grande lo hace cuando se siente seguro y feliz; las almohadillas de sus patas sueltan su olor y te marca como suyo; truco: si clava las uñas, ponerse una cobija encima). Fuentes: PetMD, Live Science",
+  "formato": "¿Por qué siempre…? + explicación en 3 pasos + truco",
+  "categoria": "mascotas (gatos)",
+  "disparadores": [
+   "eres tú (dueños de gato)",
+   "sorpresa con ternura",
+   "truco útil",
+   "mascotas (TikTok)"
+  ],
+  "duracion": "28.0 s (21.4 s de contenido)",
+  "mejora": "papel.js: sillon(), cobija(), huella(), p.sentar(k); gato sentado con g.manos, g.amasa(t), g.feliz(k)",
+  "archivo": "shorts/2026-11-11-2130-gato-pancito.mp4",
+  "titulo": "¿Por qué tu gato te hace PANCITO? 🐱 #shorts"
  }
 ]

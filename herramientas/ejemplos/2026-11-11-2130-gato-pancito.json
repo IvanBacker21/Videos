@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-11-2130-gato-pancito",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué tu gato SIEMPRE te hace pancito encima?"]},
+    {"tipo": "bebe", "titulo": "", "frases": ["Lo aprendió de bebé: amasaba la panza de su mamá para que saliera más leche."]},
+    {"tipo": "feliz", "titulo": "", "frases": ["De grande lo hace cuando se siente seguro y feliz… como bebé otra vez."]},
+    {"tipo": "marca", "titulo": "", "frases": ["Además, sus patitas sueltan su olor. Te está marcando: eres suyo."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Truco: si te clava las uñas, ponte una cobija. Mándaselo a quien tiene un gato panadero."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}
