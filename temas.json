@@ -448,5 +448,23 @@
   "mejora": "papel_pm.js: PM.ondas(), PM.pelota(), PM.pregunta(), A.ladea()",
   "archivo": "shorts/2026-11-12-1330-perro-cabeza.mp4",
   "titulo": "¿Por qué tu perro LADEA la cabeza? 🐶 #shorts"
+ },
+ {
+  "fecha": "2026-11-12",
+  "hora": "18:00",
+  "tema": "¿Por qué Plutón ya no es planeta? (pedido de un seguidor en los comentarios: para ser planeta hay tres reglas de la Unión Astronómica Internacional (2006): girar alrededor del Sol, ser casi redondo y limpiar su camino; Plutón cumple las dos primeras pero comparte su zona con muchísimos objetos helados del cinturón de Kuiper; no lo sacaron por chiquito, aunque es más pequeño que la Luna; sigue ahí como planeta enano). Fuentes: NASA (Pluto Facts), NASA JPL (definición de planeta), Live Science",
+  "formato": "Pedido de seguidor + ¿Por qué…? + mito roto",
+  "categoria": "espacio",
+  "tendencia": "pedido de un seguidor en los comentarios (pedidos.json, 12-nov 14:11)",
+  "disparadores": [
+   "¿ves? te dije (eran nueve)",
+   "nostalgia de la escuela",
+   "sorpresa (más pequeño que la Luna)",
+   "mándaselo a quien dice que son nueve"
+  ],
+  "duracion": "29.8 s (23.2 s de contenido)",
+  "mejora": "papel_pm.js: PM.espacio(), PM.astro() con caritas, PM.marca(), PM.letrero(), PM.comentario()",
+  "archivo": "shorts/2026-11-12-1800-pluton.mp4",
+  "titulo": "¿Por qué Plutón ya NO es planeta? 🪐 #shorts"
  }
 ]

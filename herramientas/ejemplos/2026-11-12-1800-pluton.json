@@ -1,0 +1,54 @@
+{
+  "id": "2026-11-12-1800-pluton",
+  "voz": {
+    "modelo": "em_alex",
+    "lang": "es-419",
+    "speed": 1.0
+  },
+  "escenas": [
+    {
+      "tipo": "gancho",
+      "titulo": "",
+      "frases": [
+        "Nos preguntaron en comentarios: ¿por qué Plutón ya no es planeta?"
+      ]
+    },
+    {
+      "tipo": "reglas",
+      "titulo": "",
+      "frases": [
+        "Para ser planeta hay tres reglas: girar alrededor del Sol, ser casi redondo, y limpiar su camino."
+      ]
+    },
+    {
+      "tipo": "camino",
+      "titulo": "",
+      "frases": [
+        "Plutón cumple las primeras, pero su camino está lleno de rocas de hielo."
+      ]
+    },
+    {
+      "tipo": "enano",
+      "titulo": "",
+      "frases": [
+        "No lo sacaron por chiquito, aunque es más pequeño que la Luna. Sigue ahí, como planeta enano."
+      ]
+    },
+    {
+      "tipo": "remate",
+      "titulo": "",
+      "frases": [
+        "Mándaselo a quien todavía dice que son nueve planetas."
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "titulo": "",
+      "frases": [
+        "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+        "Déjalo en los comentarios y síguenos para más datos."
+      ]
+    }
+  ],
+  "resaltar": []
+}

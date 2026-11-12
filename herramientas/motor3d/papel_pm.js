@@ -208,6 +208,88 @@ export function kitPM(P, THREE, group) {
   function pregunta(pos, s = 1, color = 0xffc83d, parent = null) { const g = group(pos, parent); g.scale.setScalar(s);
     pz(tubo([[-.12, .2], [-.08, .3], [.04, .33], [.13, .26], [.12, .14], [.02, .07], [0, -.04]], .085, .085), color, [0, 0, 0], g, { tinta: .016, papel: .05 }); pz(F.circ(.055), color, [0, -.15, 0], g, { tinta: .016, papel: .05 }); return g; }
 
+  // ================= ESPACIO DE PAPEL (12-nov 18:00, short de Plutón) =================
+  // escenario "maqueta del espacio": fondo azul noche de cartulina, nebulosas, estrellitas que titilan y piso-escenario morado
+  // (los personajes se paran en y≈.02 igual que en diorama()). Devuelve { update(t) } para el titileo.
+  function espacio(o = {}) {
+    const FON = o.fondo ?? 0x232a63;
+    pz(F.rect(30, 30, 0), FON, [0, 8, -4], null, { tinta: false, papel: false });
+    for (const [x, y, rx, ry, c] of [[-1.6, 3.2, 1.6, .7, 0x3a3f8a], [1.8, 1.6, 1.4, .6, 0x4a3a8a], [0, 4.6, 2.2, .6, 0x2f3a7a]]) det(F.elipse(rx, ry), c, [x, y, -3.95], null, x * .08);
+    // planeta lejano con anillo (opcional: o.planeta = [x, y, z]; cuidado con la franja de subtítulos de arriba)
+    if (o.planeta) { const s = group(o.planeta); pz(F.circ(.38), 0xff8a5b, [0, 0, 0], s, { tinta: .02, papel: .07 }); det(F.arco(.24, .06, .3, 2.6), osc(0xff8a5b, .85), [.04, -.04, .016], s);
+      pz(F.arco(.58, .07, Math.PI * 1.08, Math.PI * 1.92), 0xffc83d, [0, 0, .05], s, { tinta: .014, papel: .04 }); s.rotation.z = .25; }
+    let sem = 7; const rnd = () => (sem = (sem * 16807) % 2147483647) / 2147483647;
+    const est = []; for (let i = 0; i < 34; i++) { const x = (rnd() - .5) * 7, y = -.2 + rnd() * 5.2; if (y < .35) continue;
+      const s = pz(F.estrella(5, .07 + rnd() * .05, .03), rnd() < .3 ? 0xfff2a8 : 0xffffff, [x, y, -3.7], null, { tinta: false, papel: .025 }); s.f = rnd() * 6; s.k = .7 + rnd() * .5; est.push(s); }
+    // piso-escenario de la maqueta
+    pz(F.rect(30, 6, 0), 0x4a3c86, [0, -2.95, -1.7], null, { tinta: false, papel: false });
+    pz(F.rect(30, .08, 0), 0x6a58b8, [0, .0, -1.69], null, { tinta: false, papel: false });
+    for (let i = -14; i < 14; i++) { det(F.rect(.18, .03, .01), 0x8a7ad0, [i * .4, -.35, -1.68]); det(F.rect(.18, .03, .01), 0x7a6ac0, [i * .4 + .2, -1.3, -1.68]); }
+    return { estrellas: est, update(t) { est.forEach(s => s.scale.setScalar(s.k * (.75 + .25 * Math.sin(t * 3 + s.f)))); } };
+  }
+  // ASTRO con carita de cartulina (planeta, luna, sol, roca helada). o: {cara:true, corazon (Plutón), crateres, rayos (sol), hilo (cuelga de la maqueta),
+  //   irregular (roca), sombra (color)}. g.cara('feliz'|'abierta'|'triste'|'duda'); g.head = carita (sirve con A.parpadea y A.ladea); g.rayos gira.
+  function astro(pos, r = .5, color = 0xe6c9a8, o = {}) {
+    const g = group(pos); g.es = 1;
+    if (o.hilo) linea([[0, r * .9], [0, r + 6]], .014, 0xf3ead8, g, -.2);
+    if (o.rayos) { g.rayos = group([0, 0, -.05], g); pz(F.estrella(12, r * 1.42, r * 1.1), 0xffa53d, [0, 0, 0], g.rayos, { tinta: .018, papel: .06 }); }
+    let forma = F.circ(r);
+    if (o.irregular) { let s2 = (o.semilla ?? 3) * 977 + 1; const rr = () => (s2 = (s2 * 16807) % 2147483647) / 2147483647; const pts = [];
+      for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2, k = r * (.82 + rr() * .3); pts.push([Math.cos(a) * k * 1.12, Math.sin(a) * k * .92]); } forma = blob(pts); }
+    const cu = g.cuerpo = pz(forma, color, [0, 0, 0], g, { tinta: .02, papel: o.papel ?? .07 });
+    det(blob([[r * .3, -r * .8], [r * .75, -r * .5], [r * .95, 0], [r * .78, r * .5], [r * .55, r * .2], [r * .45, -r * .35]]), o.sombra ?? osc(color, .86), [0, 0, .014], cu);   // sombra suave
+    det(F.elipse(r * .22, r * .12), mez(color, 0xffffff, .55), [-r * .45, r * .55, .016], cu, .5);                                                                             // brillo
+    if (o.crateres) for (const [x, y, k] of o.crateres) { det(F.circ(r * k), osc(color, .8), [r * x, r * y, .016], cu); det(F.circ(r * k * .6), osc(color, .9), [r * x - r * k * .15, r * y + r * k * .15, .018], cu); }
+    if (o.corazon) det(F.corazon(r * 1.5), 0xfff4e4, [r * .32, -r * .42, .018], cu, -.25);
+    // carita
+    const h = g.head = group([0, o.corazon ? r * .12 : 0, .03], g); h.r0 = 0; const s = r / .5;
+    h.ojos = [-1, 1].map(sx => { const e = group([sx * .16 * s, .04 * s, .01], h); det(F.elipse(.055 * s, .1 * s), INK, [0, 0, 0], e); det(F.elipse(.021 * s, .034 * s), 0xffffff, [.015 * s, .04 * s, .003], e); return e; });
+    h.cejas = [-1, 1].map(sx => { const c = group([sx * .16 * s, .2 * s, .012], h); det(F.rect(.1 * s, .028 * s, .012 * s), osc(color, .45), [0, 0, 0], c); c.sx = sx; return c; });
+    for (const sx of [-1, 1]) det(F.elipse(.07 * s, .038 * s), mez(color, 0xff6f86, .5), [sx * .29 * s, -.1 * s, .008], h);
+    const bocas = {};
+    bocas.feliz = det(F.arco(.08 * s, .024 * s, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -.06 * s, .01], h);
+    { const b = bocas.abierta = group([0, -.15 * s, .01], h); det(blob([[-.09 * s, .03 * s], [.09 * s, .03 * s], [.065 * s, -.05 * s], [0, -.075 * s], [-.065 * s, -.05 * s]]), 0x7a1f30, [0, 0, 0], b); det(F.elipse(.04 * s, .02 * s), 0xff8a9a, [0, -.045 * s, .002], b); }
+    bocas.triste = det(F.arco(.07 * s, .024 * s, Math.PI * .2, Math.PI * .8), 0x7a1f30, [0, -.22 * s, .01], h);
+    bocas.duda = det(F.rect(.11 * s, .024 * s, .012 * s), 0x7a1f30, [0, -.15 * s, .01], h, .12);
+    const gota = det(F.gota(.16 * s), 0x8fd3ff, [.36 * s, .2 * s, .02], h);
+    g.cara = (e = 'feliz') => { for (const k in bocas) bocas[k].visible = k === e; gota.visible = e === 'triste' || e === 'duda';
+      const ang = e === 'triste' || e === 'duda' ? .35 : e === 'abierta' ? -.1 : 0; const dy = e === 'abierta' ? .03 * s : 0;
+      h.cejas.forEach(c => { c.rotation.z = c.sx * ang; c.position.y = .2 * s + dy; }); };
+    g.cara(o.expr ?? 'feliz');
+    if (o.cara === false) h.visible = false;
+    return g; }
+  // marca de cartulina: palomita verde (ok=true) o tache rojo (ok=false)
+  function marca(pos, ok = true, s = 1, parent = null) { const g = group(pos, parent); g.scale.setScalar(s);
+    pz(F.circ(.24), ok ? 0x2ec4a6 : 0xff5b5b, [0, 0, 0], g, { tinta: .016, papel: .05 });
+    if (ok) det(tubo([[-.11, .0], [-.03, -.08], [.12, .1]], .055, .055), 0xffffff, [0, 0, .016], g);
+    else { det(tubo([[-.1, -.1], [.1, .1]], .055, .055), 0xffffff, [0, 0, .016], g); det(tubo([[-.1, .1], [.1, -.1]], .055, .055), 0xffffff, [0, 0, .02], g); }
+    return g; }
+  // letrero de cartulina con texto impreso (canvas), colgado de dos hilos. o: {w, h, color, borde, tinta, hilos}
+  function letrero(pos, texto, o = {}, parent = null) {
+    const g = group(pos, parent), w = o.w ?? 1.5, hh = o.h ?? .42;
+    if (o.hilos !== false) for (const sx of [-1, 1]) linea([[sx * w * .38, hh * .4], [0, hh * .4 + .55]], .014, 0xf3ead8, g, -.2);
+    pz(F.rect(w, hh, .06), o.borde ?? 0xff6b5b, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    pz(F.rect(w - .09, hh - .09, .04), o.color ?? 0xfff6e0, [0, 0, .016], g, { tinta: false, papel: false });
+    const cv = document.createElement('canvas'); cv.width = 1024; cv.height = Math.round(1024 * (hh - .09) / (w - .09)); const x = cv.getContext('2d');
+    x.fillStyle = '#' + (o.color ?? 0xfff6e0).toString(16).padStart(6, '0'); x.fillRect(0, 0, cv.width, cv.height);
+    let fs = cv.height * .62; x.font = `900 ${fs}px Poppins, "Arial Black", sans-serif`; while (x.measureText(texto).width > cv.width * .9 && fs > 10) { fs -= 4; x.font = `900 ${fs}px Poppins, "Arial Black", sans-serif`; }
+    x.fillStyle = o.tinta ?? '#1f1b2e'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(texto, cv.width / 2, cv.height * .54);
+    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w - .09, hh - .09), new THREE.MeshStandardMaterial({ map: tx, roughness: 1, metalness: 0 })); m.position.z = .036; m.receiveShadow = true; g.add(m);
+    g.columpia = (t, amp = .05) => g.rotation.z = Math.sin(t * 2.6) * amp; return g; }
+  // tarjeta de comentario (pregunta de un seguidor): avatar, texto y corazoncito
+  function comentario(pos, texto, o = {}) { const g = group(pos), w = o.w ?? 1.9, hh = o.h ?? .56;
+    pz(F.rect(w, hh, .12), 0xffffff, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    pz(F.circ(.15), 0xffc83d, [-w / 2 + .22, 0, .02], g, { tinta: .012, papel: false }); det(F.circ(.06), 0x7a5a3a, [-w / 2 + .22, .03, .036], g); det(F.elipse(.09, .045), 0x7a5a3a, [-w / 2 + .22, -.08, .036], g);
+    pz(F.corazon(.22), 0xff5d8f, [w / 2 - .14, -hh / 2 + .12, .02], g, { tinta: .01, papel: false });
+    const cv = document.createElement('canvas'); cv.width = 1024; cv.height = Math.round(1024 * hh / (w - .55)); const x = cv.getContext('2d');
+    x.fillStyle = '#ffffff'; x.fillRect(0, 0, cv.width, cv.height); x.fillStyle = '#1f1b2e'; x.textAlign = 'left'; x.textBaseline = 'middle';
+    const lineas = texto.split('\n'); let fs = cv.height / (lineas.length + .6); x.font = `800 ${fs}px Poppins, "Arial Black", sans-serif`;
+    while (Math.max(...lineas.map(l => x.measureText(l).width)) > cv.width * .96 && fs > 10) { fs -= 3; x.font = `800 ${fs}px Poppins, "Arial Black", sans-serif`; }
+    lineas.forEach((l, i) => x.fillText(l, 10, cv.height / 2 + (i - (lineas.length - 1) / 2) * fs * 1.12));
+    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w - .55, hh), new THREE.MeshStandardMaterial({ map: tx, roughness: 1 })); m.position.set(.07, 0, .025); g.add(m); return g; }
+
   // ================= ANIMACIÓN (usar con t ya "a saltitos": P.tw(lt)) =================
   const A = {
     // camina (mascota de perfil o chibi): patas/piernas alternadas + rebote + brazos
@@ -229,5 +311,5 @@ export function kitPM(P, THREE, group) {
     // ladear la cabeza (k 0→1, lado 1 = hacia la derecha de la pantalla): el gesto de "¿qué dijiste?"
     ladea(g, k, lado = 1) { if (g.head) g.head.rotation.z = g.head.r0 - lado * .42 * k; if (g.head) g.head.position.x = (g.head.x0 ??= g.head.position.x) + lado * .06 * k; },
   };
-  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta };
+  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario };
 }
