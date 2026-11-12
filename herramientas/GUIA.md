@@ -212,7 +212,8 @@ Reglas que salen de los datos:
 3. **No uses ganchos de reto** ("te reto a no…"): el bostezo fue el peor en "se quedaron viendo" (43 %).
 4. **Más corto = más % visto.** La gente ve ~20–24 s sin importar la duración. Duración TOTAL ≤ 30 s (contenido 18–23 s + cierre). Los de 35–45 s pierden. Recorta frases, una idea por escena, sin repetir.
 5. **Incluye un truco útil cuando se pueda** (cebolla: 2 trucos) → se guarda y se reenvía.
-6. **En TikTok ganan mascotas y lo mexicano** (perro 970, tráfico CDMX 768). Mete contexto mexicano (Periférico, salsa, el súper, la abuela) siempre que encaje.
+6. **En TikTok ganan mascotas y lo mexicano** (perro 970, tráfico CDMX 768). Mete contexto mexicano (Periférico, salsa, el súper, la abuela) siempre que encaje. Pero OJO con la regla 7: animales solo de vez en cuando.
+7. **MEZCLA DE TEMAS (Iván, 12-nov-2026) — OBLIGATORIO:** la base del canal son los **datos curiosos que son TENDENCIA**; los de animales/mascotas son solo de vez en cuando: **máximo 1 de animales cada 6 shorts (≈ uno cada 2 días)**. Antes de elegir, revisa los últimos 6 de temas.json: si alguno es de animales/mascotas, el tuyo NO puede ser de animales (salvo que sea un pedido de Iván o de un seguidor en pedidos.json). Para encontrar la tendencia: busca en la web qué es viral o noticia HOY en México y en redes (WebSearch: "tendencias México hoy", "viral TikTok México", "noticias de ciencia hoy", Google Trends México, temporada: frío, lluvias, fiestas, Buen Fin, futbol, eclipses, etc.) y conéctalo con un dato curioso cotidiano y verificable de cuerpo, comida, casa, tecnología, clima o espacio. Anota en temas.json qué tendencia lo inspiró (campo "tendencia").
 7. Título: pregunta corta con UNA palabra en MAYÚSCULAS (SIEMPRE, TODO, SOLO) + 1 emoji. Funciona.
 
 ## ⭐ ESTILO ACTUAL: ANIMACIÓN 3D LOW-POLY (obligatorio desde el 4-nov tarde; reemplaza a Material y a render3)
