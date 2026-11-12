@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-12-1330-perro-cabeza",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué tu perro ladea la cabeza cuando le hablas?"]},
+    {"tipo": "oido", "titulo": "", "frases": ["Una idea: así ubica mejor tu voz, y ve tu cara por encima de su hocico."]},
+    {"tipo": "palabra", "titulo": "", "frases": ["Y un estudio vio que la ladean más al oír una palabra que conocen, como el nombre de su juguete."]},
+    {"tipo": "premio", "titulo": "", "frases": ["Además, cada vez que lo hace, tú le dices: ¡ay, qué bonito! Y aprende a repetirlo."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Pruébalo: dile paseo y mira qué hace. Y mándaselo a quien le habla a su perro como a un bebé."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

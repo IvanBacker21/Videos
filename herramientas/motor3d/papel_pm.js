@@ -196,6 +196,18 @@ export function kitPM(P, THREE, group) {
     }
     sombraPiso(g, .5); return g; }
 
+  // ================= UTILERÍA (12-nov) =================
+  // ondas de sonido que salen de pos hacia dir (1 = derecha, -1 = izquierda): g.update(t, on)
+  function ondas(pos, dir = 1, color = 0xffffff, parent = null) { const g = group(pos, parent); g.arcos = [0, 1, 2].map(i => { const a = group([0, 0, .02 * i], g);
+      pz(F.arco(.22, .045, -.75, .75), color, [0, 0, 0], a, { tinta: .012, papel: .035 }); a.visible = false; return a; });
+    g.scale.x = dir; g.update = (t, on = 1) => g.arcos.forEach((a, i) => { const k = ((t * 1.2 + i / 3) % 1); a.visible = on > 0; a.position.x = k * .7; const s = .5 + k * 1.1; a.scale.set(s, s, 1); }); return g; }
+  // pelota de juguete con franja: g.rota(t)
+  function pelota(pos, r = .22, color = 0xff6b5b, parent = null) { const g = group(pos, parent); const b = pz(F.circ(r), color, [0, 0, 0], g, { tinta: .014, papel: .05 });
+    det(F.rect(r * 2, r * .32, .002), 0xffc83d, [0, 0, .014], b); det(F.elipse(r * .28, r * .2), 0xffffff, [-r * .4, r * .45, .02], b); g.rota = t => b.rotation.z = t * 3; return g; }
+  // signo de interrogación de cartulina
+  function pregunta(pos, s = 1, color = 0xffc83d, parent = null) { const g = group(pos, parent); g.scale.setScalar(s);
+    pz(tubo([[-.12, .2], [-.08, .3], [.04, .33], [.13, .26], [.12, .14], [.02, .07], [0, -.04]], .085, .085), color, [0, 0, 0], g, { tinta: .016, papel: .05 }); pz(F.circ(.055), color, [0, -.15, 0], g, { tinta: .016, papel: .05 }); return g; }
+
   // ================= ANIMACIÓN (usar con t ya "a saltitos": P.tw(lt)) =================
   const A = {
     // camina (mascota de perfil o chibi): patas/piernas alternadas + rebote + brazos
@@ -214,6 +226,8 @@ export function kitPM(P, THREE, group) {
     voltea(g, k, dir0 = 1) { const c = Math.cos(Math.min(1, Math.max(0, k)) * Math.PI); g.scale.x = (g.es ?? 1) * dir0 * (Math.abs(c) < .04 ? .04 * (Math.sign(c) || 1) : c); },
     // saludo con el brazo derecho de un chibi
     saluda(p, t) { p.brazos[1].rotation.z = 2.5 + Math.sin(t * 12) * .3; },
+    // ladear la cabeza (k 0→1, lado 1 = hacia la derecha de la pantalla): el gesto de "¿qué dijiste?"
+    ladea(g, k, lado = 1) { if (g.head) g.head.rotation.z = g.head.r0 - lado * .42 * k; if (g.head) g.head.position.x = (g.head.x0 ??= g.head.position.x) + lado * .06 * k; },
   };
-  return { chibi, diorama, pz, det, perroPM, gatoPM, A };
+  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta };
 }

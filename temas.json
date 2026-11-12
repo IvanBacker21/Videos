@@ -431,5 +431,22 @@
   "mejora": "papel.js: sillon(), cobija(), huella(), p.sentar(k); gato sentado con g.manos, g.amasa(t), g.feliz(k)",
   "archivo": "shorts/2026-11-11-2130-gato-pancito.mp4",
   "titulo": "¿Por qué tu gato te hace PANCITO? 🐱 #shorts"
+ },
+ {
+  "fecha": "2026-11-12",
+  "hora": "13:30",
+  "tema": "¿Por qué tu perro ladea la cabeza cuando le hablas? (una idea: así ubica mejor tu voz y ve tu cara por encima de su hocico; un estudio de 2021 en Animal Cognition vio que perros que se saben nombres de juguetes la ladean más al oír esas palabras; además lo premiamos con '¡ay, qué bonito!' y lo repite; truco/prueba: dile 'paseo'). Fuentes: Scientific American, Discover Magazine, BBC Science Focus",
+  "formato": "¿Por qué…? + estudio + pruébalo",
+  "categoria": "mascotas (perros)",
+  "disparadores": [
+   "eres tú / tu perro",
+   "mascotas (TikTok)",
+   "prueba en casa",
+   "quien le habla a su perro como bebé"
+  ],
+  "duracion": "29.8 s (23.1 s de contenido)",
+  "mejora": "papel_pm.js: PM.ondas(), PM.pelota(), PM.pregunta(), A.ladea()",
+  "archivo": "shorts/2026-11-12-1330-perro-cabeza.mp4",
+  "titulo": "¿Por qué tu perro LADEA la cabeza? 🐶 #shorts"
  }
 ]
