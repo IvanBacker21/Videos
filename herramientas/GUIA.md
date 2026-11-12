@@ -145,6 +145,13 @@ Todos los videos nuevos se hacen con personajes de **cartulina chibi** sobre un 
 - **Animación (siempre con `const t = P.tw(lt)`, 12 cuadros/s):** `A.anda(g, t, on)` caminar con rebote; `A.cola(g, t, vel, amp, sesgo)`; `A.parpadea(g, t, fase)` (fase distinta por personaje); `A.orejas(g, 0..1)` (atrás = nervioso/enojado); `A.voltea(g, k, dir)` vuelta de cartulina (k 0→1; para pasar de perfil a frente oculta uno y muestra el otro a la mitad, ver escena del gato en la plantilla); `A.saluda(p, t)`; cabeza con `g.head.rotation.z`; brazos `p.brazos[0|1].rotation.z`. **Nadie se queda congelado**: todo personaje en pantalla parpadea y se mueve un poco.
 - **Encuadre vertical:** cámara `cam([x, ~1.1, 8–10.5], [x, ~1.0, 0], 34)`; máximo 3 personajes por toma. Etiquetas NUNCA en la franja de subtítulos (arriba): ponlas a media altura cerca del personaje o en el piso (y ≈ -.1 a -.5); rótulo abajo `rotulo(..., 1600)`.
 - **Render:** `PR=1.5 node render3d.js ...` tarda **~80 min** para 26 s (6 s por cuadro). Revisa primero fotogramas (`frames 0.6,1.6,...` en SEGUNDOS), luego render completo en segundo plano y espera a que termine (`ok` en el log) antes de audio.py y ffmpeg.
+- **REVISIÓN AUTOCRÍTICA OBLIGATORIA (Iván, 12-nov):** a Iván solo se le entrega un video PERFECTO. Antes del render completo Y otra vez con el .mp4 final, saca un cuadro cada 0.5 s (ffmpeg -ss) y revisa uno por uno:
+  1. **Nada cortado**: personajes y mascotas COMPLETOS dentro del cuadro, sobre todo la parte de la que habla la voz (cola, patas, cara). Ancho visible ≈ distancia_cámara × 0.172 a cada lado del centro (fov 34, vertical): perro de perfil escala 1 mide ~1.9 de largo; chibi ~1.2 de ancho con brazos.
+  2. **Franja segura de letreros**: entre 27 % y 75 % de la altura (arriba están los subtítulos, abajo el rótulo). Con cámara en z y mirando a y0: y ∈ [y0 − 0.5·z·0.306, y0 + 0.46·z·0.306].
+  3. **La cola o la parte que se explica SE VE** durante todo el meneo (el sesgo hacia afuera, nunca escondida detrás del cuerpo).
+  4. **La expresión coincide con lo que dice la voz** (enojado = ceño fruncido, nervioso = cejas preocupadas/sudor/sin lengua, feliz = boca abierta/corazones).
+  5. Nada se sale del cuadro (corazones, rayitas), sin cuadros negros, sin pelo atravesando gorras, sin personajes congelados.
+  Si algo falla, corrígelo y vuelve a revisar; no lo publiques con fallas.
 - Lo de papel recortado, "MEZCLA" y "3D LOW-POLY" de abajo queda solo como referencia histórica.
 
 ## ✂️ (ANTERIOR) PAPEL RECORTADO (11-nov-2026) — solo referencia; ahora manda CARTULINA CHIBI
