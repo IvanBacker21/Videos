@@ -17,7 +17,7 @@ export async function build(E) {
     update(lt, c) {
       const t = tw(lt), ll = 1.4, u = cl(t / ll);
       this.d.position.x = lerp(3.6, .62, eout(u)); A.anda(this.d, t, u < 1 ? 1 : 0); A.cola(this.d, t, 16, .4, .1); A.parpadea(this.d, t, 1.1);
-      A.saluda(this.p, t); A.parpadea(this.p, t); this.p.head.rotation.z = .04 + Math.sin(t * 3) * .03;
+      A.saluda(this.p, t); A.parpadea(this.p, t, 1.6); this.p.head.rotation.z = .04 + Math.sin(t * 3) * .03;
       const ts = c.w('siempre') - .25;
       if (t > ts) { this.d.head.rotation.z = this.d.head.r0 - .22 * eout(cl((t - ts) / .3)); etiqueta('¿FELIZ?', [.25, 1.95, .5], lt - c.w('feliz'), 58, '#ffffff', true); etiqueta('NO SIEMPRE', [0, -.15, .6], lt - ts, 68, '#ffd640', true); c.ev('pop', ts); }
       else etiqueta('¿FELIZ?', [.25, 1.95, .5], lt - c.w('feliz'), 58, '#ffffff', true);
@@ -44,7 +44,7 @@ export async function build(E) {
   // ---------- 3 · a SU izquierda: nervioso (llega un desconocido, orejas atrás) ----------
   escena('izquierda', {
     setup() { set(); this.d = PM.perroPM([-.75, .02, .4], { pose: 'frente', escala: 1.0 }); this.x = PM.chibi([3.4, .02, .2], { ropa: 0xffa53a, pantalon: 0x4a3b2a, tenis: 0x8a5a3a, piel: 0xc98b62, gorra: 0x3f8f6a, colPelo: 0x23160e, boca: 'feliz', mira: -1 }); this.x.scale.x = -1;
-      this.r = rayitas([-1.3, 1.75, .5], 3, 0x3a6fd6); this.r.visible = false;
+      this.r = rayitas([-.12, 1.8, .5], 3, 0x3a6fd6); this.r.visible = false;
       const h = this.d.head; this.pre = [PM.det(P.F.elipse(.075, .07), 0xfaf6ec, [0, -.29, .036], h), PM.det(P.F.rect(.11, .02, .006), P.INK, [0, -.25, .042], h),
         ...[-1, 1].map(sx => PM.det(P.F.rect(.13, .034, .01), 0x5d6472, [sx * .19, .23, .04], h, -sx * .45)), PM.det(P.F.elipse(.035, .055), 0x8fd3ff, [.4, .22, .045], h)];
       this.pre.forEach(m => m.visible = false); },

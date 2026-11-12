@@ -30,7 +30,7 @@ const srv = http.createServer((req, res) => {
   if (mode === 'frames') {
     for (const t of list.split(',').map(Number)) {
       await p.evaluate(t => window.setFrame(t), t);
-      await wrap.screenshot({ path: path.join(out, `fr_${t.toFixed(1).padStart(5, '0')}.png`) });
+      await wrap.screenshot({ path: path.join(out, `fr_${t.toFixed(process.env.FR3 ? 3 : 1).padStart(process.env.FR3 ? 7 : 5, '0')}.png`) });
     }
   } else {
     const n = Math.round(total * 30); const tmp = path.join(out, 'video.tmp.mp4');
