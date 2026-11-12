@@ -134,7 +134,20 @@ Antes del render completo Y antes de publicar ejecuta:
 - Responde honestamente la lista de 7 preguntas que imprime; si alguna es "no", reescribe esa parte.
 - Escribe los números con letra en la voz.
 
-## ✂️ ESTILO ACTUAL: PAPEL RECORTADO (aprobado por Iván el 11-nov-2026) — OBLIGATORIO, reemplaza a "MEZCLA" y a la animación 3D low-poly
+## 📄 ESTILO OFICIAL: CARTULINA CHIBI (tipo papel "Paper Mario", aprobado por Iván el 11-nov-2026 19:22) — OBLIGATORIO, reemplaza a todos los anteriores
+
+Todos los videos nuevos se hacen con personajes de **cartulina chibi** sobre un **diorama de papel**, con el kit `herramientas/motor3d/papel_pm.js` (encima de papel.js):
+- `import { kitPapel } from '../motor3d/papel.js'; import { kitPM } from '../motor3d/papel_pm.js';` y dentro de `build(E)`: `const P = kitPapel(E); const PM = kitPM(P, THREE, group), { A } = PM;`. Termina el archivo con `P.cierre();` (logo 14).
+- **Plantilla aprobada (cópiala y adáptala):** `herramientas/ejemplos/2026-11-11-paper-cola.json/.js` → video `pruebas/2026-11-11-paper-cola.mp4`.
+- **Escenario en cada escena:** `ambiente({top:0xa9dcf5,bottom:0xa9dcf5,fog:0xa9dcf5,near:80,far:160,sunInt:.01,hemiInt:.01}); PM.diorama(); P.luces({pos:[-3,5,8],hemi:1.75,sol:1.5,radio:6});` (cielo, nubes, colinas en capas con borde de papel, arbolitos, flores, piso con puntadas). Para otros lugares (cocina, espacio, cuarto) arma piezas con `PM.pz(forma, color, pos, padre, {tinta, papel})` (recorte con contorno fino y borde blanco grueso) y `PM.det(...)` (detalle impreso sin borde), con formas de `P.F`.
+- **Personas:** `PM.chibi(pos, o)` → o: `{piel, ropa, pantalon, falda, tenis, pelo:'copete'|'cola'|'chongo', colPelo, gorra, lentes, aretes, logo, saluda, boca:'abierta'|'feliz', inclina, mira, escala}`. **Protagonista** = `PM.chibi(pos, {logo:true})` (playera azul con el planeta, copete castaño, sin barba ni audífonos); nadie más usa playera azul con logo. Sin barbas en este estilo.
+- **Mascotas oficiales:** perro lobo `PM.perroPM(pos, {pose:'frente'|'perfil', escala})` (gris, máscara/pecho/patas blancos, ojos ámbar, collar coral); gato `PM.gatoPM(pos, {pose:'frente'|'perfil', escala})` (negro con pecho, panza, hocico y patitas blancos, ojos verde limón, collar morado). De perfil miran a la derecha; para que miren a la izquierda: `g.scale.x = -escala`.
+- **Animación (siempre con `const t = P.tw(lt)`, 12 cuadros/s):** `A.anda(g, t, on)` caminar con rebote; `A.cola(g, t, vel, amp, sesgo)`; `A.parpadea(g, t, fase)` (fase distinta por personaje); `A.orejas(g, 0..1)` (atrás = nervioso/enojado); `A.voltea(g, k, dir)` vuelta de cartulina (k 0→1; para pasar de perfil a frente oculta uno y muestra el otro a la mitad, ver escena del gato en la plantilla); `A.saluda(p, t)`; cabeza con `g.head.rotation.z`; brazos `p.brazos[0|1].rotation.z`. **Nadie se queda congelado**: todo personaje en pantalla parpadea y se mueve un poco.
+- **Encuadre vertical:** cámara `cam([x, ~1.1, 8–10.5], [x, ~1.0, 0], 34)`; máximo 3 personajes por toma. Etiquetas NUNCA en la franja de subtítulos (arriba): ponlas a media altura cerca del personaje o en el piso (y ≈ -.1 a -.5); rótulo abajo `rotulo(..., 1600)`.
+- **Render:** `PR=1.5 node render3d.js ...` tarda **~80 min** para 26 s (6 s por cuadro). Revisa primero fotogramas (`frames 0.6,1.6,...` en SEGUNDOS), luego render completo en segundo plano y espera a que termine (`ok` en el log) antes de audio.py y ffmpeg.
+- Lo de papel recortado, "MEZCLA" y "3D LOW-POLY" de abajo queda solo como referencia histórica.
+
+## ✂️ (ANTERIOR) PAPEL RECORTADO (11-nov-2026) — solo referencia; ahora manda CARTULINA CHIBI
 
 Todos los videos nuevos se hacen en **papel recortado** con el kit `herramientas/motor3d/papel.js`:
 - `import { kitPapel } from '../motor3d/papel.js'; const P = kitPapel(E);` dentro de `build(E)`. El motor sigue manejando tiempos, voz, subtítulos, rótulos, etiquetas y el cierre.
@@ -149,6 +162,8 @@ Todos los videos nuevos se hacen en **papel recortado** con el kit `herramientas
 - Lo de "MEZCLA" y "3D LOW-POLY" de abajo queda solo como referencia histórica.
 
 ## 🪐 CIERRE OFICIAL Y PERSONAJES (aprobado por Iván el 11-nov-2026) — OBLIGATORIO
+
+**Desde el 11-nov 19:22 los personajes y mascotas se hacen en CARTULINA CHIBI (sección de arriba).** De esta sección siguen vigentes: el cierre (logo 14), las reglas del protagonista y la paleta. Lo de persona()/estilo J y perroLobo de papel.js queda como referencia.
 
 **Personas sin rigidez (11-nov-2026):** los brazos salen DEBAJO del hombro del torso (hombros caídos, una sola silueta, nada de "hombreras" encimadas) y el reposo ya trae contrapposto (codos un poco doblados, piernas ligeramente abiertas, cabeza inclinada). En cada cuadro en que un personaje no esté haciendo otra acción, llama `p.respira(t)` para que respire y se balancee; nunca dejes a nadie congelado.
 **Mascotas oficiales:** perro = `P.perroLobo(pos, {pose:'perfil'|'frente', escala})` (gris lobo, patas y pecho blancos, collar coral). Gato = el negro con patitas y panza blancos (sentado / caminando / echado). Úsalos siempre que el tema sea de perros o gatos.
