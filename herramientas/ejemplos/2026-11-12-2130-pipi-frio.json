@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-12-2130-pipi-frio",
+  "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+  "escenas": [
+    {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué con el frío siempre te dan más ganas de ir al baño?"]},
+    {"tipo": "venas", "titulo": "", "frases": ["Cuando hace frío, las venitas de tu piel se cierran para no perder calor."]},
+    {"tipo": "centro", "titulo": "", "frases": ["Esa sangre se va al centro del cuerpo, y tu cuerpo cree que le sobra líquido."]},
+    {"tipo": "rinones", "titulo": "", "frases": ["Entonces tus riñones lo sacan… directo a la vejiga."]},
+    {"tipo": "remate", "titulo": "", "frases": ["Truco: abrígate bien y sigue tomando agua. Y mándaselo a quien, con el primer frío, ya anda buscando baño."]},
+    {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+  ],
+  "resaltar": []
+}

@@ -79,12 +79,17 @@ export function kitPM(P, THREE, group) {
     // ojos ovalados con brillo
     h.ojos = [-1, 1].map(sx => { const e = group([sx * .17 + (o.mira ?? 0) * .02, -.02, .03], h);
       det(F.elipse(.068, .125), INK, [0, 0, 0], e); det(F.elipse(.026, .042), 0xffffff, [.018, .05, .003], e); det(F.circ(.012), 0xffffff, [-.02, -.06, .003], e); return e; });
-    for (const sx of [-1, 1]) det(F.rect(.12, .032, .016), o.pelo === 'chongo' ? 0x9a948a : osc(cp, .8), [sx * .17, .16, .03], h, -sx * .12);   // cejas
+    h.cejas = [-1, 1].map(sx => { const c = det(F.rect(.12, .032, .016), o.pelo === 'chongo' ? 0x9a948a : osc(cp, .8), [sx * .17, .16, .03], h, -sx * .12); c.sx = sx; return c; });   // cejas (A.preocupa las mueve)
     for (const sx of [-1, 1]) det(F.elipse(.085, .045), mez(piel, 0xff6f86, .45), [sx * .3, -.17, .028], h);                                   // chapitas
     det(F.elipse(.025, .018), osc(piel, .72), [0, -.12, .03], h);                                                                              // nariz
     const bc = group([0, -.25, .03], h);
-    if ((o.boca ?? 'abierta') === 'abierta') { det(blob([[-.11, .03], [.11, .03], [.08, -.06], [0, -.09], [-.08, -.06]]), 0x7a1f30, [0, 0, 0], bc); det(F.elipse(.05, .025), 0xff8a9a, [0, -.055, .002], bc); det(F.rect(.15, .022, .008), 0xffffff, [0, .015, .002], bc); }
-    else det(F.arco(.08, .024, Math.PI * 1.2, Math.PI * 1.8), 0x7a1f30, [0, .06, 0], bc);
+    // bocas intercambiables (13-nov): g.boca('abierta'|'feliz'|'apretada')
+    h.bocas = { abierta: group([0, 0, 0], bc), feliz: group([0, 0, 0], bc), apretada: group([0, 0, 0], bc) };
+    det(blob([[-.11, .03], [.11, .03], [.08, -.06], [0, -.09], [-.08, -.06]]), 0x7a1f30, [0, 0, 0], h.bocas.abierta); det(F.elipse(.05, .025), 0xff8a9a, [0, -.055, .002], h.bocas.abierta); det(F.rect(.15, .022, .008), 0xffffff, [0, .015, .002], h.bocas.abierta);
+    det(F.arco(.08, .024, Math.PI * 1.2, Math.PI * 1.8), 0x7a1f30, [0, .06, 0], h.bocas.feliz);
+    det(tubo([[-.09, -.01], [-.045, .02], [0, -.01], [.045, .02], [.09, -.01]], .022, .022), 0x7a1f30, [0, -.01, 0], h.bocas.apretada);   // boca ondulada (aguantando, nervioso)
+    g.boca = (e = 'abierta') => { for (const k in h.bocas) h.bocas[k].visible = k === e; };
+    g.boca(o.boca ?? 'abierta');
     if (o.lentes) for (const sx of [-1, 1]) det(F.arco(.11, .025, 0, Math.PI * 2), o.lentes, [sx * .17, -.02, .036], h);
     if (o.lentes) linea([[-.07, -.0], [.07, -.0]], .02, o.lentes, h, .036);
     if (o.aretes) for (const sx of [-1, 1]) pz(F.circ(.04), 0xffc83d, [sx * .5, -.14, .01], h, { papel: false });
@@ -233,7 +238,7 @@ export function kitPM(P, THREE, group) {
     const g = group(pos); g.es = 1;
     if (o.hilo) linea([[0, r * .9], [0, r + 6]], .014, 0xf3ead8, g, -.2);
     if (o.rayos) { g.rayos = group([0, 0, -.05], g); pz(F.estrella(12, r * 1.42, r * 1.1), 0xffa53d, [0, 0, 0], g.rayos, { tinta: .018, papel: .06 }); }
-    let forma = F.circ(r);
+    let forma = o.forma ?? F.circ(r);   // o.forma: silueta propia (riñón, vejiga, gota…)
     if (o.irregular) { let s2 = (o.semilla ?? 3) * 977 + 1; const rr = () => (s2 = (s2 * 16807) % 2147483647) / 2147483647; const pts = [];
       for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2, k = r * (.82 + rr() * .3); pts.push([Math.cos(a) * k * 1.12, Math.sin(a) * k * .92]); } forma = blob(pts); }
     const cu = g.cuerpo = pz(forma, color, [0, 0, 0], g, { tinta: .02, papel: o.papel ?? .07 });
@@ -291,7 +296,32 @@ export function kitPM(P, THREE, group) {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w - .55, hh), new THREE.MeshStandardMaterial({ map: tx, roughness: 1 })); m.position.set(.07, 0, .025); g.add(m); return g; }
 
   // ================= ANIMACIÓN (usar con t ya "a saltitos": P.tw(lt)) =================
+  // ================= FRÍO Y CUERPO (13-nov, short de la pipí con frío) =================
+  // bufanda de cartulina para un chibi (rayitas; la punta cuelga y se mece con b.mece(t))
+  function bufanda(p, color = 0xff6b5b, color2 = 0xffffff) { const b = group([0, 1.13, .045], p);
+    pz(blob([[-.3, .02], [-.2, .1], [0, .12], [.2, .1], [.3, .02], [.22, -.07], [0, -.08], [-.22, -.07]]), color, [0, 0, 0], b, { tinta: .014, papel: .04 });
+    for (const x of [-.16, .0, .16]) det(F.rect(.05, .14, .01), color2, [x, .02, .016], b);
+    const pu = group([.15, -.04, .02], b); pz(F.rect(.15, .42, .04), color, [0, -.2, 0], pu, { tinta: .014, papel: .04 });
+    for (const y of [-.12, -.26]) det(F.rect(.15, .045, .005), color2, [0, y, .016], pu); for (const x of [-.05, 0, .05]) det(F.rect(.018, .06, .004), color, [x, -.43, -.004], pu);
+    b.mece = t => pu.rotation.z = .12 + Math.sin(t * 3) * .1; return b; }
+  // copos / aire frío que cae: devuelve { update(t, on) }. o: {n, x0, x1, y0, y1, z}
+  function copos(o = {}) { const n = o.n ?? 14, x0 = o.x0 ?? -1.8, x1 = o.x1 ?? 1.8, y0 = o.y0 ?? -.1, y1 = o.y1 ?? 3.0; let sm = 11; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    const cs = []; for (let i = 0; i < n; i++) { const c = pz(F.estrella(6, .07, .035), 0xffffff, [0, 0, o.z ?? .2], null, { tinta: .01, papel: false }); c.f = rnd(); c.x = x0 + rnd() * (x1 - x0); c.v = .25 + rnd() * .2; cs.push(c); }
+    return { cs, update(t, on = 1) { cs.forEach(c => { const k = (t * c.v + c.f) % 1; c.visible = on > 0; c.position.x = c.x + Math.sin(t * 1.5 + c.f * 9) * .12; c.position.y = y1 - k * (y1 - y0); c.rotation.z = t + c.f * 6; }); } }; }
+  // lupa de cartulina: aro + mango; mete cosas en g.dentro (se recortan visualmente por el fondo del círculo)
+  function lupa(pos, r = .8, o = {}) { const g = group(pos);
+    const m = group([r * .72, -r * .72, -.02], g); m.rotation.z = Math.PI / 4; pz(F.rect(.16, r * .9, .06), o.mango ?? 0x7b5cff, [0, -r * .45, 0], m, { tinta: .016, papel: .05 });
+    pz(F.circ(r), o.fondo ?? 0xf4c4a8, [0, 0, 0], g, { tinta: .02, papel: .07 }); g.dentro = group([0, 0, .03], g);
+    pz(F.arco(r, .1, 0, Math.PI * 2), o.aro ?? 0x3d3a5a, [0, 0, .09], g, { tinta: false, papel: false }); det(F.arco(r * .8, .04, 2.0, 2.7), 0xffffff, [0, 0, .1], g); return g; }
+  // formas de órganos para PM.astro({forma}): riñón y vejiga
+  const formaRinon = (r = .4) => blob([[-r * .55, r * .95], [r * .25, r * 1.0], [r * .8, r * .55], [r * .9, -r * .2], [r * .55, -r * .9], [-r * .2, -r * 1.0], [-r * .62, -r * .6], [-r * .35, -r * .15], [-r * .35, r * .25], [-r * .75, r * .5]]);
+  const formaVejiga = (r = .5) => blob([[-r * .25, r * .95], [r * .25, r * .95], [r * .8, r * .6], [r * .95, 0], [r * .7, -r * .6], [r * .15, -r * .95], [-r * .15, -r * .95], [-r * .7, -r * .6], [-r * .95, 0], [-r * .8, r * .6]]);
+
   const A = {
+    // cejas preocupadas (k 0→1) y gota de sudor opcional en chibis: nervioso, aguantando, frío
+    preocupa(g, k) { (g.head?.cejas ?? []).forEach(c => { c.rotation.z = -c.sx * (.12 + .38 * k); c.position.y = .16 + .03 * k; }); },
+    // temblar de frío
+    tiembla(g, t, k = 1, x0 = g.position.x) { g.position.x = x0 + Math.sin(t * 60) * .025 * k; },
     // camina (mascota de perfil o chibi): patas/piernas alternadas + rebote + brazos
     anda(g, t, on = 1, y0 = .02) { const s = Math.sin(t * 11) * on;
       if (g.patas && g.patas.length >= 4) [0, Math.PI, Math.PI, 0].forEach((f, i) => g.patas[i].rotation.z = Math.sin(t * 11 + f) * .38 * on);
@@ -311,5 +341,5 @@ export function kitPM(P, THREE, group) {
     // ladear la cabeza (k 0→1, lado 1 = hacia la derecha de la pantalla): el gesto de "¿qué dijiste?"
     ladea(g, k, lado = 1) { if (g.head) g.head.rotation.z = g.head.r0 - lado * .42 * k; if (g.head) g.head.position.x = (g.head.x0 ??= g.head.position.x) + lado * .06 * k; },
   };
-  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario };
+  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga };
 }
