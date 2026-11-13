@@ -1,6 +1,6 @@
 # Métricas de Dato Cósmico 2
 
-Lo llena la revisión automática cada 2 h. La tarea de producción lo lee antes de elegir tema y formato (ver `herramientas/GUIA.md`).
+Lo llena la revisión automática una vez al día (cada 24 h). La tarea de producción lo lee antes de elegir tema y formato (ver `herramientas/GUIA.md`).
 
 ## 2026-11-04 17:41 (CDMX)
 
