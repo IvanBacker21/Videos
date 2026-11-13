@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-13-1330-precios-99",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué en el Buen Fin todo termina en noventa y nueve?"
+   ]
+  },
+  {
+   "tipo": "izquierda",
+   "titulo": "",
+   "frases": [
+    "Tu cerebro lee de izquierda a derecha… y se queda con el primer número."
+   ]
+  },
+  {
+   "tipo": "barato",
+   "titulo": "",
+   "frases": [
+    "Por eso, un precio con nueves se siente mucho más barato… aunque sea solo un peso menos."
+   ]
+  },
+  {
+   "tipo": "vestido",
+   "titulo": "",
+   "frases": [
+    "En un experimento, un vestido terminado en nueve se vendió más… ¡que uno más barato!"
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Truco: redondea antes de pagar. Y mándaselo a quien ya llenó su carrito del Buen Fin."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

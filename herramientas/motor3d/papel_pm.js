@@ -314,6 +314,49 @@ export function kitPM(P, THREE, group) {
     pz(F.circ(r), o.fondo ?? 0xf4c4a8, [0, 0, 0], g, { tinta: .02, papel: .07 }); g.dentro = group([0, 0, .03], g);
     pz(F.arco(r, .1, 0, Math.PI * 2), o.aro ?? 0x3d3a5a, [0, 0, .09], g, { tinta: false, papel: false }); det(F.arco(r * .8, .04, 2.0, 2.7), 0xffffff, [0, 0, .1], g); return g; }
   // formas de órganos para PM.astro({forma}): riñón y vejiga
+  // ---- tienda / Buen Fin (13-nov-2026) ----
+  // textura de texto impreso (canvas) para precios y letreros chicos
+  const textoTx = (texto, w, hh, fondo, tinta = '#1f1b2e', peso = 900) => { const cv = document.createElement('canvas'); cv.width = 1024; cv.height = Math.max(64, Math.round(1024 * hh / w)); const x = cv.getContext('2d');
+    x.fillStyle = '#' + fondo.toString(16).padStart(6, '0'); x.fillRect(0, 0, cv.width, cv.height);
+    let fs = cv.height * .7; const fnt = () => x.font = `${peso} ${fs}px Poppins, "Arial Black", sans-serif`; fnt(); while (x.measureText(texto).width > cv.width * .88 && fs > 10) { fs -= 4; fnt(); }
+    x.fillStyle = tinta; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(texto, cv.width / 2, cv.height * .55);
+    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4; return tx; };
+  // etiqueta de precio de cartulina (forma de etiqueta con ojillo e hilo). o: {w, h, color, borde, tinta, hilo, ojillo:'izq'|'arriba'}
+  // g.texto(nuevo) cambia el precio impreso (para "voltear" la etiqueta a mitad de A.voltea); g.columpia(t, amp)
+  function precio(pos, texto, o = {}, parent = null) {
+    const g = group(pos, parent), w = o.w ?? 1.2, hh = o.h ?? .5, c = o.color ?? 0xffe27a, b = o.borde ?? 0xff6b5b;
+    const forma = (ww, h2) => F.poly([[-ww / 2 + h2 * .32, h2 / 2], [ww / 2, h2 / 2], [ww / 2, -h2 / 2], [-ww / 2 + h2 * .32, -h2 / 2], [-ww / 2, 0]]);
+    pz(forma(w, hh), b, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    pz(forma(w - .08, hh - .08), c, [.0, 0, .016], g, { tinta: false, papel: false });
+    det(F.circ(.045), 0xfff8ec, [-w / 2 + .11, 0, .03], g); det(F.circ(.025), INK, [-w / 2 + .11, 0, .034], g);
+    if (o.hilo !== false) linea([[-w / 2 + .11, 0], [-w / 2 - .12, .22], [-w / 2 - .2, .42]], .014, 0xf3ead8, g, -.05);
+    const tw = w - .32, th = hh - .14;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(tw, th), new THREE.MeshStandardMaterial({ map: textoTx(texto, tw, th, c, o.tinta ?? '#1f1b2e'), roughness: 1, metalness: 0 }));
+    m.position.set(.1, 0, .036); m.receiveShadow = true; g.add(m);
+    g.texto = (tx2) => { m.material.map.dispose(); m.material.map = textoTx(tx2, tw, th, c, o.tinta ?? '#1f1b2e'); m.material.needsUpdate = true; };
+    g.columpia = (t, amp = .05) => g.rotation.z = Math.sin(t * 2.6) * amp; return g; }
+  // carrito de súper de perfil (asa a la izquierda; para el otro lado g.scale.x = -1). g.carga = grupo para poner cosas encima; g.rueda(t, vel)
+  function carrito(pos, o = {}) {
+    const g = group(pos), es = o.escala ?? 1; g.scale.set(es, es, es); const met = o.color ?? 0xd8dde6, plas = o.plastico ?? 0xff6b5b;
+    pz(F.poly([[-.55, .95], [.6, .95], [.45, .35], [-.42, .35]]), met, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    for (let i = 1; i < 6; i++) { const x = -.55 + i * .19; linea([[x, .93], [x - (x + .5) * .1 + .03, .38]], .012, 0x9aa3b2, g, .02); }
+    for (const y of [.55, .75]) linea([[-.5 + (.95 - y) * .1, y], [.55 - (.95 - y) * .25, y]], .012, 0x9aa3b2, g, .02);
+    pz(F.rect(1.14, .07, .03), plas, [.02, .95, .03], g, { tinta: .012, papel: false });
+    linea([[-.5, .95], [-.72, 1.18]], .035, met, g, .0); pz(F.rect(.1, .2, .04), plas, [-.76, 1.22, .02], g, { tinta: .012, papel: false, rot: -.6 });
+    linea([[-.38, .35], [-.42, .12], [.42, .12], [.45, .35]], .03, met, g, .0);
+    g.ruedas = [-.35, .36].map(x => { const r = group([x, .08, .04], g); pz(F.circ(.08), 0x3a3550, [0, 0, 0], r, { tinta: .01, papel: .03 }); det(F.rect(.1, .025, .01), 0x8a86a0, [0, 0, .014], r); return r; });
+    sombraPiso(g, .6); g.carga = group([0, .92, -.04], g);
+    g.rueda = (t, vel = 1) => g.ruedas.forEach(r => r.rotation.z = -t * vel * 6); return g; }
+  // caja/regalo de cartulina para llenar carritos: o: {moño, color2}
+  function caja(pos, w, h, color, parent, o = {}) { const g = pz(F.rect(w, h, .03), color, pos, parent, { tinta: .014, papel: .04 });
+    if (o.mono !== false) { det(F.rect(.06, h, .01), o.color2 ?? 0xffffff, [0, 0, .016], g); det(F.rect(w, .06, .01), o.color2 ?? 0xffffff, [0, 0, .017], g); } return g; }
+  // vestido de cartulina colgado de un gancho (g.mece(t))
+  function vestido(pos, color, parent = null, o = {}) { const g = group(pos, parent);
+    linea([[-.24, -.02], [0, .12], [.24, -.02]], .02, 0x8a6a4a, g, -.02); linea([[0, .12], [0, .2], [.05, .25], [.08, .2]], .02, 0x8a6a4a, g, -.02);
+    pz(F.poly([[-.17, 0], [-.07, 0], [0, -.06], [.07, 0], [.17, 0], [.15, -.3], [.1, -.38], [.36, -1.0], [-.36, -1.0], [-.1, -.38], [-.15, -.3]]), color, [0, 0, 0], g, { tinta: .016, papel: .05 });
+    det(F.rect(.26, .06, .01), osc(color, .78), [0, -.4, .016], g);
+    for (const [x, y] of [[-.15, -.6], [.1, -.55], [-.02, -.75], [.2, -.85], [-.22, -.88], [0, -.25]]) det(F.circ(.03), 0xfff8ec, [x, y, .017], g);
+    g.mece = (t, f = 0) => g.rotation.z = Math.sin(t * 2 + f) * .04; return g; }
   const formaRinon = (r = .4) => blob([[-r * .55, r * .95], [r * .25, r * 1.0], [r * .8, r * .55], [r * .9, -r * .2], [r * .55, -r * .9], [-r * .2, -r * 1.0], [-r * .62, -r * .6], [-r * .35, -r * .15], [-r * .35, r * .25], [-r * .75, r * .5]]);
   const formaVejiga = (r = .5) => blob([[-r * .25, r * .95], [r * .25, r * .95], [r * .8, r * .6], [r * .95, 0], [r * .7, -r * .6], [r * .15, -r * .95], [-r * .15, -r * .95], [-r * .7, -r * .6], [-r * .95, 0], [-r * .8, r * .6]]);
 
@@ -341,5 +384,5 @@ export function kitPM(P, THREE, group) {
     // ladear la cabeza (k 0→1, lado 1 = hacia la derecha de la pantalla): el gesto de "¿qué dijiste?"
     ladea(g, k, lado = 1) { if (g.head) g.head.rotation.z = g.head.r0 - lado * .42 * k; if (g.head) g.head.position.x = (g.head.x0 ??= g.head.position.x) + lado * .06 * k; },
   };
-  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga };
+  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

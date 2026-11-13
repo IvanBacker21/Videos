@@ -484,5 +484,24 @@
   "mejora": "papel_pm.js: bocas intercambiables del chibi (p.boca), A.preocupa (cejas), A.tiembla, PM.bufanda, PM.copos, PM.lupa, PM.formaRinon/formaVejiga y astro({forma})",
   "archivo": "shorts/2026-11-12-2130-pipi-frio.mp4",
   "titulo": "¿Por qué con frío SIEMPRE te dan ganas de ir al baño? 🥶 #shorts"
+ },
+ {
+  "fecha": "2026-11-13",
+  "hora": "13:30",
+  "tema": "¿Por qué en el Buen Fin TODO termina en 99? (efecto del dígito izquierdo: el cerebro lee el precio de izquierda a derecha y se queda con el primer número, por eso $999 se siente mucho más barato que $1,000 aunque es solo un peso menos; experimento de Anderson y Simester (MIT/U. de Chicago): un vestido se vendió más a 39 dólares que a 34; truco: redondea antes de pagar). Fuentes: Live Science (Why do most prices end in .99?), Phys.org (Thomas y Morwitz 2005, Journal of Consumer Research)",
+  "formato": "¿Por qué TODO…? + experimento sorpresa + truco útil",
+  "categoria": "mente / compras / casa",
+  "tendencia": "arranque del Buen Fin 2026 (13 al 17 de noviembre, cinco días de ofertas)",
+  "disparadores": [
+   "eres tú (todos caen en el 99)",
+   "lo mexicano (Buen Fin)",
+   "sorpresa (lo más caro se vendió más)",
+   "truco útil (redondea antes de pagar)",
+   "mándaselo a quien ya llenó su carrito del Buen Fin"
+  ],
+  "duracion": "29.5 s (22.8 s de contenido)",
+  "mejora": "papel_pm.js: utilería de tienda PM.precio (etiqueta de precio con g.texto), PM.carrito (ruedas, carga), PM.caja, PM.vestido",
+  "archivo": "shorts/2026-11-13-1330-precios-99.mp4",
+  "titulo": "¿Por qué en el Buen Fin TODO termina en 99? 🛒 #shorts"
  }
 ]
