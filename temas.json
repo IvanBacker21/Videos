@@ -503,5 +503,23 @@
   "mejora": "papel_pm.js: utilería de tienda PM.precio (etiqueta de precio con g.texto), PM.carrito (ruedas, carga), PM.caja, PM.vestido",
   "archivo": "shorts/2026-11-13-1330-precios-99.mp4",
   "titulo": "¿Por qué en el Buen Fin TODO termina en 99? 🛒 #shorts"
+ },
+ {
+  "fecha": "2026-11-13",
+  "hora": "18:00",
+  "tema": "¿Por qué con el frío SIEMPRE se te parten los labios? (los labios casi no tienen glándulas de grasa que los protejan como el resto de la piel; el aire frío es seco y les roba la poca agua; chuparlos empeora: la saliva se evapora rápido y se lleva más humedad; truco: bálsamo o vaselina y no chuparlos). Fuentes: Live Science (Why do lips get so chapped in winter?), Ohio State Wexner Medical Center (Kiss chapped lips goodbye)",
+  "formato": "¿Por qué SIEMPRE…? + el error que todos cometen + truco útil",
+  "categoria": "cuerpo / clima",
+  "tendencia": "frentes fríos y masa de aire ártico en México (noviembre 2026: '¡ponte suéter!')",
+  "disparadores": [
+   "eres tú (todos tenemos los labios partidos en frío)",
+   "¿ves? te dije (chuparlos lo empeora)",
+   "truco útil (bálsamo y no chuparlos)",
+   "mándaselo a quien siempre anda chupándose los labios"
+  ],
+  "duracion": "29.4 s (22.8 s de contenido)",
+  "mejora": "papel_pm.js: PM.labios (g.seca abre grietas, g.brillo), PM.balsamo y boca 'lengua' del chibi",
+  "archivo": "shorts/2026-11-13-1800-labios-frio.mp4",
+  "titulo": "¿Por qué con frío SIEMPRE se te parten los labios? 👄 #shorts"
  }
 ]

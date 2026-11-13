@@ -84,7 +84,11 @@ export function kitPM(P, THREE, group) {
     det(F.elipse(.025, .018), osc(piel, .72), [0, -.12, .03], h);                                                                              // nariz
     const bc = group([0, -.25, .03], h);
     // bocas intercambiables (13-nov): g.boca('abierta'|'feliz'|'apretada')
-    h.bocas = { abierta: group([0, 0, 0], bc), feliz: group([0, 0, 0], bc), apretada: group([0, 0, 0], bc) };
+    h.bocas = { abierta: group([0, 0, 0], bc), feliz: group([0, 0, 0], bc), apretada: group([0, 0, 0], bc), lengua: group([0, 0, 0], bc) };
+    // 'lengua' (13-nov 18:00): boca abierta con la lengua de fuera hacia un lado (chuparse los labios, antojo, burla)
+    det(blob([[-.1, .03], [.1, .03], [.07, -.05], [0, -.07], [-.07, -.05]]), 0x7a1f30, [0, 0, 0], h.bocas.lengua);
+    pz(blob([[-.02, -.01], [.09, -.02], [.13, -.08], [.1, -.13], [.04, -.12], [0, -.06]]), 0xff7d93, [0, 0, .006], h.bocas.lengua, { tinta: .008, papel: false });
+    det(F.rect(.006, .05, .004), 0xd9506a, [.07, -.07, .014], h.bocas.lengua, .5);
     det(blob([[-.11, .03], [.11, .03], [.08, -.06], [0, -.09], [-.08, -.06]]), 0x7a1f30, [0, 0, 0], h.bocas.abierta); det(F.elipse(.05, .025), 0xff8a9a, [0, -.055, .002], h.bocas.abierta); det(F.rect(.15, .022, .008), 0xffffff, [0, .015, .002], h.bocas.abierta);
     det(F.arco(.08, .024, Math.PI * 1.2, Math.PI * 1.8), 0x7a1f30, [0, .06, 0], h.bocas.feliz);
     det(tubo([[-.09, -.01], [-.045, .02], [0, -.01], [.045, .02], [.09, -.01]], .022, .022), 0x7a1f30, [0, -.01, 0], h.bocas.apretada);   // boca ondulada (aguantando, nervioso)
@@ -384,5 +388,27 @@ export function kitPM(P, THREE, group) {
     // ladear la cabeza (k 0→1, lado 1 = hacia la derecha de la pantalla): el gesto de "¿qué dijiste?"
     ladea(g, k, lado = 1) { if (g.head) g.head.rotation.z = g.head.r0 - lado * .42 * k; if (g.head) g.head.position.x = (g.head.x0 ??= g.head.position.x) + lado * .06 * k; },
   };
-  return { chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- labios y bálsamo (13-nov-2026 18:00, short de los labios partidos) ----
+  // PM.labios(pos, s, padre): labios grandes de cartulina para lupas/acercamientos. g.seca(k 0..1) los pone pálidos y abre grietas;
+  // g.brillo.visible = true muestra el brillo del bálsamo.
+  function labios(pos, s = 1, padre = null, o = {}) { const g = group(pos, padre); g.scale.setScalar(s); const col = o.color ?? 0xe8707e;
+    const sup = pz(blob([[-.55, -.02], [-.35, .12], [-.12, .2], [0, .14], [.12, .2], [.35, .12], [.55, -.02], [.2, -.04], [0, -.02], [-.2, -.04]]), col, [0, .02, 0], g, { tinta: .014, papel: false });
+    const inf = pz(blob([[-.55, -.02], [-.2, -.06], [0, -.05], [.2, -.06], [.55, -.02], [.36, -.18], [0, -.27], [-.36, -.18]]), col, [0, -.02, 0], g, { tinta: .014, papel: false });
+    const lin = det(tubo([[-.52, 0], [-.2, -.035], [0, -.025], [.2, -.035], [.52, 0]], .018, .018), 0x8a2a3a, [0, 0, .02], g);
+    const own = (grp, op) => { const m = grp.children[0]; m.material = m.material.clone(); if (op !== undefined) { m.material.transparent = true; m.material.opacity = op; } return m; };   // material propio (M() se comparte)
+    own(det(F.elipse(.14, .035), 0xffffff, [-.12, -.15, .02], g), .45);
+    g.grietas = group([0, 0, .025], g); for (const [x, y, a, l] of [[-.32, .08, .2, .1], [-.1, .12, -.15, .08], [.22, .1, .1, .1], [-.25, -.14, -.1, .11], [.05, -.18, .15, .1], [.3, -.12, -.2, .09]])
+      det(tubo([[0, l / 2], [.015, 0], [-.01, -l / 2]], .012, .006), 0x6a1f2a, [x, y, 0], g.grietas, a);
+    g.escamas = group([0, 0, .028], g); for (const [x, y] of [[-.4, .03], [.12, .15], [.38, -.06], [-.15, -.2]]) det(F.poly([[0, .03], [.04, 0], [0, -.02], [-.03, 0]]), 0xf6d5d0, [x, y, 0], g.escamas);
+    g.brillo = group([0, 0, .03], g); for (const [x, y, rx] of [[-.2, .12, .1], [.22, .12, .08], [.05, -.17, .16]]) own(det(F.elipse(rx, .03), 0xffffff, [x, y, 0], g.brillo), .8); g.brillo.visible = false;
+    const ms = [own(sup), own(inf)], c0 = new THREE.Color(col), cs = new THREE.Color(o.colorSeco ?? 0xd9a3a3);
+    g.seca = (k) => { ms.forEach(m => m.material.color.copy(c0).lerp(cs, k)); g.grietas.visible = k > .25; g.grietas.scale.setScalar(.4 + .6 * cl01((k - .25) / .6)); g.escamas.visible = k > .5; };
+    g.seca(o.seca ?? 0); return g; }
+  const cl01 = v => Math.max(0, Math.min(1, v));
+  // PM.balsamo(pos, padre): barrita de bálsamo de cartulina (tapa aparte en g.tapa)
+  function balsamo(pos, padre = null, o = {}) { const g = group(pos, padre); const c = o.color ?? 0x2ec4a6;
+    pz(F.rect(.16, .34, .05), c, [0, 0, 0], g, { tinta: .014, papel: .04 }); det(F.rect(.16, .07, .02), 0xffffff, [0, .02, .03], g);
+    pz(F.rect(.12, .12, .04), 0xff8fa6, [0, .23, -.01], g, { tinta: .012, papel: .03 }); det(F.rect(.025, .1, .01), 0xffffff, [-.03, .23, .02], g);
+    g.tapa = pz(F.rect(.17, .16, .05), osc(c, .85), [0, .25, .04], g, { tinta: .014, papel: .04 }); return g; }
+  return { labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

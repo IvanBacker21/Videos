@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13-1800-labios-frio",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué con el frío siempre se te parten los labios?"]},
+  {"tipo": "grasa", "titulo": "", "frases": ["Tu piel tiene grasita que la protege… pero tus labios casi no tienen."]},
+  {"tipo": "aire", "titulo": "", "frases": ["Y el aire frío viene seco, así que les roba la poquita agua que tienen."]},
+  {"tipo": "error", "titulo": "", "frases": ["El error: chuparte los labios. La saliva se seca rápido y se lleva todavía más agua."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Truco: ponte bálsamo y no los chupes. Mándaselo a quien siempre anda chupándose los labios."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
