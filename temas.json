@@ -466,5 +466,23 @@
   "mejora": "papel_pm.js: PM.espacio(), PM.astro() con caritas, PM.marca(), PM.letrero(), PM.comentario()",
   "archivo": "shorts/2026-11-12-1800-pluton.mp4",
   "titulo": "¿Por qué Plutón ya NO es planeta? 🪐 #shorts"
+ },
+ {
+  "fecha": "2026-11-12",
+  "hora": "21:30",
+  "tema": "¿Por qué con el frío SIEMPRE te dan más ganas de ir al baño? (diuresis por frío: las venitas de la piel se cierran para no perder calor; la sangre se concentra en el centro del cuerpo, el cuerpo cree que le sobra líquido y los riñones lo mandan a la vejiga; truco: abrígate y sigue tomando agua). Fuentes: The Naked Scientists, ScienceABC, AccuWeather (salud)",
+  "formato": "¿Por qué SIEMPRE…? + truco útil",
+  "categoria": "cuerpo / clima",
+  "tendencia": "ola de frío y frentes fríos en México esta semana (frío del 9 al 13 de noviembre; pronóstico de ocho frentes fríos en noviembre)",
+  "disparadores": [
+   "eres tú (todos lo han vivido)",
+   "truco útil (abrígate y toma agua)",
+   "temporada de frío",
+   "mándaselo a quien con el primer frío ya anda buscando baño"
+  ],
+  "duracion": "29.2 s (22.6 s de contenido)",
+  "mejora": "papel_pm.js: bocas intercambiables del chibi (p.boca), A.preocupa (cejas), A.tiembla, PM.bufanda, PM.copos, PM.lupa, PM.formaRinon/formaVejiga y astro({forma})",
+  "archivo": "shorts/2026-11-12-2130-pipi-frio.mp4",
+  "titulo": "¿Por qué con frío SIEMPRE te dan ganas de ir al baño? 🥶 #shorts"
  }
 ]
