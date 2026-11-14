@@ -613,3 +613,31 @@ Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución en la 
 | Resto | ver tabla 20:50 | | | sin cambios medibles |
 
 **Conclusión:** sin datos nuevos; hace falta una revisión con YouTube Studio para saber si la panza entró al feed y si picante/nadar siguen atascados.
+
+## 2026-11-14 23:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (12 y 13-nov).
+
+**Buffer: sin errores en las 48 h revisadas.** Los 6 shorts (3 del 12-nov y 3 del 13-nov) se publicaron en YouTube y TikTok con estado `sent`. Sin errores.
+
+| Short | Publicado (MX) | Buffer | Duración | ≤30s | Tema | Gancho |
+|---|---|---|---|---|---|---|
+| Perro ladea cabeza | 12-nov 13:30 | ✓ sent | 29.8 s | ✓ | mascotas | concreto ✓ |
+| Plutón ya no es planeta | 12-nov 18:00 | ✓ sent | 29.8 s | ✓ | espacio | concreto ✓ |
+| Frío y ganas de ir al baño | 12-nov 21:30 | ✓ sent | 29.2 s | ✓ | cuerpo/clima | concreto ✓ |
+| Precios terminan en 99 (Buen Fin) | 13-nov 13:30 | ✓ sent | 29.5 s | ✓ | mente/compras | concreto ✓ |
+| Labios partidos en frío | 13-nov 18:00 | ✓ sent | 29.4 s | ✓ | cuerpo/clima | concreto ✓ |
+| Viernes 13 / Martes 13 | 13-nov 21:30 | ✓ sent | 28.7 s | ✓ | mito/cultura MX | concreto ✓ |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Alerta:** No hay ningún short programado en Buffer para el 14-nov (13:30, 18:00 y 21:30 sin post). Si hoy no se producen shorts, se rompe la racha de publicación diaria.
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 6/6 ✓ (rango 28.7–29.8 s).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: OK para 12–13 nov (solo 1 de mascotas en 6 shorts: perro cabeza).
+- Patrón nuevo detectado: dos shorts seguidos de temporada (frío/pipi el 12 y labios/frío el 13) + Buen Fin el 13 = contenido muy anclado a tendencia de esta semana; "Viernes 13" fue el más oportuno (hoy era viernes 13).
+
+**Conclusión:** Buffer funcionando bien; todos los shorts cumplen las reglas. Sin números reales no se detectan atascos. Prioridad: programar los 3 shorts del 14-nov en Buffer.
