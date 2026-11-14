@@ -410,5 +410,19 @@ export function kitPM(P, THREE, group) {
     pz(F.rect(.16, .34, .05), c, [0, 0, 0], g, { tinta: .014, papel: .04 }); det(F.rect(.16, .07, .02), 0xffffff, [0, .02, .03], g);
     pz(F.rect(.12, .12, .04), 0xff8fa6, [0, .23, -.01], g, { tinta: .012, papel: .03 }); det(F.rect(.025, .1, .01), 0xffffff, [-.03, .23, .02], g);
     g.tapa = pz(F.rect(.17, .16, .05), osc(c, .85), [0, .25, .04], g, { tinta: .014, papel: .04 }); return g; }
-  return { labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- calendario de pared (13-nov-2026 21:30, short del viernes 13) ----
+  // hoja de calendario de cartulina con espiral arriba, encabezado de color con el día y número grande.
+  // o: {w, h, color (encabezado), fondo, tinta, numColor}. g.texto(dia, num) cambia lo impreso (úsalo a la mitad de una vuelta con scale.x = |cos|); g.columpia(t, amp)
+  function calendario(pos, dia, num, o = {}, parent = null) {
+    const g = group(pos, parent), w = o.w ?? 1.1, hh = o.h ?? 1.25, cab = hh * .27, col = o.color ?? 0xff6b5b, fon = o.fondo ?? 0xfff8ec;
+    pz(F.rect(w, hh, .06), fon, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    pz(F.rect(w - .06, cab, .03), col, [0, hh / 2 - cab / 2 - .03, .016], g, { tinta: false, papel: false });
+    for (let i = 0; i < 5; i++) { const x = -w * .36 + i * w * .18; det(F.circ(.035), INK, [x, hh / 2 - .07, .03], g); pz(F.rect(.035, .16, .017), 0xb9bfcc, [x, hh / 2 + .01, .045], g, { tinta: .008, papel: false }); }
+    const mk = (txt, ww, h2, f, ti, y) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(ww, h2), new THREE.MeshStandardMaterial({ map: textoTx(txt, ww, h2, f, ti), roughness: 1, metalness: 0 })); m.position.set(0, y, .04); m.receiveShadow = true; g.add(m); return m; };
+    const md = mk(dia, w - .2, cab * .62, col, o.tintaCab ?? '#ffffff', hh / 2 - cab / 2 - .05);
+    const mn = mk(String(num), w - .2, hh - cab - .2, fon, o.numColor ?? '#1f1b2e', -cab / 2 - .02);
+    const cambia = (m, txt, ww, h2, f, ti) => { m.material.map.dispose(); m.material.map = textoTx(txt, ww, h2, f, ti); m.material.needsUpdate = true; };
+    g.texto = (d2, n2) => { cambia(md, d2, w - .2, cab * .62, col, o.tintaCab ?? '#ffffff'); if (n2 !== undefined) cambia(mn, String(n2), w - .2, hh - cab - .2, fon, o.numColor ?? '#1f1b2e'); };
+    g.columpia = (t, amp = .04) => g.rotation.z = Math.sin(t * 2.4) * amp; return g; }
+  return { calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

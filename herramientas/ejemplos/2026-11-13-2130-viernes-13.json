@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-13-2130-viernes-13",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Hoy es viernes trece y sientes que todo te sale mal?"]},
+  {"tipo": "martes", "titulo": "", "frases": ["En México, el de mala suerte es el martes trece: ni te cases ni te embarques."]},
+  {"tipo": "cine", "titulo": "", "frases": ["El viernes trece se hizo famoso por las películas de terror de Estados Unidos."]},
+  {"tipo": "estudio", "titulo": "", "frases": ["Y en Países Bajos, ese día hubo menos choques que un viernes normal."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Es tu cerebro: si esperas lo malo, lo ves. Mándaselo a tu amigo supersticioso."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
