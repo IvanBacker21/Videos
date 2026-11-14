@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-14-1330-arenero",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Nos preguntaron: ¿por qué los gatos usan arenero y los perros no?"
+   ]
+  },
+  {
+   "tipo": "gato",
+   "titulo": "",
+   "frases": [
+    "El gato viene de un gato del desierto: tapa todo con arena para esconder su olor."
+   ]
+  },
+  {
+   "tipo": "perro",
+   "titulo": "",
+   "frases": [
+    "El perro viene del lobo, que no esconde su olor: lo usa para dejar mensajes."
+   ]
+  },
+  {
+   "tipo": "rasca",
+   "titulo": "",
+   "frases": [
+    "Y cuando tu perro rasca con las patas de atrás, no tapa: esparce su olor."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Con premios, sí aprende a usar un tapete. Mándaselo a quien tiene perro y gato."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

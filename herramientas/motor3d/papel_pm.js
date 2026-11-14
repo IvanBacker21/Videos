@@ -424,5 +424,40 @@ export function kitPM(P, THREE, group) {
     const cambia = (m, txt, ww, h2, f, ti) => { m.material.map.dispose(); m.material.map = textoTx(txt, ww, h2, f, ti); m.material.needsUpdate = true; };
     g.texto = (d2, n2) => { cambia(md, d2, w - .2, cab * .62, col, o.tintaCab ?? '#ffffff'); if (n2 !== undefined) cambia(mn, String(n2), w - .2, hh - cab - .2, fon, o.numColor ?? '#1f1b2e'); };
     g.columpia = (t, amp = .04) => g.rotation.z = Math.sin(t * 2.4) * amp; return g; }
-  return { calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+
+  // ---- arenero, tierrita y olor (14-nov-2026 13:30, short del arenero) ----
+  // PM.arenero(pos, o): arenero de cartulina visto de frente (charola con arena en montoncito y huellita). o: {w, color, arena}
+  // g.topY = altura de la arena (para parar al gato encima: y = pos.y + g.topY - .05); g.frente se puede ocultar.
+  function arenero(pos, o = {}) { const g = group(pos), w = o.w ?? 1.7, col = o.color ?? 0x2ec4a6, ar = o.arena ?? 0xf1d59a;
+    pz(F.rect(w * .96, .14, .05), osc(col, .78), [0, .36, -.16], g, { tinta: .016, papel: .06 });                                             // borde de atrás
+    pz(blob([[-w * .46, .26], [-w * .3, .42], [-w * .1, .47], [w * .12, .46], [w * .32, .41], [w * .46, .26]]), ar, [0, 0, -.08], g, { tinta: .014, papel: false });   // arena
+    for (const [x, y] of [[-.42, .36], [-.12, .41], [.18, .4], [.44, .34], [-.28, .3], [.3, .3]]) det(F.circ(.022), osc(ar, .8), [x * w / 1.7, y, -.06], g);
+    g.frente = pz(F.poly([[-w / 2, .4], [w / 2, .4], [w / 2 - .08, 0], [-w / 2 + .08, 0]]), col, [0, 0, .06], g, { tinta: .018, papel: .07 });
+    det(F.rect(w * .82, .035, .015), osc(col, 1.18), [0, .33, .016], g.frente);
+    const hu = group([w * .28, .17, .018], g.frente); det(F.elipse(.07, .055), 0xffffff, [0, -.03, 0], hu); for (const [x, y] of [[-.07, .05], [-.025, .08], [.025, .08], [.07, .05]]) det(F.circ(.025), 0xffffff, [x, y, 0], hu);
+    g.topY = .45; sombraPiso(g, w * .45); return g; }
+  // PM.tierrita(pos, color, n, padre): granitos (arena, tierra, pasto) que salen disparados en arco. g.update(t, on, dir = 1, alto = .55, largo = .8)
+  function tierrita(pos, color = 0xf1d59a, n = 9, parent = null) { const g = group(pos, parent);
+    g.gr = Array.from({ length: n }, (_, i) => { const c = pz(i % 3 === 2 ? F.rect(.05, .1, .02) : F.circ(.035 + (i % 3) * .012), i % 4 === 3 ? osc(color, .8) : color, [0, 0, .1], g, { tinta: .01, papel: .025 }); c.visible = false; return c; });
+    g.update = (t, on = 1, dir = 1, alto = .55, largo = .8) => g.gr.forEach((c, i) => { const k = (t * 1.7 + i / n) % 1; c.visible = on > 0 && k < .92;
+      c.position.set(dir * k * largo * (.55 + (i % 4) * .15), Math.sin(k * Math.PI) * alto * (.6 + (i % 3) * .2) - k * .12, .1); c.rotation.z = k * 6 + i; c.scale.setScalar(on * (1 - k * .5)); });
+    return g; }
+  // PM.olor(pos, color, padre): nubecitas de olor de cartulina que suben ondulando y se desvanecen. g.update(t, on, deriva)
+  function olor(pos, color = 0xc7e88a, parent = null) { const g = group(pos, parent);
+    g.nb = [0, 1, 2].map(i => { const c = pz(F.nube(.3), color, [0, 0, .1], g, { tinta: .012, papel: .04 }); for (const dx of [-.08, .08]) linea([[dx, .02], [dx + .03, .07]], .012, osc(color, .7), c, .016); c.visible = false; return c; });
+    g.update = (t, on = 1, deriva = 0) => g.nb.forEach((c, i) => { const k = (t * .55 + i / 3) % 1; c.visible = on > 0;
+      c.position.set(Math.sin(k * 7 + i * 2) * .12 + deriva * k + (i - 1) * .18, k * .9, .1); c.scale.setScalar(on * Math.sin(Math.min(1, k * 1.15) * Math.PI) * .95 + .02); });
+    return g; }
+  // PM.tapete(pos, o): tapete entrenador para perro (cuadro acolchado con puntadas y huellita). o: {w, color}
+  function tapete(pos, o = {}) { const g = group(pos), w = o.w ?? 1.5, col = o.color ?? 0x8fd3ff;
+    pz(F.poly([[-w / 2 + .12, .14], [w / 2 - .12, .14], [w / 2, 0], [-w / 2, 0]]), col, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    for (let i = 1; i < 4; i++) det(F.rect(.02, .1, .01), 0xffffff, [-w / 2 + i * w / 4, .07, .016], g);
+    det(F.rect(w * .9, .02, .01), 0xffffff, [0, .07, .016], g); return g; }
+  // escarbar con la patita delantera (gato de perfil): k 0→1
+  A.escarba = (g, t, k = 1) => { if (g.patas && g.patas[3]) g.patas[3].rotation.z = k * (.35 + Math.sin(t * 15) * .55); if (g.patas && g.patas[1]) g.patas[1].rotation.z = k * (.2 + Math.sin(t * 15 + Math.PI) * .35);
+    if (g.head) g.head.rotation.z = g.head.r0 - .22 * k; };
+  // rascar el piso con las patas de ATRÁS (perro de perfil, después de ir al baño): k 0→1
+  A.rasca = (g, t, k = 1) => { if (g.patas && g.patas[2]) g.patas[2].rotation.z = -k * (.35 + (.5 + .5 * Math.sin(t * 17)) * .6); if (g.patas && g.patas[0]) g.patas[0].rotation.z = -k * (.3 + (.5 + .5 * Math.sin(t * 17 + Math.PI)) * .5);
+    g.rotation.z = -.07 * k; };
+  return { arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

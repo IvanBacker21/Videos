@@ -539,5 +539,23 @@
   "mejora": "papel_pm.js: PM.calendario (hoja de calendario con día y número; g.texto cambia lo impreso a mitad de la vuelta)",
   "archivo": "shorts/2026-11-13-2130-viernes-13.mp4",
   "titulo": "¿Viernes 13 de mala suerte? En México es el MARTES 😱 #shorts"
+ },
+ {
+  "fecha": "2026-11-14",
+  "hora": "13:30",
+  "tema": "¿Por qué los gatos usan arenero y los perros no? (pedido de un seguidor: el gato viene del gato salvaje africano, de zonas de desierto, y entierra sus desechos por instinto para esconder su olor de depredadores y gatos más fuertes; el perro viene del lobo, que no esconde su olor: lo usa para marcar territorio y dejar 'mensajes'; cuando el perro rasca con las patas de atrás no está tapando: esparce su olor con las glándulas de sus patas; truco: con premios justo después, un perro sí aprende a usar un tapete). Fuentes: Live Science (Why do cats bury their poop?), PetMD (Why do dogs kick after pooping?), VCA Hospitals (Why dogs kick grass), Live Science (Why do dogs scratch the ground)",
+  "formato": "Pedido de seguidor: ¿Por qué…? comparación gato vs perro + truco",
+  "categoria": "mascotas (gatos y perros)",
+  "tendencia": "pedido de un seguidor en los comentarios (pedidos.json); mascotas = lo que más gana en TikTok",
+  "disparadores": [
+   "eres tú (tienes perro y gato en casa)",
+   "¿ves? te dije (el perro no tapa: esparce su olor)",
+   "truco útil (premio al instante para usar el tapete)",
+   "mándaselo a quien tiene perro y gato"
+  ],
+  "duracion": "29.0 s (22.3 s de contenido)",
+  "mejora": "papel_pm.js: PM.arenero, PM.tierrita, PM.olor, PM.tapete, A.escarba y A.rasca",
+  "archivo": "shorts/2026-11-14-1330-arenero.mp4",
+  "titulo": "¿Por qué los gatos SÍ usan arenero y los perros no? 🐱 #shorts"
  }
 ]
