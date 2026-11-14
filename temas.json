@@ -557,5 +557,23 @@
   "mejora": "papel_pm.js: PM.arenero, PM.tierrita, PM.olor, PM.tapete, A.escarba y A.rasca",
   "archivo": "shorts/2026-11-14-1330-arenero.mp4",
   "titulo": "¿Por qué los gatos SÍ usan arenero y los perros no? 🐱 #shorts"
+ },
+ {
+  "fecha": "2026-11-14",
+  "hora": "18:00",
+  "tema": "¿Una estrella fugaz es una estrella? (no: es una piedrita del espacio, casi del tamaño de un grano de arena, que entra al aire rapidísimo, se calienta tanto que brilla y se deshace; la próxima semana llegan las Leónidas (máximo cerca del 17 de noviembre); truco: búscalas después de medianoche y lejos de las luces de la ciudad). Fuentes: NASA (Meteors & Meteorites), Caltech Cool Cosmos (How big are the pieces in meteor showers?), Space.com (Meteors and meteor showers), Uno TV y N+ (Leónidas desde México)",
+  "formato": "Mito o realidad + truco para verlas",
+  "categoria": "espacio / cielo nocturno",
+  "tendencia": "lluvia de estrellas Leónidas de la próxima semana (noviembre 2026), noticia en medios mexicanos",
+  "disparadores": [
+   "¿ves? te dije (no es una estrella)",
+   "eres tú (todos le hemos pedido un deseo)",
+   "truco útil (después de medianoche, lejos de las luces)",
+   "mándaselo a quien todavía pide deseos"
+  ],
+  "duracion": "28.9 s (22.3 s de contenido)",
+  "mejora": "papel_pm.js: PM.meteoro (piedrita con carita, fuego y estela; arde/titila)",
+  "archivo": "shorts/2026-11-14-1800-estrella-fugaz.mp4",
+  "titulo": "¿La estrella fugaz NO es una estrella? 🌠 #shorts"
  }
 ]

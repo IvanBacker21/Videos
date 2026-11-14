@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-14-1800-estrella-fugaz",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Le has pedido un deseo a una estrella fugaz? Mala noticia: no es una estrella."]},
+  {"tipo": "piedrita", "titulo": "", "frases": ["Es una piedrita del espacio, casi como un grano de arena."]},
+  {"tipo": "brilla", "titulo": "", "frases": ["Entra al aire rapidísimo, se calienta tanto que brilla, y se deshace."]},
+  {"tipo": "leonidas", "titulo": "", "frases": ["Y la próxima semana llegan las Leónidas. Truco: búscalas después de medianoche, lejos de las luces."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien todavía le pide deseos a las estrellas."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}

@@ -459,5 +459,16 @@ export function kitPM(P, THREE, group) {
   // rascar el piso con las patas de ATRÁS (perro de perfil, después de ir al baño): k 0→1
   A.rasca = (g, t, k = 1) => { if (g.patas && g.patas[2]) g.patas[2].rotation.z = -k * (.35 + (.5 + .5 * Math.sin(t * 17)) * .6); if (g.patas && g.patas[0]) g.patas[0].rotation.z = -k * (.3 + (.5 + .5 * Math.sin(t * 17 + Math.PI)) * .5);
     g.rotation.z = -.07 * k; };
-  return { arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // PM.meteoro(pos, r, o): piedrita espacial (estrella fugaz) de cartulina con carita, fuego y estela. Viaja hacia +x local (rota el grupo).
+  //   g.arde(k 0→1): fuego y estela crecen; g.roca = astro con carita (cara/parpadea); g.titila(t) hace temblar el fuego. o: {L (largo de estela), cara, color}
+  function meteoro(pos, r = .25, o = {}) { const g = group(pos); const L = o.L ?? 1.6;
+    g.estela = group([0, 0, -.12], g);
+    pz(F.poly([[0, r * .95], [-L * .35, r * .55], [-L, 0], [-L * .35, -r * .55], [0, -r * .95]]), 0xffc83d, [0, 0, 0], g.estela, { tinta: .014, papel: .05 });
+    det(F.poly([[0, r * .55], [-L * .5, r * .2], [-L * .8, 0], [-L * .5, -r * .2], [0, -r * .55]]), 0xfff6c0, [0, 0, .016], g.estela);
+    g.fuego = group([0, 0, -.06], g); pz(F.estrella(11, r * 1.45, r * 1.12), 0xff8a3d, [0, 0, 0], g.fuego, { tinta: .014, papel: .05 }); det(F.estrella(11, r * 1.2, r * .98), 0xffc83d, [0, 0, .016], g.fuego);
+    g.roca = astro([0, 0, 0], r, o.color ?? 0x9a8f86, { irregular: true, semilla: o.semilla ?? 5, sombra: 0x7a7068, cara: o.cara ?? true, papel: .05 }); g.add(g.roca); g.roca.position.set(0, 0, .02);
+    g.arde = (k = 1) => { const a = Math.max(.001, k); g.fuego.scale.setScalar(a); g.estela.scale.set(a, Math.max(.001, .4 + .6 * k), 1); g.fuego.visible = g.estela.visible = k > .01; };
+    g.titila = t => { g.fuego.rotation.z = t * 4; g.fuego.children.forEach((c, i) => c.scale.setScalar(1 + Math.sin(t * 20 + i) * .05)); };
+    g.arde(o.arde ?? 1); return g; }
+  return { meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
