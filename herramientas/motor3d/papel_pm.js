@@ -504,5 +504,87 @@ export function kitPM(P, THREE, group) {
       pz(F.elipse(.09, .07), c, [0, 0, 0], g, { tinta: .012, papel: .03, rot: .3 }); pz(F.rect(.03, .3, .01), c, [.075, .15, .002], g, { tinta: .01, papel: .03 });
       if (i % 2) pz(F.poly([[.06, .3], [.2, .2], [.2, .14], [.06, .22]]), c, [0, 0, .003], g, { tinta: .01, papel: .03 }); g.i = i; ns.push(g); }
     return { ns, update(t, on = 1) { ns.forEach(g => { const k = (t * .45 + g.i / n) % 1; g.visible = on > 0 && k > .02 && k < .98; g.position.set((o.x ?? 0) + (g.i / Math.max(1, n - 1) - .5) * (o.ancho ?? 1) + Math.sin(t * 2 + g.i) * .08, (o.y ?? 1.5) + k * (o.alto ?? .8), .7); g.rotation.z = Math.sin(t * 3 + g.i) * .2; g.scale.setScalar(Math.sin(k * Math.PI) * .9 + .05); }); } }; }
-  return { pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= RECÁMARA Y SUEÑO (15-nov 18:00, short de dormir de más) =================
+  // CUARTO interior: pared con zoclo, piso de duela, ventana con cortinas y cuadrito. o: {pared, piso, ventana:[x,y], noche, sinVentana}
+  //   devuelve { ventana, update(t) }; ventana.abre(k 0→1) corre las cortinas y prende el sol/rayos (de día).
+  function cuarto(o = {}) {
+    const PAR = o.pared ?? 0xf6d7b8, PIS = o.piso ?? 0xc98f5e;
+    pz(F.rect(30, 30, 0), PAR, [0, 15, -3], null, { tinta: false, papel: false });
+    for (let i = -12; i <= 12; i++) det(F.rect(.05, 30, 0), osc(PAR, .965), [i * .55, 15, -2.99]);           // rayitas del tapiz
+    pz(F.rect(30, .16, 0), 0xffffff, [0, .08, -2.97], null, { tinta: false, papel: false });                   // zoclo
+    pz(F.rect(30, 6, 0), PIS, [0, -3, -1.7], null, { tinta: false, papel: false });                           // piso
+    for (let i = -14; i < 14; i++) { det(F.rect(.025, 6, 0), osc(PIS, .82), [i * .5, -3, -1.69]); det(F.rect(.5, .02, 0), osc(PIS, .86), [i * .5 + .25, -.6 - (i & 1) * .5, -1.68]); }
+    // cuadrito con montañas
+    const cu = group(o.cuadro ?? [1.35, 1.7, -2.6]); pz(F.rect(.62, .5, .03), 0xff6b5b, [0, 0, 0], cu, { tinta: .014, papel: .04 }); pz(F.rect(.5, .38, .02), 0xbfe3f5, [0, 0, .016], cu, { tinta: false, papel: false });
+    det(F.poly([[-.25, -.19], [-.06, .08], [.08, -.06], [.16, .02], [.25, -.19]]), 0x2ec4a6, [0, 0, .03], cu); det(F.circ(.05), 0xffc83d, [.14, .1, .03], cu);
+    let ventana = null;
+    if (!o.sinVentana) { const v = ventana = group(o.ventana ? [...o.ventana, -2.5] : [-1.0, 1.75, -2.5]); const W = o.vw ?? 1.1, H = o.vh ?? 1.05;
+      pz(F.rect(W + .14, H + .14, .04), 0xffffff, [0, 0, 0], v, { tinta: .016, papel: .05 });
+      const cielo = pz(F.rect(W, H, .02), o.noche ? 0x2a3270 : 0x8fd3ff, [0, 0, .016], v, { tinta: false, papel: false });
+      v.astro = group([W * .18, H * .14, .03], v);
+      if (o.noche) { pz(F.circ(.17), 0xfff2a8, [0, 0, 0], v.astro, { tinta: .01, papel: false }); det(F.circ(.15), 0x2a3270, [.08, .05, .004], v.astro); for (const [x, y] of [[-.35, .3], [-.2, -.25], [.3, -.3]]) det(F.estrella(5, .05, .022), 0xffffff, [x - W * .18, y, .01], v.astro); }
+      else { v.rayos = pz(F.estrella(12, .3, .21), 0xffa53d, [0, 0, 0], v.astro, { tinta: .01, papel: false }); pz(F.circ(.19), 0xffd640, [0, 0, .01], v.astro, { tinta: .01, papel: false });
+        det(F.nube(.22), 0xffffff, [-W * .38, -H * .2, .02], v); }
+      pz(F.rect(.05, H, 0), 0xffffff, [0, 0, .04], v, { tinta: .01, papel: false }); pz(F.rect(W, .05, 0), 0xffffff, [0, 0, .045], v, { tinta: .01, papel: false });
+      pz(F.rect(W + .5, .09, .04), 0x8a6a4a, [0, H / 2 + .14, .07], v, { tinta: .012, papel: .03 });                         // barra
+      const col = o.cortina ?? 0x7b5cff; v.cort = [-1, 1].map(sx => { const c = group([sx * W * .25, .02, .09], v); pz(F.rect(W * .54, H + .2, .03), col, [0, 0, 0], c, { tinta: .014, papel: .04 });
+        for (const x of [-.16, 0, .16]) det(F.rect(.035, H + .15, .01), osc(col, .82), [x * W * .9, 0, .016], c); c.sx = sx; return c; });
+      // haz de luz que entra (solo de día)
+      v.haz = det(F.poly([[-W * .45, -H * .5], [W * .45, -H * .5], [W * 1.4, -H * 2.3], [-W * .2, -H * 2.3]]), 0xfff2b0, [0, 0, .5], v); v.haz.children[0].material = v.haz.children[0].material.clone(); v.haz.children[0].material.transparent = true; v.haz.children[0].material.depthWrite = false;
+      v.abre = (k, t = 0) => { v.cort.forEach(c => { c.position.x = c.sx * W * (.25 + .5 * k); c.scale.x = 1 - .45 * k; });
+        v.haz.visible = !o.noche && k > .05; v.haz.children[0].material.opacity = .35 * k;
+        if (v.rayos) { v.rayos.rotation.z = t * .6; v.astro.scale.setScalar(.6 + .4 * k); } };
+      v.abre(o.abierta ?? 0); }
+    return { ventana, update(t) { if (ventana?.rayos) ventana.rayos.rotation.z = t * .6; } };
+  }
+  // CAMA de lado (cabecera a la izquierda). o: {w, color (cobija), cabecera}. g.cobija (se puede bajar), g.topY = colchón.
+  function cama(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? 2.6, cab = o.cabecera ?? 0x8a5a3a, col = o.color ?? 0x2ec4a6;
+    pz(F.rect(.16, 1.35, .05), cab, [-w / 2 - .02, .67, -.25], g, { tinta: .016, papel: .05 });                  // cabecera
+    pz(F.rect(.14, .7, .05), cab, [w / 2 + .02, .35, -.25], g, { tinta: .016, papel: .05 });                     // piecera
+    pz(F.rect(w, .2, .04), osc(cab, 1.1), [0, .32, -.24], g, { tinta: .014, papel: .04 });                        // base
+    pz(F.rect(w - .05, .26, .08), 0xffffff, [0, .54, -.22], g, { tinta: .014, papel: .04 });                     // colchón
+    for (const sx of [-1, 1]) pz(F.rect(.1, .22, .03), cab, [sx * (w / 2 - .15), .12, -.23], g, { tinta: .012, papel: .03 });   // patas
+    g.almohada = pz(blob([[-.32, -.12], [-.36, .05], [-.22, .16], [.22, .16], [.36, .05], [.32, -.12], [0, -.16]]), 0xfff6e0, [-w / 2 + .45, .78, -.2], g, { tinta: .014, papel: .04 });
+    g.cobija = group([w * .12, .62, .35], g);   // EN FRENTE del chibi acostado
+    pz(blob([[-w * .36, .28], [w * .38, .26], [w * .42, -.28], [-w * .38, -.3]]), col, [0, 0, 0], g.cobija, { tinta: .016, papel: .05 });
+    for (let i = 0; i < 4; i++) det(F.rect(.07, .52, .01), osc(col, .8), [-w * .26 + i * w * .19, 0, .016], g.cobija);
+    det(F.rect(w * .76, .07, .01), 0xffffff, [0, .2, .018], g.cobija);
+    g.topY = .67; return g; }
+  // acuesta a un chibi en una cama: devuelve un pivote en la cadera; piv.sienta(k) 0 = acostado, 1 = sentado. El chibi conserva sus métodos.
+  function acuesta(p, c, x = -.25) { const es = p.es ?? 1, piv = group([x, c.topY + .05, .0], c); piv.add(p); p.position.set(0, -.55 * es, 0);
+    piv.sienta = k => { piv.rotation.z = Math.PI / 2 * (1 - k) * 1.0; piv.position.y = c.topY + .05 + .12 * (1 - k); piv.position.x = x + (1 - k) * .1; }; piv.sienta(0); return piv; }
+  // ojos: k = 1 abiertos, .45 adormilado, .1 cerrados (respeta el parpadeo si se llama después de A.parpadea con Math.min)
+  const ojos = (p, k) => (p.head?.ojos ?? []).forEach(e => e.scale.y = Math.min(e.scale.y, k));
+  // DESPERTADOR de cartulina con campanitas: g.hora(h), g.suena(t, k) (tiembla y salen rayitas)
+  function despertador(pos, r = .45, o = {}, parent = null) { const g = group(pos, parent), col = o.color ?? 0xff6b5b;
+    g.cuerpo = group([0, 0, 0], g);
+    for (const sx of [-1, 1]) { pz(F.circ(r * .32), 0xffc83d, [sx * r * .62, r * .82, -.05], g.cuerpo, { tinta: .014, papel: .04 }); pz(F.rect(.06, r * .5, .02), INK, [sx * r * .55, -r * .95, -.05], g.cuerpo, { tinta: false, papel: .03, rot: sx * .4 }); }
+    pz(F.circ(r), col, [0, 0, 0], g.cuerpo, { tinta: .018, papel: .06 }); pz(F.circ(r * .8), 0xfffaf0, [0, 0, .016], g.cuerpo, { tinta: .01, papel: false });
+    for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2; det(F.rect(k % 3 ? .025 : .045, k % 3 ? .06 : .1, .01), INK, [Math.sin(a) * r * .66, Math.cos(a) * r * .66, .03], g.cuerpo, -a); }
+    const mano = (L, w) => { const m = group([0, 0, .045], g.cuerpo); det(F.rect(w, L, w / 2), INK, [0, L / 2 - .03, 0], m); return m; };
+    g.hor = mano(r * .38, .06); g.min = mano(r * .56, .04); det(F.circ(.04), col, [0, 0, .06], g.cuerpo);
+    g.rayas = [-1, 1].map(sx => { const ry = group([sx * r * 1.25, r * .55, .05], g); [0, 1, 2].forEach(i => det(F.rect(.05, .2, .02), 0xffc83d, [sx * i * .02, (i - 1) * .2, 0], ry, sx * (i - 1) * -.5)); ry.visible = false; return ry; });
+    g.hora = h => { g.hor.rotation.z = -(h % 12) / 12 * Math.PI * 2; g.min.rotation.z = -(h % 1) * Math.PI * 2; };
+    g.suena = (t, k) => { g.cuerpo.rotation.z = Math.sin(t * 50) * .12 * k; g.cuerpo.position.y = Math.abs(Math.sin(t * 25)) * .04 * k; g.rayas.forEach(ry => { ry.visible = k > .1; ry.scale.setScalar(.8 + .3 * Math.abs(Math.sin(t * 12))); }); };
+    g.hora(o.h ?? 7); return g; }
+  // FOCO de idea / cerebro que se prende: g.prende(k 0→1, t) (gris → amarillo con rayitos)
+  function foco(pos, r = .35, parent = null) { const g = group(pos, parent);
+    g.rayos = group([0, r * .15, -.06], g); for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; pz(F.rect(.06, r * .4, .03), 0xffc83d, [Math.cos(a) * r * 1.45, Math.sin(a) * r * 1.45, 0], g.rayos, { tinta: .01, papel: false, rot: a - Math.PI / 2 }); }
+    g.on = pz(F.circ(r), 0xffe066, [0, r * .15, 0], g, { tinta: .016, papel: .05 }); g.off = pz(F.circ(r), 0xc9c6d6, [0, r * .15, .005], g, { tinta: .016, papel: .05 });
+    det(F.arco(r * .6, .04, 2.1, 2.9), 0xffffff, [0, r * .15, .03], g);
+    pz(F.rect(r * .8, r * .55, .04), 0x9aa0b4, [0, -r * .95, -.01], g, { tinta: .014, papel: .04 }); for (const y of [-.85, -1.05]) det(F.rect(r * .8, .025, .01), 0x6a7088, [0, r * y, .02], g);
+    g.prende = (k, t = 0) => { g.off.visible = k < .5; g.on.visible = k >= .5; g.rayos.visible = k >= .5; g.rayos.scale.setScalar(.7 + .3 * Math.abs(Math.sin(t * 5))); };
+    g.prende(0); return g; }
+  // CEREBRO de cartulina con carita (astro rosa con pliegues): usa g.cara(), g.head con A.parpadea
+  function cerebro(pos, r = .5, o = {}) { const g = astro(pos, r, o.color ?? 0xffa3b8, { forma: blob([[-r * 1.15, -r * .1], [-r * 1.05, r * .5], [-r * .5, r * .9], [r * .2, r * .92], [r * .85, r * .65], [r * 1.15, r * .05], [r * .95, -r * .55], [r * .3, -r * .75], [-r * .6, -r * .7]]), cara: o.cara ?? true, expr: o.expr });
+    for (const [x, y, a] of [[-.7, .45, .3], [.0, .62, 1.2], [.65, .35, 2.2], [-.8, -.25, 4.8], [.75, -.3, 5.4]]) det(F.arco(r * .2, .03, a, a + 2.4), osc(o.color ?? 0xffa3b8, .75), [x * r, y * r, .016], g.cuerpo);
+    return g; }
+  // AVIONCITO de papel (viaje, mensaje): mira a +x
+  function avion(pos, s = 1, parent = null) { const g = group(pos, parent); g.scale.setScalar(s);
+    pz(F.poly([[-.5, .05], [.5, 0], [-.35, -.22]]), 0xffffff, [0, 0, 0], g, { tinta: .014, papel: .04 }); det(F.poly([[-.5, .05], [.5, 0], [-.2, .2]]), 0xdfe6f2, [0, 0, .016], g); return g; }
+  // TIERRA de cartulina con continentes (sin carita por defecto)
+  function tierra(pos, r = .8, o = {}) { const g = astro(pos, r, 0x4aa8ff, { cara: o.cara ?? false, sombra: 0x3a8ae0 });
+    g.mapa = group([0, 0, .02], g.cuerpo); for (const [x, y, k] of [[-.4, .35, .38], [.35, .1, .3], [-.1, -.45, .28], [.55, -.45, .18]]) det(blob([[-k, 0], [-k * .6, k * .7], [k * .2, k * .8], [k, k * .1], [k * .5, -k * .7], [-k * .5, -k * .6]].map(([a, b]) => [a * r, b * r])), 0x3fbf6a, [x * r, y * r, 0], g.mapa);
+    return g; }
+  return { cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

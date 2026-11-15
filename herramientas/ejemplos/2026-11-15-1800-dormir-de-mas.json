@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-15-1800-dormir-de-mas",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué si duermes de más en el puente, despiertas más cansado?"]},
+  {"tipo": "reloj", "titulo": "", "frases": ["Tu cuerpo tiene un reloj que espera despertar a la misma hora."]},
+  {"tipo": "viaje", "titulo": "", "frases": ["Si te levantas tres horas tarde, es como viajar a otro país sin salir de tu cama."]},
+  {"tipo": "profundo", "titulo": "", "frases": ["Y si despiertas en sueño profundo, tu cerebro tarda en prenderse."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Truco: levántate a tu hora y abre la cortina. Mándaselo al que duerme hasta mediodía."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}

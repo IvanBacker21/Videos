@@ -593,5 +593,23 @@
   "mejora": "papel_pm.js: PM.pielChinita (corte de piel con pelito y músculo que se eriza), PM.pelaje (antepasado peludo que se esponja con aire calientito), PM.notas (notas musicales flotando)",
   "archivo": "shorts/2026-11-15-1330-piel-chinita.mp4",
   "titulo": "¿Por qué con el frío SIEMPRE se te pone la piel chinita? 🥶 #shorts"
+ },
+ {
+  "fecha": "2026-11-15",
+  "hora": "18:00",
+  "tema": "¿Por qué si duermes de más en el puente despiertas MÁS cansado? (tu cuerpo tiene un reloj interno que espera despertar a la misma hora; levantarte tres horas tarde es como viajar a otro país sin salir de la cama: 'jet lag social'; y si la alarma o la luz te despiertan en sueño profundo, el cerebro tarda en 'prenderse' (inercia del sueño); truco: levántate a tu hora de siempre y abre la cortina para que te dé el sol). Fuentes: Cleveland Clinic (Sleep inertia), Sleep.com (Social jetlag), Sleep Cycle (Social jetlag)",
+  "formato": "¿Por qué…? + mito ('dormir de más te descansa') + truco",
+  "categoria": "cuerpo / sueño",
+  "tendencia": "megapuente del Día de la Revolución (lunes 16-nov-2026) junto con el Buen Fin: fin de semana largo en México",
+  "disparadores": [
+   "eres tú (todos hemos despertado más cansados tras dormir de más)",
+   "lo mexicano (el puente)",
+   "¿ves? te dije (dormir de más no siempre descansa)",
+   "truco útil (misma hora + abrir la cortina)"
+  ],
+  "duracion": "29.0 s (22.4 s de contenido)",
+  "mejora": "papel_pm.js: PM.cuarto (recámara con ventana y cortinas que se abren), PM.cama + PM.acuesta (acostado→sentado), PM.ojos, PM.despertador, PM.foco, PM.cerebro, PM.avion, PM.tierra",
+  "archivo": "shorts/2026-11-15-1800-dormir-de-mas.mp4",
+  "titulo": "¿Por qué si duermes de más despiertas MÁS cansado? 😴 #shorts"
  }
 ]
