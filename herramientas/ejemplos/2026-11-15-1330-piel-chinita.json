@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-15-1330-piel-chinita",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué con el frío siempre se te pone la piel chinita?"
+   ]
+  },
+  {
+   "tipo": "musculo",
+   "titulo": "",
+   "frases": [
+    "Junto a cada pelito hay un músculo diminuto: con el frío se encoge, para el pelito y sale un bultito."
+   ]
+  },
+  {
+   "tipo": "peludo",
+   "titulo": "",
+   "frases": [
+    "Es herencia de antepasados peludos: el pelo parado atrapaba aire calientito, como un suéter."
+   ]
+  },
+  {
+   "tipo": "emocion",
+   "titulo": "",
+   "frases": [
+    "Ya casi no tenemos pelo, así que no sirve. Y también pasa con una emoción fuerte."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al que se pone chinito con el himno."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

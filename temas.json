@@ -575,5 +575,23 @@
   "mejora": "papel_pm.js: PM.meteoro (piedrita con carita, fuego y estela; arde/titila)",
   "archivo": "shorts/2026-11-14-1800-estrella-fugaz.mp4",
   "titulo": "¿La estrella fugaz NO es una estrella? 🌠 #shorts"
+ },
+ {
+  "fecha": "2026-11-15",
+  "hora": "13:30",
+  "tema": "¿Por qué con el frío SIEMPRE se te pone la piel chinita? (junto a cada pelito hay un músculo diminuto, el erector del pelo; con el frío se encoge, para el pelito y levanta un bultito; es herencia de antepasados peludos: el pelo parado atrapaba aire calientito como un suéter; nosotros ya casi no tenemos pelo, así que no calienta; también pasa con una emoción fuerte (adrenalina), como con el himno o una canción). Fuentes: Live Science (Why do we get goosebumps?), Popular Science (Why you get goosebumps when you're scared—or inspired)",
+  "formato": "¿Por qué SIEMPRE…? + herencia evolutiva",
+  "categoria": "cuerpo / clima",
+  "tendencia": "fin de semana helado: frente frío y masa de aire ártico en CDMX y varios estados (Uno TV, noviembre 2026)",
+  "disparadores": [
+   "eres tú (a todos se nos pone la piel chinita)",
+   "lo mexicano (chinito con el himno)",
+   "sorpresa (herencia de antepasados peludos)",
+   "mándaselo al que se pone chinito con el himno"
+  ],
+  "duracion": "29.8 s (23.2 s de contenido)",
+  "mejora": "papel_pm.js: PM.pielChinita (corte de piel con pelito y músculo que se eriza), PM.pelaje (antepasado peludo que se esponja con aire calientito), PM.notas (notas musicales flotando)",
+  "archivo": "shorts/2026-11-15-1330-piel-chinita.mp4",
+  "titulo": "¿Por qué con el frío SIEMPRE se te pone la piel chinita? 🥶 #shorts"
  }
 ]

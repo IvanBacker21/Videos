@@ -470,5 +470,39 @@ export function kitPM(P, THREE, group) {
     g.arde = (k = 1) => { const a = Math.max(.001, k); g.fuego.scale.setScalar(a); g.estela.scale.set(a, Math.max(.001, .4 + .6 * k), 1); g.fuego.visible = g.estela.visible = k > .01; };
     g.titila = t => { g.fuego.rotation.z = t * 4; g.fuego.children.forEach((c, i) => c.scale.setScalar(1 + Math.sin(t * 20 + i) * .05)); };
     g.arde(o.arde ?? 1); return g; }
-  return { meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+
+  // ================= PIEL CHINITA (14-nov-2026 21:30) =================
+  const lerp = (a, b, k) => a + (b - a) * k;
+  // corte de piel de cartulina para meter en una lupa: capa de piel, pelito y su musculito (erector).
+  // g.eriza(k) 0→1: el músculo se encoge (más gordo y corto), el pelito se para y sale el bultito. g.musculo / g.pelo / g.bulto para etiquetar.
+  function pielChinita(pos, s = 1, padre = null, o = {}) { const g = group(pos, padre); g.scale.setScalar(s); const piel = o.piel ?? 0xe8b48c;
+    pz(F.rect(.92, .42, .1), o.dermis ?? 0xf3c9b4, [0, -.3, 0], g, { tinta: .012, papel: false });                       // capa de adentro
+    for (const [x, y] of [[-.3, -.42], [.28, -.38], [.36, -.2], [-.36, -.2]]) det(F.circ(.025), 0xe39a8a, [x, y, .015], g);
+    g.bulto = group([0, .1, -.004], g); pz(F.elipse(.24, .17), piel, [0, 0, 0], g.bulto, { tinta: .012, papel: false });
+    pz(F.rect(1.12, .2, .05), piel, [0, .02, .002], g, { tinta: .012, papel: false });                                   // capa de arriba
+    det(F.rect(1.0, .025, .01), osc(piel, .88), [0, -.05, .016], g);
+    g.pelo = group([0, -.22, .03], g); pz(tubo([[0, 0], [.01, .25], [-.02, .5], [.02, .62]], .045, .03), o.colPelo ?? 0x3a2416, [0, 0, 0], g.pelo, { tinta: .01, papel: false });
+    det(F.elipse(.07, .09), 0xd98f7a, [0, -.23, .02], g);                                                                    // raíz
+    g.musculo = group([-.17, -.24, .035], g); pz(F.elipse(.2, .055), o.colMusculo ?? 0xff6b5b, [0, 0, 0], g.musculo, { tinta: .012, papel: false });
+    for (const x of [-.1, 0, .1]) det(F.rect(.012, .07, .005), osc(o.colMusculo ?? 0xff6b5b, .7), [x, 0, .014], g.musculo);
+    g.musculo.rotation.z = -.35;
+    g.eriza = (k) => { const e = cl01(k); g.pelo.rotation.z = lerp(-1.05, 0, e); g.bulto.scale.set(1, Math.max(.001, e), 1); g.bulto.position.y = .02 + .13 * e;
+      g.musculo.scale.set(lerp(1, .72, e), lerp(1, 1.55, e), 1); g.musculo.position.x = lerp(-.17, -.12, e); };
+    g.eriza(o.k ?? 0); return g; }
+  // pelaje de cartulina alrededor de un chibi (antepasado peludo, disfraz): mechones que se esponjan con f.eriza(k) y bolitas de aire calientito (f.aire)
+  function pelaje(p, color = 0x8a5a3a, o = {}) { const f = group([0, 0, -.02], p); const ms = []; let sm = 5; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    const pts = [[-.42, .7], [-.45, .95], [-.4, 1.2], [-.3, 1.35], [.42, .7], [.45, .95], [.4, 1.2], [.3, 1.35], [-.6, 1.65], [-.55, 1.95], [-.35, 2.15], [0, 2.22], [.35, 2.15], [.55, 1.95], [.6, 1.65], [-.25, .55], [.25, .55]];
+    for (const [x, y] of pts) { const a = Math.atan2(y - (y > 1.45 ? 1.66 : .95), x); const m = group([x, y, 0], f); m.rotation.z = a - Math.PI / 2;
+      pz(F.poly([[-.11, 0], [0, .2 + rnd() * .06], [.11, 0]]), color, [0, 0, 0], m, { tinta: .012, papel: .03 }); m.i = ms.length; ms.push(m); }
+    f.aire = [[-.62, 1.05], [.62, 1.0], [-.75, 1.85], [.75, 1.8], [0, 2.45]].map(([x, y], i) => { const b = pz(F.circ(.07), 0xffa94d, [x, y, .3], p, { tinta: .01, papel: false }); b.i = i; b.x0 = x; b.y0 = y; b.visible = false; return b; });
+    f.eriza = (k, t = 0) => { const e = cl01(k); ms.forEach(m => m.scale.set(1, .55 + .75 * e + Math.sin(t * 6 + m.i) * .04 * e, 1)); };
+    f.calienta = (k, t = 0) => f.aire.forEach(b => { b.visible = k > 0; b.scale.setScalar(Math.max(.001, cl01(k * 2 - b.i * .2)) * (1 + .12 * Math.sin(t * 4 + b.i))); b.position.set(b.x0 + Math.sin(t * 2 + b.i) * .03, b.y0 + Math.sin(t * 2.6 + b.i * 2) * .03, .3); });
+    f.eriza(o.k ?? 0); return f; }
+  // notas musicales de cartulina que suben flotando: { update(t, on) }. o: {n, x, y, ancho, alto, color}
+  function notas(o = {}) { const n = o.n ?? 4, cols = [0x7b5cff, 0xff6b5b, 0x2ec4a6, 0xffc83d]; const ns = [];
+    for (let i = 0; i < n; i++) { const g = group([0, 0, .7]); const c = o.color ?? cols[i % 4];
+      pz(F.elipse(.09, .07), c, [0, 0, 0], g, { tinta: .012, papel: .03, rot: .3 }); pz(F.rect(.03, .3, .01), c, [.075, .15, .002], g, { tinta: .01, papel: .03 });
+      if (i % 2) pz(F.poly([[.06, .3], [.2, .2], [.2, .14], [.06, .22]]), c, [0, 0, .003], g, { tinta: .01, papel: .03 }); g.i = i; ns.push(g); }
+    return { ns, update(t, on = 1) { ns.forEach(g => { const k = (t * .45 + g.i / n) % 1; g.visible = on > 0 && k > .02 && k < .98; g.position.set((o.x ?? 0) + (g.i / Math.max(1, n - 1) - .5) * (o.ancho ?? 1) + Math.sin(t * 2 + g.i) * .08, (o.y ?? 1.5) + k * (o.alto ?? .8), .7); g.rotation.z = Math.sin(t * 3 + g.i) * .2; g.scale.setScalar(Math.sin(k * Math.PI) * .9 + .05); }); } }; }
+  return { pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
