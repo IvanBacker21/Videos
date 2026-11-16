@@ -647,5 +647,23 @@
   "mejora": "papel_pm.js: PM.carro (carro de lado en corte con pasajeros sentados y llantas), PM.camino (rayitas, postes y árboles que pasan), PM.mareo (espirales y estrellitas), PM.oidoInterno (canales con líquido que se mece)",
   "archivo": "shorts/2026-11-16-1330-mareo-carro.mp4",
   "titulo": "¿Por qué te MAREAS si ves el celular en el carro? 🚗 #shorts"
+ },
+ {
+  "fecha": "2026-11-16",
+  "hora": "18:00",
+  "tema": "¿Por qué el bolillo de ayer amanece DURO como piedra? (no es solo que se seque: aunque esté en bolsa se endurece; el almidón del pan se reacomoda en cristalitos (retrogradación) y la miga se pone tiesa; en el refri pasa todavía más rápido; truco: gotitas de agua y calentarlo en el comal, el calor deshace los cristalitos). Fuentes: ScienceABC (Why chips soften but bread hardens), Foodcrumbles (How bread goes stale), Chowhound (Why the fridge should be your last choice for storing bread), IUFoST (The complexities of bread staling)",
+  "formato": "¿Por qué…? + mito + truco",
+  "categoria": "comida / casa",
+  "tendencia": "Temporada de frío (frentes fríos) = cafecito con pan dulce y bolillo; cierre del megapuente de la Revolución con pan sobrante en casa",
+  "disparadores": [
+   "eres tú (el que guarda el pan en el refri)",
+   "¿ves? te dije (mito del refri)",
+   "truco útil (comal)",
+   "lo mexicano (bolillo, comal)"
+  ],
+  "duracion": 29.4,
+  "mejora": "Kit de cocina en papel_pm.js: PM.cocina, PM.refri (puerta que se dobla), PM.pan (bolillo/concha/rebanada con duro/suave), PM.miga (cristaliza), PM.comal, PM.bolsa",
+  "archivo": "shorts/2026-11-16-1800-pan-duro.mp4",
+  "titulo": "¿Por qué el pan se pone DURO como piedra? 🥖 #shorts"
  }
 ]

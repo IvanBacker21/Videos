@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-16-1800-pan-duro",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué el bolillo de ayer amanece duro como piedra?"]},
+  {"tipo": "mito", "titulo": "", "frases": ["No es que se seque: aunque lo guardes en bolsa, se pone duro."]},
+  {"tipo": "almidon", "titulo": "", "frases": ["El almidón del pan se reacomoda en cristalitos, y la miga se pone tiesa."]},
+  {"tipo": "refri", "titulo": "", "frases": ["Y en el refri, se endurece todavía más rápido."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Truco: échale gotitas de agua y caliéntalo en el comal; el calor deshace los cristalitos. Mándaselo a quien guarda el pan en el refri."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}

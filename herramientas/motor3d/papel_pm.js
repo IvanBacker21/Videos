@@ -688,5 +688,103 @@ export function kitPM(P, THREE, group) {
     g.chapotea = (t, k = 0, dir = 1) => { canales.forEach((c, i) => c.liq.rotation.z = -Math.PI / 2 - c.rotation.z * 0 + dir * k * 1.1 + Math.sin(t * 6 + i) * .12 * (k + .2)); g.sensor.rotation.z = -dir * k * .6 + Math.sin(t * 6) * .06; };
     return g; }
 
-  return { carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- cocina y pan (16-nov-2026 18:00, short del pan duro) ----
+  // material propio (no compartido) para piezas que cambian de opacidad o color
+  const matPropio = (g, color, op = 1) => { g.traverse(m => { if (m.isMesh) { m.material = m.material.clone(); m.material.color.setHex(color); m.material.transparent = true; m.material.opacity = op; m.material.depthWrite = false; } }); return g; };
+  // COCINA de frente: pared crema, franja de azulejo talavera, barra con cubierta (g.topY) detrás del chibi, alacenas arriba y ventanita.
+  // o: {pared, barra, cubierta, azulejo, ventana:false}. Pon objetos sobre la barra en y = topY, z ≈ -1.05.
+  function cocina(o = {}) {
+    const PAR = o.pared ?? 0xfbe6c8, BAR = o.barra ?? 0x2ec4a6, CUB = o.cubierta ?? 0xf3efe6, AZ = o.azulejo ?? 0x3d6bff, topY = o.topY ?? .95;
+    pz(F.rect(30, 30, 0), PAR, [0, 15, -3], null, { tinta: false, papel: false });
+    // azulejo talavera: cuadritos blancos con florecita azul
+    for (let i = -9; i <= 9; i++) for (let j = 0; j < 3; j++) { const x = i * .42, y = topY + .28 + j * .42; const a = det(F.rect(.38, .38, .03), 0xffffff, [x, y, -2.97]); det(F.estrella(4, .13, .05), AZ, [0, 0, .006], a, Math.PI / 4); det(F.circ(.04), 0xffc83d, [0, 0, .01], a); }
+    // alacenas
+    for (const x of [-2.2, -1.1, 1.1, 2.2]) { const a = pz(F.rect(1.0, .8, .04), 0xf2a65a, [x, topY + 2.05, -2.9], null, { tinta: .016, papel: .05 }); det(F.circ(.04), 0x8a5a3a, [x > 0 ? -.38 : .38, -.25, .02], a); }
+    if (o.ventana !== false) { const v = group([0, topY + 1.95, -2.92]); pz(F.rect(1.1, .9, .04), 0xffffff, [0, 0, 0], v, { tinta: .016, papel: .05 }); pz(F.rect(.96, .76, .02), 0x8fd3ff, [0, 0, .02], v, { tinta: false, papel: false });
+      det(F.nube(.2), 0xffffff, [-.18, .12, .035], v); pz(F.rect(.04, .76, 0), 0xffffff, [0, 0, .04], v, { tinta: .01, papel: false }); }
+    // piso de mosaico
+    const piso = group([0, 0, 0]); pz(F.rect(30, 6, 0), 0xe9d3b0, [0, -3, -1.7], piso, { tinta: false, papel: false });
+    for (let i = -14; i < 14; i++) det(F.rect(.03, 6, 0), 0xd2b78f, [i * .6, -3, -1.69], piso);
+    piso.traverse(m => m.receiveShadow = false);   // sin siluetas grises gigantes de los personajes
+    // barra
+    const bar = group([0, 0, 0]); det(F.rect(30, topY, .02), BAR, [0, topY / 2, -1.25], bar);   // con radio 0 la figura ancha y baja no se triangula (sale invisible u oscura): usa radio > 0
+    for (let i = -8; i <= 8; i++) { det(F.rect(.03, topY - .2, 0), osc(BAR, .85), [i * .9, topY / 2 - .05, -1.235], bar); det(F.circ(.035), 0xffffff, [i * .9 + .45, topY - .2, -1.235], bar); }
+    bar.traverse(m => m.receiveShadow = false);
+    det(F.rect(30, .1, .02), CUB, [0, topY, -1.2], bar); det(F.rect(30, .025, .01), osc(BAR, .6), [0, topY - .06, -1.195], bar);
+    bar.traverse(m => m.receiveShadow = false);
+    return { topY, z: -1.05 }; }
+  // REFRIGERADOR de frente con puerta que abre (g.abre(k): 0 cerrado → 1 abierto, la puerta se dobla a la izquierda como cartulina);
+  // g.dentro: grupo para meter cosas en las repisas (y = .55, 1.15, 1.75 con h 2.3). o: {w, h, color}. g.frio(t, k): vaho frío que sale.
+  function refri(pos, o = {}, parent = null) { const g = group(pos, parent), W = o.w ?? 1.15, H = o.h ?? 2.3, col = o.color ?? 0xe9eef5;
+    pz(F.rect(W + .08, H + .08, .08), osc(col, .8), [0, H / 2, -.06], g, { tinta: .02, papel: .06 });                 // caja (marco)
+    pz(F.rect(W - .1, H - .1, .04), 0xcfe9ff, [0, H / 2, -.03], g, { tinta: false, papel: false });                   // interior
+    g.luz = det(F.circ(.09), 0xfff2a8, [0, H - .2, -.005], g);
+    for (const y of [.55, 1.15, 1.75]) pz(F.rect(W - .14, .05, .02), 0xffffff, [0, y - .05, 0], g, { tinta: .01, papel: false });
+    g.dentro = group([0, 0, .01], g);
+    const bis = g.puerta = group([-W / 2, 0, .06], g);
+    const pu = pz(F.rect(W, H, .08), col, [W / 2, H / 2, 0], bis, { tinta: .02, papel: .06 });
+    det(F.rect(W - .02, .03, 0), osc(col, .85), [0, H * .18, .014], pu);                                               // división congelador
+    pz(F.rect(.07, .5, .03), 0x9aa3b5, [W * .38, H * .02, .02], pu, { tinta: .01, papel: false });                     // manija
+    pz(F.rect(.07, .3, .03), 0x9aa3b5, [W * .38, H * .32, .02], pu, { tinta: .01, papel: false });
+    for (const [x, y, c] of [[-.25, .1, 0xff6b5b], [.05, -.15, 0xffc83d], [-.1, -.42, 0x7b5cff]]) det(F.circ(.07), c, [x, y, .016], pu);   // imanes
+    g.vaho = []; for (let i = 0; i < 4; i++) { const v = matPropio(det(F.nube(.22), 0xffffff, [0, 0, .3], g), 0xffffff, .0); v.f = i / 4; g.vaho.push(v); }
+    g.abre = (k) => { bis.scale.x = Math.max(.001, 1 - 1.25 * k); g.luz.visible = k > .1; };
+    g.frio = (t, k) => g.vaho.forEach(v => { const q = (t * .5 + v.f) % 1; v.visible = k > .02; v.position.set(-.1 + q * .7, H * .25 + q * 1.2 + Math.sin(t * 2 + v.f * 6) * .06, .3); v.children[0].material.opacity = k * .75 * Math.sin(q * Math.PI); v.scale.setScalar(.6 + q * .7); });
+    g.abre(0); g.frio(0, 0); return g; }
+  // PAN de cartulina con carita (PM.astro): o.tipo 'bolillo' (con greña) | 'concha' (costra de azúcar) | 'rebanada' (con miga). o: {r, cara, expr}.
+  // g.duro(k): se pone gris piedra con grietas (k 0..1); g.suave(k, t): brillito y rayitas de vapor para el pan recién calentado.
+  function pan(pos, o = {}) { const r = o.r ?? .5, tipo = o.tipo ?? 'bolillo';
+    const formas = { bolillo: blob([[-r * 1.35, 0], [-r * 1.1, r * .45], [-r * .4, r * .7], [r * .4, r * .7], [r * 1.1, r * .45], [r * 1.35, 0], [r * 1.05, -r * .42], [r * .3, -r * .55], [-r * .3, -r * .55], [-r * 1.05, -r * .42]]),
+      concha: blob([[-r, -r * .45], [-r * 1.02, -r * .05], [-r * .75, r * .5], [0, r * .75], [r * .75, r * .5], [r * 1.02, -r * .05], [r, -r * .45], [0, -r * .55]]),
+      rebanada: blob([[-r * .85, -r * .8], [-r * .9, r * .2], [-r * 1.05, r * .55], [-r * .55, r * .95], [0, r * .85], [r * .55, r * .95], [r * 1.05, r * .55], [r * .9, r * .2], [r * .85, -r * .8]]) };
+    const col = o.color ?? (tipo === 'concha' ? 0xf0c27a : tipo === 'rebanada' ? 0xc98a46 : 0xe0a050);
+    const g = astro(pos, r, col, { forma: formas[tipo], cara: o.cara ?? true, expr: o.expr ?? 'feliz', sombra: osc(col, .85) });
+    const cu = g.cuerpo;
+    if (tipo === 'bolillo') det(tubo([[-r * .75, r * .38], [-r * .2, r * .52], [r * .35, r * .5], [r * .85, r * .34]], .045 * r / .5, .03 * r / .5), osc(col, .7), [0, 0, .02], cu);
+    if (tipo === 'concha') { const c = det(blob([[-r * .82, -r * .02], [-r * .62, r * .45], [0, r * .66], [r * .62, r * .45], [r * .82, -r * .02], [0, r * .08]]), o.azucar ?? 0xffd1dc, [0, 0, .018], cu);
+      for (let i = -2; i <= 2; i++) det(tubo([[i * r * .18, r * .1], [i * r * .3, r * .6]], .02, .02), 0xf3a6b8, [0, 0, .006], c); }
+    if (tipo === 'rebanada') { det(blob([[-r * .72, -r * .68], [-r * .76, r * .2], [-r * .9, r * .5], [-r * .5, r * .8], [0, r * .7], [r * .5, r * .8], [r * .9, r * .5], [r * .76, r * .2], [r * .72, -r * .68]]), 0xfbe6b4, [0, 0, .018], cu);
+      for (const [x, y, k] of [[-.4, -.4, .07], [.35, -.5, .06], [.5, .3, .05], [-.55, .35, .05], [.1, -.65, .04]]) det(F.circ(r * k), 0xe9cf95, [r * x, r * y, .022], cu); }
+    // capa de "piedra" + grietas
+    const piedra = g.piedra = matPropio(det(formas[tipo], 0x8f8a80, [0, 0, .024], cu), 0x8f8a80, 0);
+    const grietas = g.grietas = group([0, 0, .026], cu);
+    for (const pts of [[[-r * .9, r * .1], [-r * .65, -r * .05], [-r * .7, -r * .3]], [[r * .7, r * .3], [r * .85, r * .05], [r * .65, -r * .2]], [[-r * .1, -r * .5], [0, -r * .32], [r * .12, -r * .42]]]) det(tubo(pts, .022, .022), 0x4a4640, [0, 0, 0], grietas);
+    g.duro = (k) => { piedra.children[0].material.opacity = .62 * k; grietas.visible = k > .45; grietas.scale.setScalar(Math.max(.001, cl1((k - .45) / .4))); };
+    const brillos = g.brillos = group([0, 0, .05], g); for (const [x, y] of [[-r * .8, r * .55], [r * .9, r * .6], [r * .1, r * .95]]) det(F.estrella(4, .09, .03), 0xffffff, [x, y, 0], brillos);
+    const vap = g.vapor = group([0, r * .7, .02], g); for (let i = 0; i < 3; i++) { const v = det(tubo([[0, 0], [.06, .12], [-.04, .26], [.05, .4]], .03, .03), 0xffffff, [(i - 1) * r * .5, 0, 0], vap); v.f = i * .33; }
+    g.suave = (k, t = 0) => { brillos.visible = k > .02; brillos.scale.setScalar(Math.max(.001, k * (1 + .15 * Math.sin(t * 8)))); brillos.rotation.z = Math.sin(t * 2) * .1;
+      vap.visible = k > .02; vap.children.forEach(v => { const q = (t * .7 + v.f) % 1; v.position.y = q * .35; v.scale.setScalar(Math.max(.001, k * Math.sin(q * Math.PI))); }); };
+    g.traverse(m => m.receiveShadow = false);   // sin manchas oscuras de la sombra del chibi (parecen moho)
+    g.duro(0); g.suave(0); return g; }
+  const cl1 = (x) => Math.min(1, Math.max(0, x));
+  // MIGA vista de cerca (para meter en PM.lupa): pan con hoyitos, cadenitas de almidón sueltas que se mueven y cristalitos que aparecen.
+  // g.cristaliza(k, t): 0 = cadenitas sueltas y flojitas; 1 = cristalitos ordenados en filas (pan duro).
+  function miga(pos, s = 1, padre = null) { const g = group(pos, padre); g.scale.setScalar(s);
+    det(F.circ(.98), 0xfbe6b4, [0, 0, 0], g);
+    for (const [x, y, k] of [[-.55, .45, .1], [.5, .5, .08], [.6, -.35, .1], [-.45, -.5, .09], [0, .05, .07], [.05, -.7, .06], [-.75, -.05, .06]]) det(F.circ(k), 0xe9cf95, [x, y, .004], g);
+    g.cad = []; let sm = 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 9; i++) { const a = i * 2.39996, rr = .62 * Math.sqrt((i + .5) / 9); const c = group([Math.cos(a) * rr, Math.sin(a) * rr, .01], g);
+      det(tubo([[-.16, 0], [-.08, .06], [0, -.04], [.08, .06], [.16, -.02]], .035, .035), 0xffffff, [0, 0, 0], c); c.r0 = rnd() * 6; c.rotation.z = c.r0; g.cad.push(c); }
+    g.cri = []; for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) { const h = pz(F.estrella(3, .13, .13), 0x8fd3ff, [i * .36, j * .36, .02], g, { tinta: .01, papel: .03 }); h.rotation.z = Math.PI / 6; h.k = (i + 1) * .1 + (j + 1) * .05; g.cri.push(h); }
+    g.cristaliza = (k, t = 0) => { g.cad.forEach((c, i) => { c.rotation.z = c.r0 + Math.sin(t * 3 + i) * .4 * (1 - k); c.scale.setScalar(Math.max(.001, 1 - cl1(k * 1.6 - .2))); });
+      g.cri.forEach(h => h.scale.setScalar(Math.max(.001, cl1((k - h.k) / .4)))); };
+    g.cristaliza(0); return g; }
+  // ESTUFA con COMAL: hornilla con llamitas que titilan y comal negro encima (g.topY para poner cosas). g.fuego(k, t).
+  function comal(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? 1.5;
+    pz(F.rect(w + .3, .18, .04), 0x9aa3b5, [0, .09, -.02], g, { tinta: .016, papel: .04 });
+    const fu = g.llamas = group([0, .2, -.03], g); for (let i = -2; i <= 2; i++) { const l = pz(F.gota(.32), i & 1 ? 0xffc83d : 0xff8a3d, [i * w * .14, .1, 0], fu, { tinta: .01, papel: .03 }); l.f = i * 1.7; }
+    pz(F.rect(w, .09, .04), 0x34313d, [0, .36, 0], g, { tinta: .016, papel: .04 });
+    pz(F.rect(.2, .05, .02), 0x34313d, [-w / 2 - .08, .36, 0], g, { tinta: .01, papel: false }); pz(F.rect(.2, .05, .02), 0x34313d, [w / 2 + .08, .36, 0], g, { tinta: .01, papel: false });
+    g.topY = .41;
+    g.fuego = (k, t = 0) => fu.children.forEach(l => { l.scale.set(Math.max(.001, k * (.9 + .15 * Math.sin(t * 11 + l.f))), Math.max(.001, k * (.85 + .25 * Math.sin(t * 13 + l.f * 2))), 1); });
+    g.fuego(o.k ?? 1); return g; }
+  // BOLSA de plástico transparente con amarre (para pan, tortillas…). Pon la bolsa DELANTE (z mayor) de lo que contiene.
+  function bolsa(pos, w = 1.6, h = 1.0, parent = null) { const g = group(pos, parent);
+    const cu = blob([[-w / 2, -h / 2], [-w / 2 - .04, h * .1], [-w / 2 + .05, h / 2], [-w * .1, h / 2 + .05], [0, h / 2 + .18], [w * .1, h / 2 + .05], [w / 2 - .05, h / 2], [w / 2 + .04, h * .1], [w / 2, -h / 2]]);
+    matPropio(det(cu, 0xcfeaff, [0, 0, 0], g), 0xcfeaff, .35);
+    det(tubo([[-w / 2, -h / 2], [-w / 2 - .04, h * .1], [-w / 2 + .05, h / 2], [-w * .1, h / 2 + .05], [0, h / 2 + .18], [w * .1, h / 2 + .05], [w / 2 - .05, h / 2], [w / 2 + .04, h * .1], [w / 2, -h / 2], [-w / 2, -h / 2]], .02, .02), 0x9cc8ea, [0, 0, .01], g);
+    det(F.elipse(.07, .2), 0xffffff, [-w * .32, h * .1, .012], g, .2);
+    pz(F.rect(.3, .07, .03), 0xff6b5b, [0, h / 2 + .04, .02], g, { tinta: .01, papel: false });
+    return g; }
+  return { cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
