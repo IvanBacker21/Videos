@@ -108,3 +108,35 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 **Alerta producción:** falta el slot 21:30 MX del 14-nov (no fue producido ni programado). 15-nov tiene solo 1 de 3 slots cubierto (piel-chinita 13:30).
 
 **Conclusión:** Buffer sin errores; los 5 shorts con datos cumplen todas las reglas. Dos slots no producidos en 24 h (14-nov 21:30 y los dos restantes del 15-nov). Leónidas el 17-nov = ventana temática para un short de espacio/cielo esta semana.
+## 2026-11-16 00:15 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (14 y 15-nov).
+
+**Buffer: sin errores en las 48 h revisadas.** Los 5 shorts existentes (2 del 14-nov + 3 del 15-nov) se enviaron con estado `sent`. Sin posts programados para el 16-nov.
+
+| Short | Publicado (MX) | Buffer | Duración | ≤30s | Tema | Gancho | Observación |
+|---|---|---|---|---|---|---|---|
+| Arenero gatos vs perros | 14-nov 13:30 | ✓ sent | 29.0 s | ✓ | mascotas | concreto ✓ | pedido de seguidor |
+| Estrella fugaz (Leónidas) | 14-nov 18:00 | ✓ sent | 28.9 s | ✓ | espacio/cielo | concreto ✓ | Leónidas 17-nov |
+| **21:30 MX del 14-nov** | — | ✗ **ausente** | — | — | — | — | Nunca producido (confirmado) |
+| Piel chinita (frío) | 15-nov 13:30 | ✓ sent | 29.8 s | ✓ | cuerpo/clima | concreto ✓ | — |
+| Dormir de más (jet lag social) | 15-nov 18:00 | ✓ sent | 29.0 s | ✓ | cuerpo/sueño | concreto ✓ | megapuente ✓ |
+| Celular con frío | 15-nov 21:30 | ✓ sent | 29.9 s | ✓ | tecnología/clima | concreto ✓ | — |
+| **13:30, 18:00 y 21:30 del 16-nov** | — | ✗ **ausentes** | — | — | — | — | No producidos; sin slot en temas.json |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 5/5 shorts con dato ✓ (rango 28.9–29.9 s).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: 1 de mascotas (arenero) en los últimos 6 shorts — dentro del límite máximo de 1/6 ✓.
+- Patrón: 3 shorts consecutivos de frío/clima (piel-chinita, celular-frío) + sueño (dormir-de-más); todos bien anclados a la temporada y al megapuente.
+
+**Alertas producción:**
+- 14-nov 21:30: sigue sin producirse (1 slot perdido).
+- 16-nov (hoy, Día de la Revolución / megapuente): **ninguno de los 3 slots (13:30, 18:00, 21:30) está producido ni programado.** Si no se producen hoy, se rompe la racha diaria por segundo día consecutivo.
+
+**Oportunidad temática:** Leónidas (lluvia de estrellas) alcanza su pico el 17-nov — ventana de 24 h para un short de seguimiento al de estrella fugaz.
+
+**Conclusión:** Buffer sin errores; todos los shorts con datos cumplen las reglas. Tres slots sin cubrir para el 16-nov y tendencia a no producir el slot de 21:30.
