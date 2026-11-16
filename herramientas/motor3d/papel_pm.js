@@ -586,5 +586,52 @@ export function kitPM(P, THREE, group) {
   function tierra(pos, r = .8, o = {}) { const g = astro(pos, r, 0x4aa8ff, { cara: o.cara ?? false, sombra: 0x3a8ae0 });
     g.mapa = group([0, 0, .02], g.cuerpo); for (const [x, y, k] of [[-.4, .35, .38], [.35, .1, .3], [-.1, -.45, .28], [.55, -.45, .18]]) det(blob([[-k, 0], [-k * .6, k * .7], [k * .2, k * .8], [k, k * .1], [k * .5, -k * .7], [-k * .5, -k * .6]].map(([a, b]) => [a * r, b * r])), 0x3fbf6a, [x * r, y * r, 0], g.mapa);
     return g; }
-  return { cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+
+  // CELULAR de cartulina (15-nov 21:30): pantalla con batería y porcentaje. g.pct(n) cambia la carga; g.apaga(true|false) pantalla negra;
+  // g.cara(e) carita en la pantalla ('feliz'|'triste'|'ninguna'); g.frio(k) escarcha azul encima (0..1). o: {h, color, pct}
+  function celular(pos, o = {}, parent = null) { const g = group(pos, parent), H = o.h ?? 1.0, W = H * .52;
+    pz(F.rect(W, H, W * .16), o.color ?? 0x2b2f4a, [0, 0, 0], g, { tinta: .016, papel: .05 });
+    det(F.rect(W * .28, .03, .015), 0x101322, [0, H * .44, .02], g);                                   // bocina
+    const cv = document.createElement('canvas'); cv.width = 256; cv.height = Math.round(256 * (H * .82) / (W * .84)); const x = cv.getContext('2d');
+    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(W * .84, H * .82), new THREE.MeshStandardMaterial({ map: tx, roughness: 1, metalness: 0, emissive: 0xffffff, emissiveMap: tx, emissiveIntensity: .35 }));
+    scr.position.set(0, -H * .02, .03); g.add(scr);
+    let st = { n: o.pct ?? 40, off: false }, hielo = null;
+    const dibuja = () => { const w = cv.width, h = cv.height;
+      scr.material.emissiveIntensity = st.off ? 0 : .35; if (hielo) hielo.visible = !st.off;
+      if (st.off) { x.fillStyle = '#0d0f1a'; x.fillRect(0, 0, w, h); x.fillStyle = 'rgba(255,255,255,.08)'; x.beginPath(); x.moveTo(w * .15, 0); x.lineTo(w * .55, 0); x.lineTo(w * .1, h * .45); x.lineTo(0, h * .45); x.fill(); tx.needsUpdate = true; return; }
+      const gr = x.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#9fd8ff'); gr.addColorStop(1, '#c8b6ff'); x.fillStyle = gr; x.fillRect(0, 0, w, h);
+      const n = Math.round(st.n), col = n > 30 ? '#2ec4a6' : n > 12 ? '#ffc83d' : '#ff5b5b';
+      const bw = w * .62, bh = bw * .46, bx = (w - bw) / 2, by = h * .2;                               // pila
+      x.lineWidth = w * .035; x.strokeStyle = '#1f1b2e'; x.fillStyle = '#ffffff'; x.beginPath(); x.roundRect(bx, by, bw, bh, w * .05); x.fill(); x.stroke();
+      x.fillStyle = '#1f1b2e'; x.fillRect(bx + bw, by + bh * .3, w * .05, bh * .4);
+      x.fillStyle = col; const m = w * .04; if (n > 0) { x.beginPath(); x.roundRect(bx + m, by + m, Math.max(4, (bw - 2 * m) * n / 100), bh - 2 * m, w * .025); x.fill(); }
+      x.fillStyle = '#1f1b2e'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = `900 ${w * .3}px Poppins, "Arial Black", sans-serif`; x.fillText(n + '%', w / 2, by + bh + h * .17);
+      tx.needsUpdate = true; };
+    g.pct = n => { if (Math.round(n) !== Math.round(st.n) || st.off) { st.n = n; st.off = false; dibuja(); } };
+    g.apaga = (v = true) => { if (v !== st.off) { st.off = v; dibuja(); if (v) hielo.material.opacity = Math.min(hielo.material.opacity, .12); } };
+    // carita impresa en la parte de abajo de la pantalla
+    const cara = group([0, -H * .3, .036], g); const ojo = sx => { const e = group([sx * W * .13, 0, 0], cara); det(F.elipse(W * .045, W * .07), INK, [0, 0, 0], e); det(F.circ(W * .018), 0xffffff, [W * .012, W * .03, .003], e); return e; };
+    g.head = cara; cara.r0 = 0; cara.ojos = [ojo(-1), ojo(1)];
+    const bF = det(F.arco(W * .07, W * .025, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -W * .02, 0], cara), bT = det(F.arco(W * .07, W * .025, Math.PI * .2, Math.PI * .8), 0x7a1f30, [0, -W * .12, 0], cara);
+    const gota = det(F.gota(W * .09), 0x8fd3ff, [W * .26, W * .08, .004], cara);
+    g.cara = e => { cara.visible = e !== 'ninguna'; bF.visible = e === 'feliz'; bT.visible = e === 'triste'; gota.visible = e === 'triste'; };
+    hielo = new THREE.Mesh(new THREE.PlaneGeometry(W * .84, H * .82), new THREE.MeshBasicMaterial({ color: 0xdff3ff, transparent: true, opacity: 0 })); hielo.position.set(0, -H * .02, .05); g.add(hielo);
+    g.frio = k => { hielo.material.opacity = k * (st.off ? .12 : .4); };
+    g.cara(o.cara ?? 'ninguna'); dibuja(); return g; }
+  // PILA por dentro (15-nov 21:30): iones (bolitas) que viajan de un lado a otro; g.update(t, vel) con vel 1 = normal, .15 = lenta por frío; g.frio(k) la pinta azulada
+  function pilaIones(pos, o = {}, parent = null) { const g = group(pos, parent), W = o.w ?? 1.2, H = o.h ?? .62;
+    pz(F.rect(W, H, .08), 0x2b2f4a, [0, 0, 0], g, { tinta: .016, papel: .05 }); pz(F.rect(.09, H * .4, .03), 0x2b2f4a, [W / 2 + .04, 0, -.01], g, { tinta: .012, papel: false });
+    const dentro = pz(F.rect(W - .1, H - .1, .05), 0xfff4e4, [0, 0, .016], g, { tinta: false, papel: false });
+    det(F.rect(.08, H - .14, .02), 0x9aa0b4, [-W / 2 + .12, 0, .03], g); det(F.rect(.08, H - .14, .02), 0xffb37a, [W / 2 - .12, 0, .03], g);   // electrodos
+    det(F.rect(.1, .03, .01), 0xff5b5b, [W / 2 - .12, H / 2 + .07, .03], g); det(F.rect(.03, .1, .01), 0xff5b5b, [W / 2 - .12, H / 2 + .07, .032], g);   // +
+    det(F.rect(.1, .03, .01), 0x3d6bff, [-W / 2 + .12, H / 2 + .07, .03], g);                                                                       // −
+    const N = 7; g.iones = []; for (let i = 0; i < N; i++) { const b = group([0, 0, .04], g); pz(F.circ(.055), 0xffc83d, [0, 0, 0], b, { tinta: .01, papel: false }); det(F.rect(.05, .015, .01), INK, [0, 0, .014], b); det(F.rect(.015, .05, .01), INK, [0, 0, .016], b); b.f = i / N; b.y = ((i * 37) % 7 / 6 - .5) * (H - .26); g.iones.push(b); }
+    const hielo = new THREE.Mesh(new THREE.PlaneGeometry(W - .1, H - .1), new THREE.MeshBasicMaterial({ color: 0xbfe6ff, transparent: true, opacity: 0 })); hielo.position.z = .07; g.add(hielo);
+    let fase = 0, tPrev = null; const x0 = -W / 2 + .2, x1 = W / 2 - .2;
+    g.update = (t, vel = 1) => { if (tPrev !== null) fase += Math.max(0, t - tPrev) * vel * .55; tPrev = t;
+      for (const b of g.iones) { const k = (b.f + fase) % 1; b.position.x = x0 + (x1 - x0) * k; b.position.y = b.y + Math.sin((k + b.f) * 12) * .03; } };
+    g.frio = k => { hielo.material.opacity = k * .5; };
+    g.update(0, 0); return g; }
+  return { celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

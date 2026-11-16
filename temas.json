@@ -611,5 +611,23 @@
   "mejora": "papel_pm.js: PM.cuarto (recámara con ventana y cortinas que se abren), PM.cama + PM.acuesta (acostado→sentado), PM.ojos, PM.despertador, PM.foco, PM.cerebro, PM.avion, PM.tierra",
   "archivo": "shorts/2026-11-15-1800-dormir-de-mas.mp4",
   "titulo": "¿Por qué si duermes de más despiertas MÁS cansado? 😴 #shorts"
+ },
+ {
+  "fecha": "2026-11-15",
+  "hora": "21:30",
+  "tema": "¿Por qué con el frío tu celular se apaga aunque tenía batería? (la batería de litio funciona con una reacción química que el frío vuelve lenta; el celular cree que ya no tiene carga y se apaga; la carga no se pierde: al calentarse el porcentaje regresa; truco: llevarlo en una bolsa pegada al cuerpo). Fuentes: Apple (temperaturas de funcionamiento del iPhone: con frío la batería dura menos temporalmente y vuelve a la normalidad al calentarse), UnoTV y El Imparcial (por qué el celular se descarga más rápido con el frío)",
+  "formato": "¿Por qué…? + mito ('se murió la pila') + truco",
+  "categoria": "tecnología / clima",
+  "tendencia": "frentes fríos y heladas de mediados de noviembre en México (megapuente con temperaturas bajo cero en el norte y centro)",
+  "disparadores": [
+   "eres tú (a todos se les ha apagado el celular con batería en el frío)",
+   "¿ves? te dije (la carga no se pierde)",
+   "truco útil (llevarlo pegado al cuerpo)",
+   "etiquetar al del celular siempre muerto"
+  ],
+  "duracion": "29.9 s (23.3 s de contenido)",
+  "mejora": "papel_pm.js: PM.celular (pantalla con pila y porcentaje animado, apagado, carita, escarcha) y PM.pilaIones (iones que se mueven lento con el frío)",
+  "archivo": "shorts/2026-11-15-2130-celular-frio.mp4",
+  "titulo": "¿Por qué con el frío tu celular se APAGA solo? 🥶 #shorts"
  }
 ]

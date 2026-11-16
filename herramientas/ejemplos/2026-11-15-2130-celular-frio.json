@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-15-2130-celular-frio",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué con el frío tu celular se apaga, aunque tenía batería?"]},
+  {"tipo": "pila", "titulo": "", "frases": ["Su batería funciona con una reacción química, y el frío la vuelve lenta, como miel en el refri."]},
+  {"tipo": "engano", "titulo": "", "frases": ["Tu celular cree que ya no tiene carga, y se apaga solito."]},
+  {"tipo": "regresa", "titulo": "", "frases": ["Pero la carga no se perdió: cuando se calienta, el porcentaje regresa."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Truco: llévalo en una bolsa pegada a tu cuerpo. Mándaselo al que siempre trae el celular muerto."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
