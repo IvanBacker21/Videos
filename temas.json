@@ -629,5 +629,23 @@
   "mejora": "papel_pm.js: PM.celular (pantalla con pila y porcentaje animado, apagado, carita, escarcha) y PM.pilaIones (iones que se mueven lento con el frío)",
   "archivo": "shorts/2026-11-15-2130-celular-frio.mp4",
   "titulo": "¿Por qué con el frío tu celular se APAGA solo? 🥶 #shorts"
+ },
+ {
+  "fecha": "2026-11-16",
+  "hora": "13:30",
+  "tema": "¿Por qué si ves el celular en el carro SIEMPRE te mareas? (el oído interno tiene un sensor de movimiento que siente cada curva y cada frenón; los ojos, fijos en la pantalla, le dicen al cerebro que estás quieto; los dos mensajes no cuadran (conflicto sensorial), el cerebro se confunde y te revuelve la panza; truco: sentarse adelante y mirar lejos, al camino/horizonte). Fuentes: Medical News Today (Motion sickness: causes and prevention), UCLA Health (Ask the doctors: cause of motion sickness), WHYY (Car sickness: the surprising complexities)",
+  "formato": "¿Por qué SIEMPRE…? + explicación en 3 pasos (oído, ojos, cerebro) + truco",
+  "categoria": "cuerpo / viajes",
+  "tendencia": "regreso del megapuente del Día de la Revolución (lunes 16-nov): carreteras llenas de familias regresando en carro",
+  "disparadores": [
+   "eres tú (a todos nos ha mareado ver el cel en el carro)",
+   "truco útil (adelante y mirar lejos)",
+   "lo mexicano (carretera del puente)",
+   "etiquetar al que siempre se marea en carretera"
+  ],
+  "duracion": "29.2 s (22.6 s de contenido)",
+  "mejora": "papel_pm.js: PM.carro (carro de lado en corte con pasajeros sentados y llantas), PM.camino (rayitas, postes y árboles que pasan), PM.mareo (espirales y estrellitas), PM.oidoInterno (canales con líquido que se mece)",
+  "archivo": "shorts/2026-11-16-1330-mareo-carro.mp4",
+  "titulo": "¿Por qué te MAREAS si ves el celular en el carro? 🚗 #shorts"
  }
 ]

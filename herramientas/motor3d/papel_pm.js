@@ -633,5 +633,60 @@ export function kitPM(P, THREE, group) {
       for (const b of g.iones) { const k = (b.f + fase) % 1; b.position.x = x0 + (x1 - x0) * k; b.position.y = b.y + Math.sin((k + b.f) * 12) * .03; } };
     g.frio = k => { hielo.material.opacity = k * .5; };
     g.update(0, 0); return g; }
-  return { celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+
+  // ================= CARRO, CAMINO, MAREO Y OÍDO INTERNO (16-nov-2026 13:30, short del mareo en el carro) =================
+  // CARRO de cartulina de lado (mira a +x), en corte: la carrocería de abajo va DELANTE de los pasajeros y la cabina con
+  // ventana DETRÁS, así se ven cabeza y hombros. o: {color, asientos:[x...], escala}. g.sube(p, x) mete un chibi sentado;
+  // g.update(t, vel) gira llantas y rebota; g.topY ≈ .85 (tablero). Ancho ≈ 3.2 · escala.
+  function carro(pos, o = {}) { const g = group(pos), col = o.color ?? 0xff6b5b, es = o.escala ?? 1; g.scale.setScalar(es); g.es = es;
+    g.cuerpo = group([0, 0, 0], g);
+    const cab = pz(blob([[-1.32, .8], [-1.2, 1.9], [-.95, 2.12], [.45, 2.14], [.78, 2.0], [1.25, .8]]), col, [0, 0, -.32], g.cuerpo, { tinta: .02, papel: .08 });
+    det(blob([[-1.13, .86], [-1.03, 1.82], [-.84, 2.0], [.42, 2.02], [.66, 1.9], [1.06, .86]]), 0xc9ecff, [0, 0, .014], cab);
+    det(F.poly([[.25, 1.95], [.5, 1.9], [-.1, .95], [-.35, .95]]), 0xe8f7ff, [0, 0, .016], cab);                       // reflejo
+    for (const x of (o.asientos ?? [-.5])) { const a = pz(F.rect(.62, .95, .14), osc(col, .55), [x, 1.25, -.3], g.cuerpo, { tinta: .014, papel: false }); det(F.rect(.44, .7, .1), osc(col, .65), [0, .04, .014], a); }
+    const bod = pz(blob([[-1.55, .3], [-1.6, .72], [-1.42, .9], [1.2, .92], [1.52, .78], [1.62, .5], [1.55, .3]]), col, [0, 0, .5], g.cuerpo, { tinta: .02, papel: .08 });
+    det(blob([[-1.5, .32], [1.5, .32], [1.56, .46], [-1.55, .44]]), osc(col, .8), [0, 0, .014], bod);                    // sombra de abajo
+    linea([[-.15, .38], [-.12, .86]], .02, osc(col, .6), bod, .018); det(F.rect(.2, .05, .025), osc(col, .6), [.25, .74, .018], bod); det(F.rect(.2, .05, .025), osc(col, .6), [-.6, .74, .018], bod);
+    pz(F.elipse(.1, .08), 0xffe27a, [1.53, .66, .02], bod, { tinta: .012, papel: false }); pz(F.rect(.08, .14, .03), 0xff3b3b, [-1.56, .66, .02], bod, { tinta: .012, papel: false });
+    det(F.rect(3.0, .06, .03), mez(col, 0xffffff, .45), [0, .82, .016], bod);                                          // filo brillante
+    g.llantas = [-1.0, 1.0].map(x => { const w = group([x, .28, .62], g); pz(F.circ(.29), 0x2b2f4a, [0, 0, 0], w, { tinta: .016, papel: .05 }); pz(F.circ(.13), 0xdfe3ea, [0, 0, .016], w, { tinta: .01, papel: false });
+      for (let i = 0; i < 3; i++) det(F.rect(.2, .035, .015), 0x9aa0ad, [0, 0, .032], w, i * Math.PI / 3); return w; });
+    g.sube = (p, x = -.5) => { g.cuerpo.add(p); p.position.set(x, .32, 0); p.sombra && (p.sombra.visible = false); return p; };
+    g.update = (t, vel = 1) => { g.llantas.forEach(w => w.rotation.z = -t * 9 * vel); g.cuerpo.position.y = Math.abs(Math.sin(t * 9)) * .025 * vel; };
+    return g; }
+  // CAMINO que pasa: carretera gris con rayitas, postes y arbolitos que corren hacia -x. Devuelve {update(t, vel)}. o: {y, z, ancho}
+  function camino(o = {}) { const y = o.y ?? .05, z = o.z ?? -.9, W = o.ancho ?? 9;
+    pz(F.rect(30, .55, 0), 0x6d7180, [0, y - .1, z], null, { tinta: false, papel: false });
+    det(F.rect(30, .06, 0), 0x50535f, [0, y + .17, z + .014]);
+    const ray = [], cos = [];
+    for (let i = 0; i < 10; i++) ray.push(det(F.rect(.42, .07, .03), 0xfff3c4, [0, y - .1, z + .02]));
+    for (let i = 0; i < 4; i++) { const c = group([0, 0, z - .35]);
+      if (i % 2) { pz(F.rect(.12, .8, .03), 0x9a6a42, [0, .55, 0], c, { tinta: .016, papel: .06 }); pz(F.circ(.4), 0x4fae5a, [0, 1.1, .02], c, { tinta: .02, papel: .07 }); }
+      else { pz(F.rect(.06, 1.1, .02), 0x8a8f9c, [0, .6, 0], c, { tinta: .014, papel: .05 }); pz(F.rect(.5, .32, .05), 0x2ec4a6, [0, 1.15, .02], c, { tinta: .014, papel: .05 }); det(F.rect(.3, .05, .02), 0xffffff, [0, 1.15, .04], c); }
+      cos.push(c); }
+    const wrap = (v, a) => ((v % a) + a) % a - a / 2;
+    return { update(t, vel = 1) { ray.forEach((r, i) => r.position.x = wrap(i * .9 - t * 4 * vel, W)); cos.forEach((c, i) => c.position.x = wrap(i * W / 4 + 1.1 - t * 2.4 * vel, W)); } }; }
+  // MAREO: espirales y estrellitas girando sobre la cabeza. g.update(t, k) (k 0→1 aparece)
+  function mareo(pos, s = 1, parent = null) { const g = group(pos, parent); g.scale.setScalar(s);
+    const pts = []; for (let i = 0; i <= 40; i++) { const a = i / 40 * Math.PI * 4.2, r = .03 + i / 40 * .2; pts.push([Math.cos(a) * r, Math.sin(a) * r]); }
+    g.esp = [-.22, .22].map((x, i) => { const e = group([x, 0, 0], g); pz(tubo(pts, .045, .045), i ? 0x7b5cff : 0x2ec4a6, [0, 0, 0], e, { tinta: .01, papel: .035 }); return e; });
+    g.est = [0, 1, 2].map(i => pz(F.estrella(5, .1, .05), 0xffc83d, [0, 0, .05], g, { tinta: .012, papel: .035 }));
+    g.update = (t, k = 1) => { g.visible = k > .01; g.scale.setScalar(s * Math.max(.001, k)); g.esp.forEach((e, i) => e.rotation.z = (i ? 1 : -1) * t * 5);
+      g.est.forEach((e, i) => { const a = t * 3 + i * 2.1; e.position.set(Math.cos(a) * .45, Math.sin(a) * .12 + .05, .05 + Math.sin(a) * .05); e.rotation.z = t * 4; }); };
+    return g; }
+  // OÍDO INTERNO de cartulina (para meter en PM.lupa): tres canales en anillo con líquido azul y el caracol.
+  // g.chapotea(t, k, dir): el líquido se carga hacia dir (1 | -1) con fuerza k y se mece; g.sensor = pelito-sensor que se dobla.
+  function oidoInterno(pos, s = 1, padre = null) { const g = group(pos, padre); g.scale.setScalar(s); const ROSA = 0xffb3c1;
+    const canales = [[-.28, .3, .26, .2], [.12, .38, .24, -.15], [-.05, .02, .22, 1.2]].map(([x, y, r, a]) => { const c = group([x, y, 0], g); c.rotation.z = a;
+      pz(F.arco(r, .11, 0, Math.PI * 2), ROSA, [0, 0, 0], c, { tinta: .014, papel: .04 });
+      c.liq = group([0, 0, .02], c); det(F.arco(r, .06, -.5, .5), 0x3d9bff, [0, 0, 0], c.liq); c.liq.rotation.z = -Math.PI / 2; c.r = r; return c; });
+    g.canales = canales;
+    pz(F.elipse(.2, .16), ROSA, [.0, -.18, .03], g, { tinta: .014, papel: .04 });
+    const pts = []; for (let i = 0; i <= 50; i++) { const a = i / 50 * Math.PI * 4.5, r = .26 - i / 50 * .22; pts.push([.38 + Math.cos(a) * r, -.42 + Math.sin(a) * r]); }
+    pz(tubo(pts, .1, .05), ROSA, [0, 0, .02], g, { tinta: .014, papel: .04 });
+    g.sensor = group([-.05, -.14, .06], g); det(F.rect(.04, .2, .02), 0x7b5cff, [0, .1, 0], g.sensor); det(F.circ(.045), 0x7b5cff, [0, .2, .002], g.sensor);
+    g.chapotea = (t, k = 0, dir = 1) => { canales.forEach((c, i) => c.liq.rotation.z = -Math.PI / 2 - c.rotation.z * 0 + dir * k * 1.1 + Math.sin(t * 6 + i) * .12 * (k + .2)); g.sensor.rotation.z = -dir * k * .6 + Math.sin(t * 6) * .06; };
+    return g; }
+
+  return { carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

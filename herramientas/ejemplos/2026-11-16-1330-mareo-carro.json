@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-16-1330-mareo-carro",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué si ves el celular en el carro, siempre te mareas?"]},
+  {"tipo": "oido", "titulo": "", "frases": ["Dentro de tu oído hay un sensor que siente cada curva y cada frenón."]},
+  {"tipo": "ojos", "titulo": "", "frases": ["Pero tus ojos, en la pantalla, le dicen al cerebro que estás quieto."]},
+  {"tipo": "cerebro", "titulo": "", "frases": ["Dos mensajes que no cuadran: tu cerebro se confunde y te revuelve la panza."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Truco: siéntate adelante y mira lejos, al camino. Mándaselo al que siempre se marea en carretera."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
