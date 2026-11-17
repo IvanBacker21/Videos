@@ -786,5 +786,42 @@ export function kitPM(P, THREE, group) {
     det(F.elipse(.07, .2), 0xffffff, [-w * .32, h * .1, .012], g, .2);
     pz(F.rect(.3, .07, .03), 0xff6b5b, [0, h / 2 + .04, .02], g, { tinta: .01, papel: false });
     return g; }
-  return { cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+
+  // ---- 16-nov 21:30 (vaho con frío) ----
+  // PM.aliento(pos, padre, o): nubecitas de vaho que salen de la boca y se deshacen (aliento visible con frío, soplar, dragón). o: {n, color, vel}
+  // g.update(t, on 0..1, dir ±1, largo, tam). Ponlo de hijo de p.head en [.3·dir, -.27, .05] para que siga a la cabeza.
+  function aliento(pos, parent = null, o = {}) { const g = group(pos, parent), n = o.n ?? 5, col = o.color ?? 0xffffff;
+    g.nb = Array.from({ length: n }, (_, i) => { const c = group([0, 0, .12], g);
+      const borde = matPropio(det(F.nube(.42), 0x8fb6d6, [0, 0, -.004], c), 0x8fb6d6, 0); const cu = matPropio(det(F.nube(.38), col, [0, .005, 0], c), col, 0);
+      c.ms = [borde.children[0].material, cu.children[0].material]; c.f = i / n; return c; });
+    g.update = (t, on = 1, dir = 1, largo = .9, tam = 1) => g.nb.forEach(c => { const q = (t * (o.vel ?? .85) + c.f) % 1; c.visible = on > .01;
+      c.position.set(dir * q * largo, q * .28 + Math.sin(t * 3 + c.f * 6) * .04, .12 + c.f * .01); c.scale.setScalar(Math.max(.001, tam * (.3 + q * 1.0)));
+      const op = on * Math.min(1, q * 6) * Math.min(1, (1 - q) * 2.2); c.ms[0].opacity = op * .8; c.ms[1].opacity = op * .95; });
+    g.update(0, 0); return g; }
+  // PM.vapor(padre, o): vapor de agua visto de cerca (para PM.lupa): bolitas azules que vuelan rápido (gas caliente) y con g.update(t, k)
+  // se frenan y se juntan en gotitas (k 0 = gas → 1 = gotas). o: {n, r, color}
+  function vapor(parent, o = {}) { const g = group([0, 0, .03], parent), n = o.n ?? 15, R = o.r ?? .42, col = o.color ?? 0x3d9bff;
+    const cen = [[-.17, .13], [.18, .08], [-.02, -.17]];
+    g.bs = Array.from({ length: n }, (_, i) => { const b = pz(F.circ(.04), col, [0, 0, .02], g, { tinta: .008, papel: false }); b.i = i; b.c = cen[i % 3]; b.a = i * 2.39996; b.rr = Math.sqrt((i + .5) / n);
+      b.rayas = det(tubo([[-.13, 0], [-.05, 0]], .012, .012), 0xffffff, [0, 0, -.01], b); return b; });
+    g.gotas = cen.map(c => { const d = pz(F.gota(.32), col, [c[0], c[1] - .03, .03], g, { tinta: .01, papel: .02 }); det(F.circ(.025), 0xffffff, [-.04, .02, .016], d); return d; });
+    g.update = (t, k) => { const e = k * k * (3 - 2 * k);
+      g.bs.forEach(b => { const v = (3.4 * (1 - k) + .3) * (b.i % 2 ? 1 : -1), ang = b.a + t * v;
+        const gx = Math.cos(ang) * R * b.rr, gy = Math.sin(ang * 1.37 + b.i) * R * b.rr, cx = b.c[0] + Math.cos(b.a) * .06, cy = b.c[1] + Math.sin(b.a) * .06;
+        b.position.set(gx + (cx - gx) * e, gy + (cy - gy) * e, .02); b.visible = k < .95; b.scale.setScalar(1 - .3 * e); b.rayas.visible = k < .35; b.rotation.z = v > 0 ? ang + Math.PI / 2 : ang - Math.PI / 2; });
+      g.gotas.forEach(d => { d.visible = k > .78; d.scale.setScalar(Math.max(.001, Math.min(1, (k - .78) / .2))); }); };
+    g.update(0, 0); return g; }
+  // PM.taza(pos, padre, o): jarrito de barro / taza de cartulina con atole, café o chocolate y vapor que sube. o: {color, liquido, vapor}
+  // g.humea(t, k) anima el vapor (k 0..1). Para colgarla de la mano: padre = p.brazos[1], pos [0, -.6, .12] y contrarrota g.rotation.z.
+  function taza(pos, parent = null, o = {}) { const g = group(pos, parent), col = o.color ?? 0xc8693a, liq = o.liquido ?? 0xead2a4;
+    pz(F.arco(.085, .04, -1.45, 1.45), col, [.16, .02, -.01], g, { tinta: .01, papel: .04 });
+    pz(blob([[-.18, .16], [.18, .16], [.16, -.06], [.1, -.15], [-.1, -.15], [-.16, -.06]]), col, [0, 0, 0], g, { tinta: .012, papel: .045 });
+    det(F.elipse(.17, .035), liq, [0, .15, .016], g);
+    for (const x of [-.09, 0, .09]) det(F.circ(.022), 0xfff1c9, [x, .02, .016], g);
+    det(tubo([[-.15, -.04], [-.05, -.07], [.05, -.07], [.15, -.04]], .016, .016), osc(col, .7), [0, 0, .016], g);
+    const vp = g.vap = group([0, .22, .02], g);
+    for (let i = 0; i < 3; i++) { const v = det(tubo([[0, 0], [.05, .1], [-.04, .22], [.04, .34]], .04, .04), o.vapor ?? 0xffffff, [(i - 1) * .08, 0, 0], vp); v.f = i * .33; }
+    g.humea = (t, k = 1) => { vp.visible = k > .02; vp.children.forEach(v => { const q = (t * .8 + v.f) % 1; v.position.y = q * .3; v.scale.setScalar(Math.max(.001, k * Math.sin(q * Math.PI))); }); };
+    g.humea(0, 1); return g; }
+  return { aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

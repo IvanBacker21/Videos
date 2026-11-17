@@ -665,5 +665,23 @@
   "mejora": "Kit de cocina en papel_pm.js: PM.cocina, PM.refri (puerta que se dobla), PM.pan (bolillo/concha/rebanada con duro/suave), PM.miga (cristaliza), PM.comal, PM.bolsa",
   "archivo": "shorts/2026-11-16-1800-pan-duro.mp4",
   "titulo": "¿Por qué el pan se pone DURO como piedra? 🥖 #shorts"
+ },
+ {
+  "fecha": "2026-11-16",
+  "hora": "21:30",
+  "tema": "¿Por qué con el frío te sale 'humo' de la boca? (no es humo: el aliento sale calientito y con vapor de agua invisible; al chocar con el aire frío el vapor se enfría y se condensa en gotitas diminutas = una mini nube; es lo mismo que el humito del atole caliente). Fuentes: Science Notes (Why do you see your breath when it's cold?), Mental Floss (Why you can see your breath), Children's Museum of Indianapolis (Why can I see my breath when it's cold?)",
+  "formato": "¿Por qué…? + mito ('no es humo') + comparación cotidiana",
+  "categoria": "clima / cuerpo",
+  "tendencia": "Frentes fríos y mañanas heladas de noviembre en México (temporada de frío, atole y pan dulce; cierre del megapuente de la Revolución)",
+  "disparadores": [
+   "eres tú (el que de niño jugaba a ser dragón con el frío)",
+   "¿ves? te dije (no es humo)",
+   "lo mexicano (atole, abuelita)",
+   "sorpresa (¡una mini nube!)"
+  ],
+  "duracion": 27.4,
+  "mejora": "papel_pm.js: PM.aliento (vaho que sale de la boca), PM.vapor (vapor en lupa que se condensa en gotitas), PM.taza (jarrito con atole y vapor)",
+  "archivo": "shorts/2026-11-16-2130-vaho-frio.mp4",
+  "titulo": "¿Por qué con frío te sale HUMO de la boca? 🌬️ #shorts"
  }
 ]

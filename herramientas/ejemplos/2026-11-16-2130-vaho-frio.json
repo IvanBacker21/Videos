@@ -1,0 +1,13 @@
+{
+ "id": "2026-11-16-2130-vaho-frio",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué con el frío te sale humo de la boca?"]},
+  {"tipo": "aliento", "titulo": "", "frases": ["No es humo: tu aliento sale calientito y lleno de vapor de agua invisible."]},
+  {"tipo": "nube", "titulo": "", "frases": ["Al chocar con el aire frío, el vapor se enfría y se junta en gotitas diminutas: ¡una mini nube!"]},
+  {"tipo": "atole", "titulo": "", "frases": ["Es lo mismo que el humito del atole: vapor que se vuelve gotitas."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo al que de niño jugaba a ser dragón con el frío."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}

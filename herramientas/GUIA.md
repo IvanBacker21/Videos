@@ -30,6 +30,7 @@ mkdir -p ~/.fonts && cd ~/.fonts && for f in Poppins-Black Poppins-ExtraBold Pop
    - `cd herramientas/motor3d && npm i --silent` (una vez por sesión).
    - Fotogramas: `PR=1.5 node render3d.js ../ejemplos/X.json OUT ../ejemplos/X.js frames 0.1,2.9,…` → `OUT/fr_*.png` (tiempos en SEGUNDOS).
    - Completo: `PR=1.5 nohup node render3d.js ../ejemplos/X.json OUT ../ejemplos/X.js > OUT/log.txt 2>&1 &` (7–9 s por cuadro: 70–130 min; el log escribe cada 150 cuadros y termina con `ok`).
+   - **Si la sesión se reinicia a media render (pasó el 16-nov 21:30: tres veces se mató el proceso)** usa el render REANUDABLE en paralelo: `for w in 0 1; do PR=1.5 setsid nohup node render_partes.js ../ejemplos/X.json OUT ../ejemplos/X.js $w 2 > OUT/log$w.txt 2>&1 < /dev/null & done` (≈5.7 s por cuadro con los dos; si se cae, vuelve a correrlo y sigue donde iba; para rehacer cuadros, bórralos de `OUT/jpg/` y córrelo otra vez) y al final `node render_partes.js --unir OUT` → `OUT/video.mp4` + `OUT/events.json`. Espera con `sleep` ≤ 300 s por llamada.
    - `python3 ../audio.py OUT` y `ffmpeg -i OUT/video.mp4 -i OUT/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -af loudnorm=I=-14:TP=-1.5 -shortest shorts/<archivo>.mp4`.
 6. **Publicar**: commit + push a `main`; enlace `https://raw.githubusercontent.com/IvanBacker21/Videos/main/shorts/<archivo>.mp4`; programa YouTube y TikTok con `herramientas/buffer.py` (ver aviso de arriba). NO hagas miniaturas.
 7. Agrega la entrada a `temas.json` y haz commit.
