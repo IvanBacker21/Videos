@@ -684,5 +684,22 @@
   "archivo": "shorts/2026-11-16-2130-vaho-frio.mp4",
   "titulo": "¿Por qué con frío te sale HUMO de la boca? 🌬️ #shorts",
   "nota": "Se retrasó por falta de acceso a GitHub (403); ya corregido por Iván. Programado en Buffer (YouTube y TikTok) para las 22:20 del 16-nov en lugar de las 21:30"
+ },
+ {
+  "fecha": "2026-11-17",
+  "hora": "13:30",
+  "tema": "¿Por qué la tortilla se infla en el comal? (la masa tiene agua; con el calor se vuelve vapor; al voltearla las dos caras se cuecen y atrapan el vapor, que empuja e infla la tortilla: la 'pancita' es señal de buena cocción). Fuentes: Masienda (How to get your tortillas to puff every time), KCRW Good Food (Ask a Tortilla Judge: how do I make my tortillas puff up?)",
+  "formato": "¿Por qué…? + explicación visual + orgullo mexicano",
+  "categoria": "comida / casa",
+  "tendencia": "Hora de la comida (13:30); temporada de comida casera caliente en noviembre; algo que todo mexicano ha visto en el comal",
+  "disparadores": [
+   "lo mexicano (comal, tortilla, abuelita)",
+   "eres tú (todos hemos visto la pancita)",
+   "sorpresa (es vapor atrapado)"
+  ],
+  "duracion": 26.4,
+  "mejora": "papel_pm.js: PM.tortilla (tortilla de lado que se infla en el comal, manchitas tostadas, flechas de vapor y modo corte con vapor atrapado)",
+  "archivo": "shorts/2026-11-17-1330-tortilla-inflada.mp4",
+  "titulo": "¿Por qué la tortilla se INFLA en el comal? 🫓 #shorts"
  }
 ]

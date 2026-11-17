@@ -823,5 +823,33 @@ export function kitPM(P, THREE, group) {
     for (let i = 0; i < 3; i++) { const v = det(tubo([[0, 0], [.05, .1], [-.04, .22], [.04, .34]], .04, .04), o.vapor ?? 0xffffff, [(i - 1) * .08, 0, 0], vp); v.f = i * .33; }
     g.humea = (t, k = 1) => { vp.visible = k > .02; vp.children.forEach(v => { const q = (t * .8 + v.f) % 1; v.position.y = q * .3; v.scale.setScalar(Math.max(.001, k * Math.sin(q * Math.PI))); }); };
     g.humea(0, 1); return g; }
-  return { aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 17-nov 13:30 (tortilla inflada) ----
+  // PM.tortilla(pos, o, padre): tortilla de maíz de cartulina vista de lado (ponla de hijo de PM.comal en [0, co.topY + .035, .02]).
+  // g.infla(k 0..1): se hace "pancita" (domo). g.tuesta(k): manchitas tostadas. g.vapor(t, k): bolitas de vapor dentro (modo corte).
+  // g.flechas(t, k): flechitas de vapor empujando hacia arriba. o: {w, alto, grueso, color, corte:true → corte lateral: dos pielecitas separadas}
+  function tortilla(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? 1.2, a = w / 2, b = a * .86, H0 = o.alto ?? .42, th = o.grueso ?? .07, col = o.color ?? 0xf3d98e;
+    g.scale.z = .2;   // cartulina delgada: el borde de papel no se sale al voltearla
+    const alt = (x, k) => Math.abs(x) >= b ? 0 : k * H0 * Math.pow(1 - (x / b) ** 2, .6);
+    const cache = {}; let cur = null; g.k = 0;
+    const forma = q => { const k = q / 20, N = 32;
+      if (!o.corte) { const pts = []; for (let i = 0; i <= N; i++) { const x = -a + w * i / N; pts.push([x, th / 2 + alt(x, k)]); } pts.push([a + th * .35, 0]);
+        for (let i = N; i >= 0; i--) { const x = -a + w * i / N; pts.push([x, -th / 2 - .012 * Math.sin(Math.PI * i / N)]); } pts.push([-a - th * .35, 0]);
+        return pz(F.poly(pts), col, [0, 0, 0], g, { tinta: .016, papel: .05 }); }
+      const gg = group([0, 0, 0], g), top = [];
+      for (let i = 0; i <= N; i++) { const x = -a + w * i / N; top.push([x, th * .38 + alt(x, k)]); }
+      pz(tubo(top, th * .8, th * .8), col, [0, 0, .01], gg, { tinta: .014, papel: .045 }); pz(tubo([[-a, -th * .38], [a, -th * .38]], th * .8, th * .8), col, [0, 0, .005], gg, { tinta: .014, papel: .045 });
+      return gg; };
+    g.manchas = [[-.55, 1], [-.2, 1], [.15, 1], [.48, 1], [-.35, -1], [.3, -1]].map(([f, lado], i) => { const m = det(F.elipse(.045 + .015 * (i % 2), .022), 0xb8752e, [0, 0, .03], g); m.f = f; m.lado = lado; m.visible = !!o.corte || lado > 0; return m; });
+    g.burbujas = o.corte ? Array.from({ length: 9 }, (_, i) => { const bb = pz(F.circ(.035), 0x3d9bff, [0, 0, .02], g, { tinta: .008, papel: false }); bb.i = i; return bb; }) : [];
+    g.fl = [-.45, 0, .45].map(f => { const fl = det(F.poly([[-.028, 0], [.028, 0], [.028, .11], [.065, .11], [0, .19], [-.065, .11], [-.028, .11]]), 0x3d9bff, [f * b, 0, .035], g); fl.f = f; fl.visible = false; return fl; });
+    let kt = 0;
+    const pon = () => g.manchas.forEach(m => { const x = m.f * a; m.position.set(x, m.lado > 0 ? (o.corte ? th * .38 : th / 2 - .022) + alt(x, g.k) : -th * .38, .03); m.scale.setScalar(Math.max(.001, kt)); });
+    g.infla = k => { const q = Math.round(Math.min(1, Math.max(0, k)) * 20); g.k = q / 20; if (cur) cur.visible = false; cur = cache[q] ??= forma(q); cur.visible = true; pon(); };
+    g.tuesta = k => { kt = Math.min(1, Math.max(0, k)); pon(); };
+    g.vapor = (t, k) => g.burbujas.forEach(bb => { const fx = Math.sin(bb.i * 2.3 + t * (2.5 + bb.i % 3)) * .75, x = fx * b, hy = alt(x, g.k);
+      bb.position.set(x, th * .2 + (hy - th * .2) * (.35 + .3 * Math.sin(t * 5 + bb.i * 1.7)), .02); bb.visible = k > .01 && hy > .06; bb.scale.setScalar(Math.max(.001, k)); });
+    g.flechas = (t, k) => g.fl.forEach(fl => { const x = fl.f * b; fl.visible = k > .01; fl.position.set(x, th * .1 + alt(x, g.k) * .25 + ((t * 1.6 + fl.f) % 1) * alt(x, g.k) * .3, .035); fl.scale.set(Math.max(.001, k), Math.max(.001, k * (.6 + 2 * g.k)), 1); });
+    g.infla(o.k ?? 0); g.tuesta(o.tostada ?? 0); return g; }
+
+  return { tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
