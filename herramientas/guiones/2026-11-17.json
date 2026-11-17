@@ -1,0 +1,78 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "tortilla-inflada",
+  "estado": "listo",
+  "tema": "¿Por qué la tortilla se infla en el comal? (la masa tiene agua; con el calor se vuelve vapor; al voltearla las dos caras se cuecen y atrapan el vapor, que empuja e infla la tortilla: la 'pancita' es señal de buena cocción). Fuentes: Masienda (How to get your tortillas to puff every time), KCRW Good Food (Ask a Tortilla Judge: how do I make my tortillas puff up?)",
+  "fuentes": [
+   "https://masienda.com/blogs/learn/tortilla-puff-tips",
+   "https://www.kcrw.com/shows/good-food/stories/ask-a-tortilla-judge-how-to-puff-tortillas"
+  ],
+  "tendencia": "Hora de la comida (13:30); temporada de comida casera caliente en noviembre; algo que todo mexicano ha visto en el comal",
+  "formato": "¿Por qué…? + explicación visual + orgullo mexicano",
+  "categoria": "comida / casa",
+  "disparadores": [
+   "lo mexicano (comal, tortilla, abuelita)",
+   "eres tú (todos hemos visto la pancita)",
+   "sorpresa (es vapor atrapado)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-17-1330-tortilla-inflada.json",
+  "visual": "Escenario: cocina mexicana del kit con estufa y comal; protagonista y abuelita.\n1) gancho: tortilla en el comal que se infla poco a poco; protagonista sorprendido.\n2) masa: zoom tipo lupa dentro de la masa con gotitas de agua que se vuelven vapor (reutilizar PM.vapor).\n3) capas: corte lateral de la tortilla con dos 'pielecitas' y el vapor atrapado entre ellas.\n4) globo: la tortilla se infla como globo con flechas de vapor empujando; palomita de 'bien cocida'.\n5) remate: abuelita volteándola con los dedos, guiño. Pieza nueva reutilizable: PM.comal + PM.tortilla(inflado 0–1) en papel_pm.js.",
+  "titulo_yt": "¿Por qué la tortilla se INFLA en el comal? 🫓 #shorts",
+  "descripcion_yt": "La pancita de la tortilla tiene ciencia: el agua de la masa se vuelve vapor y queda atrapada entre sus dos caras. 🌽\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #tortilla #comidamexicana #shorts",
+  "titulo_tt": "¿Por qué se infla la tortilla? 🫓",
+  "texto_tt": "La famosa pancita de la tortilla en el comal tiene explicación 🌽 Etiqueta a quien voltea las tortillas con los dedos 👵 #datoscuriosos #ciencia #tortilla #comidamexicana #fyp",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "chicle-tragado",
+  "estado": "listo",
+  "tema": "¿Si te tragas el chicle se queda siete años en tu panza? (mito: el cuerpo no digiere la goma base, pero el sistema digestivo la mueve y sale en unos días; solo tragar mucho chicle seguido, sobre todo en niños, podría causar una obstrucción). Fuentes: Mayo Clinic (Swallowing gum: Is it harmful?), Mayo Clinic News Network (Does gum get stuck in your stomach?), 10TV Verify (Gum doesn't take seven years to digest)",
+  "fuentes": [
+   "https://www.mayoclinic.org/digestive-system/expert-answers/faq-20058446",
+   "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-minute-does-gum-get-stuck-in-your-stomach/",
+   "https://www.10tv.com/article/news/verify/gum-doesnt-take-seven-years-to-digest-stay-in-stomach/536-4bdaa476-443a-462e-b85e-71083b594cf1"
+  ],
+  "tendencia": "Mito de infancia que todos escuchamos; evergreen (sin tendencia fuerte de hoy)",
+  "formato": "Mito ('¿ves? te dije') + qué pasa de verdad + advertencia ligera",
+  "categoria": "cuerpo / mito",
+  "disparadores": [
+   "¿ves? te dije (es un mito)",
+   "eres tú (a todos nos asustaron)",
+   "sorpresa (no se digiere pero sí sale)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-17-1800-chicle-tragado.json",
+  "visual": "Escenario: patio de escuela del kit; protagonista niño y un amigo que lo asusta.\n1) gancho: el niño se traga el chicle por accidente, cara de susto; aparece un calendario con '7 años'.\n2) mito: el calendario se rompe con un sello de MITO; dentro de la panza (vista de rayos X de papel) el chicle rosa rebota sin deshacerse.\n3) sale: el chicle avanza por un tubo/tobogán intestinal con flechitas y un reloj de 'unos días' (nada explícito).\n4) ojo: un montón de chicles juntos haciendo tapón, señal de alto amable.\n5) remate: el amigo bromista se ríe y el protagonista le manda el video. Pieza nueva reutilizable: PM.panzaRayosX (silueta con estómago e intestino de papel).",
+  "titulo_yt": "¿El chicle se queda 7 años en tu PANZA? 🍬 #shorts",
+  "descripcion_yt": "Seguro te dijeron que el chicle se queda siete años adentro. Esto es lo que pasa de verdad. 🍬\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #mitos #chicle #shorts",
+  "titulo_tt": "¿El chicle se queda 7 años adentro? 🍬",
+  "texto_tt": "El mito que nos contaron a todos de niños 😱 Etiqueta a quien te asustaba con el chicle 👇 #datoscuriosos #ciencia #mitos #chicle #fyp",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "luna-gigante",
+  "estado": "listo",
+  "tema": "¿Por qué la Luna se ve enorme cuando apenas va saliendo? (ilusión lunar: no está más cerca —en fotos mide casi lo mismo, incluso está un poquito más lejos—; el cerebro la compara con casas y árboles del horizonte y la percibe más grande; truco: tapa la Luna con el pulgar con el brazo estirado, abajo y arriba la tapa igual). Fuentes: NASA (Why does the Moon look larger at the horizon? We asked a NASA scientist), The Weather Network (What is the mysterious Moon Illusion?)",
+  "fuentes": [
+   "https://www.nasa.gov/general/why-does-the-moon-look-larger-at-the-horizon-we-asked-a-nasa-scientist-episode-50",
+   "https://www.theweathernetwork.com/en/news/science/space/why-does-the-moon-look-so-big-what-is-the-moon-illusion"
+  ],
+  "tendencia": "Semana de cielo: pico de las Leónidas (17-nov) y Luna creciente rumbo a la Luna llena de fin de mes; noches despejadas de noviembre",
+  "formato": "¿Por qué…? + mito + ilusión + truco para probarlo",
+  "categoria": "espacio / mente",
+  "disparadores": [
+   "¿ves? te dije (no está más cerca)",
+   "truco útil (prueba del pulgar)",
+   "eres tú (la foto que sale chiquita)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-17-2130-luna-gigante.json",
+  "visual": "Escenario: azotea/calle nocturna del kit con casas y árboles en el horizonte; protagonista con celular.\n1) gancho: Luna naranja enorme saliendo detrás de las casas; protagonista boquiabierto.\n2) mito: dos fotos lado a lado (Luna abajo y Luna arriba) con una regla de papel: miden igual.\n3) cerebro: cerebro de papel con lupa comparando la Luna con casitas y arbolitos; la Luna 'crece' solo en la burbuja de pensamiento.\n4) truco: brazo estirado tapando la Luna con el pulgar, abajo y luego arriba.\n5) remate: el celular muestra la foto con la Luna chiquita y el protagonista se ríe. Pieza nueva reutilizable: PM.luna(fase, tamaño) + PM.horizonteNoche.",
+  "titulo_yt": "¿Por qué la Luna se ve ENORME al salir? 🌕 #shorts",
+  "descripcion_yt": "La Luna no está más cerca cuando sale: es una ilusión de tu cerebro. Pruébalo con tu pulgar. 🌕\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #luna #espacio #shorts",
+  "titulo_tt": "La Luna NO está más cerca 🌕",
+  "texto_tt": "¿Por qué se ve gigante cuando sale? Tu cerebro te engaña 🧠 Etiqueta a quien siempre le toma foto a la Luna 📸 #datoscuriosos #ciencia #luna #espacio #fyp",
+  "pedido": false
+ }
+]

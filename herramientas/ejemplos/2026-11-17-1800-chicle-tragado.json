@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-17-1800-chicle-tragado",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Si te tragas el chicle se queda siete años en tu panza?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Es un mito. Eso sí: tu panza no puede deshacer la goma del chicle."
+   ]
+  },
+  {
+   "tipo": "sale",
+   "titulo": "",
+   "frases": [
+    "Pero tampoco se pega: tu intestino lo va empujando y sale en unos días."
+   ]
+  },
+  {
+   "tipo": "ojo",
+   "titulo": "",
+   "frases": [
+    "Solo no te tragues muchos seguidos, porque sí se pueden atorar."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien de niño te asustaba con el chicle."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

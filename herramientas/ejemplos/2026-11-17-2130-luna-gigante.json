@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-17-2130-luna-gigante",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué la Luna se ve enorme cuando apenas va saliendo?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "No está más cerca: en fotos mide casi igual que arriba."
+   ]
+  },
+  {
+   "tipo": "cerebro",
+   "titulo": "",
+   "frases": [
+    "Es una ilusión: tu cerebro la compara con casas y árboles y la siente gigante."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: tápala con tu pulgar; abajo o arriba, la tapa igual."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien le toma foto a la Luna y le sale chiquita."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

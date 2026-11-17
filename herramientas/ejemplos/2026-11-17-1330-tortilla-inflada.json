@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-17-1330-tortilla-inflada",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué la tortilla se infla en el comal?"
+   ]
+  },
+  {
+   "tipo": "masa",
+   "titulo": "",
+   "frases": [
+    "La masa tiene agua escondida; con el calor del comal se vuelve vapor."
+   ]
+  },
+  {
+   "tipo": "capas",
+   "titulo": "",
+   "frases": [
+    "Al voltearla, las dos caras se cuecen y atrapan ese vapor."
+   ]
+  },
+  {
+   "tipo": "globo",
+   "titulo": "",
+   "frases": [
+    "El vapor empuja y la tortilla se infla como globo: señal de que quedó bien cocida."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a tu abuelita, que la voltea con los dedos sin quemarse."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
