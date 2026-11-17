@@ -851,5 +851,43 @@ export function kitPM(P, THREE, group) {
     g.flechas = (t, k) => g.fl.forEach(fl => { const x = fl.f * b; fl.visible = k > .01; fl.position.set(x, th * .1 + alt(x, g.k) * .25 + ((t * 1.6 + fl.f) % 1) * alt(x, g.k) * .3, .035); fl.scale.set(Math.max(.001, k), Math.max(.001, k * (.6 + 2 * g.k)), 1); });
     g.infla(o.k ?? 0); g.tuesta(o.tostada ?? 0); return g; }
 
-  return { tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 17-nov 18:00 (chicle tragado) ----
+  // PM.chicle(pos, r, padre, o): bolita de chicle rosa de cartulina con brillo y carita opcional (o: {cara:true, color}).
+  // PM.panzaRayosX(pos, s, padre, o): radiografía de cartulina (marco azul noche, silueta del torso, esófago, estómago e intestino).
+  // g.ruta(u 0..1) → [x, y] local: boca → esófago → estómago (u≈.3) → intestino → salida (u=1). Mete cosas con padre = g.dentro.
+  // g.flechas(t, k): flechitas blancas que empujan por el intestino (movimiento del intestino).
+  function chicle(pos, r = .1, parent = null, o = {}) { const g = group(pos, parent), col = o.color ?? 0xff5fa2;
+    pz(blob([[-r, 0], [-r * .8, r * .7], [0, r], [r * .85, r * .72], [r * 1.05, 0], [r * .7, -r * .78], [0, -r * .95], [-r * .75, -r * .7]]), col, [0, 0, 0], g, { tinta: .012, papel: .035 });
+    det(F.elipse(r * .3, r * .18), 0xffd2e6, [-r * .4, r * .45, .014], g, -.5);
+    if (o.cara !== false) { for (const sx of [-1, 1]) det(F.elipse(r * .1, r * .16), INK, [sx * r * .3, r * .02, .016], g);
+      det(F.arco(r * .2, r * .07, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -r * .1, .016], g); }
+    return g; }
+  function panzaRayosX(pos, s = 1, parent = null, o = {}) { const g = group(pos, parent); g.scale.setScalar(s);
+    const W = o.w ?? 1.7, H = o.h ?? 2.1, AZ = o.fondo ?? 0x1f3a5c, HU = 0xd8ecff, ES = o.estomago ?? 0xff9fb6, IN = o.intestino ?? 0xffc4d2;
+    pz(F.rect(W, H, .08), 0x3d6bff, [0, 0, 0], g, { tinta: .018, papel: .07 });
+    pz(F.rect(W - .12, H - .12, .05), AZ, [0, 0, .016], g, { tinta: false, papel: false });
+    for (const [x, y] of [[-W / 2 + .14, H / 2 - .14], [W / 2 - .14, H / 2 - .14]]) det(F.circ(.035), 0x9fb8d6, [x, y, .03], g);
+    const d = g.dentro = group([0, 0, .03], g);
+    // silueta del torso (cuello, hombros) y costillitas
+    det(blob([[-.17, 1.0], [.17, 1.0], [.2, .82], [.58, .7], [.66, .4], [.6, -.96], [-.6, -.96], [-.66, .4], [-.58, .7], [-.2, .82]]), HU, [0, 0, 0], d);
+    det(blob([[-.13, 1.0], [.13, 1.0], [.16, .84], [.52, .72], [.6, .42], [.55, -.92], [-.55, -.92], [-.6, .42], [-.52, .72], [-.16, .84]]), mez(HU, AZ, .55), [0, 0, .003], d);
+    for (const y of [.62, .5, .38]) for (const sx of [-1, 1]) det(tubo([[sx * .1, y], [sx * .32, y - .04], [sx * .48, y - .12]], .03, .022), mez(HU, AZ, .25), [0, 0, .006], d);
+    // esófago, estómago (frijolito) e intestino (tubo en zigzag)
+    det(tubo([[0, .98], [-.02, .72], [.02, .5]], .07, .07), ES, [0, 0, .01], d);
+    const est = pz(blob([[-.04, .52], [.22, .5], [.4, .34], [.36, .1], [.1, .0], [-.2, .06], [-.12, .2], [.06, .26], [.02, .4]]), ES, [0, 0, .012], d, { tinta: .012, papel: false });
+    det(tubo([[.08, .44], [.28, .38], [.32, .2], [.14, .08]], .02, .02), osc(ES, .85), [0, 0, .016], d);
+    const tram = [[-.2, .06], [-.42, -.04], [-.36, -.2], [0, -.22], [.38, -.24], [.4, -.4], [0, -.44], [-.38, -.46], [-.4, -.62], [0, -.66], [.36, -.68], [.3, -.84], [.02, -.86], [0, -1.02]];
+    pz(tubo(tram.slice(0, -1), .12, .12), IN, [0, 0, .011], d, { tinta: .012, papel: false });
+    det(tubo(tram.slice(0, -1), .025, .025), osc(IN, .85), [0, 0, .018], d);
+    const cur = pts => new THREE.CatmullRomCurve3(pts.map(([x, y]) => new THREE.Vector3(x, y, 0)), false, 'centripetal');
+    const rA = cur([[0, 1.06], [-.01, .78], [.02, .52], [.14, .32]]), rB = cur([[.14, .32], [.02, .12], ...tram]);   // u 0–.3 hasta el estómago, .3–1 intestino
+    const ruta = { getPointAt: u => u < .3 ? rA.getPointAt(Math.max(0, u) / .3) : rB.getPointAt(Math.min(1, (u - .3) / .7)) };
+    g.ruta = u => { const v = ruta.getPointAt(Math.min(1, Math.max(0, u))); return [v.x, v.y]; };
+    g.fl = [0, 1, 2, 3].map(i => { const f = det(F.poly([[-.03, -.05], [.05, 0], [-.03, .05], [-.01, 0]]), 0xffffff, [0, 0, .03], d); f.i = i; f.visible = false; return f; });
+    g.flechas = (t, k, u0 = .36, u1 = .96) => g.fl.forEach(f => { f.visible = k > .01; if (!f.visible) return; const u = u0 + ((t * .35 + f.i / 4) % 1) * (u1 - u0), a = ruta.getPointAt(u), b = ruta.getPointAt(Math.min(1, u + .01));
+      f.position.set(a.x, a.y, .03); f.rotation.z = Math.atan2(b.y - a.y, b.x - a.x); f.scale.setScalar(Math.max(.001, k) * 1.3); });
+    g.estomago = est;
+    return g; }
+
+  return { chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

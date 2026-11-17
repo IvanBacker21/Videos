@@ -701,5 +701,22 @@
   "mejora": "papel_pm.js: PM.tortilla (tortilla de lado que se infla en el comal, manchitas tostadas, flechas de vapor y modo corte con vapor atrapado)",
   "archivo": "shorts/2026-11-17-1330-tortilla-inflada.mp4",
   "titulo": "¿Por qué la tortilla se INFLA en el comal? 🫓 #shorts"
+ },
+ {
+  "fecha": "2026-11-17",
+  "hora": "18:00",
+  "tema": "¿Si te tragas el chicle se queda siete años en tu panza? (mito: el cuerpo no digiere la goma base, pero el sistema digestivo la mueve y sale en unos días; solo tragar mucho chicle seguido, sobre todo en niños, podría causar una obstrucción). Fuentes: Mayo Clinic (Swallowing gum: Is it harmful?), Mayo Clinic News Network (Does gum get stuck in your stomach?), 10TV Verify (Gum doesn't take seven years to digest)",
+  "formato": "Mito ('¿ves? te dije') + qué pasa de verdad + advertencia ligera",
+  "categoria": "cuerpo / mito",
+  "tendencia": "Mito de infancia que todos escuchamos; evergreen (sin tendencia fuerte de hoy)",
+  "disparadores": [
+   "¿ves? te dije (es un mito)",
+   "eres tú (a todos nos asustaron)",
+   "sorpresa (no se digiere pero sí sale)"
+  ],
+  "duracion": 26.1,
+  "mejora": "papel_pm.js: PM.panzaRayosX (radiografía de cartulina con estómago e intestino, g.ruta(u) para mover cosas por dentro y flechas de empuje) + PM.chicle (bolita rosa con carita)",
+  "archivo": "shorts/2026-11-17-1800-chicle-tragado.mp4",
+  "titulo": "¿El chicle se queda 7 años en tu PANZA? 🍬 #shorts"
  }
 ]

@@ -77,6 +77,8 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-17 13:30 (tortilla inflada en el comal, CARTULINA CHIBI) · **Nuevo y reutilizable en `papel_pm.js`**: **`PM.tortilla(pos, {w, alto, grueso, color, corte}, padre)`** (tortilla de maíz de lado, hija de `PM.comal`; `g.infla(k)` la hace pancita/domo con geometría en caché, `g.tuesta(k)` manchitas tostadas, `g.flechas(t,k)` vapor empujando; con `corte:true` dos pielecitas separadas y `g.vapor(t,k)` bolitas atrapadas; volteo de cartulina con `scale.y = cos`). Sirve para quesadillas, pan árabe, globos de masa y cualquier "se infla con vapor".
 
+- 2026-11-17 18:00 (chicle tragado, CARTULINA CHIBI) · **Nuevo y reutilizable en `papel_pm.js`**: **`PM.panzaRayosX(pos, s, padre)`** (radiografía de cartulina: torso, costillas, esófago, estómago e intestino en zigzag; `g.ruta(u)` da el camino boca→estómago (u .3)→intestino→salida (u 1) para mover cosas con padre `g.dentro`; `g.flechas(t, k)` = el intestino empuja) y **`PM.chicle(pos, r, padre, {cara})`** (bolita rosa con brillo y carita). Sirve para digestión, comida que se traga, semillas, monedas, medicinas.
+
 ## Siguientes (toma la primera de las 3D)
 0bb. (PAPEL PM) `PM.cocina()` con estufa y fregadero integrados y opción de noche (la taza ya existe: `PM.taza`).
 0bd. (PAPEL PM) `PM.empana(obj, k)`: vidrio/lentes/espejo que se empañan con gotitas (usa `PM.vapor`) para shorts de frío y baño.
