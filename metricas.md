@@ -44,7 +44,7 @@ Reglas surgidas de los datos: ver "UA LO QUE FUNCIONA" en GUIA.md (actualizada 8
 Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución en la nube: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en los 10 videos de Metricool. YouTube YTVP06/YTVP08 vacíos; YTEV01 = 29, YTEV13 8-nov = 0 (desfasado frente a Studio). Sin posts programados en Metricool 8–10 nov; los shorts de Buffer no aparecen aquí.
 
 | Short | Vistas | % visto | % feed | Observación |
-|---|---|---|---|---|
+|---|---|---|---|
 | Panza que ruge (8-nov 21:30, Buffer) | s/d | s/d | s/d | ~2 h publicado; no medible desde Metricool |
 | Picante / Nadar | 11 / 8 (YT, 20:50) | s/d | s/d | atascados según revisión 20:50; sin datos nuevos |
 | Resto | ver tabla 20:50 | | | sin cambios medibles |
@@ -140,3 +140,33 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 **Oportunidad temática:** Leónidas (lluvia de estrellas) alcanza su pico el 17-nov — ventana de 24 h para un short de seguimiento al de estrella fugaz.
 
 **Conclusión:** Buffer sin errores; todos los shorts con datos cumplen las reglas. Tres slots sin cubrir para el 16-nov y tendencia a no producir el slot de 21:30.
+## 2026-11-17 22:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (15 y 16-nov).
+
+**Buffer: sin errores en las 48 h revisadas.** Los 3 shorts del 16-nov se publicaron correctamente, incluyendo vaho-frio que fue retrasado a las 22:20 por el problema de GitHub del día anterior.
+
+| Short | Publicado (MX) | Buffer | Duración | ≤30s | Tema | Gancho | Observación |
+|---|---|---|---|---|---|---|---|
+| Piel chinita (frío) | 15-nov 13:30 | ✓ sent | 29.8 s | ✓ | cuerpo/clima | concreto ✓ | — |
+| Dormir de más (jet lag social) | 15-nov 18:00 | ✓ sent | 29.0 s | ✓ | cuerpo/sueño | concreto ✓ | megapuente ✓ |
+| Celular con frío | 15-nov 21:30 | ✓ sent | 29.9 s | ✓ | tecnología/clima | concreto ✓ | — |
+| Mareo en el carro | 16-nov 13:30 | ✓ sent | 29.2 s | ✓ | cuerpo/viajes | concreto ✓ | tendencia regreso megapuente ✓ |
+| Pan duro (bolillo) | 16-nov 18:00 | ✓ sent | 29.4 s | ✓ | comida/casa | concreto ✓ | tendencia frío + pan dulce ✓ |
+| Vaho en el frío | 16-nov 22:20 | ✓ sent | 27.4 s | ✓ | clima/cuerpo | concreto ✓ | retrasado de 21:30 a 22:20; publicado ✓ |
+| **17-nov: 3 slots (13:30, 18:00, 21:30)** | — | ✗ **ausentes** | — | — | — | — | No producidos; sin slot en temas.json |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 6/6 shorts ✓ (rango 27.4–29.9 s).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: en los últimos 6 shorts (14-16 nov) solo 1 de mascotas (arenero) ✓.
+- Patrón: 4 de los 6 últimos shorts son de frío/clima. Funciona para la temporada (Leónidas pico 17-nov, frentes fríos de noviembre) pero atención a no saturar el tema esta semana.
+
+**Oportunidad perdida:** Leónidas alcanzó su pico HOY (17-nov) y no hay short publicado hoy. El short de estrella-fugaz (14-nov) adelantó el tema pero no aprovechó el día del pico.
+
+**Alerta producción:** ninguno de los 3 slots del 17-nov (Leónidas pico) fue producido ni programado. Se rompe la racha diaria. Prioridad: retomar mañana 18-nov con los 3 slots del día.
+
+**Conclusión:** Buffer sin errores; todos los shorts con datos cumplen las reglas. El gran pendiente es retomar la producción diaria para el 18-nov.
