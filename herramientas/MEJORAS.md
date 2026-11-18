@@ -81,6 +81,8 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-17 21:30 (luna gigante, CARTULINA CHIBI) · **Nuevo y reutilizable en `papel_pm.js`**: **`PM.nocheCalle(o)`** (escenario de noche: cielo azul con franja de atardecer, estrellas que titilan, casitas con ventanas prendidas y arbolitos; la Luna va detrás en `zLuna`), **`PM.luna(pos, r, o)`** (Luna con cráteres y halo, `haloR` para que asome alrededor de lo que la tapa), **`PM.fotoNoche(pos, o)`** (foto impresa con cielo, casitas, Luna a la altura/tamaño que quieras y pie de foto), **`PM.regla(pos, w)`** (reglita para medir) y **`PM.manoPulgar(pos, s)`** (mano en primera persona con pulgar arriba; el origen es la punta del pulgar: proyéctala desde la cámara para tapar algo del fondo).
 
+- 2026-11-18 13:30 (guacamole negro, CARTULINA CHIBI) · **Nuevo y reutilizable en `papel_pm.js`**: **`PM.aguacate(pos, {r, hueso, cara, entero}, padre)`** (medio aguacate partido; `g.oxida(k)` manchas cafés), **`PM.molcajete(pos, {w, hueso}, padre)`** (molcajete con guacamole; `g.oxida(k, hueco)` capa café que respeta lo que tapa el hueso, `g.plastico(k)` película que baja y se pega), **`PM.manzana(pos, r)`** (mordida que se oxida) y **`PM.limon(pos, r)`** (`g.exprime(t, k)` con gotas). Lección: letreros/pregunta delante del molcajete proyectan sombras que parecen mugre: `traverse(m => m.castShadow = false)`.
+
 ## Siguientes (toma la primera de las 3D)
 0bb. (PAPEL PM) `PM.cocina()` con estufa y fregadero integrados y opción de noche (la taza ya existe: `PM.taza`).
 0bd. (PAPEL PM) `PM.empana(obj, k)`: vidrio/lentes/espejo que se empañan con gotitas (usa `PM.vapor`) para shorts de frío y baño.

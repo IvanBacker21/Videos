@@ -953,5 +953,73 @@ export function kitPM(P, THREE, group) {
     det(F.elipse(.075, .085), mez(piel, 0xffffff, .45), [0, .14, .014], de); det(F.rect(.14, .018, .009), osc(piel, .78), [0, -.12, .014], de);
     return g; }
 
-  return { nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 18-nov 13:30 (guacamole negro) ----
+  // PM.aguacate(pos, o, padre): MEDIO aguacate partido visto de frente (cáscara verde oscuro, pulpa amarillo-verde, hueso café).
+  //   g.oxida(k 0..1): manchas cafés crecen en la pulpa (no tapan el hueso). g.hueso: el hueso (escóndelo con g.hueso.visible = false).
+  //   o: {r (alto ≈ 2r), hueso:true, cara:false, entero:false → aguacate entero (solo cáscara con brillo)}
+  function aguacate(pos, o = {}, parent = null) { const g = group(pos, parent), r = o.r ?? .4, N = 40;
+    const huevo = (rx, ry) => { const p = []; for (let i = 0; i < N; i++) { const th = i / N * Math.PI * 2; p.push([rx * Math.sin(th) * (1 - .26 * Math.cos(th)), ry * Math.cos(th)]); } return F.poly(p); };
+    pz(huevo(r * .78, r), o.cascara ?? 0x3f6b2a, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    if (o.entero) { det(F.elipse(r * .12, r * .22), mez(o.cascara ?? 0x3f6b2a, 0xffffff, .35), [-r * .3, r * .1, .016], g, .3); g.oxida = () => {}; return g; }
+    det(huevo(r * .7, r * .9), 0xc9dc5a, [0, -r * .02, .014], g); det(huevo(r * .56, r * .74), 0xe6ec8a, [0, -r * .06, .018], g);
+    const hy = -r * .2;
+    g.manchas = [[-.32, .45, .13], [.3, .4, .12], [-.42, .05, .11], [.4, -.05, .12], [-.3, -.48, .12], [.28, -.52, .11], [0, .62, .1], [0, -.72, .09], [-.05, .3, .09]]
+      .map(([x, y, s], i) => { const m = det(F.elipse(r * s * 1.2, r * s), i % 2 ? 0x9b7a2e : 0x8a6626, [x * r, y * r - r * .06, .022], g, i * .7); m.scale.setScalar(.001); return m; });
+    g.hueso = pz(F.circ(r * .3), 0x8a5a3a, [0, hy, .03], g, { tinta: .012, papel: .03 }); det(F.elipse(r * .08, r * .05), 0xb88358, [-r * .1, r * .1, .016], g.hueso, -.5);
+    g.hueso.visible = o.hueso !== false;
+    if (o.cara) { for (const sx of [-1, 1]) det(F.circ(r * .045), INK, [sx * r * .1, r * .02, .02], g.hueso); det(F.arco(r * .07, r * .025, Math.PI * 1.15, Math.PI * 1.85), INK, [0, -r * .04, .02], g.hueso); }
+    g.oxida = k => { k = Math.min(1, Math.max(0, k)); g.manchas.forEach((m, i) => m.scale.setScalar(Math.max(.001, Math.min(1, k * 1.6 - i * .07)))); };
+    g.oxida(o.oxida ?? 0); return g; }
+  // PM.molcajete(pos, o, padre): molcajete de piedra (3 patitas) con montañita de guacamole. g.topY = cima del guacamole.
+  //   g.oxida(k, hueco = 0): capa café en la superficie que crece con k; hueco (radio) deja verde lo que tapa el hueso.
+  //   g.hueso: hueso de aguacate encima (g.hueso.visible). g.plastico(k): película transparente que baja y se pega (k=1 pegada).
+  //   o: {w (ancho), guaca (color), hueso:false}
+  function molcajete(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? 1.2, a = w * .44, hh = w * .2, PI = 0x5d5862;
+    for (const x of [-.32, 0, .32]) pz(F.rect(w * .13, w * .16, .03), osc(PI, .85), [x * w, -w * .3, -.02], g, { tinta: .012, papel: .04 });
+    const yb = w * .02;   // borde del molcajete
+    det(F.elipse(a, hh), o.guaca ?? 0x8cc63f, [0, yb, -.01], g); det(F.elipse(a * .55, hh * .5), mez(o.guaca ?? 0x8cc63f, 0xffffff, .25), [-a * .3, yb + hh * .4, -.005], g);
+    const cuenco = []; for (let i = 0; i <= 24; i++) { const th = Math.PI + i / 24 * Math.PI; cuenco.push([Math.cos(th) * w * .5, yb + Math.sin(th) * w * .3]); }
+    pz(F.poly(cuenco), PI, [0, 0, .02], g, { tinta: .016, papel: .06 });
+    for (const [x, y] of [[-.25, -.08], [.1, -.15], [.3, -.05], [-.05, -.22], [-.32, -.17], [.2, -.24]]) det(F.circ(w * .018), osc(PI, .7), [x * w, y * w, .036], g);
+    det(F.rect(w * 1.02, w * .05, .02), osc(PI, 1.15), [0, yb, .037], g);
+    g.topY = yb + hh;
+    const sup = (x) => yb + hh * Math.sqrt(Math.max(0, 1 - (x / a) ** 2));
+    const cache = {}; let cur = null;
+    const capa = (q, hu) => { const gg = group([0, 0, .0], g), th = .012 + q / 10 * hh * .5, segs = hu > 0 ? [[-a * .96, -hu], [hu, a * .96]] : [[-a * .96, a * .96]];
+      for (const [x0, x1] of segs) { const pts = []; for (let i = 0; i <= 16; i++) { const x = x0 + (x1 - x0) * i / 16; pts.push([x, sup(x) - th * .42]); } det(tubo(pts, th, th), q > 6 ? 0x7a5520 : 0x8a6626, [0, 0, -.003], gg); }
+      return gg; };
+    g.oxida = (k, hu = 0) => { const q = Math.round(Math.min(1, Math.max(0, k)) * 10); if (cur) cur.visible = false; if (q === 0) { cur = null; return; } const key = q + '_' + hu.toFixed(2); cur = cache[key] ??= capa(q, hu); cur.visible = true; };
+    g.hueso = pz(F.elipse(w * .1, w * .085), 0x8a5a3a, [0, g.topY + w * .02, .0], g, { tinta: .012, papel: .03 }); det(F.elipse(w * .03, w * .02), 0xb88358, [-w * .03, w * .03, .016], g.hueso, -.5);
+    g.hueso.visible = !!o.hueso;
+    const pl = g.plast = group([0, 0, .045], g); const film = []; for (let i = 0; i <= 18; i++) { const x = -a * 1.05 + 2.1 * a * i / 18; film.push([x, sup(Math.max(-a * .999, Math.min(a * .999, x))) + .012]); }
+    pz(tubo(film, .03, .03), 0xc4ecff, [0, 0, 0], pl, { tinta: .01, papel: false }); det(tubo(film.slice(3, 8), .01, .01), 0xffffff, [0, .006, .02], pl); det(tubo(film.slice(11, 14), .01, .01), 0xffffff, [0, .006, .02], pl);
+    for (const sx of [-1, 1]) pz(F.rect(.05, .12, .02), 0xdff4ff, [sx * a * 1.08, yb - .02, 0], pl, { tinta: .008, papel: false });
+    g.plastico = k => { pl.visible = k > .001; pl.position.y = (1 - Math.min(1, k)) * .7; pl.scale.x = 1 + (1 - Math.min(1, k)) * .15; };
+    g.plastico(0); g.oxida(o.oxida ?? 0); return g; }
+  // PM.manzana(pos, r, padre, o): manzana roja de cartulina con mordida a la derecha (pulpa crema). g.oxida(k): la mordida se pone café.
+  function manzana(pos, r = .3, parent = null, o = {}) { const g = group(pos, parent), p = [], N = 48;
+    for (let i = 0; i < N; i++) { const th = i / N * Math.PI * 2 - Math.PI; const rr = r, yy = Math.sin(th);
+      let x = Math.cos(th) * rr, y = yy * rr * .95 - (Math.abs(Math.cos(th)) < .2 && yy > 0 ? r * .1 * (1 - Math.abs(Math.cos(th)) / .2) : 0);
+      if (Math.abs(th) < .75) { const rb = r * (.66 + .07 * Math.abs(Math.sin(th * 6.3))); x = Math.cos(th) * rb; y = Math.sin(th) * rb * .95; }
+      p.push([x, y]); }
+    pz(F.poly(p), o.color ?? 0xe8423c, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    det(F.elipse(r * .12, r * .2), 0xff8a80, [-r * .5, r * .3, .014], g, .4);
+    g.pulpa = det(F.elipse(r * .26, r * .48), 0xfff1c9, [r * .34, 0, .016], g);
+    g.cafe = det(F.elipse(r * .25, r * .46), 0xb8803a, [r * .34, 0, .02], g); g.cafe.scale.setScalar(.001);
+    pz(F.rect(r * .07, r * .3, .02), 0x6b4a2a, [0, r * .98, -.02], g, { tinta: .01, papel: .03, rot: -.2 });
+    pz(F.elipse(r * .2, r * .09), 0x5cb85c, [r * .18, r * 1.02, -.01], g, { tinta: .01, papel: .03, rot: .5 });
+    g.oxida = k => { const kk = Math.max(.001, Math.min(1, k)); g.cafe.scale.set(kk, kk, 1); };
+    g.oxida(o.oxida ?? 0); return g; }
+  // PM.limon(pos, r, padre): medio limón verde visto de frente (gajos) con gotitas. g.exprime(t, k): se aplasta un poco y caen gotas.
+  function limon(pos, r = .22, parent = null) { const g = group(pos, parent);
+    const cu = group([0, 0, 0], g); pz(F.circ(r), 0x4caf50, [0, 0, 0], cu, { tinta: .016, papel: .05 }); det(F.circ(r * .86), 0xd8f08a, [0, 0, .014], cu);
+    for (let i = 0; i < 8; i++) det(F.rect(r * .04, r * .8, 0), 0xf6ffd0, [0, 0, .018], cu, i / 8 * Math.PI);
+    det(F.circ(r * .1), 0xf6ffd0, [0, 0, .02], cu);
+    g.gotas = [0, 1, 2].map(i => { const d = pz(F.gota(.09 * r / .22), 0xc9f07a, [0, 0, .02], g, { tinta: .008, papel: .02 }); d.i = i; d.visible = false; return d; });
+    g.exprime = (t, k) => { cu.scale.set(1 + .08 * k * Math.abs(Math.sin(t * 6)), 1 - .1 * k * Math.abs(Math.sin(t * 6)), 1);
+      g.gotas.forEach(d => { const q = (t * 1.4 + d.i / 3) % 1; d.visible = k > .05; d.position.set((d.i - 1) * r * .35, -r * 1.1 - q * r * 3, .02); d.scale.setScalar(Math.max(.001, k * (1 - q * .4))); }); };
+    return g; }
+
+
+  return { aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

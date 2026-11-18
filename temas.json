@@ -735,5 +735,22 @@
   "mejora": "papel_pm.js: PM.nocheCalle (escenario de noche con casitas y estrellas) + PM.luna (cráteres y halo) + PM.fotoNoche + PM.regla + PM.manoPulgar (mano en primera persona)",
   "archivo": "shorts/2026-11-17-2130-luna-gigante.mp4",
   "titulo": "¿Por qué la Luna se ve ENORME al salir? 🌕 #shorts"
+ },
+ {
+  "fecha": "2026-11-18",
+  "hora": "13:30",
+  "tema": "¿Por qué el guacamole SIEMPRE se pone negro? (al cortar el aguacate se rompen sus células y una enzima (polifenol oxidasa) reacciona con el oxígeno del aire y forma pigmentos cafés, como en la manzana mordida; mito: el hueso solo protege la parte que tapa porque bloquea el aire; truco: limón (ácido) y plástico pegado a la superficie, sin aire). Fuentes: Live Science (Why do avocados turn brown so quickly), Compound Interest (Why do avocados turn brown?), Inverse (Do avocado pits keep your guac fresh?)",
+  "formato": "¿Por qué SIEMPRE…? + mito + truco útil",
+  "categoria": "comida / mito",
+  "tendencia": "Hora de la comida (13:30); el guacamole está en toda mesa mexicana; mito del hueso que todos repiten",
+  "disparadores": [
+   "lo mexicano (guacamole, molcajete)",
+   "¿ves? te dije (mito del hueso)",
+   "truco útil (limón y plástico)"
+  ],
+  "duracion": 27.1,
+  "mejora": "papel_pm.js: PM.aguacate (medio aguacate que se oxida) + PM.molcajete (guacamole con capa café que respeta el hueso y plástico que se pega) + PM.manzana (mordida que se oxida) + PM.limon (se exprime con gotas)",
+  "archivo": "shorts/2026-11-18-1330-aguacate-negro.mp4",
+  "titulo": "¿Por qué el guacamole se pone NEGRO? 🥑 #shorts"
  }
 ]
