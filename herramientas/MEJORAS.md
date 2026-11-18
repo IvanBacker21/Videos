@@ -79,6 +79,8 @@ Cada short implementa al menos UNA mejora de esta lista (o una nueva) y la anota
 
 - 2026-11-17 18:00 (chicle tragado, CARTULINA CHIBI) · **Nuevo y reutilizable en `papel_pm.js`**: **`PM.panzaRayosX(pos, s, padre)`** (radiografía de cartulina: torso, costillas, esófago, estómago e intestino en zigzag; `g.ruta(u)` da el camino boca→estómago (u .3)→intestino→salida (u 1) para mover cosas con padre `g.dentro`; `g.flechas(t, k)` = el intestino empuja) y **`PM.chicle(pos, r, padre, {cara})`** (bolita rosa con brillo y carita). Sirve para digestión, comida que se traga, semillas, monedas, medicinas.
 
+- 2026-11-17 21:30 (luna gigante, CARTULINA CHIBI) · **Nuevo y reutilizable en `papel_pm.js`**: **`PM.nocheCalle(o)`** (escenario de noche: cielo azul con franja de atardecer, estrellas que titilan, casitas con ventanas prendidas y arbolitos; la Luna va detrás en `zLuna`), **`PM.luna(pos, r, o)`** (Luna con cráteres y halo, `haloR` para que asome alrededor de lo que la tapa), **`PM.fotoNoche(pos, o)`** (foto impresa con cielo, casitas, Luna a la altura/tamaño que quieras y pie de foto), **`PM.regla(pos, w)`** (reglita para medir) y **`PM.manoPulgar(pos, s)`** (mano en primera persona con pulgar arriba; el origen es la punta del pulgar: proyéctala desde la cámara para tapar algo del fondo).
+
 ## Siguientes (toma la primera de las 3D)
 0bb. (PAPEL PM) `PM.cocina()` con estufa y fregadero integrados y opción de noche (la taza ya existe: `PM.taza`).
 0bd. (PAPEL PM) `PM.empana(obj, k)`: vidrio/lentes/espejo que se empañan con gotitas (usa `PM.vapor`) para shorts de frío y baño.

@@ -718,5 +718,22 @@
   "mejora": "papel_pm.js: PM.panzaRayosX (radiografía de cartulina con estómago e intestino, g.ruta(u) para mover cosas por dentro y flechas de empuje) + PM.chicle (bolita rosa con carita)",
   "archivo": "shorts/2026-11-17-1800-chicle-tragado.mp4",
   "titulo": "¿El chicle se queda 7 años en tu PANZA? 🍬 #shorts"
+ },
+ {
+  "fecha": "2026-11-17",
+  "hora": "21:30",
+  "tema": "¿Por qué la Luna se ve enorme cuando apenas va saliendo? (ilusión lunar: no está más cerca —en fotos mide casi lo mismo, incluso está un poquito más lejos—; el cerebro la compara con casas y árboles del horizonte y la percibe más grande; truco: tapa la Luna con el pulgar con el brazo estirado, abajo y arriba la tapa igual). Fuentes: NASA (Why does the Moon look larger at the horizon? We asked a NASA scientist), The Weather Network (What is the mysterious Moon Illusion?)",
+  "formato": "¿Por qué…? + mito + ilusión + truco para probarlo",
+  "categoria": "espacio / mente",
+  "tendencia": "Semana de cielo: pico de las Leónidas (17-nov) y Luna creciente rumbo a la Luna llena de fin de mes; noches despejadas de noviembre",
+  "disparadores": [
+   "¿ves? te dije (no está más cerca)",
+   "truco útil (prueba del pulgar)",
+   "eres tú (la foto que sale chiquita)"
+  ],
+  "duracion": 25.7,
+  "mejora": "papel_pm.js: PM.nocheCalle (escenario de noche con casitas y estrellas) + PM.luna (cráteres y halo) + PM.fotoNoche + PM.regla + PM.manoPulgar (mano en primera persona)",
+  "archivo": "shorts/2026-11-17-2130-luna-gigante.mp4",
+  "titulo": "¿Por qué la Luna se ve ENORME al salir? 🌕 #shorts"
  }
 ]

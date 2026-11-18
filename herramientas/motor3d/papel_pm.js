@@ -889,5 +889,69 @@ export function kitPM(P, THREE, group) {
     g.estomago = est;
     return g; }
 
-  return { chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- noche / Luna (17-nov 21:30) ----
+  // PM.nocheCalle(o): escenario nocturno de cartulina: cielo azul noche con franja clara en el horizonte, estrellitas que titilan,
+  //   fila de casitas con ventanas prendidas y arbolitos (z≈-2.2) y banqueta. La Luna va DETRÁS de las casas en z = g.zLuna (-2.8).
+  //   o: {cielo, casas:[colores], estrellas:n}. Devuelve { update(t), zLuna }.
+  function nocheCalle(o = {}) {
+    const CI = o.cielo ?? 0x27306e;
+    pz(F.rect(30, 30, 0), CI, [0, 8, -4], null, { tinta: false, papel: false });
+    det(F.rect(30, 1.6, 0), mez(CI, 0x8a6ab8, .45), [0, 1.0, -3.95]); det(F.rect(30, .7, 0), mez(CI, 0xff9a7a, .35), [0, .55, -3.94]);
+    let sm = 21; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    const est = []; for (let i = 0; i < (o.estrellas ?? 30); i++) { const x = (rnd() - .5) * 7, y = 1.7 + rnd() * 4.2;
+      const e = pz(F.estrella(5, .06 + rnd() * .05, .026), rnd() < .3 ? 0xfff2a8 : 0xffffff, [x, y, -3.7], null, { tinta: false, papel: .022 }); e.f = rnd() * 6; e.k = .7 + rnd() * .5; est.push(e); }
+    const cols = o.casas ?? [0x5a4f8f, 0x6d5aa0, 0x4d4680, 0x7a5f9e];
+    let x = -3.4, i = 0;
+    while (x < 3.6) { const w = .55 + rnd() * .35, h = .45 + rnd() * .5, c = cols[i % cols.length], z = -2.2 - (i % 2) * .08;
+      const cs = pz(F.rect(w, h, .015), c, [x + w / 2, h / 2, z], null, { tinta: .016, papel: .05 });
+      if (i % 3 === 1) pz(F.poly([[-w / 2 - .04, 0], [w / 2 + .04, 0], [0, .26]]), osc(c, .78), [0, h / 2, .005], cs, { tinta: .014, papel: false });
+      else det(F.rect(w + .06, .06, .01), osc(c, .7), [0, h / 2, .016], cs);
+      for (let k = 0; k < (w > .75 ? 2 : 1); k++) { const on = rnd() < .75; det(F.rect(.13, .15, .015), on ? 0xffd36b : osc(c, .7), [(k - (w > .75 ? .5 : 0)) * .3, h * .12, .016], cs); }
+      x += w + .04; i++;
+      if (i % 3 === 0 && x < 3.4) { const r = .2 + rnd() * .1; pz(F.rect(.06, .3, .02), 0x4a3a5a, [x + r, .15, z - .05], null, { tinta: .012, papel: .04 });
+        pz(F.circ(r), 0x2f5e6a, [x + r, .3 + r, z - .04], null, { tinta: .016, papel: .05 }); x += 2 * r + .04; } }
+    pz(F.rect(30, 6, 0), 0x3a3570, [0, -2.95, -1.7], null, { tinta: false, papel: false });
+    pz(F.rect(30, .07, 0), 0x56508f, [0, .03, -1.69], null, { tinta: false, papel: false });
+    for (let k = -14; k < 14; k++) { det(F.rect(.18, .03, .01), 0x6a64a8, [k * .4, -.35, -1.68]); det(F.rect(.18, .03, .01), 0x5a5498, [k * .4 + .2, -1.3, -1.68]); }
+    return { zLuna: -2.8, estrellas: est, update(t) { est.forEach(e => e.scale.setScalar(e.k * (.75 + .25 * Math.sin(t * 3 + e.f)))); } };
+  }
+  // PM.luna(pos, r, o): Luna de cartulina con cráteres y halo. o: {color (0xfff0b8; naranja al salir: 0xffa64d), halo:true, cara:false, expr}
+  function luna(pos, r = .5, o = {}) { const col = o.color ?? 0xfff0b8;
+    const g = astro(pos, r, col, { crateres: [[-.35, .25, .16], [.3, -.3, .2], [.35, .35, .1], [-.2, -.45, .1]], cara: o.cara ?? false, expr: o.expr, papel: .05 });
+    if (o.halo !== false) { g.halo = det(F.circ(r * (o.haloR ?? 1.22)), mez(col, o.cielo ?? 0x27306e, .55), [0, 0, -.35], g); }
+    return g; }
+  // PM.fotoNoche(pos, o, padre): foto impresa de cartulina (marco blanco) con cielo de noche, casitas y la Luna.
+  //   o: {w, h, lunaY (0..1 de la altura de la imagen), lunaR, lunaX, texto (pie de foto), color}. g.luna = la Luna (escálala para "crecer").
+  function fotoNoche(pos, o = {}, parent = null) { const g = group(pos, parent), W = o.w ?? .8, H = o.h ?? 1.0, iw = W * .86, ih = H * .72, cy = H * .08;
+    pz(F.rect(W, H, .03), 0xffffff, [0, 0, 0], g, { tinta: .016, papel: .05 });
+    det(F.rect(iw, ih, .01), 0x27306e, [0, cy, .014], g); det(F.rect(iw, ih * .22, 0), 0x4a3f8a, [0, cy - ih * .28, .016], g);
+    const ly = cy - ih / 2 + ih * (o.lunaY ?? .5), lr = o.lunaR ?? .1;
+    g.luna = group([(o.lunaX ?? .1) * iw, ly, .022], g);
+    det(F.circ(lr), o.color ?? 0xfff0b8, [0, 0, 0], g.luna); det(F.circ(lr * .22), osc(o.color ?? 0xfff0b8, .82), [-lr * .35, lr * .2, .002], g.luna); det(F.circ(lr * .16), osc(o.color ?? 0xfff0b8, .82), [lr * .3, -lr * .3, .002], g.luna);
+    const nb = Math.max(3, Math.round(iw / .14)); for (let k = 0; k < nb; k++) { const hw = iw / nb, hh = ih * (.1 + ((k * 37) % 7) / 7 * .12);
+      det(F.rect(hw * .9, hh, 0), [0x5a4f8f, 0x6d5aa0, 0x4d4680][k % 3], [-iw / 2 + hw * (k + .5), cy - ih / 2 + hh / 2, .03], g);
+      if (k % 2 === 0) det(F.rect(hw * .3, hh * .3, 0), 0xffd36b, [-iw / 2 + hw * (k + .5), cy - ih / 2 + hh * .45, .034], g); }
+    if (o.texto) { const tw = W * .8, th = H * .13; const m = new THREE.Mesh(new THREE.PlaneGeometry(tw, th), new THREE.MeshStandardMaterial({ map: textoTx(o.texto, tw, th, 0xffffff), roughness: 1, metalness: 0 }));
+      m.position.set(0, -H / 2 + H * .1, .02); g.add(m); }
+    return g; }
+  // PM.regla(pos, w, padre): reglita amarilla de cartulina con rayitas (para "medir" cosas). Topes rojos en los extremos.
+  function regla(pos, w = .3, parent = null) { const g = group(pos, parent);
+    pz(F.rect(w + .08, .07, .01), 0xffd640, [0, 0, 0], g, { tinta: .01, papel: .03 });
+    for (let k = 0; k <= 6; k++) det(F.rect(.008, k % 3 === 0 ? .045 : .025, 0), 0x3a2a18, [-w / 2 + w * k / 6, .035 - (k % 3 === 0 ? .045 : .025) / 2, .014], g);
+    for (const sx of [-1, 1]) det(F.rect(.014, .16, 0), 0xff3b5b, [sx * w / 2, 0, .016], g);
+    return g; }
+  // PM.manoPulgar(pos, s, o): mano de cartulina en primera persona (brazo estirado desde abajo a la derecha, puño y pulgar arriba).
+  //   El ORIGEN es la punta del pulgar (ponla encima de lo que quieres tapar). o: {piel, manga (playera azul del protagonista), lado:1|-1}
+  function manoPulgar(pos, s = 1, o = {}) { const g = group(pos); g.scale.setScalar(s); const piel = o.piel ?? 0xe8b48c, lado = o.lado ?? 1; g.scale.x = s * lado;
+    const a = .5, ax = Math.sin(a), ay = -Math.cos(a);
+    pz(F.rect(.4, 2.6, .18), piel, [.18 + ax * 1.35, -.62 + ay * 1.35, -.04], g, { tinta: .016, papel: .06, rot: a });
+    pz(F.rect(.56, 1.4, .1), o.manga ?? 0x3d6bff, [.18 + ax * 2.35, -.62 + ay * 2.35, -.02], g, { tinta: .016, papel: .06, rot: a });
+    const pu = pz(F.rect(.62, .52, .19), piel, [.2, -.62, 0], g, { tinta: .016, papel: .06 });
+    for (let k = 0; k < 3; k++) det(F.rect(.2, .022, .01), osc(piel, .78), [.17, .12 - k * .12, .014], pu);
+    det(F.elipse(.12, .08), osc(piel, .9), [-.1, -.1, .014], pu);
+    const de = pz(F.rect(.26, .5, .13), piel, [0, -.24, .02], g, { tinta: .016, papel: .06 });
+    det(F.elipse(.075, .085), mez(piel, 0xffffff, .45), [0, .14, .014], de); det(F.rect(.14, .018, .009), osc(piel, .78), [0, -.12, .014], de);
+    return g; }
+
+  return { nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
