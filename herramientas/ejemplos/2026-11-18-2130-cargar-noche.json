@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-18-2130-cargar-noche",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Cargar el celular toda la noche lo echa a perder?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Casi siempre es mito: al llegar al cien, deja de meterle carga solito."
+   ]
+  },
+  {
+   "tipo": "calor",
+   "titulo": "",
+   "frases": [
+    "Lo que sí desgasta la batería es el calor."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "No lo cargues bajo la almohada ni con funda gruesa, y activa la carga optimizada."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien se despierta a medianoche a desconectarlo."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

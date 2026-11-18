@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-18-1800-manos-frias",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué con el frío SIEMPRE se te congelan primero las manos?"
+   ]
+  },
+  {
+   "tipo": "tubitos",
+   "titulo": "",
+   "frases": [
+    "Tu cuerpo aprieta los tubitos de sangre de manos y pies."
+   ]
+  },
+  {
+   "tipo": "centro",
+   "titulo": "",
+   "frases": [
+    "Así guarda la sangre calientita para tu corazón y tu cerebro."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: abrígate el pecho y el cuello, y el calor regresa a tus dedos."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien te pone las manos heladas en la espalda."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

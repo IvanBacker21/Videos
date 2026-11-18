@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-18-1330-aguacate-negro",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el guacamole SIEMPRE se pone negro?"
+   ]
+  },
+  {
+   "tipo": "corte",
+   "titulo": "",
+   "frases": [
+    "Al cortar el aguacate rompes sus celulitas, y algo de adentro reacciona con el aire."
+   ]
+  },
+  {
+   "tipo": "oxido",
+   "titulo": "",
+   "frases": [
+    "Es lo mismo que pone café a la manzana mordida."
+   ]
+  },
+  {
+   "tipo": "hueso",
+   "titulo": "",
+   "frases": [
+    "¿Dejarle el hueso? Mito: solo protege lo que tapa."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Limón y plástico pegadito, sin aire, sí sirven. Mándaselo a quien le deja el hueso al guacamole."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

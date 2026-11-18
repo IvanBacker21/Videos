@@ -1,0 +1,79 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "aguacate-negro",
+  "estado": "listo",
+  "tema": "¿Por qué el guacamole SIEMPRE se pone negro? (al cortar el aguacate se rompen sus células y una enzima (polifenol oxidasa) reacciona con el oxígeno del aire y forma pigmentos cafés, como en la manzana mordida; mito: el hueso solo protege la parte que tapa porque bloquea el aire; truco: limón (ácido) y plástico pegado a la superficie, sin aire). Fuentes: Live Science (Why do avocados turn brown so quickly), Compound Interest (Why do avocados turn brown?), Inverse (Do avocado pits keep your guac fresh?)",
+  "fuentes": [
+   "https://www.livescience.com/chemistry/why-do-avocados-turn-brown-so-quickly-and-are-they-ok-to-eat-at-that-point",
+   "https://www.compoundchem.com/2014/08/03/why-do-avocados-turn-brown-the-chemistry-of-avocados/",
+   "https://www.inverse.com/science/do-avocado-pits-keep-your-guac-fresh"
+  ],
+  "tendencia": "Hora de la comida (13:30); el guacamole está en toda mesa mexicana; mito del hueso que todos repiten",
+  "formato": "¿Por qué SIEMPRE…? + mito + truco útil",
+  "categoria": "comida / mito",
+  "disparadores": [
+   "lo mexicano (guacamole, molcajete)",
+   "¿ves? te dije (mito del hueso)",
+   "truco útil (limón y plástico)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-18-1330-aguacate-negro.json",
+  "visual": "Escenario: cocina mexicana del kit; protagonista con molcajete de guacamole.\n1) gancho: guacamole verde que se va poniendo café por arriba; protagonista con cara de '¿neta?'.\n2) corte: aguacate partido, zoom tipo lupa a celulitas rotas y bolitas de aire (oxígeno) que se pegan y pintan café.\n3) oxido: manzana mordida junto al aguacate, las dos se ponen cafés a la par.\n4) hueso: hueso en el centro del guacamole; lo quitan y solo abajo quedó verde, alrededor café; letrero 'MITO'.\n5) remate: limón exprimiéndose y plástico que baja pegadito; palomita verde. Pieza nueva reutilizable: PM.aguacate(partido, oxidado 0–1) + PM.molcajete en papel_pm.js.",
+  "titulo_yt": "¿Por qué el guacamole se pone NEGRO? 🥑 #shorts",
+  "descripcion_yt": "El guacamole no se echa a perder por magia: es química con el aire. 🥑\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #guacamole #aguacate #shorts",
+  "titulo_tt": "¿Por qué el guacamole se pone negro? 🥑",
+  "texto_tt": "Y no, el hueso no lo salva 🥑 Etiqueta a quien siempre le deja el hueso al guacamole #datoscuriosos #ciencia #guacamole #comidamexicana #fyp",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "manos-frias",
+  "estado": "listo",
+  "tema": "¿Por qué con el frío SIEMPRE se te congelan primero las manos? (vasoconstricción: el cuerpo aprieta los vasos sanguíneos de manos y pies para mandar menos sangre y perder menos calor, y así mantener calientes los órganos del centro como corazón y cerebro; truco: abrigar el torso y el cuello, con el centro caliente el cuerpo vuelve a mandar sangre a las extremidades). Fuentes: AccuWeather (5 ways your body combats cold weather), VCHRI – Vancouver Coastal Health Research Institute (Ask the expert: cold hands and feet)",
+  "fuentes": [
+   "https://accuweather.com/en/weather-news/5-ways-your-body-combats-cold-weathers-harsh-impacts-2/432721",
+   "https://www.vchri.ca/stories/2018/01/03/ask-expert-brrrr-chilly-weather-or-poor-circulation-making-my-hands-and-feet"
+  ],
+  "tendencia": "Frente frío y alerta amarilla por frío en CDMX esta semana (hasta 4 grados en tres alcaldías, Publimetro 16-nov)",
+  "formato": "¿Por qué SIEMPRE…? + explicación del cuerpo + truco útil",
+  "categoria": "cuerpo / clima",
+  "disparadores": [
+   "eres tú (manos heladas)",
+   "truco útil (abrigar el centro)",
+   "sorpresa (el cuerpo 'sacrifica' los dedos)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-18-1800-manos-frias.json",
+  "visual": "Escenario: calle de la ciudad con frío del kit (copos/vaho); protagonista con suéter.\n1) gancho: protagonista soplándose las manos azuladas, dedos con escarcha de papel.\n2) tubitos: vista 'rayos X' de cartulina del brazo con tubitos rojos que se aprietan y se adelgazan en la mano.\n3) centro: flechitas rojas que regresan al pecho donde brillan un corazón y un cerebro chibi felices y calientitos.\n4) truco: le ponen bufanda y chamarra; el calor (flechas naranjas) vuelve a bajar a los dedos, que pasan de azul a rosita.\n5) remate: el amigo pone las manos heladas en la espalda de otro, que brinca. Pieza nueva reutilizable: PM.vasosRayosX(apretado 0–1) en papel_pm.js.",
+  "titulo_yt": "¿Por qué se te CONGELAN las manos? 🥶 #shorts",
+  "descripcion_yt": "Con el frío, tu cuerpo sacrifica manos y pies para cuidar lo más importante. 🧤\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #frio #cuerpohumano #shorts",
+  "titulo_tt": "¿Por qué se te congelan las manos? 🥶",
+  "texto_tt": "Tu cuerpo lo hace a propósito 🧤 Etiqueta a quien siempre tiene las manos heladas #datoscuriosos #ciencia #frio #frentefrio #fyp",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "cargar-noche",
+  "estado": "listo",
+  "tema": "¿Cargar el celular toda la noche lo echa a perder? (casi siempre mito: los celulares modernos tienen un circuito que deja de meter carga al llegar al 100% y solo lo 'rellena' a ratos; lo que sí desgasta la batería de litio es el calor; truco: no cargarlo bajo la almohada ni con funda gruesa y activar la carga optimizada/adaptativa). Fuentes: PCMag (Charging your phone overnight: battery myths debunked), BGR (Stop believing these 5 myths about charging your phone), TechRadar (Should you stop charging your phone battery to 100%?)",
+  "fuentes": [
+   "https://medium.com/pcmag-access/charging-your-phone-overnight-battery-myths-debunked-1d43797502d3",
+   "https://bgr.com/2169846/stop-believing-myths-charging-phone/",
+   "https://www.techradar.com/phones/should-you-stop-charging-your-phone-battery-to-100-percent-heres-what-experts-say"
+  ],
+  "tendencia": "Hora de dormir (21:30): justo cuando todos conectan el celular; temporada post Buen Fin con celulares nuevos",
+  "formato": "Mito + ¿ves? te dije + truco útil",
+  "categoria": "tecnología / mito",
+  "disparadores": [
+   "eres tú (lo cargas toda la noche)",
+   "¿ves? te dije (mito)",
+   "truco útil (calor, carga optimizada)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-18-2130-cargar-noche.json",
+  "visual": "Escenario: recámara de noche del kit; protagonista en la cama con el celular conectado en el buró.\n1) gancho: celular cargando con rayito; protagonista preocupado mirándolo.\n2) mito: barra de batería que sube a 100 y un 'switch' de cartulina que se apaga solito; letrero 'MITO'.\n3) calor: el celular bajo la almohada se pone rojo con ondas de calor y la batería chibi suda.\n4) truco: lo sacan de la funda gruesa, lo ponen en el buró y aparece el ícono de 'carga optimizada' con palomita.\n5) remate: amigo despertándose a medianoche con ojeras para desconectarlo. Pieza nueva reutilizable: PM.bateria(nivel 0–1, calor 0–1) con carita en papel_pm.js.",
+  "titulo_yt": "¿Cargar el celular toda la noche lo DAÑA? 🔋 #shorts",
+  "descripcion_yt": "El mito de cargar el celular toda la noche, y lo que de verdad desgasta tu batería. 🔋\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #celular #bateria #shorts",
+  "titulo_tt": "¿Cargarlo toda la noche lo daña? 🔋",
+  "texto_tt": "El verdadero enemigo de tu batería no es la noche 🔋 Etiqueta a quien desconecta el celular a medianoche #datoscuriosos #ciencia #celular #tecnologia #fyp",
+  "pedido": false
+ }
+]
