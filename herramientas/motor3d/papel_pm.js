@@ -1021,5 +1021,54 @@ export function kitPM(P, THREE, group) {
     return g; }
 
 
-  return { aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- manos frías (18-nov 18:00) ----
+  // PM.vasosRayosX(pos, s, padre, o): radiografía de cartulina de un antebrazo con la mano (dedos hacia arriba) y sus tubitos de sangre rojos.
+  // g.aprieta(k 0..1): los tubitos se adelgazan (más en la mano y los dedos: vasoconstricción). g.flujo(t, k, dir): flechitas rojas por el tubo
+  // principal (dir 1 hacia la mano, -1 de regreso al cuerpo). g.frio(k): escarcha azul que crece desde la punta de los dedos. g.dentro para meter cosas.
+  function vasosRayosX(pos, s = 1, parent = null, o = {}) { const g = group(pos, parent); g.scale.setScalar(s);
+    const W = o.w ?? 1.4, H = o.h ?? 2.1, AZ = o.fondo ?? 0x1f3a5c, HU = 0xd8ecff, RO = o.sangre ?? 0xff4d5e;
+    pz(F.rect(W, H, .08), 0x3d6bff, [0, 0, 0], g, { tinta: .018, papel: .07 });
+    pz(F.rect(W - .12, H - .12, .05), AZ, [0, 0, .016], g, { tinta: false, papel: false });
+    for (const [x, y] of [[-W / 2 + .14, H / 2 - .14], [W / 2 - .14, H / 2 - .14]]) det(F.circ(.035), 0x9fb8d6, [x, y, .03], g);
+    const d = g.dentro = group([0, 0, .03], g), SOM = mez(HU, AZ, .55), HUE = mez(HU, AZ, .25);
+    // silueta: antebrazo, palma, cuatro dedos y pulgar
+    const dedos = [[-.2, .5, .36], [-.07, .53, .42], [.06, .53, .4], [.18, .5, .33]];
+    det(blob([[-.21, -.98], [-.2, -.4], [-.19, .05], [-.27, .2], [-.27, .46], [0, .54], [.25, .46], [.26, .2], [.18, .05], [.2, -.4], [.21, -.98]]), HU, [0, 0, 0], d);
+    for (const [x, y, L] of dedos) { const f = group([x, y, 0], d); f.rotation.z = Math.PI + x * .25; det(capsula(L, .12, .1), HU, [0, 0, 0], f); }
+    const pu = group([.22, .2, 0], d); pu.rotation.z = Math.PI * .72; det(capsula(.32, .13, .11), HU, [0, 0, 0], pu);
+    // huesitos tenues (le dan cara de radiografía)
+    for (const x of [-.08, .08]) det(tubo([[x, -.95], [x * 1.1, -.3], [x * 1.2, .05]], .04, .035), HUE, [0, 0, .004], d);
+    for (const [x, y, L] of dedos) { const f = group([x, y, 0], d); f.rotation.z = Math.PI + x * .25; det(capsula(L * .8, .035, .03), HUE, [0, -.06, .004], f); }
+    // tubitos de sangre: hechos de bolitas que se pueden adelgazar una por una
+    const cur = pts => new THREE.CatmullRomCurve3(pts.map(([x, y]) => new THREE.Vector3(x, y, 0)), false, 'centripetal');
+    const tronco = cur([[0, -1.0], [.03, -.55], [-.01, -.1], [0, .28]]);
+    const ramas = dedos.map(([x, y, L]) => { const a = Math.PI + x * .25, tx = x + Math.sin(-a) * -L * .0, ty = y + L * .85; return cur([[0, .28], [x * .55, .4], [x * 1.0, y + .02], [x - L * .85 * Math.sin(x * .25), ty]]); });
+    ramas.push(cur([[0, .28], [.14, .26], [.26, .32], [.42, .4]]));
+    g.bolitas = []; const pon = (cv, r0, w0, w1, n) => { for (let i = 0; i <= n; i++) { const u = i / n, v = cv.getPointAt(u), b = group([v.x, v.y, .01], d);
+      det(F.circ(r0 * 1.35), osc(RO, .55), [0, 0, 0], b); det(F.circ(r0), RO, [0, 0, .003], b); b.w = w0 + (w1 - w0) * u; g.bolitas.push(b); } };
+    pon(tronco, .05, 0, .55, 34); ramas.forEach(cv => pon(cv, .036, .6, 1, 14));
+    g.aprieta = k => g.bolitas.forEach(b => b.scale.setScalar(Math.max(.001, 1 - .7 * k * b.w)));
+    g.fl = [0, 1, 2].map(i => { const f = det(F.poly([[-.04, -.06], [.06, 0], [-.04, .06], [-.015, 0]]), 0xffffff, [0, 0, .03], d); f.i = i; f.visible = false; return f; });
+    g.flujo = (t, k, dir = 1) => g.fl.forEach(f => { f.visible = k > .01; if (!f.visible) return; let u = ((t * .45 + f.i / 3) % 1); if (dir < 0) u = 1 - u;
+      const a = tronco.getPointAt(u), b = tronco.getPointAt(Math.min(1, Math.max(0, u + .01 * dir)));
+      f.position.set(a.x + .1, a.y, .03); f.rotation.z = Math.atan2(b.y - a.y, b.x - a.x); f.scale.setScalar(Math.max(.001, k)); });
+    // escarcha: capa azul en cada dedo, anclada en la punta, que crece hacia la palma; cristalitos blancos en las puntas
+    g.esc = [...dedos.map(([x, y, L]) => [x, y, L, Math.PI + x * .25, .12]), [.22, .2, .32, Math.PI * .72, .13]].map(([x, y, L, a, w]) => {
+      const f = group([x, y, .012], d); f.rotation.z = a; const e = group([0, -L, 0], f); det(capsula(L, w * .92, w * .92), 0x8fc4ff, [0, L, 0], e); e.L = L;
+      const c = det(F.estrella(6, .06, .028), 0xffffff, [0, -L - .02, .01], f); e.cri = c; return e; });
+    g.frio = k => g.esc.forEach(e => { e.scale.set(1, Math.max(.001, k), 1); e.visible = k > .01; e.cri.scale.setScalar(Math.max(.001, k)); });
+    g.frio(o.frio ?? 0); g.aprieta(0); return g; }
+  // PM.manosFrias(p): manos de un chibi que se ponen azules con cristalitos de hielo. g.update(k 0..1) (0 = normales, 1 = heladas)
+  function manosFrias(p) { const hs = p.brazos.map(b => b.children.find(c => Math.abs(c.position.y + .5) < 1e-6 && Math.abs(c.position.x) < 1e-6));
+    const capas = hs.map(h => { const c = group([0, 0, .012], h); det(F.elipse(.11, .115), 0x8fc4ff, [0, 0, 0], c);
+      det(F.estrella(6, .05, .024), 0xffffff, [-.03, .03, .006], c); det(F.estrella(6, .035, .016), 0xffffff, [.045, -.04, .006], c); return c; });
+    return { manos: hs, update(k) { capas.forEach(c => { c.visible = k > .01; c.scale.setScalar(Math.max(.001, k)); }); } }; }
+  // PM.chamarra(p, color): chamarra acolchada de cartulina sobre el torso del chibi (cierre, cuello alto y costuras). g.scale para que aparezca.
+  function chamarra(p, color = 0x2ec4a6) { const g = group([0, .8, .05], p);   // abierta al frente: deja ver la playera y el logo
+    for (const sx of [-1, 1]) { const q = group([0, 0, 0], g); q.scale.x = sx;
+      pz(blob([[.2, -.34], [.36, -.33], [.38, -.02], [.34, .26], [.17, .36], [.12, .3], [.2, .12]]), color, [0, 0, 0], q, { tinta: .014, papel: .04 });
+      for (const y of [-.18, .02]) linea([[.21, y], [.36, y - .01]], .012, osc(color, .75), q, .016);
+      det(blob([[.13, .34], [.2, .4], [.24, .3], [.2, .18], [.15, .24]]), mez(color, 0xffffff, .3), [0, 0, .018], q); linea([[.2, .12], [.2, -.33]], .014, 0xffc83d, q, .018); }
+    return g; }
+  return { vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

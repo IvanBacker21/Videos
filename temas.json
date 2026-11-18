@@ -752,5 +752,22 @@
   "mejora": "papel_pm.js: PM.aguacate (medio aguacate que se oxida) + PM.molcajete (guacamole con capa café que respeta el hueso y plástico que se pega) + PM.manzana (mordida que se oxida) + PM.limon (se exprime con gotas)",
   "archivo": "shorts/2026-11-18-1330-aguacate-negro.mp4",
   "titulo": "¿Por qué el guacamole se pone NEGRO? 🥑 #shorts"
+ },
+ {
+  "fecha": "2026-11-18",
+  "hora": "18:00",
+  "tema": "¿Por qué con el frío SIEMPRE se te congelan primero las manos? (vasoconstricción: el cuerpo aprieta los vasos sanguíneos de manos y pies para mandar menos sangre y perder menos calor, y así mantener calientes los órganos del centro como corazón y cerebro; truco: abrigar el torso y el cuello, con el centro caliente el cuerpo vuelve a mandar sangre a las extremidades). Fuentes: AccuWeather (5 ways your body combats cold weather), VCHRI – Vancouver Coastal Health Research Institute (Ask the expert: cold hands and feet)",
+  "formato": "¿Por qué SIEMPRE…? + explicación del cuerpo + truco útil",
+  "categoria": "cuerpo / clima",
+  "tendencia": "Frente frío y alerta amarilla por frío en CDMX esta semana (hasta 4 grados en tres alcaldías, Publimetro 16-nov)",
+  "disparadores": [
+   "eres tú (manos heladas)",
+   "truco útil (abrigar el centro)",
+   "sorpresa (el cuerpo 'sacrifica' los dedos)"
+  ],
+  "duracion": 25.6,
+  "mejora": "papel_pm.js: PM.vasosRayosX (radiografía de mano con tubitos que se aprietan, flujo y escarcha), PM.manosFrias (manos azules con cristalitos), PM.chamarra (abierta, deja ver el logo)",
+  "archivo": "shorts/2026-11-18-1800-manos-frias.mp4",
+  "titulo": "¿Por qué se te CONGELAN las manos? 🥶 #shorts"
  }
 ]
