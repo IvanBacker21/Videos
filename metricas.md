@@ -170,3 +170,31 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 **Alerta producción:** ninguno de los 3 slots del 17-nov (Leónidas pico) fue producido ni programado. Se rompe la racha diaria. Prioridad: retomar mañana 18-nov con los 3 slots del día.
 
 **Conclusión:** Buffer sin errores; todos los shorts con datos cumplen las reglas. El gran pendiente es retomar la producción diaria para el 18-nov.
+## 2026-11-17 22:51 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (16 y 17-nov).
+
+**Buffer: sin errores en las 48 h revisadas.** ✅ Corrección al registro anterior (22:30): los 3 shorts del 17-nov SÍ fueron publicados; aparecen como `sent` en Buffer. Ivan los produjo y programó antes de esta corrida.
+
+| Short | Publicado (MX) | Buffer | Duración | ≤30s | Tema | Gancho | Observación |
+|---|---|---|---|---|---|---|---|
+| Mareo en el carro | 16-nov 13:30 | ✓ sent | 29.2 s | ✓ | cuerpo/viajes | concreto ✓ | tendencia regreso megapuente ✓ |
+| Pan duro (bolillo) | 16-nov 18:00 | ✓ sent | 29.4 s | ✓ | comida/casa | concreto ✓ | lo mexicano (comal, refri) ✓ |
+| Vaho en el frío | 16-nov 22:20 | ✓ sent | 27.4 s | ✓ | clima/cuerpo | concreto ✓ | retrasado de 21:30 a 22:20 ✓ |
+| Tortilla inflada | 17-nov 13:30 | ✓ sent | 26.4 s | ✓ | comida/casa | concreto ✓ | muy mexicano; más corto ✓ |
+| Chicle tragado (mito) | 17-nov 18:00 | ✓ sent | 26.1 s | ✓ | cuerpo/mito | concreto ✓ | evergreen; más corto ✓ |
+| Luna gigante (ilusión) | 17-nov 21:30 | ✓ sent | 25.7 s | ✓ | espacio/mente | concreto ✓ | Leónidas / Luna creciente ✓ |
+| **18-nov: 3 slots (13:30, 18:00, 21:30)** | — | ✗ **ausentes** | — | — | — | — | No producidos aún |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 6/6 ✓ (rango 25.7–29.4 s). Patrón notable: los 3 shorts del 17-nov son los más cortos hasta ahora (25.7–26.4 s), en la franja óptima.
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: en los últimos 6 shorts (16–17 nov) ninguno es de animales/mascotas → se libera el cupo para el 18-nov si aplica.
+- Patrón: 4 de los 6 últimos son de frío/clima/cuerpo. Funciona en temporada pero conveniente alternar con otro tema el 18-nov (espacio, mente, comida no-clima).
+
+**Alerta producción:** ninguno de los 3 slots del 18-nov (13:30, 18:00, 21:30) está programado en Buffer. Producir hoy.
+
+**Conclusión:** Buffer perfecto (6/6 sent, 0 errores). Los shorts del 17-nov son los más cortos hasta ahora (25.7–26.4 s) y cumplen todas las reglas. Prioridad: programar los 3 shorts del 18-nov.
