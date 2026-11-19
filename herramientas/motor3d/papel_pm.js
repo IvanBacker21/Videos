@@ -1104,5 +1104,48 @@ export function kitPM(P, THREE, group) {
       sudor.forEach((d, i) => { const f = ((t * .9 + i * .5) % 1); d.visible = k > .2; d.position.y = .22 - f * .35; d.scale.setScalar(Math.max(.001, k * Math.sin(f * Math.PI) * 1.1)); });
       ondas.forEach(w => { const f = ((t * .8 + (w.i + 1) / 3) % 1); w.visible = k > .05; w.position.y = H / 2 + .14 + f * .25; w.scale.setScalar(Math.max(.001, k * Math.sin(f * Math.PI))); w.rotation.z = Math.sin(t * 5 + w.i) * .12; }); };
     g.nivel(o.nivel ?? .6); g.cara(o.cara ?? 'feliz'); g.calor(0); return g; }
-  return { bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 19-nov 13:30 (la leche que se sube) ----
+  // PM.pocillo(pos, o, padre): pocillo de peltre (azul con pintitas blancas, orilla y mango negros) con su hornilla de estufa debajo.
+  // El fondo del pocillo queda en y = 0 (la hornilla baja .25: ponlo en y = cocina.topY + .25). o: {w, h, color, liquido, fuego:true, corte:false, nivel}
+  // g.fuego(k, t) flamitas (0 apagada); g.espuma(k, t) espuma que sube (k > .65 se derrama por los lados); g.hierve(t, k) burbujitas que revientan libres (agua);
+  // g.nata(k) telita arrugada encima; corte:true → se ve por dentro el líquido (hasta nivel·h) y g.vapor(t, k, atrapa) burbujas de vapor que suben del fondo
+  // y con atrapa → 1 se quedan juntas bajo la nata. g.topLiq = altura de la superficie.
+  function pocillo(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? .8, h = o.h ?? w * .68, col = o.color ?? 0x2f6fd6, liq = o.liquido ?? 0xfffaf0, NEG = 0x1f2236;
+    const corte = !!o.corte, top = g.topLiq = corte ? (o.nivel ?? .62) * h : h - .005; let sm = 3; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    const cuerpo = (ww, hh, y0 = 0) => { const s = new THREE.Shape(); s.moveTo(-ww / 2, y0 + hh); s.lineTo(-ww * .42, y0 + .06); s.quadraticCurveTo(-ww * .41, y0, -ww * .34, y0); s.lineTo(ww * .34, y0); s.quadraticCurveTo(ww * .41, y0, ww * .42, y0 + .06); s.lineTo(ww / 2, y0 + hh); return s; };
+    // hornilla
+    const fu = group([0, -.08, -.08], g);
+    if (o.fuego !== false) { pz(F.rect(w * .75, .12, .03), 0x9aa3b5, [0, -.2, -.1], g, { tinta: .014, papel: .04 }); pz(F.rect(w * 1.15, .045, .02), 0x34313d, [0, -.02, -.02], g, { tinta: .01, papel: .03 });
+      for (let i = -2; i <= 2; i++) { const l = pz(F.gota(.2), i & 1 ? 0xffc83d : 0xff8a3d, [i * w * .14, 0, 0], fu, { tinta: .01, papel: .025 }); l.f = i * 1.7; } }
+    g.fuego = (k, t = 0) => fu.children.forEach(l => l.scale.set(Math.max(.001, k * (.9 + .15 * Math.sin(t * 11 + l.f))), Math.max(.001, k * (.85 + .25 * Math.sin(t * 13 + l.f * 2))), 1));
+    // mango y cuerpo
+    const mg = pz(F.rect(w * .5, .075, .03), NEG, [w / 2 + w * .2, h * .82, -.03], g, { tinta: .012, papel: .04 }); mg.rotation.z = .18;
+    pz(cuerpo(w, h), col, [0, 0, 0], g, { tinta: .018, papel: .06 });
+    if (corte) { det(cuerpo(w - .1, h - .06, .05), osc(col, .55), [0, 0, .014], g);                                                     // pared de adentro
+      const lq = group([0, 0, .016], g); det(cuerpo(w * (.44 + .56 * (top / h)) - .1 - .02, top - .05, .05), liq, [0, 0, 0], lq); g.liq = lq; }
+    else for (let i = 0; i < 9; i++) { const y = .08 + rnd() * (h - .18), xm = (w * .34 + (w * .16) * (y / h)) - .06; det(F.circ(.012 + rnd() * .012), 0xffffff, [(rnd() * 2 - 1) * xm, y, .014], g); }
+    pz(F.rect(w + .06, .055, .03), NEG, [0, h, .02], g, { tinta: .01, papel: false });                                               // orilla
+    if (!corte) det(F.elipse(w * .44, .045), liq, [0, h - .03, .035], g);
+    // nata
+    const na = g.nataG = group([0, top + .01, .04], g); const ptsN = Array.from({ length: 13 }, (_, i) => [-1 + i / 6, Math.sin(i * 2.1) * .012]);
+    const anchoS = corte ? w * (.44 + .56 * (top / h)) / 2 - .07 : w * .42; det(tubo(ptsN.map(([x, y]) => [x * anchoS, y]), .035, .035), 0xf3d58f, [0, 0, 0], na);
+    for (let i = 0; i < 4; i++) det(F.arco(.03, .01, 0, Math.PI), 0xd9b56a, [(-.6 + i * .4) * anchoS, -.005, .005], na);
+    g.nata = (k) => { na.visible = k > .02; na.scale.set(Math.max(.001, k), 1, 1); };
+    // espuma: domo de nubecitas + chorros por fuera
+    const es = group([0, top, .05], g); const dom = [[-.7, 0], [-.35, 0], [0, 0], [.35, 0], [.7, 0], [-.5, .5], [0, .55], [.5, .5], [-.22, .95], [.22, .95], [0, 1.25]];
+    g.puffs = dom.map(([fx, fy], i) => { const c = pz(F.nube(.34 + (i % 3) * .05), liq, [0, 0, .01 * (i % 4)], es, { tinta: .012, papel: .025 }); c.fx = fx; c.fy = fy; c.i = i; return c; });
+    g.chorros = [-1, 1].flatMap(sx => [0, 1].map(j => { const a = group([sx * (w / 2 + .02 - j * .07), h, .06], g); const r = pz(F.rect(.075, 1, .035), liq, [0, -.5, 0], a, { tinta: .01, papel: .02 }); const go = pz(F.gota(.16), liq, [0, -1, .01], a, { tinta: .01, papel: .02 }); go.rotation.z = Math.PI; a.r = r; a.go = go; a.j = j; return a; }));
+    const ch = pz(F.elipse(w * .62, .06), liq, [0, -.02, .12], g, { tinta: .01, papel: .02 });   // charco en la estufa
+    g.espuma = (k, t = 0) => { const hf = .5 * w, kd = cl01((k - .65) / .35);
+      g.puffs.forEach(c => { const on = cl01(k * 2.2 - c.fy * .6); c.visible = on > .01; c.position.set(c.fx * w * .42 * (1 + .25 * kd), c.fy * hf * k + Math.sin(t * 5 + c.i) * .01, c.position.z); c.scale.setScalar(Math.max(.001, on * (.9 + .06 * Math.sin(t * 7 + c.i * 1.3)))); });
+      g.chorros.forEach(a => { const L = Math.max(.001, kd * (h + .1 - a.j * .25)); a.visible = kd > .01; a.r.scale.y = L; a.r.position.y = -L / 2; a.go.position.y = -L; a.go.scale.setScalar(Math.max(.001, Math.min(1, kd * 3))); }); ch.visible = kd > .4; ch.scale.set(Math.max(.001, cl01((kd - .4) / .6)), 1, 1); };
+    // burbujitas de agua que suben y revientan libres
+    const bb = Array.from({ length: 6 }, (_, i) => { const b = pz(F.circ(.035), 0xdff3ff, [0, 0, .06], g, { tinta: .008, papel: false }); b.i = i; b.x = (i / 5 - .5) * w * .7; return b; });
+    g.hierve = (t, k = 1) => bb.forEach(b => { const q = (t * 1.6 + b.i * .37) % 1; b.visible = k > .02; b.position.set(b.x + Math.sin(t * 4 + b.i) * .02, top + .02 + q * .16, .06); b.scale.setScalar(Math.max(.001, k * (q < .8 ? .6 + q * .6 : (1 - q) * 5 * 1.08))); });
+    // vapor por dentro (corte)
+    const vb = corte ? Array.from({ length: 10 }, (_, i) => { const b = pz(F.circ(.06), 0x7cc8ff, [0, 0, .03], g, { tinta: .012, papel: false }); b.i = i; b.x = ((i * .618) % 1 - .5) * (w * .62); b.cx = (i / 9 - .5) * (w * .7); b.cy = top - .075 - (i % 2) * .11; return b; }) : [];
+    g.vapor = (t, k = 1, atrapa = 0) => vb.forEach(b => { const q = (t * .9 + b.i * .1) % 1, e = atrapa * atrapa * (3 - 2 * atrapa); b.visible = k > .02;
+      const fy = .1 + q * (top - .14), fx = b.x + Math.sin(t * 5 + b.i) * .025; b.position.set(fx + (b.cx - fx) * e, fy + (b.cy + Math.sin(t * 6 + b.i) * .01 - fy) * e, .03 + .002 * b.i); b.scale.setScalar(Math.max(.001, k * (.7 + .3 * q + .35 * e))); });
+    g.fuego(o.k ?? 1); g.espuma(0); g.hierve(0, 0); g.nata(0); g.vapor(0, 0); return g; }
+  return { pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
