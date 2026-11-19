@@ -6,7 +6,7 @@ import json, re, sys, os, argparse
 
 CIERRE = "¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios y síguenos para más datos."
 SENSIBLES = ["sangre", "muerte", "muere", "matar", "mata ", "cadáver", "droga", "sexo", "arma", "suicid", "violen", "disparo"]
-COMPARTIR = ["mándaselo", "mandaselo", "etiqueta", "comparte", "compártelo", "pásaselo", "enséñale", "mándale"]
+COMPARTIR = ["manda este video", "mándaselo", "mandaselo", "etiqueta", "comparte", "compártelo", "pásaselo", "enséñale", "mándale"]
 
 ap = argparse.ArgumentParser(); ap.add_argument("guion"); ap.add_argument("escenas", nargs="?")
 ap.add_argument("--out"); ap.add_argument("--titulo", default=""); ap.add_argument("--descripcion", default="")
