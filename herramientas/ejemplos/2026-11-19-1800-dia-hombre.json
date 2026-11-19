@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-19-1800-dia-hombre",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Hoy, diecinueve de noviembre, es el Día Internacional del Hombre."
+   ]
+  },
+  {
+   "tipo": "origen",
+   "titulo": "",
+   "frases": [
+    "Lo impulsó un profesor de Trinidad y Tobago, y eligió esta fecha por el cumpleaños de su papá."
+   ]
+  },
+  {
+   "tipo": "salud",
+   "titulo": "",
+   "frases": [
+    "Su meta es la salud: en México los hombres viven unos seis años menos que las mujeres."
+   ]
+  },
+  {
+   "tipo": "felicidades",
+   "titulo": "",
+   "frases": [
+    "¡Felicidades a todos los hombres! Y regálate un chequeo este mes."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Manda este video para que te feliciten por ser un gran hombre."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

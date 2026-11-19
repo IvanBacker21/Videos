@@ -27,29 +27,30 @@
  },
  {
   "hora": "18:00",
-  "slug": "calor-cabeza",
+  "slug": "dia-hombre",
   "estado": "listo",
-  "tema": "¿De verdad se te va casi todo el calor por la cabeza? (mito: viene de un experimento del ejército de EE.UU. en los años cincuenta con soldados con trajes árticos que dejaban la cabeza descubierta; en realidad pierdes calor por cualquier parte destapada, proporcional a su superficie, y la cabeza es cerca del diez por ciento de la piel; eso sí, cara y cabeza son muy sensibles al frío, así que el gorro sí ayuda). Fuentes: Live Science (Do we really lose half our body heat from our heads?), NPR (Myth: you lose most body heat through your head), grough (BMJ 2008: Hats, heads and heat: medics debunk decades-old myth)",
+  "tema": "Día Internacional del Hombre, 19 de noviembre (PEDIDO DE IVÁN para hoy): lo estableció en 1999 Jerome Teelucksingh, profesor de la Universidad de las Indias Occidentales en Trinidad y Tobago, en honor al cumpleaños de su padre; se conmemora en más de 80 países, incluido México; busca la salud física y emocional de los hombres y modelos positivos. INEGI 2025: esperanza de vida 79 años mujeres y 72.6 hombres (≈ seis años), en parte porque los hombres van menos al médico. Felicitar a los hombres. Remate EXACTO pedido por Iván: 'Manda este video para que te feliciten por ser un gran hombre.' (es la invitación a compartir; no lo cambies). Tono positivo, sin polémica ni comparación con el Día de la Mujer.",
   "fuentes": [
-   "https://www.livescience.com/34411-body-heat-loss-head.html",
-   "https://www.npr.org/transcripts/98453682",
-   "https://www.grough.co.uk/magazine/2008/12/19/hats-heads-and-heat-medics-debunk-decades-old-myth"
+   "https://www.biobiochile.cl/noticias/servicios/toma-nota/2025/11/19/el-19-de-noviembre-es-el-dia-del-hombre-por-que-y-donde-surge-esta-fecha.shtml",
+   "https://www.eldiario.ec/vida/19-de-noviembre-dia-internacional-del-hombre-los-seis-objetivos-de-una-fecha-que-suele-pasar-desapercibida-19112025/",
+   "https://expansion.mx/ciencia-y-salud/2025/07/01/por-que-los-hombres-viven-menos-que-las-mujeres",
+   "https://www.elimparcial.com/mexico/2025/11/14/hombres-viven-menos-que-las-mujeres-en-todos-los-paises-revela-estudio/"
   ],
-  "tendencia": "Masa de aire frío y heladas en gran parte de México esta semana; mamás persiguiendo con el gorro",
-  "formato": "mito + '¿ves? te dije' (a medias)",
-  "categoria": "cuerpo / mito (clima)",
+  "tendencia": "Hoy 19 de noviembre: Día Internacional del Hombre (tendencia del día en México)",
+  "formato": "efeméride + dato de salud + felicitación",
+  "categoria": "efeméride / salud",
   "disparadores": [
-   "¿ves? te dije (mito)",
-   "eres tú / tu mamá",
-   "truco útil (el gorro sí ayuda, pero abrígate todo)"
+   "identidad (felicitar a los hombres de tu vida)",
+   "compartir para recibir felicitación",
+   "dato sorprendente (seis años menos)"
   ],
-  "guion": "herramientas/ejemplos/2026-11-19-1800-calor-cabeza.json",
-  "visual": "Escenario: calle mexicana de mañana con frío (vaho, cielo gris) del kit; protagonista chibi y su mamá con un gorro en la mano.\n1) gancho: mamá corriendo detrás del protagonista con el gorro; ondas rojas de 'calor' saliendo exageradas de la cabeza.\n2) soldados: estampa sepia tipo foto vieja: soldaditos de cartulina con trajes de nieve gigantes y cabeza descubierta; letrero 'MITO'.\n3) piel: silueta del cuerpo con ondas de calor saliendo de brazos, piernas y cabeza por igual; la cabeza se ilumina como una porción chiquita (barra o pastel con una rebanada pequeña).\n4) gorro: protagonista con la cara roja temblando; se pone el gorro y sonríe; palomita.\n5) remate: mamá triunfante con el gorro. Pieza nueva reutilizable: PM.gorro(color) de estambre y PM.ondasCalor(intensidad) en papel_pm.js.",
-  "titulo_yt": "¿Se te va el calor por la CABEZA? 🧢 #shorts",
-  "descripcion_yt": "Te dijeron que casi todo el calor se escapa por la cabeza… y es mito. 🧢\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #frio #mitos #shorts",
-  "titulo_tt": "¿Se te va el calor por la cabeza? 🧢",
-  "texto_tt": "Es mito… pero ponte el gorro 🧢 Etiqueta a tu mamá #datoscuriosos #ciencia #frio #mitos #aprendeentiktok",
-  "pedido": false
+  "guion": "herramientas/ejemplos/2026-11-19-1800-dia-hombre.json",
+  "visual": "Escenario: diorama de papel con banderines de fiesta.\n1) gancho: hoja de calendario de papel '19 NOV' cae con un pop junto al protagonista, que saluda; confeti.\n2) origen: un profesor chibi con lentes abraza a su papá (chibi mayor de pelo canoso; sin barba) frente a un pastel de papel con velitas.\n3) salud: dos barras de papel crecen (mujeres más alta, hombres más baja) con etiqueta 'UNOS 6 AÑOS MENOS'; protagonista sorprendido.\n4) felicidades: protagonista + 2 hombres distintos (amigo con gorra, abuelo con lentes) con confeti, banderín '¡FELICIDADES!' y un corazón/estetoscopio de papel para el chequeo.\n5) remate: protagonista señala a cámara con un celular de papel y un ícono de 'enviar'. Pieza nueva reutilizable: PM.confeti(n) y PM.calendario(texto) en papel_pm.js.",
+  "titulo_yt": "¿Por qué HOY es el Día del HOMBRE? 👨 #shorts",
+  "descripcion_yt": "Hoy, 19 de noviembre, es el Día Internacional del Hombre. ¿Sabes por qué se eligió esta fecha? 👨\n¡Felicidades a todos los grandes hombres!\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#diadelhombre #datoscuriosos #19denoviembre #salud #shorts",
+  "titulo_tt": "Hoy es el Día del Hombre 👨",
+  "texto_tt": "¡Felicidades a todos los grandes hombres! 👨 Etiqueta a uno que se lo merece #diadelhombre #19denoviembre #datoscuriosos #aprendeentiktok",
+  "pedido": true
  },
  {
   "hora": "21:30",
