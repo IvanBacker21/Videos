@@ -1,0 +1,79 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "leche-se-sube",
+  "estado": "listo",
+  "tema": "¿Por qué la leche SIEMPRE se sube y el agua no? (al calentarla, sus proteínas y grasa forman una telita arriba (la nata); el vapor que se forma abajo queda atrapado bajo esa tapita y se hace espuma, que sube y se derrama; el agua sola no forma telita y sus burbujas revientan libres; truco: fuego bajo y menear para romper la nata). Fuentes: Techno-Science (Why does milk always boil over but water never does?), The Kitchn (Why milk boils over and how to stop it), Cook's Illustrated (Preventing dairy from boiling over)",
+  "fuentes": [
+   "https://www.techno-science.net/en/news/why-does-milk-always-boil-over-but-water-never-does-N25631.html",
+   "https://www.thekitchn.com/thekitchn/food-science/why-milk-boils-overand-how-to-stop-it-100340",
+   "https://www.cooksillustrated.com/how_tos/5727-preventing-dairy-from-boiling-over"
+  ],
+  "tendencia": "Masa de aire frío sobre casi todo México: temporada de café con leche, atole y chocolate caliente en las mañanas",
+  "formato": "¿Por qué SIEMPRE…? + truco útil",
+  "categoria": "comida / cocina",
+  "disparadores": [
+   "eres tú (a todos se nos ha tirado la leche)",
+   "truco útil (fuego bajo y menear)",
+   "lo mexicano (café de olla, atole)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-19-1330-leche-se-sube.json",
+  "visual": "Escenario: cocina mexicana del kit; protagonista frente a la estufa con un pocillo de peltre con leche y otro con agua.\n1) gancho: los dos pocillos hirviendo; el agua tranquila con burbujitas, la leche empieza a subir; protagonista con cara de pánico.\n2) nata: zoom tipo lupa a la superficie: bolitas de proteína y gotitas de grasa se toman de la mano y forman una telita (la nata).\n3) vapor: corte lateral del pocillo: burbujas de vapor suben desde el fondo y chocan con la telita, se juntan en espuma.\n4) derrame: la espuma sube como volcán y se tira en la estufa; flamita apagándose.\n5) remate: fuego bajito y cuchara meneando; palomita verde. Pieza nueva reutilizable: PM.pocillo(liquido, nivel, espuma 0–1) de peltre en papel_pm.js.",
+  "titulo_yt": "¿Por qué la leche SIEMPRE se sube? 🥛 #shorts",
+  "descripcion_yt": "El agua hierve tranquila, pero la leche se te tira en la estufa. La culpa es de la nata. 🥛\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #cocina #leche #shorts",
+  "titulo_tt": "¿Por qué la leche siempre se sube? 🥛",
+  "texto_tt": "Y el agua nunca 🥛 Etiqueta a quien siempre deja la leche en la lumbre #datoscuriosos #ciencia #cocina #leche #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "calor-cabeza",
+  "estado": "listo",
+  "tema": "¿De verdad se te va casi todo el calor por la cabeza? (mito: viene de un experimento del ejército de EE.UU. en los años cincuenta con soldados con trajes árticos que dejaban la cabeza descubierta; en realidad pierdes calor por cualquier parte destapada, proporcional a su superficie, y la cabeza es cerca del diez por ciento de la piel; eso sí, cara y cabeza son muy sensibles al frío, así que el gorro sí ayuda). Fuentes: Live Science (Do we really lose half our body heat from our heads?), NPR (Myth: you lose most body heat through your head), grough (BMJ 2008: Hats, heads and heat: medics debunk decades-old myth)",
+  "fuentes": [
+   "https://www.livescience.com/34411-body-heat-loss-head.html",
+   "https://www.npr.org/transcripts/98453682",
+   "https://www.grough.co.uk/magazine/2008/12/19/hats-heads-and-heat-medics-debunk-decades-old-myth"
+  ],
+  "tendencia": "Masa de aire frío y heladas en gran parte de México esta semana; mamás persiguiendo con el gorro",
+  "formato": "mito + '¿ves? te dije' (a medias)",
+  "categoria": "cuerpo / mito (clima)",
+  "disparadores": [
+   "¿ves? te dije (mito)",
+   "eres tú / tu mamá",
+   "truco útil (el gorro sí ayuda, pero abrígate todo)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-19-1800-calor-cabeza.json",
+  "visual": "Escenario: calle mexicana de mañana con frío (vaho, cielo gris) del kit; protagonista chibi y su mamá con un gorro en la mano.\n1) gancho: mamá corriendo detrás del protagonista con el gorro; ondas rojas de 'calor' saliendo exageradas de la cabeza.\n2) soldados: estampa sepia tipo foto vieja: soldaditos de cartulina con trajes de nieve gigantes y cabeza descubierta; letrero 'MITO'.\n3) piel: silueta del cuerpo con ondas de calor saliendo de brazos, piernas y cabeza por igual; la cabeza se ilumina como una porción chiquita (barra o pastel con una rebanada pequeña).\n4) gorro: protagonista con la cara roja temblando; se pone el gorro y sonríe; palomita.\n5) remate: mamá triunfante con el gorro. Pieza nueva reutilizable: PM.gorro(color) de estambre y PM.ondasCalor(intensidad) en papel_pm.js.",
+  "titulo_yt": "¿Se te va el calor por la CABEZA? 🧢 #shorts",
+  "descripcion_yt": "Te dijeron que casi todo el calor se escapa por la cabeza… y es mito. 🧢\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #frio #mitos #shorts",
+  "titulo_tt": "¿Se te va el calor por la cabeza? 🧢",
+  "texto_tt": "Es mito… pero ponte el gorro 🧢 Etiqueta a tu mamá #datoscuriosos #ciencia #frio #mitos #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "microondas-wifi",
+  "estado": "listo",
+  "tema": "¿Por qué se cae el wifi cuando alguien usa el microondas? (el horno de microondas y el wifi de 2.4 GHz usan casi la misma frecuencia; la rejilla del horno encierra casi toda la energía, pero se fuga un poquito (inofensivo) que mete ruido en la señal y traba el video; truco: usar la red de 5 GHz o alejar el módem del microondas). Fuentes: Gizmodo (Why does your microwave oven mess with the Wi-Fi connection?), ScienceABC (Do microwaves interfere with WiFi signals?)",
+  "fuentes": [
+   "https://gizmodo.com/why-does-your-microwave-oven-mess-with-the-wi-fi-connec-1666117933",
+   "https://www.scienceabc.com/innovation/do-microwaves-interfere-with-wifi-signals.html"
+  ],
+  "tendencia": "Noche en casa (cena recalentada + series/videos); todos han visto el video trabarse",
+  "formato": "¿Por qué…? + truco útil",
+  "categoria": "tecnología / casa",
+  "disparadores": [
+   "eres tú (se te traba la serie)",
+   "truco útil (red de 5 GHz)",
+   "sorpresa (el microondas y el wifi son 'primos')"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-19-2130-microondas-wifi.json",
+  "visual": "Escenario: sala-cocina de noche del kit; protagonista en el sillón con celular viendo un video; otro personaje calentando comida en el microondas.\n1) gancho: suena el 'bip' del microondas y el video del celular se queda con la ruedita de carga; protagonista desesperado.\n2) onda: dos ondas de papel ondulado, una saliendo del microondas y otra del módem, casi idénticas lado a lado (mismo tamaño/color).\n3) rejilla: zoom a la puerta del microondas con su rejilla; la onda rebota adentro pero se escapa un hilito por la orilla.\n4) traba: el hilito choca con la onda del wifi y la revuelve (garabato); ícono de wifi parpadea.\n5) remate: protagonista cambia a la red '5G' en el celular (letrero '5 GHz') y el video corre; palomita. Pieza nueva reutilizable: PM.microondas(encendido) y PM.modem(señal 0–3) en papel_pm.js.",
+  "titulo_yt": "¿Por qué el MICROONDAS tumba tu wifi? 📶 #shorts",
+  "descripcion_yt": "Calientas tu comida y se traba el video. No es casualidad: el microondas y el wifi comparten onda. 📶\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #tecnologia #wifi #shorts",
+  "titulo_tt": "¿Por qué el microondas tumba tu wifi? 📶",
+  "texto_tt": "No es tu compañía de internet 📶 Etiqueta a quien siempre se queja del wifi #datoscuriosos #ciencia #tecnologia #wifi #aprendeentiktok",
+  "pedido": false
+ }
+]

@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-19-1330-leche-se-sube",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué la leche siempre se sube y el agua no?"
+   ]
+  },
+  {
+   "tipo": "nata",
+   "titulo": "",
+   "frases": [
+    "Al calentarse, sus proteínas y su grasa forman una telita arriba: la nata."
+   ]
+  },
+  {
+   "tipo": "vapor",
+   "titulo": "",
+   "frases": [
+    "El vapor de abajo queda atrapado bajo esa tapita y se vuelve espuma."
+   ]
+  },
+  {
+   "tipo": "derrame",
+   "titulo": "",
+   "frases": [
+    "La espuma sube y sube… ¡y adiós estufa!"
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Truco: fuego bajito y menéala. Mándaselo a quien siempre se le sube la leche del café."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

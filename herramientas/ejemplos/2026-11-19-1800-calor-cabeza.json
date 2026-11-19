@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-19-1800-calor-cabeza",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿De verdad se te va casi todo el calor por la cabeza?"
+   ]
+  },
+  {
+   "tipo": "soldados",
+   "titulo": "",
+   "frases": [
+    "Es mito: salió de un experimento con soldados abrigados… menos la cabeza."
+   ]
+  },
+  {
+   "tipo": "piel",
+   "titulo": "",
+   "frases": [
+    "Pierdes calor por cualquier parte destapada, y tu cabeza es apenas una décima parte de tu piel."
+   ]
+  },
+  {
+   "tipo": "gorro",
+   "titulo": "",
+   "frases": [
+    "Eso sí, la cara siente mucho el frío: el gorro sí ayuda."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a tu mamá que te persigue con el gorro."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

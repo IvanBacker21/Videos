@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-19-2130-microondas-wifi",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué se cae el wifi cuando alguien calienta comida?"
+   ]
+  },
+  {
+   "tipo": "onda",
+   "titulo": "",
+   "frases": [
+    "El microondas y tu wifi usan casi la misma onda invisible."
+   ]
+  },
+  {
+   "tipo": "rejilla",
+   "titulo": "",
+   "frases": [
+    "El horno tiene una rejilla que la encierra, pero siempre se escapa un poquito."
+   ]
+  },
+  {
+   "tipo": "traba",
+   "titulo": "",
+   "frases": [
+    "Y ese poquito hace ruido justo donde viaja tu señal: tu video se traba."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Truco: usa la red de cinco gigas. Mándaselo a quien siempre culpa al internet."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
