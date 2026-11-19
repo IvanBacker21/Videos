@@ -28,7 +28,7 @@
  {
   "hora": "18:00",
   "slug": "dia-hombre",
-  "estado": "listo",
+  "estado": "producido",
   "tema": "Día Internacional del Hombre, 19 de noviembre (PEDIDO DE IVÁN para hoy): lo estableció en 1999 Jerome Teelucksingh, profesor de la Universidad de las Indias Occidentales en Trinidad y Tobago, en honor al cumpleaños de su padre; se conmemora en más de 80 países, incluido México; busca la salud física y emocional de los hombres y modelos positivos. INEGI 2025: esperanza de vida 79 años mujeres y 72.6 hombres (≈ seis años), en parte porque los hombres van menos al médico. Felicitar a los hombres. Remate EXACTO pedido por Iván: 'Manda este video para que te feliciten por ser un gran hombre.' (es la invitación a compartir; no lo cambies). Tono positivo, sin polémica ni comparación con el Día de la Mujer.",
   "fuentes": [
    "https://www.biobiochile.cl/noticias/servicios/toma-nota/2025/11/19/el-19-de-noviembre-es-el-dia-del-hombre-por-que-y-donde-surge-esta-fecha.shtml",
@@ -46,10 +46,10 @@
   ],
   "guion": "herramientas/ejemplos/2026-11-19-1800-dia-hombre.json",
   "visual": "Escenario: diorama de papel con banderines de fiesta.\n1) gancho: hoja de calendario de papel '19 NOV' cae con un pop junto al protagonista, que saluda; confeti.\n2) origen: un profesor chibi con lentes abraza a su papá (chibi mayor de pelo canoso; sin barba) frente a un pastel de papel con velitas.\n3) salud: dos barras de papel crecen (mujeres más alta, hombres más baja) con etiqueta 'UNOS 6 AÑOS MENOS'; protagonista sorprendido.\n4) felicidades: protagonista + 2 hombres distintos (amigo con gorra, abuelo con lentes) con confeti, banderín '¡FELICIDADES!' y un corazón/estetoscopio de papel para el chequeo.\n5) remate: protagonista señala a cámara con un celular de papel y un ícono de 'enviar'. Pieza nueva reutilizable: PM.confeti(n) y PM.calendario(texto) en papel_pm.js.",
-  "titulo_yt": "¿Por qué HOY es el Día del HOMBRE? 👨 #shorts",
-  "descripcion_yt": "Hoy, 19 de noviembre, es el Día Internacional del Hombre. ¿Sabes por qué se eligió esta fecha? 👨\n¡Felicidades a todos los grandes hombres!\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#diadelhombre #datoscuriosos #19denoviembre #salud #shorts",
+  "titulo_yt": "¿Por qué HOY es el Día del Hombre? 👨 #shorts",
+  "descripcion_yt": "Hoy, 19 de noviembre, es el Día Internacional del Hombre. ¿Sabes por qué se eligió esta fecha? 👨\n¡Felicidades a todos los grandes hombres!\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#diadelhombre #datoscuriosos #noviembre #salud #shorts",
   "titulo_tt": "Hoy es el Día del Hombre 👨",
-  "texto_tt": "¡Felicidades a todos los grandes hombres! 👨 Etiqueta a uno que se lo merece #diadelhombre #19denoviembre #datoscuriosos #aprendeentiktok",
+  "texto_tt": "¡Felicidades a todos los grandes hombres! 👨 Etiqueta a uno que se lo merece #diadelhombre #noviembre #datoscuriosos #aprendeentiktok",
   "pedido": true
  },
  {

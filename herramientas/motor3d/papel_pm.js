@@ -1147,5 +1147,38 @@ export function kitPM(P, THREE, group) {
     g.vapor = (t, k = 1, atrapa = 0) => vb.forEach(b => { const q = (t * .9 + b.i * .1) % 1, e = atrapa * atrapa * (3 - 2 * atrapa); b.visible = k > .02;
       const fy = .1 + q * (top - .14), fx = b.x + Math.sin(t * 5 + b.i) * .025; b.position.set(fx + (b.cx - fx) * e, fy + (b.cy + Math.sin(t * 6 + b.i) * .01 - fy) * e, .03 + .002 * b.i); b.scale.setScalar(Math.max(.001, k * (.7 + .3 * q + .35 * e))); });
     g.fuego(o.k ?? 1); g.espuma(0); g.hierve(0, 0); g.nata(0); g.vapor(0, 0); return g; }
-  return { pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- fiesta (19-nov-2026 18:00, Día del Hombre) ----
+  // PM.confeti(o): papelitos de colores. g.lluvia(t, k): caen girando y bamboleando en todo el cuadro (k 0..1 los muestra).
+  // g.estalla(t, t0, [x, y]): salen disparados desde un punto y caen con gravedad. o: {n, x0, x1, y0, y1, z, colores, s}
+  function confeti(o = {}) { const g = group([0, 0, o.z ?? .9]), n = o.n ?? 26, x0 = o.x0 ?? -1.6, x1 = o.x1 ?? 1.6, y0 = o.y0 ?? -.2, y1 = o.y1 ?? 3.0, s = o.s ?? 1;
+    const cols = o.colores ?? [0xff6b5b, 0xffc83d, 0x2ec4a6, 0x7b5cff, 0x3d6bff, 0xff8fc0]; let sm = 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    g.ps = Array.from({ length: n }, (_, i) => { const forma = i % 3 === 0 ? F.circ(.035 * s) : F.rect(.05 * s, .085 * s, .01);
+      const q = pz(forma, cols[i % cols.length], [0, -9, 0], g, { tinta: .006, papel: false }); q.fx = rnd(); q.fv = .5 + rnd() * .5; q.ff = rnd() * 6.28; q.ang = rnd() * 6.28; q.vel = 1.2 + rnd() * 1.4; q.giro = (rnd() - .5) * 14; return q; });
+    g.lluvia = (t, k = 1) => g.ps.forEach(q => { const f = ((t * .32 * q.fv + q.fx * 7.3) % 1); q.visible = k > .02; q.position.set(x0 + q.fx * (x1 - x0) + Math.sin(t * 2 + q.ff) * .08, y1 - f * (y1 - y0), 0);
+      q.rotation.z = t * q.giro * .4 + q.ff; q.scale.set(Math.max(.05, Math.abs(Math.cos(t * 5 * q.fv + q.ff))) * k, k, 1); });
+    g.estalla = (t, t0, c = [0, 1.5]) => { const d = t - t0; g.ps.forEach(q => { q.visible = d > 0 && d < 3.2; if (!q.visible) return;
+      const vx = Math.cos(q.ang) * q.vel * .8, vy = Math.abs(Math.sin(q.ang)) * q.vel + .6, dd = Math.min(d, 2.6);
+      q.position.set(c[0] + vx * dd * (1 - Math.min(1, dd) * .35) + Math.sin(t * 3 + q.ff) * .04 * dd, c[1] + vy * dd - 1.6 * dd * dd, 0);
+      q.rotation.z = d * q.giro + q.ff; q.scale.set(Math.max(.05, Math.abs(Math.cos(d * 7 * q.fv + q.ff))), 1, 1); }); };
+    g.lluvia(0, 0); return g; }
+  // PM.pastel(pos, o, padre): pastel de cumpleaños de cartulina (2 pisos, betún que escurre, chispas y velitas con flamita).
+  // g.update(t, sopla 0..1): flamitas que titilan (sopla = 1 las apaga). g.topY = altura de las velitas. o: {w, color, betun, velas}
+  function pastel(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? .9, col = o.color ?? 0xf4b6c8, bet = o.betun ?? 0xfff6e0, nv = o.velas ?? 3;
+    const h1 = w * .34, w2 = w * .66, h2 = w * .28;
+    pz(F.elipse(w * .62, .05), 0xd9dde6, [0, .02, -.02], g, { tinta: .012, papel: .04 });                                                          // plato
+    pz(F.rect(w, h1, .04), col, [0, .04 + h1 / 2, 0], g, { tinta: .016, papel: .06 });
+    pz(F.rect(w2, h2, .04), osc(col, .93), [0, .04 + h1 + h2 / 2, .01], g, { tinta: .016, papel: .06 });
+    const drip = (y, ww, z) => { const pts = [[-ww / 2, .03]]; const k = 7; for (let i = 0; i <= k; i++) { const x = -ww / 2 + i * ww / k; pts.push([x, i % 2 ? -.07 - (i % 3) * .02 : -.025]); } pts.push([ww / 2, .03]); pz(blob(pts), bet, [0, y, z], g, { tinta: .01, papel: false }); };
+    drip(.04 + h1 - .02, w + .02, .03); drip(.04 + h1 + h2 - .02, w2 + .02, .04);
+    const cs = [0xff6b5b, 0x2ec4a6, 0x7b5cff, 0xffc83d]; for (let i = 0; i < 9; i++) det(F.rect(.05, .016, .01), cs[i % 4], [-w * .4 + i * w * .1, .04 + h1 * (.25 + (i % 2) * .25), .03], g, i * .9);
+    g.topY = .04 + h1 + h2 + .2; const top = .04 + h1 + h2;
+    g.velas = Array.from({ length: nv }, (_, i) => { const x = (i - (nv - 1) / 2) * w2 * .32; const v = group([x, top, .02], g);
+      pz(F.rect(.045, .18, .01), [0x3d6bff, 0xffc83d, 0x2ec4a6][i % 3], [0, .09, 0], v, { tinta: .01, papel: .03 });
+      for (const yy of [.05, .11]) det(F.rect(.045, .015, .01), 0xffffff, [0, yy, .012], v, .3);
+      const fl = group([0, .23, .01], v); pz(blob([[0, .08], [.035, .01], [.025, -.03], [0, -.04], [-.025, -.03], [-.035, .01]]), 0xffb020, [0, 0, 0], fl, { tinta: .008, papel: false });
+      det(F.elipse(.012, .022), 0xfff3a0, [0, -.005, .012], fl); v.fl = fl; v.i = i; return v; });
+    g.update = (t, sopla = 0) => g.velas.forEach(v => { const k = Math.max(.001, 1 - sopla); v.fl.scale.set(k * (1 + Math.sin(t * 17 + v.i) * .08), k * (1 + Math.sin(t * 13 + v.i * 2) * .14), 1); v.fl.rotation.z = Math.sin(t * 9 + v.i) * .12 + sopla * .5; });
+    g.update(0); return g; }
+
+  return { confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

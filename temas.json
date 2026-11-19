@@ -803,5 +803,23 @@
   "mejora": "papel_pm.js: PM.pocillo (pocillo de peltre con hornilla: espuma que sube y se derrama, burbujas del agua, nata y vista en corte con vapor atrapado)",
   "archivo": "shorts/2026-11-19-1330-leche-se-sube.mp4",
   "titulo": "¿Por qué la leche SIEMPRE se sube? 🥛 #shorts"
+ },
+ {
+  "fecha": "2026-11-19",
+  "hora": "18:00",
+  "tema": "Día Internacional del Hombre, 19 de noviembre (pedido de Iván): lo impulsó en 1999 Jerome Teelucksingh, profesor de Trinidad y Tobago, por el cumpleaños de su papá; su meta es la salud de los hombres: en México viven unos seis años menos que las mujeres (INEGI). Fuentes: BioBioChile y El Diario Ecuador (origen), Expansión y El Imparcial (esperanza de vida)",
+  "formato": "efeméride + dato de salud + felicitación",
+  "categoria": "efeméride / salud",
+  "tendencia": "Hoy 19 de noviembre: Día Internacional del Hombre (tendencia del día en México)",
+  "disparadores": [
+   "identidad (felicitar a los hombres de tu vida)",
+   "compartir para recibir felicitación",
+   "dato sorprendente (seis años menos)"
+  ],
+  "duracion": 29.3,
+  "mejora": "papel_pm.js: PM.confeti (lluvia y estallido de papelitos) y PM.pastel (pastel de 2 pisos con velitas que titilan)",
+  "archivo": "shorts/2026-11-19-1800-dia-hombre.mp4",
+  "titulo": "¿Por qué HOY es el Día del Hombre? 👨 #shorts",
+  "pedido": true
  }
 ]
