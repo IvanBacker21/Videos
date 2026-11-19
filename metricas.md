@@ -198,3 +198,34 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 **Alerta producción:** ninguno de los 3 slots del 18-nov (13:30, 18:00, 21:30) está programado en Buffer. Producir hoy.
 
 **Conclusión:** Buffer perfecto (6/6 sent, 0 errores). Los shorts del 17-nov son los más cortos hasta ahora (25.7–26.4 s) y cumplen todas las reglas. Prioridad: programar los 3 shorts del 18-nov.
+
+## 2026-11-18 22:50 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (17 y 18-nov).
+
+**Buffer: 🔴 1 error en las 48 h revisadas.** El short "Cargar el celular toda la noche" (slot 21:30 MX del 18-nov, YouTube) falló en dos intentos consecutivos: 21:30 MX y 22:15 MX. TikTok sí se publicó OK. Los otros 5 shorts del período se enviaron sin errores.
+
+| Short | Publicado (MX) | Buffer YT | Buffer TikTok | Duración | ≤30s | Tema | Gancho | Observación |
+|---|---|---|---|---|---|---|---|---|
+| Tortilla inflada | 17-nov 13:30 | ✓ sent | ✓ sent | 26.4 s | ✓ | comida/casa | concreto ✓ | muy mexicano |
+| Chicle tragado (mito) | 17-nov 18:00 | ✓ sent | ✓ sent | 26.1 s | ✓ | cuerpo/mito | concreto ✓ | evergreen |
+| Luna gigante (ilusión) | 17-nov 21:30 | ✓ sent | ✓ sent | 25.7 s | ✓ | espacio/mente | concreto ✓ | Luna creciente ✓ |
+| Guacamole negro | 18-nov 13:30 | ✓ sent | ✓ sent | 27.1 s | ✓ | comida/mito | concreto ✓ | mito del hueso ✓ |
+| Manos frías | 18-nov 18:00 | ✓ sent | ✓ sent | 25.6 s | ✓ | cuerpo/clima | concreto ✓ | frente frío ✓ |
+| **Cargar celular toda la noche** | 18-nov 21:30 | ❌ error × 2 | ✓ sent | 25.7 s | ✓ | tecnología/mito | concreto ✓ | Error YT: "unknown error"; 2 intentos (21:30 y 22:15 MX) |
+| **19-nov: 3 slots (13:30, 18:00, 21:30)** | — | ✗ ausentes | ✗ ausentes | — | — | — | — | No producidos aún |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 6/6 shorts ✓ (rango 25.6–27.1 s).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: en los últimos 6 shorts (17–18 nov) ninguno de animales/mascotas → cupo libre para el 19-nov.
+- Patrón: 2 de tecnología (manos-frías/cargar-noche) + 2 de comida (tortilla/guacamole) + mito + espacio: buena variedad.
+
+**Alertas:**
+- 🔴 **YouTube error** para "Cargar el celular toda la noche" (18-nov 21:30): Buffer lo intentó dos veces sin éxito. Acción recomendada: desde panel.buffer.com → Posts → ir al post fallido → "Retry" o reprogramarlo manualmente. TikTok ya publicó OK.
+- ⚠️ **19-nov sin producción**: ninguno de los 3 slots (13:30, 18:00, 21:30) está producido ni programado en Buffer.
+
+**Conclusión:** 5/6 shorts sent, 1 error en YouTube (cargar-noche); todos los shorts cumplen las reglas. Prioridad: (1) reintentar el post de YouTube desde Buffer, (2) producir y programar los 3 shorts del 19-nov.
