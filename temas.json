@@ -769,5 +769,22 @@
   "mejora": "papel_pm.js: PM.vasosRayosX (radiografía de mano con tubitos que se aprietan, flujo y escarcha), PM.manosFrias (manos azules con cristalitos), PM.chamarra (abierta, deja ver el logo)",
   "archivo": "shorts/2026-11-18-1800-manos-frias.mp4",
   "titulo": "¿Por qué se te CONGELAN las manos? 🥶 #shorts"
+ },
+ {
+  "fecha": "2026-11-18",
+  "hora": "21:30",
+  "tema": "¿Cargar el celular toda la noche lo echa a perder? (casi siempre mito: los celulares modernos tienen un circuito que deja de meter carga al llegar al 100% y solo lo 'rellena' a ratos; lo que sí desgasta la batería de litio es el calor; truco: no cargarlo bajo la almohada ni con funda gruesa y activar la carga optimizada/adaptativa). Fuentes: PCMag (Charging your phone overnight: battery myths debunked), BGR (Stop believing these 5 myths about charging your phone), TechRadar (Should you stop charging your phone battery to 100%?)",
+  "formato": "Mito + ¿ves? te dije + truco útil",
+  "categoria": "tecnología / mito",
+  "tendencia": "Hora de dormir (21:30): justo cuando todos conectan el celular; temporada post Buen Fin con celulares nuevos",
+  "disparadores": [
+   "eres tú (lo cargas toda la noche)",
+   "¿ves? te dije (mito)",
+   "truco útil (calor, carga optimizada)"
+  ],
+  "duracion": 25.7,
+  "mejora": "papel_pm.js: PM.bateria (pila chibi con nivel verde/amarillo/rojo, rayito de carga y calor: se pone roja, suda y echa ondas)",
+  "archivo": "shorts/2026-11-18-2130-cargar-noche.mp4",
+  "titulo": "¿Cargar el celular toda la noche lo DAÑA? 🔋 #shorts"
  }
 ]

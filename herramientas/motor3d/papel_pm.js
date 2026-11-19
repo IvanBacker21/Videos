@@ -1070,5 +1070,39 @@ export function kitPM(P, THREE, group) {
       for (const y of [-.18, .02]) linea([[.21, y], [.36, y - .01]], .012, osc(color, .75), q, .016);
       det(blob([[.13, .34], [.2, .4], [.24, .3], [.2, .18], [.15, .24]]), mez(color, 0xffffff, .3), [0, 0, .018], q); linea([[.2, .12], [.2, -.33]], .014, 0xffc83d, q, .018); }
     return g; }
-  return { vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= BATERÍA CHIBI (18-nov-2026 21:30, short de cargar el celular toda la noche) =================
+  // PM.bateria(pos, o, padre): pila de cartulina parada con carita, bracitos y patitas. g.nivel(k 0..1) llena la barra (verde/amarilla/roja);
+  //   g.carga(on, t) rayito pulsando adentro; g.calor(k, t) se pone roja, suda y le salen ondas de calor; g.cara(e) 'feliz'|'abierta'|'triste';
+  //   g.head (A.parpadea, A.preocupa), g.brazos[0|1].rotation.z (r0). o: {s (escala), nivel, cara}
+  function bateria(pos, o = {}, parent = null) { const g = group(pos, parent), s = o.s ?? 1; g.scale.setScalar(s); g.es = s;
+    const W = .62, H = 1.0, m = .07, iw = W - 2 * m, ih = H - 2 * m;
+    g.brazos = [-1, 1].map(sx => { const b = group([sx * (W / 2 - .02), .02, -.05], g); pz(F.rect(.08, .32, .04), 0x2b2f4a, [0, -.14, 0], b, { tinta: .012, papel: .04 }); pz(F.circ(.065), 0xfff4e4, [0, -.3, .01], b, { tinta: .012, papel: .03 }); b.r0 = sx * .35; b.rotation.z = b.r0; return b; });
+    for (const sx of [-1, 1]) { pz(F.rect(.09, .2, .04), 0x2b2f4a, [sx * .13, -H / 2 - .07, -.06], g, { tinta: .012, papel: .04 }); pz(F.elipse(.09, .05), 0x2ec4a6, [sx * .13 + sx * .03, -H / 2 - .17, -.04], g, { tinta: .012, papel: .03 }); }
+    pz(F.rect(W * .38, .1, .03), 0x9aa0b4, [0, H / 2 + .04, -.02], g, { tinta: .014, papel: .04 });                       // terminal
+    pz(F.rect(W, H, .1), 0x2b2f4a, [0, 0, 0], g, { tinta: .018, papel: .07 });                                              // cuerpo
+    det(F.rect(iw, ih, .06), 0xfff4e4, [0, 0, .014], g);                                                                     // hueco
+    const relleno = group([0, -ih / 2, .02], g), fills = [0x2ec4a6, 0xffc83d, 0xff5b5b].map(c => { const f = det(F.rect(iw - .02, ih - .02, .05), c, [0, ih / 2, 0], relleno); return f; });
+    for (const y of [-.25, 0, .25]) det(F.rect(iw * .9, .018, .01), 0xffffff, [0, y * ih, .03], g);                          // rayitas de nivel
+    det(F.elipse(.04, .16), 0xffffff, [-W * .3, H * .22, .032], g, .1);                                                      // brillo
+    // calor: capa roja encima del cuerpo, gotitas de sudor y ondas
+    const rojo = new THREE.Mesh(new THREE.PlaneGeometry(W - .02, H - .02), new THREE.MeshBasicMaterial({ color: 0xff3b30, transparent: true, opacity: 0, depthWrite: false })); rojo.position.z = .036; g.add(rojo);
+    g.rayo = pz(F.rayo(.42), 0xffe14d, [0, -.24, .045], g, { tinta: .012, papel: .03 }); g.rayo.visible = false;
+    const h = g.head = group([0, .17, .05], g); h.r0 = 0;
+    h.ojos = [-1, 1].map(sx => { const e = group([sx * .1, .02, .01], h); det(F.elipse(.04, .07), INK, [0, 0, 0], e); det(F.elipse(.015, .024), 0xffffff, [.011, .028, .003], e); return e; });
+    h.cejas = [-1, 1].map(sx => { const c = group([sx * .1, .16, .012], h); det(F.rect(.075, .02, .01), INK, [0, 0, 0], c); c.sx = sx; return c; });
+    for (const sx of [-1, 1]) det(F.elipse(.05, .028), 0xff8a9a, [sx * .19, -.07, .008], h);
+    const bocas = { feliz: det(F.arco(.06, .02, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -.04, .01], h), triste: det(F.arco(.05, .02, Math.PI * .2, Math.PI * .8), 0x7a1f30, [0, -.14, .01], h) };
+    { const b = bocas.abierta = group([0, -.1, .01], h); det(blob([[-.065, .022], [.065, .022], [.047, -.036], [0, -.054], [-.047, -.036]]), 0x7a1f30, [0, 0, 0], b); det(F.elipse(.03, .014), 0xff8a9a, [0, -.032, .002], b); }
+    g.cara = e => { for (const k in bocas) bocas[k].visible = k === e; };
+    const sudor = [-1, 1].map(sx => { const d = pz(F.gota(.13), 0x8fd3ff, [sx * .27, .2, .06], g, { tinta: .01, papel: .025 }); d.sx = sx; return d; });
+    const ondas = [-1, 0, 1].map(i => { const pts = []; for (let k = 0; k <= 12; k++) { const y = k / 12 * .32; pts.push([Math.sin(k / 12 * Math.PI * 2) * .035, y]); }
+      const w = group([i * .2, H / 2 + .16, .02], g); det(tubo(pts, .022, .022), 0xff8a3d, [0, 0, 0], w); w.i = i; return w; });
+    let kCal = 0;
+    g.nivel = k => { k = Math.max(.001, Math.min(1, k)); relleno.scale.y = k; const c = k > .3 ? 0 : k > .12 ? 1 : 2; fills.forEach((f, i) => f.visible = i === c); };
+    g.carga = (on, t = 0) => { g.rayo.visible = !!on; if (on) g.rayo.scale.setScalar(.85 + .15 * Math.abs(Math.sin(t * 6))); };
+    g.calor = (k, t = 0) => { kCal = k; rojo.material.opacity = .55 * k;
+      sudor.forEach((d, i) => { const f = ((t * .9 + i * .5) % 1); d.visible = k > .2; d.position.y = .22 - f * .35; d.scale.setScalar(Math.max(.001, k * Math.sin(f * Math.PI) * 1.1)); });
+      ondas.forEach(w => { const f = ((t * .8 + (w.i + 1) / 3) % 1); w.visible = k > .05; w.position.y = H / 2 + .14 + f * .25; w.scale.setScalar(Math.max(.001, k * Math.sin(f * Math.PI))); w.rotation.z = Math.sin(t * 5 + w.i) * .12; }); };
+    g.nivel(o.nivel ?? .6); g.cara(o.cara ?? 'feliz'); g.calor(0); return g; }
+  return { bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

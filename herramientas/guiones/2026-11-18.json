@@ -53,7 +53,7 @@
  {
   "hora": "21:30",
   "slug": "cargar-noche",
-  "estado": "listo",
+  "estado": "producido",
   "tema": "¿Cargar el celular toda la noche lo echa a perder? (casi siempre mito: los celulares modernos tienen un circuito que deja de meter carga al llegar al 100% y solo lo 'rellena' a ratos; lo que sí desgasta la batería de litio es el calor; truco: no cargarlo bajo la almohada ni con funda gruesa y activar la carga optimizada/adaptativa). Fuentes: PCMag (Charging your phone overnight: battery myths debunked), BGR (Stop believing these 5 myths about charging your phone), TechRadar (Should you stop charging your phone battery to 100%?)",
   "fuentes": [
    "https://medium.com/pcmag-access/charging-your-phone-overnight-battery-myths-debunked-1d43797502d3",
