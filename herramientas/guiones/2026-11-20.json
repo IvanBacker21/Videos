@@ -1,0 +1,87 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "calor-cabeza",
+  "estado": "listo",
+  "tema": "¿De verdad se te va casi todo el calor por la cabeza? (mito: viene de un experimento del ejército de EE.UU. en los años cincuenta con soldados con trajes árticos que dejaban la cabeza descubierta; en realidad pierdes calor por cualquier parte destapada, proporcional a su superficie, y la cabeza es cerca del diez por ciento de la piel; eso sí, cara y cabeza son muy sensibles al frío, así que el gorro sí ayuda). Fuentes: Live Science (Do we really lose half our body heat from our heads?), NPR (Myth: you lose most body heat through your head), grough (BMJ 2008: Hats, heads and heat: medics debunk decades-old myth)",
+  "fuentes": [
+   "https://www.livescience.com/34411-body-heat-loss-head.html",
+   "https://www.npr.org/transcripts/98453682",
+   "https://www.grough.co.uk/magazine/2008/12/19/hats-heads-and-heat-medics-debunk-decades-old-myth"
+  ],
+  "tendencia": "Masa de aire frío y heladas en gran parte de México esta semana; mamás persiguiendo con el gorro",
+  "formato": "mito + '¿ves? te dije' (a medias)",
+  "categoria": "cuerpo / mito (clima)",
+  "disparadores": [
+   "¿ves? te dije (mito)",
+   "eres tú / tu mamá",
+   "truco útil (el gorro sí ayuda, pero abrígate todo)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-19-1800-calor-cabeza.json",
+  "visual": "Escenario: calle mexicana de mañana con frío (vaho, cielo gris) del kit; protagonista chibi y su mamá con un gorro en la mano.\n1) gancho: mamá corriendo detrás del protagonista con el gorro; ondas rojas de 'calor' saliendo exageradas de la cabeza.\n2) soldados: estampa sepia tipo foto vieja: soldaditos de cartulina con trajes de nieve gigantes y cabeza descubierta; letrero 'MITO'.\n3) piel: silueta del cuerpo con ondas de calor saliendo de brazos, piernas y cabeza por igual; la cabeza se ilumina como una porción chiquita (barra o pastel con una rebanada pequeña).\n4) gorro: protagonista con la cara roja temblando; se pone el gorro y sonríe; palomita.\n5) remate: mamá triunfante con el gorro. Pieza nueva reutilizable: PM.gorro(color) de estambre y PM.ondasCalor(intensidad) en papel_pm.js.",
+  "titulo_yt": "¿Se te va el calor por la CABEZA? 🧢 #shorts",
+  "descripcion_yt": "Te dijeron que casi todo el calor se escapa por la cabeza… y es mito. 🧢\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #frio #mitos #shorts",
+  "titulo_tt": "¿Se te va el calor por la cabeza? 🧢",
+  "texto_tt": "Es mito… pero ponte el gorro 🧢 Etiqueta a tu mamá #datoscuriosos #ciencia #frio #mitos #aprendeentiktok",
+  "pedido": true,
+  "prueba": "normal"
+ },
+ {
+  "hora": "18:00",
+  "slug": "pan-duro",
+  "estado": "listo",
+  "tema": "¿Por qué el bolillo de ayer amanece duro? (no es solo que se seque: el almidón, que al hornearse se ablandó con el agua, se reacomoda en cristalitos duros —retrogradación—; mito: el refri lo conserva, pero el frío acelera la retrogradación y lo endurece más rápido; truco: unas gotitas de agua y calentarlo en comal u horno, el calor deshace los cristales y lo revive por un rato). Fuentes: BBC Science Focus (Why does bread go stale?), Tasting Table (The scientific reason bread gets hard as it stales), Eat Your Books (Why refrigerators are bad for bread), Chowhound (Why bread gets stale and how to make it soft again)",
+  "fuentes": [
+   "https://www.sciencefocus.com/science/why-does-bread-go-stale/",
+   "https://www.tastingtable.com/1491347/why-science-stale-bread-hard/",
+   "https://www.eatyourbooks.com/blog/2023/02/28/why-refrigerators-are-bad-for-bread",
+   "https://www.chowhound.com/1599479/why-bread-gets-stale-how-soften"
+  ],
+  "tendencia": "Viernes 20 de noviembre (Revolución): desayuno y cena en casa, el bolillo/telera de ayer en todas las cocinas",
+  "formato": "¿por qué SIEMPRE…? + mito + truco",
+  "categoria": "comida / casa",
+  "prueba": "normal",
+  "disparadores": [
+   "eres tú (todos tienen el bolillo duro)",
+   "¿ves? te dije (no al refri)",
+   "truco útil (comal)",
+   "lo mexicano (bolillo, comal)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-20-1800-pan-duro.json",
+  "visual": "Escenario: PM.cocina() de mañana; protagonista chibi y una bolsa de pan de papel.\n1) gancho: el protagonista muerde un bolillo de papel y suena 'clonk' como piedra; cara de dolor chistosa.\n2) almidón: zoom al bolillo partido: bolitas suaves de almidón (círculos blanditos con agua) que se juntan y se vuelven cristalitos con picos; letrero 'ALMIDÓN'.\n3) refri: refrigerador de papel que se abre con vaho azul; el bolillo entra y sale con más cristales y escarcha; letrero 'MITO' tachando 'en el refri dura más'.\n4) truco: gotitas de agua con atomizador, bolillo en el comal con ondas de calor; los cristales se derriten y el bolillo se infla suave; palomita.\n5) remate: protagonista señalando a cámara con el bolillo calientito. Pieza nueva reutilizable: PM.bolillo(estado) (duro/suave, partible) y PM.refri() en papel_pm.js.",
+  "titulo_yt": "¿Por qué el pan se pone DURO? 🥖 #shorts",
+  "descripcion_yt": "El bolillo de ayer no solo se secó… su almidón se hizo cristales. Y el refri lo empeora. 🥖\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #pan #cocina #shorts",
+  "titulo_tt": "¿Por qué el bolillo amanece duro? 🥖",
+  "texto_tt": "No lo metas al refri 🥖 Etiqueta a quien guarda el pan ahí #datoscuriosos #ciencia #pan #cocina #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "hipo",
+  "estado": "listo",
+  "prueba": "largo-40s",
+  "tema": "¿Por qué te da hipo? (el diafragma se contrae de golpe sin permiso, entra aire de golpe y las cuerdas vocales se cierran de un portazo: ¡hip!; sorpresa: los bebés ya tienen hipo dentro del vientre y podría ayudar al cerebro a aprender a respirar (estudio UCL 2019); mito: el susto casi no tiene pruebas; truco: aguantar la respiración o tomar agua fría a traguitos; récord: Charles Osborne tuvo hipo sesenta y ocho años, de 1922 a 1990, récord Guinness). Fuentes: ScienceAlert (The man who had hiccups for 68 years), All That's Interesting (Charles Osborne), UAMS News (Hiccups), Medical Xpress (The fascinating history of hiccups / UCL bebés)",
+  "fuentes": [
+   "https://www.sciencealert.com/the-incredible-true-story-of-the-man-who-had-hiccups-for-68-years",
+   "https://allthatsinteresting.com/?p=385377",
+   "https://news.uams.edu/2018/04/26/hiccups/",
+   "https://m.medicalxpress.com/news/2017-02-fascinating-history-hiccups.html"
+  ],
+  "tendencia": "Viernes de cena y pozole/tacos por el 20 de noviembre: comer rápido y refresco = hipo; todos tienen una tía que asusta",
+  "formato": "¿por qué…? + mito '¿ves? te dije' + truco + récord (LARGO prueba 40 s)",
+  "categoria": "cuerpo / mito",
+  "disparadores": [
+   "eres tú (todos han tenido hipo)",
+   "¿ves? te dije (el susto no sirve)",
+   "truco útil",
+   "sorpresa (hipo antes de nacer, récord de 68 años)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-20-2130-hipo.json",
+  "visual": "Escenario: PM.cuarto() o comedor con mesa; protagonista chibi y una tía chibi (pelo corto, aretes, sin chongo). Acción nueva cada 4–6 s:\n1) gancho (0–4 s): el protagonista brinca con cada '¡hip!' (burbuja de texto de papel) y la tía se esconde detrás de la puerta lista para asustarlo.\n2) diafragma (4–9 s): corte tipo rayos X de papel: pulmones y el diafragma como trampolín/hamaca que da un tirón hacia abajo.\n3) ¡hip! (9–14 s): aire entrando como flechas; dos puertitas (cuerdas vocales) que se cierran de golpe con estrellita 'HIP!'.\n4) sorpresa a la mitad (14–20 s): bebé de papel enroscado dentro de una burbuja/panza que hace ¡hip! con mini brinco; el protagonista boquiabierto.\n5) susto (20–24 s): la tía grita '¡BU!', el protagonista salta… y vuelve a hacer ¡hip!; letrero 'MITO' con signo de pregunta.\n6) truco (24–30 s): protagonista inflando cachetes aguantando aire con reloj de papel, luego vaso de agua fría a traguitos; los ¡hip! se apagan; palomita.\n7) récord (30–35 s): calendario de papel volando con hojas '1922…1990' y un señor chibi de lentes canoso con burbujas ¡hip! que no paran; letrero '68 AÑOS'.\n8) remate (35–40 s): protagonista señala a la tía, que se ríe. Pieza nueva reutilizable: PM.diafragma() (corte de pulmones con diafragma animable) y PM.burbujaTexto(txt) en papel_pm.js.",
+  "titulo_yt": "¿Por qué te da HIPO? 😮 #shorts",
+  "descripcion_yt": "Tu diafragma da un brinco y tus cuerdas vocales hacen ¡hip!… ya lo hacías antes de nacer, y el susto casi no sirve. 😮\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #hipo #mitos #cuerpo #shorts",
+  "titulo_tt": "¿Por qué te da hipo? 😮",
+  "texto_tt": "El susto casi no funciona 😮 Etiqueta a quien siempre te quiere asustar #datoscuriosos #ciencia #hipo #mitos #aprendeentiktok",
+  "pedido": false
+ }
+]

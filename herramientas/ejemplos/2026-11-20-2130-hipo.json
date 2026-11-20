@@ -1,0 +1,75 @@
+{
+ "id": "2026-11-20-2130-hipo",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué te da hipo… y por qué tu tía te quiere asustar?"
+   ]
+  },
+  {
+   "tipo": "diafragma",
+   "titulo": "",
+   "frases": [
+    "El hipo es un brinco sin permiso de tu diafragma, el músculo con el que respiras."
+   ]
+  },
+  {
+   "tipo": "hip",
+   "titulo": "",
+   "frases": [
+    "Jalas aire de golpe, tus cuerdas vocales se cierran de un portazo y suena: ¡hip!"
+   ]
+  },
+  {
+   "tipo": "panza",
+   "titulo": "",
+   "frases": [
+    "Lo más loco: ya tenías hipo dentro de la panza de tu mamá, quizá para practicar a respirar."
+   ]
+  },
+  {
+   "tipo": "susto",
+   "titulo": "",
+   "frases": [
+    "¿Y el susto? Casi no hay pruebas de que funcione."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Mejor aguanta la respiración unos segundos o toma agua fría a traguitos."
+   ]
+  },
+  {
+   "tipo": "record",
+   "titulo": "",
+   "frases": [
+    "Y no te quejes: un señor tuvo hipo sesenta y ocho años."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien siempre te asusta para quitarte el hipo."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
