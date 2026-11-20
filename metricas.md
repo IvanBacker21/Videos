@@ -229,3 +229,32 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 - ⚠️ **19-nov sin producción**: ninguno de los 3 slots (13:30, 18:00, 21:30) está producido ni programado en Buffer.
 
 **Conclusión:** 5/6 shorts sent, 1 error en YouTube (cargar-noche); todos los shorts cumplen las reglas. Prioridad: (1) reintentar el post de YouTube desde Buffer, (2) producir y programar los 3 shorts del 19-nov.
+
+## 2026-11-20 00:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (18 y 19-nov).
+
+**Buffer: 🔴 2 errores en YouTube en las 48 h revisadas.**
+
+| Short | Publicado (MX) | Buffer YT | Buffer TikTok | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| **Cargar celular (batería)** | 18-nov 21:30 | ❌ error × 2 | ✓ sent | 25.7 s | ✓ | tecnología/mito | concreto ✓ | normal | Mismo error del día anterior; "unknown error" en ambos intentos (21:30 y 22:15 MX). YT no publicado. |
+| Leche se sube | 19-nov 13:30 | ❌ error × 1 | ✓ sent | 26.4 s | ✓ | comida/cocina | concreto ✓ | normal | "daily posting limit reached" en YT. TikTok OK. Posible causa: reintentos de batería contaron contra el límite diario. |
+| Día del Hombre | 19-nov 18:00 | ✓ sent | ✓ sent | 29.3 s | ✓ | efeméride/salud | concreto ✓ | normal | Efeméride del día ✓; tendencia alta en México el 19-nov. |
+| Microondas y wifi | 19-nov 21:30 | ✓ sent | ✓ sent | 27.8 s | ✓ | tecnología/casa | concreto ✓ | normal | Gancho cotidiano fuerte ("se te traba la serie"). |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 4/4 shorts ✓ (rango 25.7–29.3 s).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: sin animales/mascotas en los últimos 6 shorts → cupo libre.
+- Prueba de duración: hoy 20-nov comienza la prueba; aún sin entradas en temas.json para los 3 slots del 20-nov.
+
+**Alertas:**
+- 🔴 **YouTube batería** (18-nov 21:30): sigue sin publicarse. Reintentar manualmente desde panel.buffer.com.
+- 🔴 **YouTube leche** (19-nov 13:30): error "daily posting limit". Causa probable: reintentos automáticos de Buffer del post de batería agotaron el cupo del canal en YouTube ese día. Acción: reprogramar manualmente y revisar con Buffer si los reintentos cuentan contra el límite diario.
+- ⚠️ **20-nov sin producción aún**: ningún slot (13:30, 18:00, 21:30) aparece en temas.json ni en Buffer. Hoy empieza la prueba de 40 s (slot 21:30 debe ser largo-40s).
+
+**Conclusión:** 4 shorts del período; 2 TikTok + 2 YT enviados correctamente, 2 errores en YT (batería y leche). Patrón preocupante: los reintentos de Buffer parecen estar comiendo el límite diario de publicaciones en YouTube. Revisar configuración de reintentos en Buffer.
