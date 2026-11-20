@@ -1233,5 +1233,17 @@ export function kitPM(P, THREE, group) {
     const os = []; for (let i = 0; i < n; i++) { const w = group([(i - (n - 1) / 2) * sep, 0, 0], g); pz(tubo(pts, gr, gr * .6), col, [0, -L / 2, 0], w, { tinta: .012, papel: .035 }); w.f = i / n + (i % 2) * .17; os.push(w); }
     g.update = (t, k = 1) => { os.forEach(w => { const ph = (t * .9 + w.f) % 1; const s = Math.sin(ph * Math.PI) * k; w.scale.setScalar(Math.max(.001, s)); w.position.y = ph * L * .7; w.rotation.z = Math.sin(t * 5 + w.f * 9) * .08; }); g.visible = k > .01; };
     g.update(0, 1); return g; }
-  return { gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 20-nov 18:00 (cosquillas) ----
+  // PM.pluma(pos, o, padre): pluma de cartulina (raquis curvo, barbas con rayitas y punta esponjada). Mira hacia arriba; la punta
+  // (lo que hace cosquillas) queda en y ≈ +L. g.cosquillea(t, k): se menea rápido de lado a lado (k 0..1). o: {color, largo}
+  function pluma(pos, o = {}, parent = null) { const g = group(pos, parent), col = o.color ?? 0xff6b9b, L = o.largo ?? .9;
+    const v = g.vela = group([0, 0, 0], g);
+    pz(blob([[0, L * .18], [-L * .2, L * .38], [-L * .24, L * .62], [-L * .14, L * .88], [0, L], [L * .14, L * .86], [L * .22, L * .6], [L * .17, L * .36]]), col, [0, 0, 0], v, { tinta: .016, papel: .05 });
+    det(blob([[0, L * .22], [L * .15, L * .38], [L * .2, L * .6], [L * .12, L * .84], [0, L * .96]]), osc(col, .85), [0, 0, .014], v);
+    for (let i = 0; i < 5; i++) { const y = L * (.32 + i * .13); det(tubo([[0, y], [-L * .18, y + L * .1]], .012, .012), mez(col, 0xffffff, .5), [0, 0, .016], v); det(tubo([[0, y], [L * .16, y + L * .09]], .012, .012), mez(col, 0xffffff, .5), [0, 0, .016], v); }
+    for (const [x, y] of [[-L * .12, L * .2], [L * .1, L * .17], [-L * .2, L * .3]]) det(F.circ(L * .045), mez(col, 0xffffff, .35), [x, y, .012], v);
+    det(tubo([[0, -L * .05], [.01, L * .3], [0, L * .6], [-.02, L * .97]], .028, .016), 0xfff6e0, [0, 0, .02], g);
+    g.cosquillea = (t, k = 1) => { g.rotation.z = (g.r0 ??= g.rotation.z) + Math.sin(t * 28) * .32 * k; v.scale.x = 1 + Math.sin(t * 28 + 1) * .08 * k; };
+    return g; }
+  return { pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
