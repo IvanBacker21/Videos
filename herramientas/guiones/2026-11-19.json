@@ -55,7 +55,7 @@
  {
   "hora": "21:30",
   "slug": "microondas-wifi",
-  "estado": "listo",
+  "estado": "producido",
   "tema": "¿Por qué se cae el wifi cuando alguien usa el microondas? (el horno de microondas y el wifi de 2.4 GHz usan casi la misma frecuencia; la rejilla del horno encierra casi toda la energía, pero se fuga un poquito (inofensivo) que mete ruido en la señal y traba el video; truco: usar la red de 5 GHz o alejar el módem del microondas). Fuentes: Gizmodo (Why does your microwave oven mess with the Wi-Fi connection?), ScienceABC (Do microwaves interfere with WiFi signals?)",
   "fuentes": [
    "https://gizmodo.com/why-does-your-microwave-oven-mess-with-the-wi-fi-connec-1666117933",

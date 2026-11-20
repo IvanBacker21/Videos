@@ -821,5 +821,23 @@
   "archivo": "shorts/2026-11-19-1800-dia-hombre.mp4",
   "titulo": "¿Por qué HOY es el Día del Hombre? 👨 #shorts",
   "pedido": true
+ },
+ {
+  "fecha": "2026-11-19",
+  "hora": "21:30",
+  "tema": "¿Por qué se cae el wifi cuando alguien usa el microondas? (el horno de microondas y el wifi de 2.4 GHz usan casi la misma frecuencia; la rejilla del horno encierra casi toda la energía, pero se fuga un poquito (inofensivo) que mete ruido en la señal y traba el video; truco: usar la red de 5 GHz o alejar el módem del microondas). Fuentes: Gizmodo (Why does your microwave oven mess with the Wi-Fi connection?), ScienceABC (Do microwaves interfere with WiFi signals?)",
+  "formato": "¿Por qué…? + truco útil",
+  "categoria": "tecnología / casa",
+  "tendencia": "Noche en casa (cena recalentada + series/videos); todos han visto el video trabarse",
+  "disparadores": [
+   "eres tú (se te traba la serie)",
+   "truco útil (red de 5 GHz)",
+   "sorpresa (el microondas y el wifi son 'primos')"
+  ],
+  "duracion": 27.8,
+  "mejora": "papel_pm.js: PM.microondas (horno con rejilla, plato que gira y luz) y PM.modem (router con antenas, foquitos y señal de wifi)",
+  "archivo": "shorts/2026-11-19-2130-microondas-wifi.mp4",
+  "titulo": "¿Por qué el MICROONDAS tumba tu wifi? 📶 #shorts",
+  "pedido": false
  }
 ]

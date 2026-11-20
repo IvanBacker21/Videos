@@ -1180,5 +1180,41 @@ export function kitPM(P, THREE, group) {
     g.update = (t, sopla = 0) => g.velas.forEach(v => { const k = Math.max(.001, 1 - sopla); v.fl.scale.set(k * (1 + Math.sin(t * 17 + v.i) * .08), k * (1 + Math.sin(t * 13 + v.i * 2) * .14), 1); v.fl.rotation.z = Math.sin(t * 9 + v.i) * .12 + sopla * .5; });
     g.update(0); return g; }
 
-  return { confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= MICROONDAS Y MÓDEM (19-nov-2026 21:30, short del microondas que tumba el wifi) =================
+  // PM.microondas(pos, o, padre): horno de cartulina de frente (el fondo queda en y = 0). Puerta con ventanita y REJILLA de puntitos, plato que gira,
+  // panel con reloj digital y botones. g.update(t, on): con on = 1 la ventanita brilla amarilla y el plato da vueltas; g.puerta = grupo de la ventanita
+  // (centro en g.vent = [x, y] local, tamaño g.ventW × g.ventH) para poner ondas encima. o: {w, color}
+  function microondas(pos, o = {}, parent = null) { const g = group(pos, parent), W = o.w ?? 1.3, H = W * .6, col = o.color ?? 0xe9eef5;
+    pz(F.rect(W, H, .06), col, [0, H / 2, 0], g, { tinta: .018, papel: .06 });
+    const vw = W * .58, vh = H * .66, vx = -W * .14, vy = H * .5; g.vent = [vx, vy]; g.ventW = vw; g.ventH = vh;
+    const pu = group([vx, vy, .016], g); g.puerta = pu;
+    pz(F.rect(vw + .08, vh + .08, .04), osc(col, .86), [0, 0, 0], pu, { tinta: .012, papel: false });
+    const luz = det(F.rect(vw, vh, .03), 0x3a3f5c, [0, 0, .012], pu);
+    const luzM = luz.children[0]; luzM.material = luzM.material.clone(); const cOff = new THREE.Color(0x3a3f5c), cOn = new THREE.Color(0xffe08a);
+    const plato = group([0, -vh * .3, .016], pu); det(F.elipse(vw * .32, .04), 0xffffff, [0, 0, 0], plato); const taza = det(F.rect(.16, .17, .03), 0xff6b5b, [0, .1, .004], plato); det(F.arco(.05, .02, -1.5, 1.5), 0xff6b5b, [.09, .1, .003], plato);
+    for (let i = 0; i < 9; i++) for (let j = 0; j < 6; j++) det(F.circ(.012), 0x1f1b2e, [-vw / 2 + (i + .5) * vw / 9, -vh / 2 + (j + .5) * vh / 6, .03], pu);   // rejilla
+    det(F.rect(.05, vh * .7, .02), osc(col, .7), [vw / 2 + .07, 0, .02], pu);                                                       // manija
+    const px = W * .34; pz(F.rect(W * .24, H * .82, .03), osc(col, .93), [px, H / 2, .016], g, { tinta: .012, papel: false });
+    det(F.rect(W * .19, H * .15, .02), 0x1f2b1f, [px, H * .76, .032], g); const dig = [0, 1, 2].map(i => det(F.rect(.03, .05, .005), 0x7dff8a, [px - .06 + i * .06, H * .76, .036], g));
+    for (let i = 0; i < 3; i++) for (let j = 0; j < 2; j++) det(F.circ(.03), [0xff6b5b, 0x2ec4a6, 0xffc83d][i], [px - .045 + j * .09, H * .5 - i * .1, .034], g);
+    for (const sx of [-1, 1]) det(F.rect(.1, .05, .02), 0x2b2f4a, [sx * W * .38, -.02, -.01], g);
+    sombraPiso(g, W * .5);
+    g.update = (t, on = 0) => { luzM.material.color.copy(cOff).lerp(cOn, on); plato.position.x = Math.sin(t * 2.2) * vw * .18 * (on > .1 ? 1 : 0);
+      taza.scale.x = on > .1 ? .75 + .25 * Math.abs(Math.cos(t * 2.2)) : 1; dig.forEach((d, i) => d.visible = on < .1 || Math.sin(t * 6 + i) > -.6); };
+    g.update(0, 0); return g; }
+  // PM.modem(pos, o, padre): módem/router de cartulina con dos antenas y foquitos. g.senal(n 0..3): arcos de wifi encima (0 = sin señal, con tache);
+  // g.update(t, falla 0..1): foquitos parpadean (con falla, el foquito de señal se pone rojo y los arcos tiemblan). o: {w, color}
+  function modem(pos, o = {}, parent = null) { const g = group(pos, parent), W = o.w ?? .9, H = W * .32, col = o.color ?? 0x2b2f4a;
+    for (const sx of [-1, 1]) { const a = group([sx * W * .36, H, -.02], g); a.rotation.z = -sx * .18; pz(F.rect(.06, W * .5, .03), col, [0, W * .25, 0], a, { tinta: .01, papel: .04 }); }
+    pz(F.rect(W, H, .06), col, [0, H / 2, 0], g, { tinta: .016, papel: .06 }); det(F.rect(W * .9, .02, .01), 0xffffff, [0, H * .78, .02], g);
+    const leds = [0, 1, 2, 3].map(i => { const l = det(F.circ(.032), 0x7dff8a, [-W * .3 + i * W * .2, H * .4, .03], g); l.m = l.children[0]; l.m.material = l.m.material.clone(); return l; });
+    const wf = group([0, H + W * .14, .02], g); g.wifi = wf; det(F.circ(.045), 0x2ec4a6, [0, 0, 0], wf);
+    const arcos = [1, 2, 3].map(i => { const a = pz(F.arco(.08 + i * .085, .045, Math.PI * .25, Math.PI * .75), 0x2ec4a6, [0, 0, 0], wf, { tinta: .01, papel: .035 }); return a; });
+    const tache = marca([.24, .1, .04], false, .35, wf); sombraPiso(g, W * .5);
+    let nS = 3; g.senal = n => { nS = n; arcos.forEach((a, i) => a.visible = i < n); tache.visible = n === 0; };
+    const ok = new THREE.Color(0x7dff8a), mal = new THREE.Color(0xff5b5b);
+    g.update = (t, falla = 0) => { leds.forEach((l, i) => { l.visible = Math.sin(t * (9 + i * 3) + i * 2) > -.5; l.m.material.color.copy(ok).lerp(mal, i === 0 ? falla : 0); });
+      wf.position.x = falla * Math.sin(t * 40) * .03; wf.rotation.z = falla * Math.sin(t * 31) * .08; };
+    g.senal(3); g.update(0); return g; }
+  return { microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
