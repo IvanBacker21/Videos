@@ -839,5 +839,23 @@
   "archivo": "shorts/2026-11-19-2130-microondas-wifi.mp4",
   "titulo": "¿Por qué el MICROONDAS tumba tu wifi? 📶 #shorts",
   "pedido": false
+ },
+ {
+  "fecha": "2026-11-20",
+  "hora": "13:30",
+  "tema": "¿De verdad se te va casi todo el calor por la cabeza? (mito: viene de un experimento del ejército de EE.UU. en los años cincuenta con soldados con trajes árticos que dejaban la cabeza descubierta; en realidad pierdes calor por cualquier parte destapada, proporcional a su superficie, y la cabeza es cerca del diez por ciento de la piel; eso sí, cara y cabeza son muy sensibles al frío, así que el gorro sí ayuda). Fuentes: Live Science (Do we really lose half our body heat from our heads?), NPR (Myth: you lose most body heat through your head), grough (BMJ 2008: Hats, heads and heat: medics debunk decades-old myth)",
+  "formato": "mito + '¿ves? te dije' (a medias)",
+  "categoria": "cuerpo / mito (clima)",
+  "tendencia": "Masa de aire frío y heladas en gran parte de México esta semana; mamás persiguiendo con el gorro",
+  "disparadores": [
+   "¿ves? te dije (mito)",
+   "eres tú / tu mamá",
+   "truco útil (el gorro sí ayuda, pero abrígate todo)"
+  ],
+  "duracion": 27.2,
+  "mejora": "papel_pm.js: PM.gorro (gorro de estambre con pompón, en la cabeza o en la mano) y PM.ondasCalor (rayitas de calor que suben y se desvanecen)",
+  "archivo": "shorts/2026-11-20-1330-calor-cabeza.mp4",
+  "titulo": "¿Se te va el calor por la CABEZA? 🧢 #shorts",
+  "prueba": "normal"
  }
 ]

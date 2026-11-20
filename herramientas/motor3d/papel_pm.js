@@ -1216,5 +1216,22 @@ export function kitPM(P, THREE, group) {
     g.update = (t, falla = 0) => { leds.forEach((l, i) => { l.visible = Math.sin(t * (9 + i * 3) + i * 2) > -.5; l.m.material.color.copy(ok).lerp(mal, i === 0 ? falla : 0); });
       wf.position.x = falla * Math.sin(t * 40) * .03; wf.rotation.z = falla * Math.sin(t * 31) * .08; };
     g.senal(3); g.update(0); return g; }
-  return { microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- gorro y ondas de calor (20-nov-2026 13:30, short del calor por la cabeza) ----
+  // PM.gorro(pos, color, o, padre): gorro de estambre (cúpula tejida, doblez con resorte y pompón). Sobre un chibi: PM.gorro([0, 0, .05], col, {}, p.head)
+  // (tapa el copete y deja libres cejas y ojos); en la mano: de hijo de p.brazos[i] en [0, -.6, .06] con scale ~.5. o: {color2 (doblez), pompon}
+  function gorro(pos, color = 0xff6b5b, o = {}, parent = null) { const g = group(pos, parent), c2 = o.color2 ?? osc(color, .8), pom = o.pompon ?? 0xfffdf6;
+    pz(F.circ(.14), pom, [0, .86, -.01], g, { tinta: .014, papel: .05 }); det(F.elipse(.05, .035), osc(pom, .88), [.04, .82, .006], g);
+    pz(blob([[-.55, .26], [-.53, .48], [-.4, .68], [-.18, .79], [.05, .81], [.28, .77], [.46, .64], [.55, .45], [.56, .26]]), color, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    for (const [y, w] of [[.42, .42], [.56, .36], [.68, .24]]) for (let x = -w; x <= w + 1e-6; x += .12) linea([[x - .03, y + .03], [x, y], [x + .03, y + .03]], .014, osc(color, .78), g, .016);   // puntos tejidos
+    linea([[-.36, .6], [-.16, .71], [.04, .73]], .024, mez(color, 0xffffff, .4), g, .018);                                                                                             // brillo
+    const d = pz(F.rect(1.16, .17, .06), c2, [0, .27, .03], g, { tinta: .014, papel: .05 }); for (let x = -.5; x <= .5 + 1e-6; x += .1) det(F.rect(.022, .13, .008), osc(c2, .8), [x, 0, .016], d);   // doblez con resorte
+    return g; }
+  // PM.ondasCalor(pos, padre, o): tres rayitas onduladas de calor que suben y se desvanecen (calor que se escapa, comida caliente, fiebre).
+  // Suben hacia +y local: rota el grupo para cambiar la dirección. g.update(t, k 0..1 intensidad). o: {n, color, largo, sep, grosor}
+  function ondasCalor(pos, parent = null, o = {}) { const g = group(pos, parent), n = o.n ?? 3, L = o.largo ?? .4, sep = o.sep ?? .14, gr = o.grosor ?? .045, col = o.color ?? 0xff5b4d;
+    const pts = []; for (let i = 0; i <= 24; i++) { const y = L * i / 24; pts.push([Math.sin(y / L * Math.PI * 2) * L * .14, y]); }
+    const os = []; for (let i = 0; i < n; i++) { const w = group([(i - (n - 1) / 2) * sep, 0, 0], g); pz(tubo(pts, gr, gr * .6), col, [0, -L / 2, 0], w, { tinta: .012, papel: .035 }); w.f = i / n + (i % 2) * .17; os.push(w); }
+    g.update = (t, k = 1) => { os.forEach(w => { const ph = (t * .9 + w.f) % 1; const s = Math.sin(ph * Math.PI) * k; w.scale.setScalar(Math.max(.001, s)); w.position.y = ph * L * .7; w.rotation.z = Math.sin(t * 5 + w.f * 9) * .08; }); g.visible = k > .01; };
+    g.update(0, 1); return g; }
+  return { gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

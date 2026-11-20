@@ -2,7 +2,7 @@
  {
   "hora": "13:30",
   "slug": "calor-cabeza",
-  "estado": "listo",
+  "estado": "producido",
   "tema": "¿De verdad se te va casi todo el calor por la cabeza? (mito: viene de un experimento del ejército de EE.UU. en los años cincuenta con soldados con trajes árticos que dejaban la cabeza descubierta; en realidad pierdes calor por cualquier parte destapada, proporcional a su superficie, y la cabeza es cerca del diez por ciento de la piel; eso sí, cara y cabeza son muy sensibles al frío, así que el gorro sí ayuda). Fuentes: Live Science (Do we really lose half our body heat from our heads?), NPR (Myth: you lose most body heat through your head), grough (BMJ 2008: Hats, heads and heat: medics debunk decades-old myth)",
   "fuentes": [
    "https://www.livescience.com/34411-body-heat-loss-head.html",
@@ -17,7 +17,7 @@
    "eres tú / tu mamá",
    "truco útil (el gorro sí ayuda, pero abrígate todo)"
   ],
-  "guion": "herramientas/ejemplos/2026-11-19-1800-calor-cabeza.json",
+  "guion": "herramientas/ejemplos/2026-11-20-1330-calor-cabeza.json",
   "visual": "Escenario: calle mexicana de mañana con frío (vaho, cielo gris) del kit; protagonista chibi y su mamá con un gorro en la mano.\n1) gancho: mamá corriendo detrás del protagonista con el gorro; ondas rojas de 'calor' saliendo exageradas de la cabeza.\n2) soldados: estampa sepia tipo foto vieja: soldaditos de cartulina con trajes de nieve gigantes y cabeza descubierta; letrero 'MITO'.\n3) piel: silueta del cuerpo con ondas de calor saliendo de brazos, piernas y cabeza por igual; la cabeza se ilumina como una porción chiquita (barra o pastel con una rebanada pequeña).\n4) gorro: protagonista con la cara roja temblando; se pone el gorro y sonríe; palomita.\n5) remate: mamá triunfante con el gorro. Pieza nueva reutilizable: PM.gorro(color) de estambre y PM.ondasCalor(intensidad) en papel_pm.js.",
   "titulo_yt": "¿Se te va el calor por la CABEZA? 🧢 #shorts",
   "descripcion_yt": "Te dijeron que casi todo el calor se escapa por la cabeza… y es mito. 🧢\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #frio #mitos #shorts",
