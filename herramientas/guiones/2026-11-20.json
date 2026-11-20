@@ -28,31 +28,31 @@
  },
  {
   "hora": "18:00",
-  "slug": "pan-duro",
+  "slug": "cosquillas",
   "estado": "listo",
-  "tema": "¿Por qué el bolillo de ayer amanece duro? (no es solo que se seque: el almidón, que al hornearse se ablandó con el agua, se reacomoda en cristalitos duros —retrogradación—; mito: el refri lo conserva, pero el frío acelera la retrogradación y lo endurece más rápido; truco: unas gotitas de agua y calentarlo en comal u horno, el calor deshace los cristales y lo revive por un rato). Fuentes: BBC Science Focus (Why does bread go stale?), Tasting Table (The scientific reason bread gets hard as it stales), Eat Your Books (Why refrigerators are bad for bread), Chowhound (Why bread gets stale and how to make it soft again)",
+  "nota": "Reemplaza el guion de la mañana (pan duro): ese tema ya salió el 16-nov 18:00. Cambiado por la tarea de las 18:00.",
+  "tema": "¿Por qué no te puedes hacer cosquillas tú solo? (el cerebelo predice las sensaciones de tus propios movimientos y les baja el volumen: sin sorpresa no hay cosquillas; en el University College London (Blakemore, Wolpert y Frith) un robot que retrasaba o desviaba el movimiento de la propia mano hacía que las autocosquillas se sintieran más). Fuentes: Scientific American (Why can't a person tickle himself?), Britannica (Why can't you tickle yourself?), PubMed — Blakemore, Wolpert y Frith 2000, Neuroreport (Why can't you tickle yourself?), UCL News (Why can't I tickle myself?)",
   "fuentes": [
-   "https://www.sciencefocus.com/science/why-does-bread-go-stale/",
-   "https://www.tastingtable.com/1491347/why-science-stale-bread-hard/",
-   "https://www.eatyourbooks.com/blog/2023/02/28/why-refrigerators-are-bad-for-bread",
-   "https://www.chowhound.com/1599479/why-bread-gets-stale-how-soften"
+   "https://www.scientificamerican.com/article/why-cant-a-person-tickle/",
+   "https://www.britannica.com/story/why-cant-you-tickle-yourself",
+   "https://pubmed.ncbi.nlm.nih.gov/10943682/",
+   "https://www.ucl.ac.uk/news/headlines/2016/sep/why-cant-i-tickle-myself"
   ],
-  "tendencia": "Viernes 20 de noviembre (Revolución): desayuno y cena en casa, el bolillo/telera de ayer en todas las cocinas",
-  "formato": "¿por qué SIEMPRE…? + mito + truco",
-  "categoria": "comida / casa",
+  "tendencia": "Viernes 20 de noviembre en casa con la familia: hermanos y primos en guerra de cosquillas",
+  "formato": "¿por qué…? + sorpresa (experimento del robot)",
+  "categoria": "cuerpo / cerebro",
   "prueba": "normal",
   "disparadores": [
-   "eres tú (todos tienen el bolillo duro)",
-   "¿ves? te dije (no al refri)",
-   "truco útil (comal)",
-   "lo mexicano (bolillo, comal)"
+   "eres tú (todos lo intentaron)",
+   "sorpresa (robot con retraso)",
+   "mándaselo a tu hermano"
   ],
-  "guion": "herramientas/ejemplos/2026-11-20-1800-pan-duro.json",
-  "visual": "Escenario: PM.cocina() de mañana; protagonista chibi y una bolsa de pan de papel.\n1) gancho: el protagonista muerde un bolillo de papel y suena 'clonk' como piedra; cara de dolor chistosa.\n2) almidón: zoom al bolillo partido: bolitas suaves de almidón (círculos blanditos con agua) que se juntan y se vuelven cristalitos con picos; letrero 'ALMIDÓN'.\n3) refri: refrigerador de papel que se abre con vaho azul; el bolillo entra y sale con más cristales y escarcha; letrero 'MITO' tachando 'en el refri dura más'.\n4) truco: gotitas de agua con atomizador, bolillo en el comal con ondas de calor; los cristales se derriten y el bolillo se infla suave; palomita.\n5) remate: protagonista señalando a cámara con el bolillo calientito. Pieza nueva reutilizable: PM.bolillo(estado) (duro/suave, partible) y PM.refri() en papel_pm.js.",
-  "titulo_yt": "¿Por qué el pan se pone DURO? 🥖 #shorts",
-  "descripcion_yt": "El bolillo de ayer no solo se secó… su almidón se hizo cristales. Y el refri lo empeora. 🥖\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #pan #cocina #shorts",
-  "titulo_tt": "¿Por qué el bolillo amanece duro? 🥖",
-  "texto_tt": "No lo metas al refri 🥖 Etiqueta a quien guarda el pan ahí #datoscuriosos #ciencia #pan #cocina #aprendeentiktok",
+  "guion": "herramientas/ejemplos/2026-11-20-1800-cosquillas.json",
+  "visual": "Escenario: PM.cuarto(). 1) el protagonista se hace cosquillas con una pluma en la panza: cara seria, letrero '¿NADA?'. 2) cerebro con carita junto a la nuca; globito que muestra la mano con pluma antes de que se mueva; letrero 'CEREBELO'. 3) perilla/barras de volumen 'COSQUILLAS' que bajan; boca seria. 4) robot de cartulina con brazo y pluma, relojito 'PAUSA'; el protagonista se ríe. 5) hermano atacando con cosquillas; protagonista se ríe y manda avioncito. Pieza nueva: PM.pluma (pluma de cartulina que hace cosquillas).",
+  "titulo_yt": "¿Por qué no puedes hacerte COSQUILLAS? 🤭 #shorts",
+  "descripcion_yt": "Tu cerebro ya sabe lo que vas a sentir… y le baja el volumen. 🤭\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #cerebro #cosquillas #shorts",
+  "titulo_tt": "¿Por qué no puedes hacerte cosquillas? 🤭",
+  "texto_tt": "Tu cerebro te gana 🤭 Etiqueta a quien siempre te ataca a cosquillas #datoscuriosos #ciencia #cerebro #cosquillas #aprendeentiktok",
   "pedido": false
  },
  {
@@ -82,6 +82,7 @@
   "descripcion_yt": "Tu diafragma da un brinco y tus cuerdas vocales hacen ¡hip!… ya lo hacías antes de nacer, y el susto casi no sirve. 😮\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #hipo #mitos #cuerpo #shorts",
   "titulo_tt": "¿Por qué te da hipo? 😮",
   "texto_tt": "El susto casi no funciona 😮 Etiqueta a quien siempre te quiere asustar #datoscuriosos #ciencia #hipo #mitos #aprendeentiktok",
-  "pedido": false
+  "pedido": false,
+  "aviso": "ATENCIÓN (tarea de las 18:00): el hipo ya salió el 09-nov 21:30 (shorts/2026-11-09-2130-hipo.mp4, '¿Por qué SIEMPRE te da hipo al comer rápido?'). Revisa temas.json: si el ángulo no es claramente distinto, cambia el tema antes de producir."
  }
 ]

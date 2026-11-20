@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-20-1800-cosquillas",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué no te puedes hacer cosquillas tú solo?"]},
+  {"tipo": "cerebelo", "titulo": "", "frases": ["Tu cerebelo, atrás de la cabeza, adivina cada movimiento antes de que lo hagas."]},
+  {"tipo": "volumen", "titulo": "", "frases": ["Como ya sabe lo que vas a sentir, le baja el volumen… y cero risa."]},
+  {"tipo": "robot", "titulo": "", "frases": ["En Londres usaron un robot que retrasaba tu mano: con esa pausita, ¡sentías más cosquillas!"]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a tu hermano, el que siempre te ataca a cosquillas."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}
