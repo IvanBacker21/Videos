@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-21-1800-sueter-pica",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el suéter de lana te pica tanto?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Casi nunca es alergia: los culpables son pelitos de lana gruesos."
+   ]
+  },
+  {
+   "tipo": "agujitas",
+   "titulo": "",
+   "frases": [
+    "Sus puntitas no se doblan y te picotean la piel como agujitas."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: busca lana merino, de hilo más fino, o ponte una playera debajo."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien se quita el suéter de la abuela en cuanto ella se va."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

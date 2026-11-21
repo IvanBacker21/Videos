@@ -1,0 +1,68 @@
+{
+ "id": "2026-11-21-2130-cielo-azul-atardecer",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el cielo es azul… y en la tarde se pinta de naranja?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Y no, no es el reflejo del mar: es el aire jugando con la luz."
+   ]
+  },
+  {
+   "tipo": "rebote",
+   "titulo": "",
+   "frases": [
+    "La luz del Sol trae todos los colores, y el aire desvía el azul hacia todos lados."
+   ]
+  },
+  {
+   "tipo": "violeta",
+   "titulo": "",
+   "frases": [
+    "¿Y el violeta? El Sol manda menos, y tus ojos casi no lo notan."
+   ]
+  },
+  {
+   "tipo": "atardecer",
+   "titulo": "",
+   "frases": [
+    "Al atardecer, la luz cruza muchísimo más aire; el azul se pierde en el camino y solo llegan naranjas y rojos."
+   ]
+  },
+  {
+   "tipo": "marte",
+   "titulo": "",
+   "frases": [
+    "Y en Marte es al revés: el cielo es rojizo y ¡los atardeceres son azules!"
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien le toma foto a todos los atardeceres."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

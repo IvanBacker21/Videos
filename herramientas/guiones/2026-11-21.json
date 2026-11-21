@@ -1,0 +1,82 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "palomitas-truenan",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué el maíz de palomitas truena y el de los esquites no? (cada grano guarda un poquito de agua; al calentarse se vuelve vapor; la cáscara del maíz palomero es dura e impermeable y no deja escapar el vapor, la presión sube hasta que revienta y el almidón se infla como espuma; el 'pop' es el vapor que sale de golpe (Virot y Ponomarenko, 2015); los granos que no truenan tienen la cáscara dañada y el vapor se fuga). Fuentes: Scientific American (Explore the pop in popcorn), ScienceAlert (Mystery solved: how popcorn pops)",
+  "fuentes": [
+   "https://www.scientificamerican.com/article/explore-the-pop-in-popcorn",
+   "https://www.sciencealert.com/mystery-solved-how-popcorn-pops"
+  ],
+  "tendencia": "Sábado de película en casa o en el cine con palomitas",
+  "formato": "¿por qué…? + comparación mexicana (esquites) + explicación + dato de las que no truenan",
+  "categoria": "comida / cocina",
+  "disparadores": [
+   "lo mexicano (esquites)",
+   "sorpresa (mini olla exprés)",
+   "eres tú (te acabas las palomitas)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-21-1330-palomitas-truenan.json",
+  "visual": "Sala de la casa con tele (escenario sala del kit). Escena 1: chibi con vaso de esquites a un lado y bolsa de palomitas al otro, signo de pregunta. Escena 2: granito gigante en corte con una gotita azul adentro sobre comal/olla; la gotita se vuelve vapor (nubecitas). Escena 3: cáscara dura con candado, medidor de presión que sube a rojo y ¡PUM! con estrellita. Escena 4: el grano se infla en espuma blanca; un granito 'viejito' con grieta deja salir el vapor y no truena. Escena 5: amigo con el bote vacío antes de que empiece la peli. Pieza nueva reutilizable: PM.palomita() (grano que explota en palomita).",
+  "titulo_yt": "¿Por qué las palomitas TRUENAN? 🍿 #shorts",
+  "descripcion_yt": "Tu maíz de palomitas es una mini olla exprés: el vapor revienta su cáscara y el almidón se infla como espuma. 🍿\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #palomitas #cocina #shorts",
+  "titulo_tt": "¿Por qué el maíz de esquites no truena? 🍿",
+  "texto_tt": "Cada palomita es una mini olla exprés 🍿 Etiqueta a quien se acaba las palomitas antes de la peli #datoscuriosos #ciencia #palomitas #cocina #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "sueter-pica",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué el suéter de lana te pica? (casi nunca es alergia: la lana no se considera un alérgeno según revisión de evidencia (Zallmann et al., Acta Derm Venereol 2017); la comezón la causan las fibras gruesas (más de unas treinta micras) cuyas puntas no se doblan y presionan la piel activando los nervios; truco: lana merino de fibra fina o una playera debajo). Fuentes: PubMed (Debunking the Myth of Wool Allergy), Woolmark (Are you allergic to wool?)",
+  "fuentes": [
+   "https://pubmed.ncbi.nlm.nih.gov/28350041/",
+   "https://www.woolmark.com/fibre/science-behind-wool-fibre/are-you-allergic-to-wool/"
+  ],
+  "tendencia": "Frentes fríos y masa de aire frío: todos sacan el suéter de lana",
+  "formato": "¿por qué…? + mito (alergia) + explicación + truco",
+  "categoria": "casa / ropa (piel)",
+  "disparadores": [
+   "eres tú",
+   "¿ves? te dije (no es alergia)",
+   "truco útil",
+   "lo mexicano (el suéter de la abuela)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-21-1800-sueter-pica.json",
+  "visual": "Recámara/sala con ventana fría (escenario casa del kit). Escena 1: chibi rascándose con suéter de lana tejido, líneas de comezón. Escena 2: letrero 'ALERGIA' tachado y lupa que muestra pelitos de lana gruesos. Escena 3: zoom a la piel: fibras gruesas rígidas como agujitas picotean, chispitas en nervios; una fibra fina se dobla sin picar (comparación). Escena 4: dos letreros con palomita: 'LANA MERINO' (hilo fino) y 'PLAYERA DEBAJO'. Escena 5: abuela tejiendo sale de cuadro y el nieto se quita el suéter. Pieza nueva reutilizable: PM.fibraLupa() (lupa con fibras gruesa/fina).",
+  "titulo_yt": "¿Por qué la lana PICA tanto? 🧶 #shorts",
+  "descripcion_yt": "Casi nunca es alergia: los pelitos gruesos de la lana te picotean la piel. Truco: lana merino o una playera debajo. 🧶\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #lana #invierno #shorts",
+  "titulo_tt": "¿Te pica el suéter de lana? 🧶",
+  "texto_tt": "No es alergia (casi nunca) 🧶 Etiqueta a quien se quita el suéter de la abuela en cuanto ella se va #datoscuriosos #ciencia #lana #frio #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "cielo-azul-atardecer",
+  "estado": "listo",
+  "prueba": "largo-40s",
+  "tema": "¿Por qué el cielo es azul y el atardecer naranja? (mito: no refleja el mar; la luz del Sol trae todos los colores y las moléculas del aire dispersan mucho más el azul (dispersión de Rayleigh), que llega desde todas direcciones; el violeta se dispersa aún más pero el Sol emite menos y nuestros ojos son menos sensibles a él; al atardecer la luz atraviesa mucha más atmósfera, el azul se dispersa en el camino y llegan naranjas y rojos; en Marte el polvo fino hace el cielo rojizo y los atardeceres azulados, fotografiados por rovers de la NASA). Fuentes: NASA Space Place (Why is the sky blue?), Royal Museums Greenwich (Why is the sky blue?), NPR (A most peculiar sunset, Marte)",
+  "fuentes": [
+   "https://spaceplace.nasa.gov/blue-sky/",
+   "https://www.rmg.co.uk/stories/space-astronomy/why-sky-blue",
+   "https://www.npr.org/sections/krulwich/2012/04/25/151376553/a-most-peculiar-sunset"
+  ],
+  "tendencia": "Atardeceres de otoño-invierno muy naranjas; fin de semana con cielos despejados tras el frente frío",
+  "formato": "¿por qué…? + mito (mar) + explicación + dato extra (violeta) + sorpresa (Marte) (LARGO prueba 40 s)",
+  "categoria": "espacio / cielo",
+  "disparadores": [
+   "eres tú (todos han visto el atardecer)",
+   "¿ves? te dije (no es el mar)",
+   "sorpresa (en Marte al revés)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-21-2130-cielo-azul-atardecer.json",
+  "visual": "Azotea en México con cielo de fondo que cambia de color (escenario azotea/cielo del kit); acción nueva cada 4–6 s. 1) chibi mira cielo azul que se tiñe naranja, signo de pregunta. 2) mar con flecha hacia el cielo y letrero 'REFLEJO DEL MAR' tachado; aparece el aire (bolitas) y un rayo de luz. 3) rayo blanco del Sol se abre en arcoíris; las bolitas de aire rebotan solo las pelotitas azules por todos lados y el cielo se pinta azul. 4) pelotita violeta pequeñita con un ojo chibi entrecerrado ('casi no lo veo'). 5) Tierra con capa de aire: rayo de mediodía corto vs rayo de atardecer largo y de lado; en el largo se caen las azules y llegan naranja/rojo; cielo pasa a naranja. 6) SORPRESA a la mitad-final: cambio a Marte con rover, cielo rojizo y Sol con halo azul al atardecer, '¡AL REVÉS!'. 7) amiga tomando foto con el celular a un atardecer. Pieza nueva reutilizable: PM.rayoLuz(colores) (rayo que se abre en colores y rebota pelotitas).",
+  "titulo_yt": "¿Por qué el cielo es AZUL y el atardecer naranja? 🌅 #shorts",
+  "descripcion_yt": "No es el reflejo del mar: el aire desvía la luz azul del Sol. Al atardecer solo llegan naranjas y rojos… y en Marte los atardeceres son azules. 🌅\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #cielo #atardecer #espacio #shorts",
+  "titulo_tt": "¿Por qué el cielo es azul? (no es el mar) 🌅",
+  "texto_tt": "Y en Marte los atardeceres son azules 🤯 Etiqueta a quien le toma foto a todos los atardeceres #datoscuriosos #ciencia #cielo #atardecer #espacio #aprendeentiktok",
+  "pedido": false
+ }
+]

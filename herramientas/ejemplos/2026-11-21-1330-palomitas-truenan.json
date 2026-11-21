@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-21-1330-palomitas-truenan",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el maíz de las palomitas truena y el de los esquites no?"
+   ]
+  },
+  {
+   "tipo": "gotita",
+   "titulo": "",
+   "frases": [
+    "Cada granito guarda una gotita de agua que, al calentarse, se vuelve vapor."
+   ]
+  },
+  {
+   "tipo": "presion",
+   "titulo": "",
+   "frases": [
+    "Su cáscara es tan dura que el vapor no escapa… hasta que ¡revienta!"
+   ]
+  },
+  {
+   "tipo": "espuma",
+   "titulo": "",
+   "frases": [
+    "El almidón se infla como espuma; las que no truenan tienen la cáscara rota."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien se acaba las palomitas antes de que empiece la película."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
