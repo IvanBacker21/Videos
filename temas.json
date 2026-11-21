@@ -914,5 +914,25 @@
   "titulo": "¿Por qué las palomitas TRUENAN? 🍿 #shorts",
   "pedido": false,
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-21",
+  "hora": "18:00",
+  "tema": "¿Por qué el suéter de lana te pica? (casi nunca es alergia: la lana no se considera un alérgeno según revisión de evidencia (Zallmann et al., Acta Derm Venereol 2017); la comezón la causan las fibras gruesas (más de unas treinta micras) cuyas puntas no se doblan y presionan la piel activando los nervios; truco: lana merino de fibra fina o una playera debajo). Fuentes: PubMed (Debunking the Myth of Wool Allergy), Woolmark (Are you allergic to wool?)",
+  "formato": "¿por qué…? + mito (alergia) + explicación + truco",
+  "categoria": "casa / ropa (piel)",
+  "tendencia": "Frentes fríos y masa de aire frío: todos sacan el suéter de lana",
+  "disparadores": [
+   "eres tú",
+   "¿ves? te dije (no es alergia)",
+   "truco útil",
+   "lo mexicano (el suéter de la abuela)"
+  ],
+  "duracion": 26.6,
+  "mejora": "papel_pm.js: PM.sueter (suéter/cárdigan tejido con g.pelusa y g.quita)",
+  "archivo": "shorts/2026-11-21-1800-sueter-pica.mp4",
+  "titulo": "¿Por qué la lana PICA tanto? 🧶 #shorts",
+  "pedido": false,
+  "prueba": "normal"
  }
 ]

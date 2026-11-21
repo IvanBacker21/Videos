@@ -1306,5 +1306,36 @@ export function kitPM(P, THREE, group) {
       const q = c01((k - .06) / .4); g.pum.visible = k > .06 && q < 1; g.pum.scale.setScalar(Math.max(.001, (.3 + 1.3 * q) * (q < .6 ? 1 : 1 - (q - .6) / .4))); g.pum.rotation.z = q * .6;
       g.cara.position.y = (k > .1 ? .28 : .04) * s; };
     g.revienta(0); return g; }
-  return { palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= SUÉTER TEJIDO (21-nov-2026 18:00, short de por qué pica la lana) =================
+  // PM.sueter(p, color, o): suéter/cárdigan de estambre sobre un chibi (abierto al frente: deja ver la playera y el logo), puntos tejidos en "v",
+  //   resorte abajo y en puños, botones y mangas tejidas en los brazos. o: {fino:false (merino liso, sin pelusa), botones, color2}
+  //   g.pelusa(t, k 0..1): pelitos gruesos que se paran en la orilla y tiemblan (lana que pica). g.quita(k 0..1): se lo quita (sale volando hacia arriba).
+  function sueter(p, color = 0xd9534f, o = {}) { const g = group([0, .8, .055], p), c2 = o.color2 ?? osc(color, .74), fino = !!o.fino, pel = [];
+    let sm = 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    g.cuerpo = group([0, 0, 0], g);
+    for (const sx of [-1, 1]) { const q = group([0, 0, 0], g.cuerpo); q.scale.x = sx;
+      pz(blob([[.11, -.36], [.37, -.35], [.39, -.02], [.35, .27], [.16, .37], [.11, .3], [.17, .1]]), color, [0, 0, 0], q, { tinta: .014, papel: .05 });
+      if (!fino) for (let r = 0; r < 5; r++) for (let c = 0; c < 3; c++) { const x = .2 + c * .065 + (r & 1) * .02, y = -.22 + r * .1; if (x > .35 - (y > .15 ? .05 : 0)) continue;
+        linea([[x - .022, y + .02], [x, y - .012], [x + .022, y + .02]], .011, c2, q, .018); }
+      else for (const y of [-.2, -.05, .1]) linea([[.18, y], [.35, y]], .008, mez(color, 0xffffff, .18), q, .018);
+      pz(F.rect(.27, .07, .02), c2, [.25, -.34, .02], q, { tinta: .01, papel: false });                                         // resorte de abajo
+      for (let i = 0; i < 5; i++) det(F.rect(.012, .055, .005), osc(color, .55), [.14 + i * .055, -.34, .034], q);
+      linea([[.13, -.36], [.16, .32]], .03, c2, q, .022);                                                                       // orilla del frente
+      if (sx < 0 || o.botones === false) {} else for (const y of [-.2, -.04, .12]) pz(F.circ(.028), o.boton ?? 0xfff6e0, [.155, y, .03], q, { tinta: .008, papel: false });
+      if (!fino) for (let i = 0; i < 9; i++) { const a = i / 8, x = lerp(.38, .3, a) + rnd() * .02, y = lerp(-.3, .3, a);   // pelusa en la orilla de afuera
+        const f = group([x, y, .012], q); f.rotation.z = -.3 + rnd() * .6 - Math.PI / 2 * .0;
+        pz(tubo([[0, 0], [.05, .01], [.1, -.005]], .014, .006), mez(color, 0xffffff, .25), [0, 0, 0], f, { tinta: .006, papel: false }); f.f = rnd() * 6; pel.push(f); } }
+    g.mangas = p.brazos.map((b, i) => { const m = group([0, 0, .03], b);
+      pz(capsula(.4, .2, .19), color, [0, .02, 0], m, { tinta: .014, papel: .05 });
+      pz(F.rect(.2, .07, .02), c2, [0, -.39, .01], m, { tinta: .01, papel: false });                                          // puño
+      if (!fino) { for (const y of [-.1, -.22]) linea([[-.04, y + .02], [0, y - .01], [.04, y + .02]], .011, c2, m, .02);
+        for (let j = 0; j < 4; j++) { const f = group([(j & 1 ? 1 : -1) * .1, -.06 - j * .08, .01], m); f.rotation.z = (j & 1 ? 0 : Math.PI) + (rnd() - .5) * .5;
+          pz(tubo([[0, 0], [.045, .01], [.09, -.004]], .013, .006), mez(color, 0xffffff, .25), [0, 0, 0], f, { tinta: .006, papel: false }); f.f = rnd() * 6; pel.push(f); } }
+      return m; });
+    g.pelusa = (t, k = 1) => pel.forEach(f => { f.visible = k > .02; f.scale.set(Math.max(.001, k) * (1 + .25 * Math.sin(t * 30 + f.f)), Math.max(.001, k), 1); });
+    g.pelusa(0, fino ? 0 : .5);
+    g.quita = k => { const e = cl01(k); g.cuerpo.visible = e < 1; g.cuerpo.position.set(e * .6, e * e * 4.2 + e * .6, .1 * e); g.cuerpo.rotation.z = e * 1.4; g.cuerpo.scale.setScalar(Math.max(.001, 1 - .3 * e));
+      g.mangas.forEach(m => m.scale.set(1, Math.max(.001, 1 - cl01(k * 3)), 1)); };
+    return g; }
+  return { sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
