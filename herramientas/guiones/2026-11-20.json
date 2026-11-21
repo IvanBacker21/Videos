@@ -57,32 +57,29 @@
  },
  {
   "hora": "21:30",
-  "slug": "hipo",
-  "estado": "listo",
+  "slug": "vibracion-fantasma",
+  "estado": "producido",
   "prueba": "largo-40s",
-  "tema": "¿Por qué te da hipo? (el diafragma se contrae de golpe sin permiso, entra aire de golpe y las cuerdas vocales se cierran de un portazo: ¡hip!; sorpresa: los bebés ya tienen hipo dentro del vientre y podría ayudar al cerebro a aprender a respirar (estudio UCL 2019); mito: el susto casi no tiene pruebas; truco: aguantar la respiración o tomar agua fría a traguitos; récord: Charles Osborne tuvo hipo sesenta y ocho años, de 1922 a 1990, récord Guinness). Fuentes: ScienceAlert (The man who had hiccups for 68 years), All That's Interesting (Charles Osborne), UAMS News (Hiccups), Medical Xpress (The fascinating history of hiccups / UCL bebés)",
+  "tema": "¿Por qué sientes vibrar el celular si no vibró? (vibración fantasma: el cerebro, esperando mensajes, se queda en modo alarma y traduce un roce del pantalón o un brinquito de músculo como vibración; lo hace 'a propósito': prefiere una falsa alarma que perderse un mensaje de verdad; le pasa a casi nueve de cada diez universitarios (Drouin, 2012) y al 68 % del personal de un hospital (Rothberg, BMJ 2010); truco: cambiar el celular de bolsillo o apagar la vibración se lo quitó a muchos). Fuentes: BMJ (Phantom vibration syndrome among medical staff, 2010), NPR (Phantom phone vibrations so common they've changed our brains, 2013)",
   "fuentes": [
-   "https://www.sciencealert.com/the-incredible-true-story-of-the-man-who-had-hiccups-for-68-years",
-   "https://allthatsinteresting.com/?p=385377",
-   "https://news.uams.edu/2018/04/26/hiccups/",
-   "https://m.medicalxpress.com/news/2017-02-fascinating-history-hiccups.html"
+   "https://www.bmj.com/content/341/bmj.c6914.long",
+   "https://www.npr.org/blogs/alltechconsidered/2013/09/27/226820044/phantom-phone-vibrations-so-common-they-ve-changed-our-brains"
   ],
-  "tendencia": "Viernes de cena y pozole/tacos por el 20 de noviembre: comer rápido y refresco = hipo; todos tienen una tía que asusta",
-  "formato": "¿por qué…? + mito '¿ves? te dije' + truco + récord (LARGO prueba 40 s)",
-  "categoria": "cuerpo / mito",
+  "tendencia": "Viernes en la noche, todos con el celular en el bolsillo esperando mensajes del plan del fin de semana",
+  "formato": "¿por qué…? + sorpresa (a propósito) + dato de médicos + truco (LARGO prueba 40 s)",
+  "categoria": "tecnología / cerebro",
   "disparadores": [
-   "eres tú (todos han tenido hipo)",
-   "¿ves? te dije (el susto no sirve)",
-   "truco útil",
-   "sorpresa (hipo antes de nacer, récord de 68 años)"
+   "eres tú (todos lo han sentido)",
+   "sorpresa (el cerebro lo hace a propósito; también a médicos)",
+   "truco útil (cambiar de bolsillo, apagar la vibración)"
   ],
-  "guion": "herramientas/ejemplos/2026-11-20-2130-hipo.json",
-  "visual": "Escenario: PM.cuarto() o comedor con mesa; protagonista chibi y una tía chibi (pelo corto, aretes, sin chongo). Acción nueva cada 4–6 s:\n1) gancho (0–4 s): el protagonista brinca con cada '¡hip!' (burbuja de texto de papel) y la tía se esconde detrás de la puerta lista para asustarlo.\n2) diafragma (4–9 s): corte tipo rayos X de papel: pulmones y el diafragma como trampolín/hamaca que da un tirón hacia abajo.\n3) ¡hip! (9–14 s): aire entrando como flechas; dos puertitas (cuerdas vocales) que se cierran de golpe con estrellita 'HIP!'.\n4) sorpresa a la mitad (14–20 s): bebé de papel enroscado dentro de una burbuja/panza que hace ¡hip! con mini brinco; el protagonista boquiabierto.\n5) susto (20–24 s): la tía grita '¡BU!', el protagonista salta… y vuelve a hacer ¡hip!; letrero 'MITO' con signo de pregunta.\n6) truco (24–30 s): protagonista inflando cachetes aguantando aire con reloj de papel, luego vaso de agua fría a traguitos; los ¡hip! se apagan; palomita.\n7) récord (30–35 s): calendario de papel volando con hojas '1922…1990' y un señor chibi de lentes canoso con burbujas ¡hip! que no paran; letrero '68 AÑOS'.\n8) remate (35–40 s): protagonista señala a la tía, que se ríe. Pieza nueva reutilizable: PM.diafragma() (corte de pulmones con diafragma animable) y PM.burbujaTexto(txt) en papel_pm.js.",
-  "titulo_yt": "¿Por qué te da HIPO? 😮 #shorts",
-  "descripcion_yt": "Tu diafragma da un brinco y tus cuerdas vocales hacen ¡hip!… ya lo hacías antes de nacer, y el susto casi no sirve. 😮\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #hipo #mitos #cuerpo #shorts",
-  "titulo_tt": "¿Por qué te da hipo? 😮",
-  "texto_tt": "El susto casi no funciona 😮 Etiqueta a quien siempre te quiere asustar #datoscuriosos #ciencia #hipo #mitos #aprendeentiktok",
+  "guion": "herramientas/ejemplos/2026-11-20-2130-vibracion-fantasma.json",
+  "visual": "Cuarto; chibi con zumbido en el bolsillo que saca el celular ('0 MENSAJES'); letrero VIBRACIÓN FANTASMA + 9 de 10 personitas; cerebro con sirena y sobrecitos; roce/brinco al caminar y nube '¡te escribieron!'; cerebro elige FALSA ALARMA vs PERDER MENSAJE; médico con 7 de 10; truco con dos letreros y palomitas; remate con amiga que revisa el cel a cada rato.",
+  "titulo_yt": "¿Sientes vibrar tu celular y NO hay nada? 📳 #shorts",
+  "descripcion_yt": "Se llama vibración fantasma: tu cerebro, esperando mensajes, confunde un roce con una vibración… y le pasa a casi todos. 📳\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #celular #cerebro #vibracionfantasma #shorts",
+  "titulo_tt": "¿Te vibró el celular y no había nada? 📳",
+  "texto_tt": "Se llama vibración fantasma 📳 Etiqueta a quien saca el celular cada cinco minutos #datoscuriosos #ciencia #celular #cerebro #aprendeentiktok",
   "pedido": false,
-  "aviso": "ATENCIÓN (tarea de las 18:00): el hipo ya salió el 09-nov 21:30 (shorts/2026-11-09-2130-hipo.mp4, '¿Por qué SIEMPRE te da hipo al comer rápido?'). Revisa temas.json: si el ángulo no es claramente distinto, cambia el tema antes de producir."
+  "nota": "Cambiado a las 17:40 por la tarea de producción: el guion original (hipo) repetía casi todo el short del 09-nov 21:30 (diafragma, cuerdas vocales, susto, agua fría); se cambió por vibración fantasma."
  }
 ]

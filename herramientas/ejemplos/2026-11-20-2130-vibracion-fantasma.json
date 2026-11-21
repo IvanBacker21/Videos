@@ -1,0 +1,16 @@
+{
+ "id": "2026-11-20-2130-vibracion-fantasma",
+ "voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0},
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Sentiste vibrar tu celular… lo sacas, y no tenías nada?"]},
+  {"tipo": "nombre", "titulo": "", "frases": ["No estás loco: se llama vibración fantasma, y le pasa a casi nueve de cada diez estudiantes."]},
+  {"tipo": "alarma", "titulo": "", "frases": ["Tu cerebro vive esperando mensajes, así que se queda en modo alarma."]},
+  {"tipo": "roce", "titulo": "", "frases": ["Un roce del pantalón o un musculito que brinca… y él lo traduce como: ¡te escribieron!"]},
+  {"tipo": "sorpresa", "titulo": "", "frases": ["Lo sorprendente: lo hace a propósito. Prefiere una falsa alarma que perderse un mensaje de verdad."]},
+  {"tipo": "medicos", "titulo": "", "frases": ["Y no es cosa de chavos: en un hospital, a siete de cada diez médicos también les pasaba."]},
+  {"tipo": "truco", "titulo": "", "frases": ["Truco: cambia el celular de bolsillo o apaga la vibración un rato, y a muchos se les quita."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien saca el celular cada cinco minutos."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": []
+}

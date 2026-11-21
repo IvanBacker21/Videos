@@ -876,5 +876,24 @@
   "titulo": "¿Por qué no puedes hacerte COSQUILLAS? 🤭 #shorts",
   "pedido": false,
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-20",
+  "hora": "21:30",
+  "tema": "¿Por qué sientes vibrar el celular si no vibró? (vibración fantasma: el cerebro, esperando mensajes, se queda en modo alarma y traduce un roce del pantalón o un brinquito de músculo como vibración; lo hace 'a propósito': prefiere una falsa alarma que perderse un mensaje de verdad; le pasa a casi nueve de cada diez universitarios (Drouin, 2012) y al 68 % del personal de un hospital (Rothberg, BMJ 2010); truco: cambiar el celular de bolsillo o apagar la vibración se lo quitó a muchos). Fuentes: BMJ (Phantom vibration syndrome among medical staff, 2010), NPR (Phantom phone vibrations so common they've changed our brains, 2013)",
+  "formato": "¿por qué…? + sorpresa (a propósito) + dato de médicos + truco (LARGO prueba 40 s)",
+  "categoria": "tecnología / cerebro",
+  "tendencia": "Viernes en la noche, todos con el celular en el bolsillo esperando mensajes del plan del fin de semana",
+  "disparadores": [
+   "eres tú (todos lo han sentido)",
+   "sorpresa (el cerebro lo hace a propósito; también a médicos)",
+   "truco útil (cambiar de bolsillo, apagar la vibración)"
+  ],
+  "duracion": 45.2,
+  "mejora": "papel_pm.js: PM.zumbido (rayitas de vibración) y PM.personitas (muñequitos-ícono para '9 de cada 10')",
+  "archivo": "shorts/2026-11-20-2130-vibracion-fantasma.mp4",
+  "titulo": "¿Sientes vibrar tu celular y NO hay nada? 📳 #shorts",
+  "pedido": false,
+  "prueba": "largo-40s"
  }
 ]

@@ -1245,5 +1245,27 @@ export function kitPM(P, THREE, group) {
     det(tubo([[0, -L * .05], [.01, L * .3], [0, L * .6], [-.02, L * .97]], .028, .016), 0xfff6e0, [0, 0, .02], g);
     g.cosquillea = (t, k = 1) => { g.rotation.z = (g.r0 ??= g.rotation.z) + Math.sin(t * 28) * .32 * k; v.scale.x = 1 + Math.sin(t * 28 + 1) * .08 * k; };
     return g; }
-  return { pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= VIBRACIÓN FANTASMA (20-nov 21:30) =================
+  // PM.zumbido(pos, o, padre): rayitas de vibración de cartulina a los dos lados (celular que vibra, despertador, algo que zumba).
+  //   g.update(t, on 0..1): tiemblan y parpadean (on 0 = ocultas). o: {color, r (separación del centro), alto}
+  function zumbido(pos, o = {}, parent = null) { const g = group(pos, parent), col = o.color ?? 0xffc83d, r = o.r ?? .3, al = o.alto ?? .32;
+    const lados = [-1, 1].map(sx => { const l = group([sx * r, 0, 0], g);
+      [0, 1].forEach(i => pz(tubo([[0, -al / 2 + i * .04], [sx * .05, -al / 6], [0, al / 6], [sx * .05, al / 2 - i * .04]].map(([x, y]) => [x + sx * i * .09, y * (1 - i * .25)]), .03, .03), col, [0, 0, 0], l, { tinta: .01, papel: .03 }));
+      l.sx = sx; return l; });
+    g.update = (t, on = 1) => { g.visible = on > .01; const k = Math.max(.001, on), f = Math.sin(t * 40) > -.3 ? 1 : .6;
+      lados.forEach(l => { l.position.x = l.sx * (r + Math.sin(t * 50) * .025); l.scale.setScalar(k * f); }); };
+    g.update(0, 0); return g; }
+  // PM.personitas(pos, n, o): fila(s) de muñequitos-ícono de cartulina para estadísticas ("9 de cada 10").
+  //   g.marca(k): los primeros k se pintan de color (o.color) y brincan; los demás quedan grises. o: {porFila, sep, s, color, gris}
+  function personitas(pos, n = 10, o = {}) { const g = group(pos), pf = o.porFila ?? 5, sep = o.sep ?? .38, s = o.s ?? 1, col = o.color ?? 0xffc83d, gr = o.gris ?? 0xc9c3b8;
+    const fs = [], m = [];
+    for (let i = 0; i < n; i++) { const c = i % pf, f = Math.floor(i / pf), nf = Math.ceil(n / pf);
+      const q = group([(c - (pf - 1) / 2) * sep, ((nf - 1) / 2 - f) * sep * 1.35, 0], g); q.scale.setScalar(s);
+      const a = pz(F.circ(.065), gr, [0, .11, 0], q, { tinta: .01, papel: .03 }), b = pz(blob([[-.11, -.13], [-.1, -.04], [-.05, .02], [.05, .02], [.1, -.04], [.11, -.13]]), gr, [0, -.02, 0], q, { tinta: .01, papel: .03 });
+      fs.push(q); m.push([a, b]); }
+    let ult = -1; g.marca = (k, t = 0) => { const kk = Math.round(k);
+      if (kk !== ult) { m.forEach((ps, i) => ps.forEach(p => p.children[0].material = P.M(i < kk ? col : gr))); ult = kk; }
+      fs.forEach((q, i) => { q.rotation.z = i < kk ? Math.sin(t * 9 + i) * .12 : 0; }); };
+    return g; }
+  return { zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
