@@ -895,5 +895,24 @@
   "titulo": "¿Sientes vibrar tu celular y NO hay nada? 📳 #shorts",
   "pedido": false,
   "prueba": "largo-40s"
+ },
+ {
+  "fecha": "2026-11-21",
+  "hora": "13:30",
+  "tema": "¿Por qué el maíz de palomitas truena y el de los esquites no? (cada grano guarda un poquito de agua; al calentarse se vuelve vapor; la cáscara del maíz palomero es dura e impermeable y no deja escapar el vapor, la presión sube hasta que revienta y el almidón se infla como espuma; el 'pop' es el vapor que sale de golpe (Virot y Ponomarenko, 2015); los granos que no truenan tienen la cáscara dañada y el vapor se fuga). Fuentes: Scientific American (Explore the pop in popcorn), ScienceAlert (Mystery solved: how popcorn pops)",
+  "formato": "¿por qué…? + comparación mexicana (esquites) + explicación + dato de las que no truenan",
+  "categoria": "comida / cocina",
+  "tendencia": "Sábado de película en casa o en el cine con palomitas",
+  "disparadores": [
+   "lo mexicano (esquites)",
+   "sorpresa (mini olla exprés)",
+   "eres tú (te acabas las palomitas)"
+  ],
+  "duracion": 28.4,
+  "mejora": "papel_pm.js: PM.palomita (grano que revienta en palomita, corte con almidón, carita y grieta)",
+  "archivo": "shorts/2026-11-21-1330-palomitas-truenan.mp4",
+  "titulo": "¿Por qué las palomitas TRUENAN? 🍿 #shorts",
+  "pedido": false,
+  "prueba": "normal"
  }
 ]

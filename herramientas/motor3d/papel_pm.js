@@ -1267,5 +1267,44 @@ export function kitPM(P, THREE, group) {
       if (kk !== ult) { m.forEach((ps, i) => ps.forEach(p => p.children[0].material = P.M(i < kk ? col : gr))); ult = kk; }
       fs.forEach((q, i) => { q.rotation.z = i < kk ? Math.sin(t * 9 + i) * .12 : 0; }); };
     return g; }
-  return { zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 21-nov 13:30 (palomitas) ----
+  // PM.palomita(pos, r, padre, o): grano de maíz palomero de cartulina (punta abajo) que REVIENTA en palomita blanca esponjada.
+  //   g.revienta(k 0..1): se infla, ¡PUM! (estrellita) y sale la palomita con rebote. g.verCorte(k): corte del grano (almidón crema; mete
+  //   PM.vapor(g.corte, {r: r*.5}) para la gotita). g.tiembla(t, k): vibra por la presión. g.ponCara('feliz'|'triste'|'asustada'), g.parpadea(t, fase).
+  //   o: {color, cara:false|'feliz'|..., grieta:false}. Alto del grano ≈ 1.6·r, palomita ≈ 2·r de ancho.
+  function palomita(pos, r = .3, parent = null, o = {}) { const g = group(pos, parent), s = r * 1.6, col = o.color ?? 0xffb22e;
+    const c01 = x => Math.min(1, Math.max(0, x));
+    g.grano = group([0, 0, 0], g);
+    const gr = pz(F.gota(s), col, [0, 0, 0], g.grano, { tinta: .016, papel: .05 }); gr.rotation.z = Math.PI;
+    det(F.elipse(.09 * s, .12 * s), 0xf6e2b0, [0, -.34 * s, .014], g.grano);                              // puntita clara
+    det(F.elipse(.06 * s, .13 * s), 0xffe7a8, [-.15 * s, .2 * s, .014], g.grano, -.4);                     // brillo
+    g.corte = group([0, 0, .02], g.grano);
+    det(F.elipse(.24 * s, .28 * s), 0xfff3d1, [0, .06 * s, 0], g.corte); det(F.elipse(.24 * s, .28 * s), osc(col, .8), [0, .06 * s, -.002], g.corte).scale.setScalar(1.12);
+    g.corte.scale.setScalar(.001);
+    if (o.grieta) g.grieta = det(tubo([[-.05 * s, .42 * s], [.06 * s, .3 * s], [-.04 * s, .2 * s], [.08 * s, .08 * s], [.0, -.02 * s]], .022 * s, .012 * s), 0x5a3418, [0, 0, .024], g.grano);
+    // palomita: nubecita de bolitas blancas con pedacitos de cáscara
+    g.pop = group([0, .15 * s, .01], g);
+    for (const [x, y, rr] of [[0, 0, .42], [-.38, .12, .3], [.38, .1, .32], [-.16, .4, .3], [.22, .4, .28], [0, -.32, .28], [-.33, -.22, .25], [.32, -.24, .26]])
+      pz(F.circ(rr * r), 0xfffaf0, [x * r, y * r, rr * .01], g.pop, { tinta: .014, papel: .05 });
+    for (const [x, y, a] of [[-.42, .3, .5], [.45, -.05, -.4], [.1, -.5, 1.2]]) det(F.poly([[-.07 * r, 0], [.08 * r, .03 * r], [.05 * r, -.07 * r]]), col, [x * r, y * r, .03], g.pop, a);
+    det(F.elipse(.12 * r, .07 * r), 0xfff2c4, [.12 * r, .16 * r, .03], g.pop);
+    g.pop.scale.setScalar(.001);
+    g.pum = pz(F.estrella(10, 1.0 * r, .55 * r), 0xffd640, [0, .15 * s, -.05], g, { tinta: .014, papel: .04 }); g.pum.scale.setScalar(.001);
+    // carita opcional (sigue al grano y luego a la palomita)
+    g.cara = group([0, .04 * s, .05], g); g.cara.visible = !!o.cara; g.bocas = {};
+    g.ojos = [-1, 1].map(sx => { const e = det(F.elipse(.055 * s, .075 * s), 0x2a1f2e, [sx * .11 * s, .05 * s, 0], g.cara); det(F.circ(.02 * s), 0xffffff, [-.015 * s, .025 * s, .004], e); return e; });
+    g.parpadea = (t, f = 0) => g.ojos.forEach(e => e.scale.y = ((t + f) % 3.2) < .1 ? .12 : 1);
+    g.bocas.feliz = det(F.arco(.07 * s, .025 * s, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -.02 * s, 0], g.cara);
+    g.bocas.triste = det(F.arco(.07 * s, .025 * s, Math.PI * .15, Math.PI * .85), 0x7a1f30, [0, -.14 * s, 0], g.cara);
+    g.bocas.asustada = det(F.elipse(.045 * s, .06 * s), 0x7a1f30, [0, -.09 * s, 0], g.cara);
+    g.ponCara = e => { for (const k in g.bocas) g.bocas[k].visible = k === e; }; g.ponCara(typeof o.cara === 'string' ? o.cara : 'feliz');
+    g.verCorte = k => g.corte.scale.setScalar(Math.max(.001, c01(k)));
+    g.tiembla = (t, k) => { g.grano.position.x = Math.sin(t * 55) * .03 * r * 3 * k; g.grano.rotation.z = Math.sin(t * 47) * .05 * k; };
+    g.revienta = k => { const a = c01(k / .12), x = c01((k - .1) / .55), b = x - 1;
+      g.grano.visible = k < .12; g.grano.scale.set(1 + .18 * a, 1 + .12 * a, 1);
+      g.pop.scale.setScalar(k <= .1 ? .001 : Math.max(.001, 1 + 2.70158 * b * b * b + 1.70158 * b * b));
+      const q = c01((k - .06) / .4); g.pum.visible = k > .06 && q < 1; g.pum.scale.setScalar(Math.max(.001, (.3 + 1.3 * q) * (q < .6 ? 1 : 1 - (q - .6) / .4))); g.pum.rotation.z = q * .6;
+      g.cara.position.y = (k > .1 ? .28 : .04) * s; };
+    g.revienta(0); return g; }
+  return { palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
