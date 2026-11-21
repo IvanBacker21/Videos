@@ -258,3 +258,40 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 - ⚠️ **20-nov sin producción aún**: ningún slot (13:30, 18:00, 21:30) aparece en temas.json ni en Buffer. Hoy empieza la prueba de 40 s (slot 21:30 debe ser largo-40s).
 
 **Conclusión:** 4 shorts del período; 2 TikTok + 2 YT enviados correctamente, 2 errores en YT (batería y leche). Patrón preocupante: los reintentos de Buffer parecen estar comiendo el límite diario de publicaciones en YouTube. Revisar configuración de reintentos en Buffer.
+
+## 2026-11-20 22:49 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (19 y 20-nov). **Hoy comienza la prueba largo-40s** (slot 21:30).
+
+**Buffer: 🔴 3 errores en YouTube ("daily posting limit").**
+
+| Short | Publicado (MX) | Buffer TikTok | Buffer YouTube | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| Leche se sube | 19-nov 13:30 | ✓ sent | ❌ daily limit | 26.4 s | ✓ | comida/cocina | concreto ✓ | normal | Mismo patrón: retries del 18-nov consumen cupo |
+| Día del Hombre | 19-nov 18:00 | ✓ sent | ✓ sent | 29.3 s | ✓ | efeméride/salud | concreto ✓ | normal | Efeméride del 19-nov ✓ |
+| Microondas y wifi | 19-nov 21:30 | ✓ sent | ✓ sent | 27.8 s | ✓ | tecnología/casa | concreto ✓ | normal | Gancho cotidiano fuerte |
+| Calor por la cabeza | 20-nov 13:30 | ✓ sent | ❌ daily limit | 27.2 s | ✓ | cuerpo/mito | concreto ✓ | normal | Retries anteriores agotaron cupo del día |
+| Cosquillas | 20-nov 18:00 | ✓ sent | ❌ daily limit | 27.9 s | ✓ | cuerpo/cerebro | concreto ✓ | normal | Mismo problema del 13:30 |
+| **Vibración fantasma** | 20-nov 21:30 | ✓ sent | ✓ sent | 45.2 s | ✗ (prueba) | tecnología/cerebro | concreto ✓ | **largo-40s** | ✅ Primer largo de la prueba; YouTube publicó OK |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 5/5 normales ✓; vibración fantasma 45.2 s = largo-40s (prueba, no es falla).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: cuerpo × 2, tecnología × 2, comida × 1, efeméride × 1 → buena variedad.
+
+**Largo vs normales de hoy (20-nov):**
+- largo-40s (vibración fantasma 21:30): YouTube ✓, TikTok ✓.
+- normales (calor 13:30, cosquillas 18:00): YouTube ❌ ❌, TikTok ✓ ✓.
+- (Falla YouTube en normales causada por retries, no por formato/duración.)
+
+**Alertas:**
+- 🔴 **Patrón crítico de YouTube "daily posting limit"**: 3 de los últimos 4 slots de 13:30 y 18:00 fallan en YouTube. Causa probable: los reintentos automáticos de Buffer de posts anteriores fallidos (cargar-celular 18-nov, leche 19-nov) siguen disparándose al día siguiente y agotan el cupo antes de que lleguen los slots regulares. El slot de 21:30 no falla porque para entonces el cupo se reinicia (período de 24h de YouTube).
+- ⚠️ **Posts fallidos acumulados en YouTube**: leche (19-nov 13:30), calor-cabeza (20-nov 13:30), cosquillas (20-nov 18:00) no se publicaron en YouTube. Reprogramar manualmente.
+- ✅ **Prueba largo-40s inicia con buen pie**: vibración fantasma publicado en ambas redes sin errores.
+
+**Acción urgente recomendada a Iván:** ir a panel.buffer.com → Posts → "Needs attention" y ELIMINAR los posts fallidos (no solo ignorarlos) para cortar el ciclo de reintentos automáticos. Mientras no se eliminen, seguirán agotando el cupo de YouTube cada día.
+
+**Conclusión:** TikTok 6/6 OK; YouTube 3/6 OK (Día del Hombre, microondas, vibración fantasma), 3 errores por cupo. La prueba de largo-40s arrancó correctamente; sin vistas disponibles aún para comparar.
