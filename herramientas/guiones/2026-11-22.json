@@ -2,7 +2,7 @@
  {
   "hora": "13:30",
   "slug": "refresco-agitado",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "normal",
   "tema": "¿Por qué el refresco agitado te explota al abrirlo? (al agitarlo, el gas carbónico forma burbujitas que se quedan pegadas a las paredes; al abrir baja la presión, el gas disuelto se mete a esas burbujas, crecen de golpe y empujan el líquido afuera; mito: darle golpecitos a la lata no sirve: estudio de la Universidad del Sur de Dinamarca (Sopina et al., 2019) con cientos de latas no halló diferencia; truco: dejarla reposar unos minutos). Fuentes: MIT Technology Review (Does tapping the bottom of a beer can really stop it fizzing over?), Modern Farmer (Tapping a beer can won't stop it from foaming out), arXiv 1912.01999 (estudio original)",
   "fuentes": [

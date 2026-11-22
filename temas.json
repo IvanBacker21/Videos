@@ -953,5 +953,24 @@
   "titulo": "¿Por qué el cielo es AZUL y el atardecer naranja? 🌅 #shorts",
   "pedido": false,
   "prueba": "largo-40s"
+ },
+ {
+  "fecha": "2026-11-22",
+  "hora": "13:30",
+  "tema": "¿Por qué el refresco agitado te explota al abrirlo? (al agitarlo, el gas carbónico forma burbujitas que se quedan pegadas a las paredes; al abrir baja la presión, el gas disuelto se mete a esas burbujas, crecen de golpe y empujan el líquido afuera; mito: darle golpecitos a la lata no sirve: estudio de la Universidad del Sur de Dinamarca (Sopina et al., 2019) con cientos de latas no halló diferencia; truco: dejarla reposar unos minutos). Fuentes: MIT Technology Review (Does tapping the bottom of a beer can really stop it fizzing over?), Modern Farmer (Tapping a beer can won't stop it from foaming out), arXiv 1912.01999 (estudio original)",
+  "formato": "¿por qué…? + explicación + mito (golpecitos) + truco",
+  "categoria": "comida / casa",
+  "tendencia": "Domingo de comida familiar con refresco (México, de los mayores consumidores del mundo)",
+  "disparadores": [
+   "eres tú (a todos les ha explotado uno)",
+   "¿ves? te dije (golpecitos = mito)",
+   "truco útil"
+  ],
+  "duracion": 29.77,
+  "mejora": "papel_pm.js: PM.botellaRefresco (botella o lata de refresco con burbujitas, corcholata, espuma y géiser)",
+  "archivo": "shorts/2026-11-22-1330-refresco-agitado.mp4",
+  "titulo": "¿Por qué el refresco agitado EXPLOTA al abrirlo? 🥤 #shorts",
+  "pedido": false,
+  "prueba": "normal"
  }
 ]

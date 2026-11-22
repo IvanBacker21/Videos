@@ -1360,5 +1360,66 @@ export function kitPM(P, THREE, group) {
         else { const d0 = u0 * Lb, q = (u - u0) / (1 - u0), d = q * Lb * .75 * b.v, aa = b.a + Math.floor(t * vel + b.f) * 2.39;
           b.position.set(xs + Math.cos(a0) * d0 + Math.cos(aa) * d, Math.sin(a0) * d0 + Math.sin(aa) * d, .05); b.scale.setScalar(Math.max(.001, q < .8 ? 1 : (1 - q) / .2)); } }); };
     g.update(0, 0); return g; }
-  return { rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= BOTELLA / LATA DE REFRESCO (22-nov-2026 13:30, short del refresco agitado) =================
+  // PM.botellaRefresco(pos, o, padre): refresco de cartulina, fondo en y = 0, g.H = alto. o.tipo 'botella' (vidrio verde con refresco oscuro,
+  //   burbujitas visibles y corcholata en g.tapa) o 'lata' (lata con anillo en g.tapa). g.update(t, {agita, burb, crece, abre, espuma, chorro}) (0..1):
+  //   agita = se sacude (rayitas aparte con PM.zumbido); burb = cuántas burbujitas pegadas a las paredes aparecen; crece = se inflan y suben;
+  //   abre = la corcholata sale volando / el anillo se levanta; espuma = la espuma sube por dentro hasta el pico; chorro = géiser de espuma
+  //   con gotitas que salen por arriba (g.altoChorro). o: {tipo, h 1.2, color (etiqueta), liquido, vidrio, tapa, n (burbujas), alto (chorro)}
+  function botellaRefresco(pos, o = {}, parent = null) { const g = group(pos, parent), H = g.H = o.h ?? 1.2, lata = o.tipo === 'lata';
+    const c01 = x => Math.min(1, Math.max(0, x)), ETQ = o.color ?? 0xff4d5e, LIQ = o.liquido ?? 0x6e3418, ESP = 0xfff3dc;
+    const hw = lata ? H * .28 : H * .18, nw = lata ? hw * .5 : hw * .36, boca = lata ? H * .97 : H * .95;
+    g.in = group([0, H * .5, 0], g); const b = group([0, -H * .5, 0], g.in);
+    // espuma que sube por dentro (detrás del vidrio en la lata; dentro del vidrio en la botella)
+    g.esp = group([0, H * .5, lata ? -.02 : .024], b);
+    pz(blob([[-hw * .8, 0], [hw * .8, 0], [hw * .8, H * .05], [nw * .95, H * .28], [nw * .95, H * .45], [0, H * .49], [-nw * .95, H * .45], [-nw * .95, H * .28], [-hw * .8, H * .05]]), ESP, [0, 0, 0], g.esp, { tinta: .01, papel: false });
+    g.esp.scale.y = .001; g.esp.visible = false;
+    if (!lata) {
+      pz(blob([[-hw * .92, 0], [0, -H * .012], [hw * .92, 0], [hw, H * .06], [hw, H * .3], [hw, H * .55], [nw * 1.15, H * .8], [nw, H * .88], [nw, boca], [-nw, boca], [-nw, H * .88], [-nw * 1.15, H * .8], [-hw, H * .55], [-hw, H * .3], [-hw, H * .06]]),
+        o.vidrio ?? 0xc6ecd9, [0, 0, 0], b, { tinta: .016, papel: .05 });
+      det(blob([[-hw * .8, H * .04], [hw * .8, H * .04], [hw * .84, H * .12], [hw * .84, H * .54], [nw * .95, H * .76], [-nw * .95, H * .76], [-hw * .84, H * .54], [-hw * .84, H * .12]]), LIQ, [0, 0, .016], b);
+      det(F.elipse(nw * .95, H * .022), 0xe9c89a, [0, H * .755, .02], b);
+      for (const [x, y] of [[-.4, .2], [.35, .33], [-.2, .45], [.5, .48], [.1, .12]]) det(F.circ(H * .008), 0xb8754a, [x * hw, y * H, .021], b);
+      det(F.rect(hw * .12, H * .36, hw * .06), 0xffffff, [-hw * .62, H * .3, .045], b);
+      det(F.rect(hw * .07, H * .12, hw * .03), 0xffffff, [-nw * .55, H * .85, .045], b);
+    } else {
+      pz(F.rect(hw * 2, H * .92, hw * .25), ETQ, [0, H * .48, 0], b, { tinta: .016, papel: .05 });
+      det(F.rect(hw * 1.8, H * .05, H * .02), 0xd7dce4, [0, H * .955, .016], b); det(F.rect(hw * 1.8, H * .045, H * .02), 0xd7dce4, [0, H * .02, .016], b);
+      det(F.rect(hw * .22, H * .6, hw * .1), 0xffffff, [-hw * .62, H * .48, .02], b);
+    }
+    // etiqueta con onda blanca
+    const ey = lata ? H * .5 : H * .22, eh = lata ? H * .3 : H * .17;
+    if (!lata) pz(F.rect(hw * 2.04, eh, eh * .12), ETQ, [0, ey, .05], b, { tinta: .012, papel: false });
+    det(tubo([[-hw * .9, ey - eh * .1], [-hw * .4, ey + eh * .22], [hw * .1, ey - eh * .15], [hw * .5, ey + eh * .2], [hw * .9, ey]], eh * .2, eh * .2), 0xffffff, [0, 0, lata ? .02 : .066], b);
+    // burbujitas pegadas a las paredes (solo botella)
+    let sm = 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647, n = lata ? 0 : (o.n ?? 16);
+    g.burbs = []; for (let i = 0; i < n; i++) { const pared = i % 3 !== 2, sx = i % 2 ? 1 : -1, r0 = H * (.016 + rnd() * .014);
+      const x = pared ? sx * (hw * .84 - r0 * 1.1) : (rnd() - .5) * hw * 1.1, y = H * (.08 + rnd() * .44);
+      const q = pz(F.circ(r0), 0xfff8ec, [x, y, .03], b, { tinta: .008, papel: false }); det(F.circ(r0 * .35), 0xffffff, [-r0 * .3, r0 * .3, .014], q);
+      q.x0 = x; q.y0 = y; q.v = .6 + rnd() * .8; q.f = rnd() * 6; q.i = i / n; q.visible = false; g.burbs.push(q); }
+    // tapa: corcholata o anillo
+    g.tapa = group([0, boca, .06], b);
+    if (!lata) { pz(F.rect(nw * 2.5, H * .055, H * .01), o.tapa ?? 0xffc83d, [0, H * .022, 0], g.tapa, { tinta: .012, papel: .03 });
+      for (let k = -2; k <= 2; k++) det(F.rect(H * .01, H * .03, 0), osc(o.tapa ?? 0xffc83d, .75), [k * nw * .48, H * .018, .012], g.tapa); }
+    else { const a = group([hw * .1, 0, .03], g.tapa); g.anillo = a; pz(F.arco(H * .05, H * .02, 0, Math.PI * 2), 0xb9c0cc, [H * .06, H * .01, 0], a, { tinta: .01, papel: false }); }
+    // chorro de espuma (géiser) con corona y gotitas
+    const L = g.altoChorro = o.alto ?? H * .9; g.ch = group([0, boca, .05], b); const col = group([0, 0, 0], g.ch);
+    pz(F.rect(nw * (lata ? 2.6 : 2.1), 1, nw * .9), ESP, [0, .5, 0], col, { tinta: .012, papel: .04 }); g.col = col;
+    g.corona = group([0, 0, .01], g.ch); for (const [x, y, r] of [[0, 0, .2], [-.15, -.05, .14], [.16, -.04, .15], [-.07, .12, .13], [.09, .11, .12]]) pz(F.circ(r * H * .7), ESP, [x * H * .7, y * H * .7, r * .01], g.corona, { tinta: .012, papel: .04 });
+    g.gotas = []; for (let i = 0; i < 9; i++) { const q = pz(F.circ(H * (.022 + rnd() * .02)), i % 3 ? 0xf6dcae : ESP, [0, 0, .02], g.ch, { tinta: .012, papel: .03 }); q.a = (i / 8 - .5) * 2.6; q.f = rnd(); q.v = .7 + rnd() * .6; g.gotas.push(q); }
+    g.ch.visible = false;
+    g.update = (t, s = {}) => { const ag = c01(s.agita ?? 0), bu = c01(s.burb ?? 0), cr = c01(s.crece ?? 0), ab = c01(s.abre ?? 0), es = c01(s.espuma ?? 0), ch = c01(s.chorro ?? 0);
+      g.in.rotation.z = Math.sin(t * 21) * .3 * ag; g.in.position.set(Math.sin(t * 21 + 1) * .05 * ag, H * .5 + Math.abs(Math.sin(t * 21)) * .04 * ag, 0);
+      g.burbs.forEach(q => { q.visible = bu > q.i; const k = cr * q.v; q.scale.setScalar(1 + 1.8 * Math.min(1.2, k));
+        q.position.set(q.x0 * (1 - .25 * cr) + Math.sin(t * 6 + q.f) * .02 * cr * H, Math.min(H * .72, q.y0 + cr * H * .32 * q.v * (.6 + .4 * ((t * .7 + q.f) % 1))), .03); });
+      if (!lata) { g.tapa.visible = ab < 1; g.tapa.position.set(ab * nw * 4, boca + Math.sin(ab * Math.PI) * H * .5 + ab * H * .1, .06); g.tapa.rotation.z = -ab * 5; }
+      else g.anillo.rotation.x = -ab * 1.2, g.anillo.position.y = ab * H * .03;
+      g.esp.visible = es > .01; g.esp.scale.y = Math.max(.001, es);
+      g.ch.visible = ch > .01; const Lk = L * ch; col.scale.y = Math.max(.001, Lk); col.scale.x = 1 + Math.sin(t * 13) * .08 * ch;
+      g.corona.position.y = Lk; g.corona.scale.setScalar(Math.max(.001, ease01(ch) * (1 + Math.sin(t * 9) * .06)));
+      g.gotas.forEach(q => { const u = (t * .9 * q.v + q.f) % 1, vx = Math.sin(q.a) * H * .7, vy = H * (.9 + q.v * .4);
+        q.visible = ch > .35; q.position.set(vx * u, Lk + vy * u - H * 2.4 * u * u, .02); q.scale.setScalar(Math.max(.001, u < .85 ? 1 : (1 - u) / .15)); }); };
+    const ease01 = x => 1 - (1 - x) * (1 - x);
+    g.update(0); return g; }
+  return { botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
