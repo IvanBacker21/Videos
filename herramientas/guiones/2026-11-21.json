@@ -55,16 +55,18 @@
  {
   "hora": "21:30",
   "slug": "cielo-azul-atardecer",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "largo-40s",
-  "tema": "¿Por qué el cielo es azul y el atardecer naranja? (mito: no refleja el mar; la luz del Sol trae todos los colores y las moléculas del aire dispersan mucho más el azul (dispersión de Rayleigh), que llega desde todas direcciones; el violeta se dispersa aún más pero el Sol emite menos y nuestros ojos son menos sensibles a él; al atardecer la luz atraviesa mucha más atmósfera, el azul se dispersa en el camino y llegan naranjas y rojos; en Marte el polvo fino hace el cielo rojizo y los atardeceres azulados, fotografiados por rovers de la NASA). Fuentes: NASA Space Place (Why is the sky blue?), Royal Museums Greenwich (Why is the sky blue?), NPR (A most peculiar sunset, Marte)",
+  "tema": "¿Por qué el cielo es azul y el atardecer naranja? (mito: no refleja el mar; la luz del Sol trae todos los colores y las moléculas del aire dispersan mucho más el azul (dispersión de Rayleigh), que llega desde todas direcciones; el violeta se dispersa aún más pero el Sol emite menos y nuestros ojos son menos sensibles a él; las nubes se ven blancas porque sus gotitas son grandes y desvían todos los colores por igual; al atardecer la luz atraviesa mucha más atmósfera, el azul se dispersa en el camino y llegan naranjas y rojos; en Marte el polvo fino hace el cielo rojizo y los atardeceres azulados, fotografiados por rovers de la NASA). Fuentes: NASA Space Place (Why is the sky blue?), Royal Museums Greenwich (Why is the sky blue?), NPR (A most peculiar sunset, Marte), Met Office y Observatorio de Hong Kong (nubes blancas)",
   "fuentes": [
    "https://spaceplace.nasa.gov/blue-sky/",
    "https://www.rmg.co.uk/stories/space-astronomy/why-sky-blue",
-   "https://www.npr.org/sections/krulwich/2012/04/25/151376553/a-most-peculiar-sunset"
+   "https://www.npr.org/sections/krulwich/2012/04/25/151376553/a-most-peculiar-sunset",
+   "https://www.metoffice.gov.uk/weather/learn-about/weather/types-of-weather/clouds/why-are-clouds-white",
+   "https://www.hko.gov.hk/en/education/earth-science/optical-phenomena/00349-colours-of-clouds.html"
   ],
   "tendencia": "Atardeceres de otoño-invierno muy naranjas; fin de semana con cielos despejados tras el frente frío",
-  "formato": "¿por qué…? + mito (mar) + explicación + dato extra (violeta) + sorpresa (Marte) (LARGO prueba 40 s)",
+  "formato": "¿por qué…? + mito (mar) + explicación + dato extra (violeta) + nubes blancas + sorpresa (Marte) (LARGO prueba 40 s)",
   "categoria": "espacio / cielo",
   "disparadores": [
    "eres tú (todos han visto el atardecer)",

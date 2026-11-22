@@ -1337,5 +1337,28 @@ export function kitPM(P, THREE, group) {
     g.quita = k => { const e = cl01(k); g.cuerpo.visible = e < 1; g.cuerpo.position.set(e * .6, e * e * 4.2 + e * .6, .1 * e); g.cuerpo.rotation.z = e * 1.4; g.cuerpo.scale.setScalar(Math.max(.001, 1 - .3 * e));
       g.mangas.forEach(m => m.scale.set(1, Math.max(.001, 1 - cl01(k * 3)), 1)); };
     return g; }
-  return { sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= RAYO DE LUZ (21-nov-2026 21:30, short del cielo azul) =================
+  // PM.rayoLuz(pos, o, padre): rayo de luz blanca de cartulina que viaja hacia +x local (rota el grupo) y se ABRE en un abanico de colores
+  //   con pelotitas de cada color que viajan por su banda. g.update(t, abre 0..1, rebota = [índices], k 0..1): las pelotitas de los colores
+  //   en "rebota" chocan a la mitad y salen disparadas hacia todos lados (dispersión) y su banda se acorta. g.cols = colores.
+  //   o: {largo 2.4, ancho .13, abreEn (fracción .4), abanico .5 rad, colores [rojo, naranja, amarillo, verde, azul, violeta], bolitas 2, vel .55}
+  function rayoLuz(pos, o = {}, parent = null) { const g = group(pos, parent), L = o.largo ?? 2.4, an = o.ancho ?? .13, xs = L * (o.abreEn ?? .4), Lb = L - xs, ab = o.abanico ?? .5;
+    const cols = g.cols = o.colores ?? [0xff4d5e, 0xff9a3d, 0xffd640, 0x2ec4a6, 0x3d7bff, 0x9b5cff], n = cols.length, m = o.bolitas ?? 2, vel = o.vel ?? .55;
+    let sm = 13; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647; const c01 = x => Math.min(1, Math.max(0, x));
+    pz(F.rect(xs + an * .3, an, an * .45), 0xfffbe8, [xs / 2, 0, 0], g, { tinta: .012, papel: .04 });
+    det(F.rect(xs * .8, an * .22, an * .1), 0xffffff, [xs * .45, an * .18, .016], g);
+    const ang = i => n > 1 ? ab * (.5 - i / (n - 1)) : 0;
+    g.bandas = cols.map((c, i) => { const b = group([xs, 0, .006 + i * .003], g); b.rotation.z = ang(i); const k = group([0, 0, 0], b);
+      pz(F.rect(Lb, an * .5, an * .2), c, [Lb / 2, 0, 0], k, { tinta: .01, papel: .03 }); k.scale.x = .001; b.k = k; return b; });
+    g.bolas = []; cols.forEach((c, i) => { for (let j = 0; j < m; j++) { const b = pz(F.circ(an * .42), c, [0, 0, .05], g, { tinta: .01, papel: .03 });
+      det(F.circ(an * .13), 0xffffff, [-an * .12, an * .12, .016], b); b.i = i; b.f = (j + i * .37 / n) / m; b.a = rnd() * Math.PI * 2; b.v = .7 + rnd() * .5; b.visible = false; g.bolas.push(b); } });
+    g.update = (t, abre = 1, rebota = [], kr = 1) => {
+      g.bandas.forEach((b, i) => { const r = rebota.includes(i) ? 1 - .62 * c01(kr) : 1; b.k.scale.x = Math.max(.001, c01(abre) * r); });
+      g.bolas.forEach(b => { const u = ((t * vel + b.f) % 1 + 1) % 1, a0 = ang(b.i); b.visible = abre > .6;
+        const rb = rebota.includes(b.i) && kr > .02, u0 = .38;
+        if (!rb || u < u0) { const d = u * Lb; b.position.set(xs + Math.cos(a0) * d, Math.sin(a0) * d, .05); b.scale.setScalar(1); }
+        else { const d0 = u0 * Lb, q = (u - u0) / (1 - u0), d = q * Lb * .75 * b.v, aa = b.a + Math.floor(t * vel + b.f) * 2.39;
+          b.position.set(xs + Math.cos(a0) * d0 + Math.cos(aa) * d, Math.sin(a0) * d0 + Math.sin(aa) * d, .05); b.scale.setScalar(Math.max(.001, q < .8 ? 1 : (1 - q) / .2)); } }); };
+    g.update(0, 0); return g; }
+  return { rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
