@@ -1421,5 +1421,49 @@ export function kitPM(P, THREE, group) {
         q.visible = ch > .35; q.position.set(vx * u, Lk + vy * u - H * 2.4 * u * u, .02); q.scale.setScalar(Math.max(.001, u < .85 ? 1 : (1 - u) / .15)); }); };
     const ease01 = x => 1 - (1 - x) * (1 - x);
     g.update(0); return g; }
-  return { botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= OJO EN CORTE / DE FRENTE (22-nov-2026 18:00, short de los ojos rojos con flash) =================
+  // PM.ojoCorte(pos, o, padre): ojo gigante de cartulina. o.vista 'corte' (default): globo visto de lado, la luz llega por la IZQUIERDA:
+  //   córnea, iris arriba/abajo con hueco = pupila, cristalino, fondo del ojo rosa con venitas rojas y nervio óptico atrás.
+  //   g.update(t, {pupila 0..1 (abierta), entra 0..1 (rayo de luz que entra hasta el fondo), sale 0..1 (rayo ROJO que regresa a la izquierda), venas 0..1 (laten)})
+  //   o.vista 'frente': ojo de frente con párpado, iris café y pupila negra. g.update(t, {pupila, parpado 0..1 (cerrado), rojo 0..1 (pupila brilla roja)})
+  //   o: {r .8, iris 0x8a5a3a, largo (rayo antes del ojo, 1.4)}
+  function ojoCorte(pos, o = {}, parent = null) { const g = group(pos, parent), R = o.r ?? .8, IR = o.iris ?? 0x8a5a3a, c01 = x => Math.min(1, Math.max(0, x));
+    if (o.vista === 'frente') {
+      pz(F.elipse(R, R * .72), 0xffffff, [0, 0, 0], g, { tinta: .02, papel: .06 });
+      for (const [a, b] of [[.55, .6], [-.6, -.35], [.7, -.3]]) linea([[R * a * .9, R * b * .5], [R * a * .7, R * b * .35], [R * a * .55, R * b * .4]], .012, 0xff9aa8, g, .014);   // venitas del blanco
+      det(F.circ(R * .52), INK, [0, 0, .016], g); det(F.circ(R * .49), IR, [0, 0, .02], g); det(F.circ(R * .36), osc(IR, .78), [0, 0, .024], g);
+      for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; det(F.rect(.012, R * .16, 0), osc(IR, .62), [Math.cos(a) * R * .38, Math.sin(a) * R * .38, .027], g, a + Math.PI / 2); }
+      const pu = group([0, 0, .03], g); det(F.circ(R * .3), 0x14101e, [0, 0, 0], pu); const rojo = det(F.circ(R * .27), 0xff2b3f, [0, 0, .003], pu); det(F.circ(R * .15), 0xff8a6a, [0, 0, .005], rojo);
+      det(F.elipse(R * .1, R * .08), 0xffffff, [R * .16, R * .17, .05], g); det(F.circ(R * .04), 0xffffff, [-R * .16, -R * .15, .05], g);
+      const par = group([0, R * .78, .08], g); pz(F.elipse(R * 1.08, R * .8), o.piel ?? 0xe8b48c, [0, R * .8, 0], par, { tinta: .018, papel: false }); par.scale.y = .001;
+      for (let i = -3; i <= 3; i++) det(F.rect(.025, R * .16, 0), INK, [i * R * .22, R * .06 - Math.abs(i) * R * .03, .02], par, -i * .18);   // pestañas
+      g.pup = pu; g.parpado = par;
+      g.update = (t, e = {}) => { const k = e.pupila ?? 1; pu.scale.setScalar(Math.max(.001, .32 + .68 * k)); rojo.visible = (e.rojo ?? 0) > .02; rojo.scale.setScalar(Math.max(.001, e.rojo ?? 0));
+        const pc = c01(e.parpado ?? 0); par.scale.y = Math.max(.001, pc); par.position.y = R * .78 - pc * R * .78; par.visible = pc > .01; };
+      g.update(0); return g; }
+    pz(F.circ(R), 0xffffff, [0, 0, 0], g, { tinta: .02, papel: .06 });
+    pz(F.elipse(R * .2, R * .42), 0xd8f2ff, [-R * .9, 0, -.03], g, { tinta: .016, papel: .05 });                                   // córnea
+    pz(F.rect(R * .42, R * .2, .04), 0xffd27a, [R * 1.08, -R * .22, -.05], g, { tinta: .016, papel: .05, rot: -.25 });                // nervio óptico
+    det(F.circ(R * .93), 0xeef8ff, [0, 0, .014], g);
+    det(F.arco(R * .84, R * .14, -1.25, 1.25), 0xff8a96, [0, 0, .018], g);                                                         // fondo del ojo
+    const vv = g.venasG = group([0, 0, .03], g); let sm = 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 5; i++) { const a0 = -1.0 + i * .5, pts = []; for (let j = 0; j <= 4; j++) { const a = a0 + (j - 2) * .09 + (rnd() - .5) * .06, rr = R * (.86 - j * .055 + (rnd() - .5) * .03); pts.push([Math.cos(a) * rr, Math.sin(a) * rr]); }
+      linea(pts, .02, 0xd41f3a, vv, 0); const m = pts[2]; linea([m, [m[0] - R * .1, m[1] + (rnd() - .5) * R * .14]], .013, 0xd41f3a, vv, 0); }
+    const ojoBarra = y0 => { const b = group([-R * .74, y0, .04], g), k = group([0, 0, 0], b); det(F.rect(R * .11, 1, 0), INK, [0, -.5, 0], k); det(F.rect(R * .08, 1, 0), IR, [0, -.5, .003], k); b.k = k; return b; };
+    const ia = ojoBarra(R * .66), ib = ojoBarra(-R * .66); ib.rotation.z = Math.PI;                                                    // iris (arriba y abajo)
+    det(F.elipse(R * .13, R * .3), INK, [-R * .58, 0, .035], g); det(F.elipse(R * .11, R * .28), 0xbfe6ff, [-R * .58, 0, .038], g);  // cristalino
+    const L = o.largo ?? 1.4, x0 = -R - L, xr = R * .76;
+    const rayo = (y, col, dir) => { const b = group([dir > 0 ? x0 : xr, y, .06], g), k = group([0, 0, 0], b); det(F.rect(1, .13, 0), INK, [dir * .5, 0, 0], k); det(F.rect(1, .095, 0), col, [dir * .5, 0, .012], k); b.k = k; b.L = xr - x0; b.dir = dir;
+      b.bolas = [0, 1, 2].map(i => { const q = det(F.circ(.06), dir > 0 ? 0xffffff : 0xffd0d6, [0, 0, .03], b); q.f = i / 3; return q; }); return b; };
+    const rin = rayo(R * .06, 0xfff2a0, 1), rout = rayo(-R * .08, 0xff2b3f, -1);
+    g.update = (t, e = {}) => { const gap = R * (.07 + .26 * c01(e.pupila ?? 1)), Lb = R * .66 - gap;
+      for (const b of [ia, ib]) b.k.scale.y = Math.max(.001, Lb);
+      for (const [b, k] of [[rin, c01(e.entra ?? 0)], [rout, c01(e.sale ?? 0)]]) { b.visible = k > .005; b.k.scale.x = Math.max(.001, k * b.L);
+        b.bolas.forEach(q => { const u = ((t * .9 + q.f) % 1) * k; q.position.x = b.dir * u * b.L; q.visible = k > .15; }); }
+      const kv = c01(e.venas ?? 0); vv.scale.setScalar(1 + kv * .05 * (1 + Math.sin(t * 9))); };
+    g.update(0); return g; }
+  // PM.ojosRojos(p): pupilas que brillan rojas en los ojos de un chibi (foto con flash). Regresa f(k 0..1).
+  function ojosRojos(p) { const rs = p.head.ojos.map(e => { const r = det(F.elipse(.058, .092), 0xff2b3f, [0, -.005, .004], e); det(F.elipse(.03, .05), 0xff9a7a, [0, -.01, .002], r); det(F.circ(.014), 0xffffff, [.02, .04, .004], r); r.visible = false; return r; });
+    return k => rs.forEach(r => { r.visible = k > .02; r.scale.setScalar(Math.max(.001, k)); }); }
+  return { ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

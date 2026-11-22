@@ -972,5 +972,23 @@
   "titulo": "¿Por qué el refresco agitado EXPLOTA al abrirlo? 🥤 #shorts",
   "pedido": false,
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-22",
+  "hora": "18:00",
+  "tema": "¿Por qué con flash sales con ojos rojos? (de noche o con poca luz la pupila está dilatada; el flash es demasiado rápido para que la pupila se cierre; la luz entra, rebota en el fondo del ojo (coroides/retina, muy irrigada de vasos sanguíneos) y regresa roja a la cámara; truco: más luz en el cuarto o modo antiojos rojos (preflash) que contrae la pupila antes de la foto). Fuentes: West Texas A&M, Science Questions with Surprising Answers (Why do camera flashes make your eyes turn red?), All About Vision (What causes red eyes in photos?), American Academy of Ophthalmology (Seeing Red)",
+  "formato": "¿por qué SIEMPRE…? + explicación + truco",
+  "categoria": "cuerpo / tecnología (fotos)",
+  "tendencia": "Temporada de reuniones y fotos de noche (fin de mes, arranque de posadas y fiestas de fin de año)",
+  "disparadores": [
+   "eres tú (todos tienen una foto así)",
+   "truco útil"
+  ],
+  "duracion": 26.4,
+  "mejora": "papel_pm.js: PM.ojoCorte (ojo gigante en corte o de frente: pupila que se abre/cierra, rayo que entra y rayo rojo que regresa, venitas) + PM.ojosRojos",
+  "archivo": "shorts/2026-11-22-1800-ojos-rojos-flash.mp4",
+  "titulo": "¿Por qué sales con ojos ROJOS en las fotos? 📸 #shorts",
+  "pedido": false,
+  "prueba": "normal"
  }
 ]
