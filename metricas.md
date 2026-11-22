@@ -295,3 +295,40 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 **Acción urgente recomendada a Iván:** ir a panel.buffer.com → Posts → "Needs attention" y ELIMINAR los posts fallidos (no solo ignorarlos) para cortar el ciclo de reintentos automáticos. Mientras no se eliminen, seguirán agotando el cupo de YouTube cada día.
 
 **Conclusión:** TikTok 6/6 OK; YouTube 3/6 OK (Día del Hombre, microondas, vibración fantasma), 3 errores por cupo. La prueba de largo-40s arrancó correctamente; sin vistas disponibles aún para comparar.
+
+## 2026-11-21 23:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (20 y 21-nov).
+
+**Buffer: 🔴 4 errores en YouTube ("daily posting limit") en las 48 h revisadas.** El patrón crítico continúa: solo el primer post de cada día pasa en YouTube; los siguientes fallan por cupo. La vibración fantasma (20-nov 21:30) fue excepción: YouTube OK por ser el primer post que Buffer envió exitosamente ese día.
+
+| Short | Publicado (MX) | Buffer TikTok | Buffer YouTube | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| Calor por la cabeza | 20-nov 13:30 | ✓ sent | ❌ daily limit | 27.2 s | ✓ | cuerpo/mito | concreto ✓ | normal | Retries anteriores agotaron cupo del día |
+| Cosquillas | 20-nov 18:00 | ✓ sent | ❌ daily limit | 27.9 s | ✓ | cuerpo/cerebro | concreto ✓ | normal | Mismo problema del 13:30 |
+| **Vibración fantasma** | 20-nov 21:30 | ✓ sent | ✓ sent | 45.2 s | ✗ (prueba) | tecnología/cerebro | concreto ✓ | **largo-40s** | ✅ Largo-40s publicado en ambas redes; primer largo de la prueba |
+| Palomitas que truenan | 21-nov 13:30 | ✓ sent | ✓ sent | — | ✓ | comida/ciencia | concreto ✓ | normal | ✅ Publicado en YouTube y TikTok |
+| Suéter de lana pica | 21-nov 18:00 | ✓ sent | ❌ daily limit | — | ✓ | cuerpo/mito | concreto ✓ | normal | ❌ YouTube no publicado (daily limit) |
+| **Cielo azul y atardecer** | 21-nov 21:30 | ✓ sent | ❌ daily limit | — | ✗ (prueba) | espacio/ciencia | concreto ✓ | **largo-40s** | ❌ Largo-40s NO publicado en YouTube; TikTok ✓ |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Reglas de GUIA:**
+- Duración ≤30 s: normales ✓; largos son prueba (no falla).
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: cuerpo × 2, tecnología × 1, comida × 1, ciencia/espacio × 1 → buena variedad; sin animales en las últimas 6 entradas → cupo libre.
+
+**Largo vs normales de hoy (21-nov):**
+- largo-40s (cielo azul 21:30): YouTube ❌ (daily limit), TikTok ✓.
+- normales (palomitas 13:30 ✓✓; suéter pica 18:00 TikTok ✓/YT ❌).
+- Comparación de rendimiento imposible sin vistas.
+
+**Alertas:**
+- 🔴 **Patrón YouTube daily limit se agrava**: 4 de los 6 shorts del período fallaron en YouTube. El largo-40s de hoy (cielo azul) NO se publicó en YouTube. Esto compromete la prueba de duración porque los datos de YouTube para los largos estarán incompletos.
+- 🔴 **Posts fallidos acumulados en YouTube sin limpiar**: calor-cabeza, cosquillas (20-nov), suéter-pica, cielo-azul (21-nov) → no publicados en YouTube. Reprogramar manualmente o limpiar retries desde panel.buffer.com.
+- ⚠️ **Prueba largo-40s afectada**: vibración-fantasma (20-nov) llegó a YouTube; cielo-azul (21-nov) NO. Los datos de YouTube de la prueba serán parciales e inconsistentes.
+
+**Acción urgente recomendada a Iván (igual que ayer):** ir a panel.buffer.com → Posts → "Needs attention" y ELIMINAR (no solo ignorar) todos los posts fallidos para cortar el ciclo de reintentos. Mientras sigan activos, agotarán el cupo de YouTube cada día.
+
+**Conclusión:** TikTok 6/6 OK; YouTube 2/6 OK (palomitas y vibración fantasma), 4 errores de cupo. La prueba de largo-40s avanza solo en TikTok el 21-nov; los datos de YouTube de los largos serán incompletos si no se resuelve el límite diario.
