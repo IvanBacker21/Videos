@@ -1,0 +1,84 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "refresco-agitado",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué el refresco agitado te explota al abrirlo? (al agitarlo, el gas carbónico forma burbujitas que se quedan pegadas a las paredes; al abrir baja la presión, el gas disuelto se mete a esas burbujas, crecen de golpe y empujan el líquido afuera; mito: darle golpecitos a la lata no sirve: estudio de la Universidad del Sur de Dinamarca (Sopina et al., 2019) con cientos de latas no halló diferencia; truco: dejarla reposar unos minutos). Fuentes: MIT Technology Review (Does tapping the bottom of a beer can really stop it fizzing over?), Modern Farmer (Tapping a beer can won't stop it from foaming out), arXiv 1912.01999 (estudio original)",
+  "fuentes": [
+   "https://www.technologyreview.com/2019/12/11/131624/does-tapping-the-bottom-of-a-beer-can-really-stop-it-fizzing-over/",
+   "https://modernfarmer.com/2019/12/tapping-a-beer-can-wont-stop-it-from-foaming-out-say-scientists/",
+   "https://arxiv.org/abs/1912.01999"
+  ],
+  "tendencia": "Domingo de comida familiar con refresco (México, de los mayores consumidores del mundo)",
+  "formato": "¿por qué…? + explicación + mito (golpecitos) + truco",
+  "categoria": "comida / casa",
+  "disparadores": [
+   "eres tú (a todos les ha explotado uno)",
+   "¿ves? te dije (golpecitos = mito)",
+   "truco útil"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-22-1330-refresco-agitado.json",
+  "visual": "Cocina/mesa de comida dominguera del kit. 1) chibi abre botella de refresco y le explota espuma en la cara (gancho con chorro). 2) zoom dentro de la botella: mano la agita y aparecen burbujitas pegadas a las paredes. 3) se abre la tapa: flecha de presión bajando, burbujas se inflan y empujan el líquido hacia arriba. 4) dedo dando golpecitos a una lata con letrero 'MITO' y bandera de Dinamarca con lupa '0 diferencia'. 5) botella en reposo con reloj corriendo y burbujas subiendo; amigo bromista agitándola a escondidas. Pieza nueva reutilizable: PM.botellaRefresco (botella con burbujas y espuma animables).",
+  "titulo_yt": "¿Por qué el refresco agitado EXPLOTA al abrirlo? 🥤 #shorts",
+  "descripcion_yt": "Al agitarlo, el gas forma burbujitas que al abrir crecen de golpe y empujan el refresco. Y darle golpecitos a la lata es mito. 🥤\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #refresco #mitos #shorts",
+  "titulo_tt": "¿Golpecitos a la lata? Es MITO 🥤",
+  "texto_tt": "Por qué el refresco agitado te explota y qué sí funciona. Etiqueta al que siempre te agita el refresco 😤 #datoscuriosos #ciencia #refresco #mitos #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "ojos-rojos-flash",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué con flash sales con ojos rojos? (de noche o con poca luz la pupila está dilatada; el flash es demasiado rápido para que la pupila se cierre; la luz entra, rebota en el fondo del ojo (coroides/retina, muy irrigada de vasos sanguíneos) y regresa roja a la cámara; truco: más luz en el cuarto o modo antiojos rojos (preflash) que contrae la pupila antes de la foto). Fuentes: West Texas A&M, Science Questions with Surprising Answers (Why do camera flashes make your eyes turn red?), All About Vision (What causes red eyes in photos?), American Academy of Ophthalmology (Seeing Red)",
+  "fuentes": [
+   "https://wtamu.edu/~cbaird/sq/2013/05/01/why-do-camera-flashes-make-your-eyes-turn-red/",
+   "https://www.allaboutvision.com/en-ca/resources/red-eye-photo/",
+   "https://www.aao.org/eye-health/tips-prevention/experiment-seeing-red"
+  ],
+  "tendencia": "Temporada de reuniones y fotos de noche (fin de mes, arranque de posadas y fiestas de fin de año)",
+  "formato": "¿por qué SIEMPRE…? + explicación + truco",
+  "categoria": "cuerpo / tecnología (fotos)",
+  "disparadores": [
+   "eres tú (todos tienen una foto así)",
+   "truco útil"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-22-1800-ojos-rojos-flash.json",
+  "visual": "Sala de fiesta de noche del kit, luz baja. 1) chibi se toma selfie con flash y la foto sale con ojos rojos brillando. 2) corte a ojo gigante con pupila bien abierta; el flash (rayo) llega más rápido que el párpado/pupila (reloj 'zas'). 3) rayo de luz entra, rebota en el fondo del ojo lleno de venitas y sale rojo hacia la cámara. 4) interruptor que prende la luz y doble flash: la pupila se achica antes y la foto sale normal. 5) grupo de amigos viendo la foto y uno con ojos rojos señalado. Pieza nueva reutilizable: PM.ojoCorte (ojo en corte con pupila que se abre/cierra).",
+  "titulo_yt": "¿Por qué sales con ojos ROJOS en las fotos? 📸 #shorts",
+  "descripcion_yt": "El flash es tan rápido que tu pupila no alcanza a cerrarse: la luz rebota en el fondo del ojo y regresa roja. Truco incluido. 📸\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #fotos #ojos #shorts",
+  "titulo_tt": "Por esto sales con ojos rojos 📸",
+  "texto_tt": "El flash le gana a tu pupila (y cómo evitarlo). Etiqueta a quien siempre sale con ojos rojos 👀 #datoscuriosos #ciencia #fotos #ojos #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "balon-curva",
+  "estado": "listo",
+  "prueba": "largo-40s",
+  "tema": "¿Cómo se dobla el balón en el aire? (al pegarle de lado el balón gira; al girar desvía el aire hacia un lado y por reacción el balón se va al otro: efecto Magnus, el mismo de la curva del beisbol; el tiro libre de Roberto Carlos contra Francia en 1997 parecía irse fuera y se metió: físicos en París (Dupeux, Clanet y Quéré, New Journal of Physics 2010) explicaron que al frenarse el balón la curva se cierra cada vez más, como espiral; sin giro, el aire forma remolinos irregulares y el balón 'baila' de forma impredecible (tiro de nudillo/knuckleball)). Fuentes: Physics World (The physics of football), Physics Today (Magnus effect responsible for great soccer goal), Scientific American (Physics of free kicks), PBS NOVA (How the Magnus force curves soccer and baseballs), Univ. of Rochester (What is the Magnus effect)",
+  "fuentes": [
+   "https://physicsworld.com/a/the-physics-of-football/",
+   "https://physicstoday.aip.org/news/magnus-effect-responsible-for-great-soccer-goal",
+   "https://www.scientificamerican.com/blog/observations/physics-of-free-kicks-the-hidden-advantage-of-long-distance-soccer-shots/",
+   "https://www.pbs.org/wgbh/nova/video/how-the-magnus-force-curves-soccer-and-baseballs",
+   "https://www.rochester.edu/newscenter/what-is-magnus-effect-definition-how-to-curve-soccer-ball-709592/"
+  ],
+  "tendencia": "Domingo de futbol (liga, cascaritas de fin de semana)",
+  "formato": "¿cómo…? + explicación + nombre (Magnus) + sorpresa a la mitad (Roberto Carlos y la espiral) + dato extra (balón sin giro) (LARGO prueba 40 s)",
+  "categoria": "deporte / física",
+  "disparadores": [
+   "eres tú (todos han pateado un balón)",
+   "sorpresa (el golazo imposible)",
+   "lo mexicano (la cascarita)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-22-2130-balon-curva.json",
+  "visual": "Cancha de futbol de barrio/estadio del kit; acción nueva cada 4–6 s. 1) balón sale y se dobla en el aire rodeando una barrera, signo de pregunta. 2) pie chibi le pega al costado del balón: flechas de giro. 3) balón girando con líneas de aire: el aire se va de un lado (flechas) y el balón se mueve al otro (flecha grande). 4) letrero 'EFECTO MAGNUS' y cambio rápido a pitcher de beisbol lanzando curva. 5) SORPRESA a la mitad: tiro libre largo, el balón sale muy abierto hacia fuera, el portero ni se mueve y ¡se mete! con '¡GOL!' (jugador genérico de amarillo, sin rostros reales). 6) trayectoria dibujada que se va cerrando en espiral de caracol junto a un caracol chibi. 7) balón sin giro haciendo zigzag con remolinos y portero mareado. 8) amigos en cascarita, uno presumiendo su tiro. Pieza nueva reutilizable: PM.balonGiro (balón con giro y estela de aire, trayectoria curva configurable).",
+  "titulo_yt": "¿Cómo se DOBLA el balón en el aire? ⚽ #shorts",
+  "descripcion_yt": "Si le pegas de lado, el balón gira y el aire lo empuja hacia un lado: efecto Magnus. Así se explicó el golazo de Roberto Carlos… y por qué el balón sin giro baila. ⚽\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #futbol #fisica #shorts",
+  "titulo_tt": "El secreto del balón que se dobla ⚽",
+  "texto_tt": "Efecto Magnus, el golazo de Roberto Carlos y el balón que baila 🤯 Etiqueta al que en la cascarita se cree crack #datoscuriosos #ciencia #futbol #fisica #aprendeentiktok",
+  "pedido": false
+ }
+]

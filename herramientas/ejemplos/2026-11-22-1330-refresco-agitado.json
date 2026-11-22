@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-22-1330-refresco-agitado",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el refresco agitado te explota al abrirlo?"
+   ]
+  },
+  {
+   "tipo": "burbujas",
+   "titulo": "",
+   "frases": [
+    "Al agitarlo, el gas forma montones de burbujitas pegadas por dentro."
+   ]
+  },
+  {
+   "tipo": "presion",
+   "titulo": "",
+   "frases": [
+    "Al abrirlo baja la presión: esas burbujas crecen de golpe y empujan el refresco afuera."
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "¿Y los golpecitos a la lata? Mito: un estudio en Dinamarca no encontró ninguna diferencia."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mejor espera unos minutos. Mándaselo al que te agita el refresco."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

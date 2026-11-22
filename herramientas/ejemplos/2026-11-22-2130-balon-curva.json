@@ -1,0 +1,75 @@
+{
+ "id": "2026-11-22-2130-balon-curva",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Cómo hace el balón para doblarse en el aire?"
+   ]
+  },
+  {
+   "tipo": "efecto",
+   "titulo": "",
+   "frases": [
+    "El secreto es pegarle de lado: el balón sale girando."
+   ]
+  },
+  {
+   "tipo": "aire",
+   "titulo": "",
+   "frases": [
+    "Al girar empuja el aire hacia un lado y el aire lo empuja al otro: se curva."
+   ]
+  },
+  {
+   "tipo": "magnus",
+   "titulo": "",
+   "frases": [
+    "Se llama efecto Magnus; así también se dobla la curva del beisbol."
+   ]
+  },
+  {
+   "tipo": "roberto",
+   "titulo": "",
+   "frases": [
+    "El tiro libre de Roberto Carlos en mil novecientos noventa y siete parecía irse fuera… y se metió."
+   ]
+  },
+  {
+   "tipo": "caracol",
+   "titulo": "",
+   "frases": [
+    "En Francia explicaron por qué: al frenarse, el balón se curva cada vez más, como un caracol."
+   ]
+  },
+  {
+   "tipo": "sinGiro",
+   "titulo": "",
+   "frases": [
+    "¿Y sin giro? El aire lo zarandea y el balón baila sin que el portero adivine."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al que en la cascarita se cree Roberto Carlos."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-22-1800-ojos-rojos-flash",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué con flash SIEMPRE sales con ojos rojos?"
+   ]
+  },
+  {
+   "tipo": "pupila",
+   "titulo": "",
+   "frases": [
+    "De noche tu pupila está abierta y el flash es tan rápido que no alcanza a cerrarse."
+   ]
+  },
+  {
+   "tipo": "rebote",
+   "titulo": "",
+   "frases": [
+    "La luz rebota en el fondo del ojo, lleno de venitas, y sale roja."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: prende la luz o usa el doble flash; así la pupila se cierra antes."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien siempre sale con ojos rojos."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
