@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-23-1330-luces-enredadas",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué las luces de Navidad SIEMPRE salen enredadas?"
+   ]
+  },
+  {
+   "tipo": "caja",
+   "titulo": "",
+   "frases": [
+    "Unos físicos metieron cuerdas en una caja que giraba."
+   ]
+  },
+  {
+   "tipo": "nudos",
+   "titulo": "",
+   "frases": [
+    "En segundos se anudaban solitas, y entre más larga la cuerda, más nudos."
+   ]
+  },
+  {
+   "tipo": "punta",
+   "titulo": "",
+   "frases": [
+    "Con cada sacudida, la punta se cuela entre las vueltas y se amarra."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Truco: enróllalas en un cartón y amarra las puntas. Mándaselo al que las desenreda cada diciembre."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

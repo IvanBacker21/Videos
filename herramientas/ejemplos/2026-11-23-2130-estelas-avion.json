@@ -1,0 +1,75 @@
+{
+ "id": "2026-11-23-2130-estelas-avion",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Esas rayas blancas que dejan los aviones… no son humo."
+   ]
+  },
+  {
+   "tipo": "motor",
+   "titulo": "",
+   "frases": [
+    "El motor suelta vapor de agua calientito, igual que tu aliento."
+   ]
+  },
+  {
+   "tipo": "hielo",
+   "titulo": "",
+   "frases": [
+    "Allá arriba hace un frío peor que el de tu congelador, y el vapor se vuelve cristalitos de hielo."
+   ]
+  },
+  {
+   "tipo": "nube",
+   "titulo": "",
+   "frases": [
+    "O sea: es una nube que fabrica el avión."
+   ]
+  },
+  {
+   "tipo": "sorpresa",
+   "titulo": "",
+   "frases": [
+    "Y fíjate cuánto duran: si se borran en segundos, allá arriba el aire está seco."
+   ]
+  },
+  {
+   "tipo": "humedad",
+   "titulo": "",
+   "frases": [
+    "Si se quedan horas, hay mucha humedad, y a veces eso anuncia un cambio de clima."
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "¿Químicos para fumigar? De setenta y siete expertos encuestados, setenta y seis no hallaron ninguna prueba."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien jura que los aviones nos fumigan."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

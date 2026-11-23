@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-23-1800-chocolate-blanco",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el chocolate se pone blanco?"
+   ]
+  },
+  {
+   "tipo": "grasa",
+   "titulo": "",
+   "frases": [
+    "No son hongos: es su propia grasa, la manteca de cacao."
+   ]
+  },
+  {
+   "tipo": "calor",
+   "titulo": "",
+   "frases": [
+    "Con el calor se derrite, sale a la superficie y cuaja en polvito blanco."
+   ]
+  },
+  {
+   "tipo": "refri",
+   "titulo": "",
+   "frases": [
+    "En el refri pasa igual con el azúcar, por la humedad."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Sí se puede comer. Mándaselo a quien tiró un chocolate creyendo que estaba echado a perder."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

@@ -1,0 +1,82 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "luces-enredadas",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué las luces de Navidad SIEMPRE salen enredadas? (Raymer y Smith, Universidad de California en San Diego, PNAS 2007: metieron cuerdas en una caja que giraba; en segundos se formaban nudos solos; con menos de medio metro casi nunca, y la probabilidad subía con la longitud; la punta suelta se cuela entre las vueltas paralelas y cada sacudida la amarra; truco: enrollarlas fijas en un cartón y amarrar las puntas para que no se muevan). Fuentes: PNAS/PMC (Spontaneous knotting of an agitated string), Physics Today (Pieces of tumbled string form knots), NPR (Physicists study the knotty problem)",
+  "fuentes": [
+   "https://pmc.ncbi.nlm.nih.gov/articles/PMC2034230",
+   "https://physicstoday.aip.org/news/pieces-of-tumbled-string-form-topologically-simple-and-complex-knots",
+   "https://www.npr.org/transcripts/18050281"
+  ],
+  "tendencia": "Fin de noviembre: todos sacan las series de luces para poner el árbol y el nacimiento",
+  "formato": "¿por qué SIEMPRE…? + experimento + truco útil",
+  "categoria": "casa / física (Navidad)",
+  "disparadores": [
+   "eres tú (todos han desenredado luces)",
+   "truco útil (enrollarlas en cartón)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-23-1330-luces-enredadas.json",
+  "visual": "Sala de casa del kit con árbol de Navidad a medio poner. 1) personaje chibi saca de una caja una bola gigante de luces enredadas, cara de desesperación, signo de pregunta. 2) laboratorio: científico chibi mete un cordón a una caja transparente que gira. 3) la caja se detiene y el cordón sale lleno de nudos; tres cordones de distinto largo, el más largo con más nudos. 4) zoom: la punta del cable se mete entre las vueltas con flechitas, ¡pum! nudo. 5) truco: las luces enrolladas en un cartón con puntas amarradas, palomita verde; amigo desenredando luces. Pieza nueva reutilizable: PM.serieLuces (cable de foquitos de colores que parpadean, enredado/enrollado configurable).",
+  "titulo_yt": "¿Por qué las luces SIEMPRE se enredan? 🎄 #shorts",
+  "descripcion_yt": "Las series de luces se anudan solas: unos físicos lo probaron con cuerdas en una caja que giraba. Truco: enróllalas en un cartón. 🎄\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #navidad #fisica #shorts",
+  "titulo_tt": "Por qué tus luces de Navidad salen hechas bolas 🎄",
+  "texto_tt": "Los físicos ya lo explicaron (y tienen truco) 🤯 Etiqueta al que se pelea con las luces cada diciembre #datoscuriosos #ciencia #navidad #fisica #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "chocolate-blanco",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué el chocolate se pone blanco? (no es moho: 'bloom' o florecimiento; con cambios de temperatura la manteca de cacao se derrite, migra a la superficie y recristaliza como capa blanca (fat bloom); en el refri o con humedad, el agua disuelve el azúcar de la superficie y al secarse queda polvito de azúcar (sugar bloom); es seguro comerlo, solo cambia la textura; derretido para chocolate caliente queda normal). Fuentes: Agencia Canadiense de Inspección de Alimentos (Chocolate bloom), Live Science (Why does chocolate turn white?), The Conversation (What's this white stuff on my Easter chocolate)",
+  "fuentes": [
+   "https://inspection.canada.ca/en/food-safety-consumers/fact-sheets/specific-products-and-risks/commonly-occurring-issues-food/chocolate-bloom",
+   "https://www.livescience.com/why-chocolate-turns-white",
+   "https://theconversation.com/whats-this-white-stuff-on-my-easter-chocolate-and-can-i-still-eat-it-181274"
+  ],
+  "tendencia": "Temporada de chocolate caliente, tablillas y dulces de fin de año",
+  "formato": "¿por qué…? + mito (no son hongos) + explicación + tranquilidad útil",
+  "categoria": "comida / casa",
+  "disparadores": [
+   "¿ves? te dije (no estaba echado a perder)",
+   "eres tú (todos han visto un chocolate blanco)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-23-1800-chocolate-blanco.json",
+  "visual": "Cocina mexicana del kit. 1) personaje encuentra una tablilla de chocolate con manchas blancas al fondo de la alacena, cara de asco, signo de pregunta. 2) lupa: aparece un hongo chibi con tache rojo 'NO'; luego gotitas doradas de 'manteca de cacao' dentro del chocolate. 3) sol/termómetro sube: las gotitas suben a la superficie y se vuelven polvito blanco. 4) refri que se abre con vaho, gotitas de agua y cristalitos de azúcar en la superficie. 5) el chocolate se derrite en una taza de chocolate caliente humeante, palomita verde; amigo arrepentido junto al bote de basura. Pieza nueva reutilizable: PM.tablillaChocolate (tablilla con estado normal/blanqueado y animación de derretirse).",
+  "titulo_yt": "¿Por qué el chocolate se pone BLANCO? 🍫 #shorts",
+  "descripcion_yt": "No son hongos: es la manteca de cacao (o el azúcar) que sale a la superficie. Sí se puede comer. 🍫\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #chocolate #comida #shorts",
+  "titulo_tt": "Tu chocolate blanco NO está echado a perder 🍫",
+  "texto_tt": "Esa capa blanca no son hongos 😮 Etiqueta a quien tira el chocolate por esto #datoscuriosos #ciencia #chocolate #comida #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "estelas-avion",
+  "estado": "listo",
+  "prueba": "largo-40s",
+  "tema": "¿Qué son las rayas blancas que dejan los aviones? (estelas de condensación: el escape del motor trae vapor de agua caliente; a la altura de crucero el aire está muchísimo más frío que un congelador (cerca de −40 °C o menos) y el vapor se congela en cristales de hielo: una nube artificial, como el vaho; si el aire allá arriba está seco se evaporan en segundos, si está húmedo duran horas y se extienden, y esa humedad a veces llega antes de un cambio de tiempo; mito 'chemtrails': encuesta de Shearer et al. (Environmental Research Letters 2016) a 77 expertos en atmósfera y geoquímica: 76 no hallaron evidencia de un programa secreto de rociado). Fuentes: FAA (Contrails fact sheet), EPA (Contrails), EarthSky (Atmospheric scientists say no to chemtrails), IOP/ERL Shearer 2016",
+  "fuentes": [
+   "https://www.faa.gov/contrails/fact-sheet",
+   "https://www.epa.gov/contrails",
+   "https://earthsky.org/earth/atmospheric-scientists-say-no-chemtrails",
+   "https://iopscience.iop.org/article/10.1088/1748-9326/11/8/084011"
+  ],
+  "tendencia": "Temporada de vacaciones y vuelos de fin de año; cielos despejados de noviembre llenos de estelas",
+  "formato": "gancho 'no es humo' + explicación + sorpresa a la mitad (cuánto duran = humedad/clima) + segundo mito (fumigan) (LARGO prueba 40 s)",
+  "categoria": "cielo / tecnología",
+  "disparadores": [
+   "eres tú (todos las han visto)",
+   "sorpresa (son nubes de hielo)",
+   "¿ves? te dije (no nos fumigan)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-23-2130-estelas-avion.json",
+  "visual": "Cielo azul 3D/parque del kit; acción nueva cada 4–6 s. 1) niño chibi en el parque señala un avión que deja una raya blanca; letrero 'humo' con tache. 2) zoom al motor: sale vapor calientito y a un lado un chibi echando vaho (reutiliza la pieza del vaho del 16-nov). 3) termómetro que baja muy por debajo de un congelador chibi; el vapor se vuelve cristalitos de hielo brillantes. 4) la raya se transforma en una nubecita con carita, letrero 'nube hecha por el avión'. 5) SORPRESA: cielo dividido; a la izquierda la raya desaparece rápido (aire seco, sol); 6) a la derecha la raya se queda y se esparce en nubes, se acercan nubes grises (cambio de clima). 7) mito: avión con tanque de 'químicos' con tache; grupo de científicos chibi con lupas, setenta y seis con palomita. 8) amigo con gorro de papel aluminio que se lo quita apenado. Pieza nueva reutilizable: PM.estelaAvion (avión que deja estela con duración/dispersión configurable).",
+  "titulo_yt": "¿Qué son las rayas BLANCAS de los aviones? ✈️ #shorts",
+  "descripcion_yt": "No son humo: son nubes de hielo que fabrica el avión. Cuánto duran te dice si hay humedad allá arriba… y el mito de que nos fumigan. ✈️\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #aviones #clima #shorts",
+  "titulo_tt": "Las rayas de los aviones NO son humo ✈️",
+  "texto_tt": "Son nubes de hielo… y cuánto duran te dice algo del clima 🤯 Etiqueta al que dice que nos fumigan #datoscuriosos #ciencia #aviones #clima #aprendeentiktok",
+  "pedido": false
+ }
+]
