@@ -990,5 +990,24 @@
   "titulo": "¿Por qué sales con ojos ROJOS en las fotos? 📸 #shorts",
   "pedido": false,
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-22",
+  "hora": "21:30",
+  "tema": "¿Cómo se dobla el balón en el aire? (al pegarle de lado el balón gira; al girar desvía el aire hacia un lado y por reacción el balón se va al otro: efecto Magnus, el mismo de la curva del beisbol; el tiro libre de Roberto Carlos contra Francia en 1997 parecía irse fuera y se metió: físicos en París (Dupeux, Clanet y Quéré, New Journal of Physics 2010) explicaron que al frenarse el balón la curva se cierra cada vez más, como espiral; sin giro, el aire forma remolinos irregulares y el balón 'baila' de forma impredecible (tiro de nudillo/knuckleball)). Fuentes: Physics World (The physics of football), Physics Today (Magnus effect responsible for great soccer goal), Scientific American (Physics of free kicks), PBS NOVA (How the Magnus force curves soccer and baseballs), Univ. of Rochester (What is the Magnus effect)",
+  "formato": "¿cómo…? + explicación + nombre (Magnus) + sorpresa a la mitad (Roberto Carlos y la espiral) + dato extra (balón sin giro) (LARGO prueba 40 s)",
+  "categoria": "deporte / física",
+  "tendencia": "Domingo de futbol (liga, cascaritas de fin de semana)",
+  "disparadores": [
+   "eres tú (todos han pateado un balón)",
+   "sorpresa (el golazo imposible)",
+   "lo mexicano (la cascarita)"
+  ],
+  "duracion": 45.6,
+  "mejora": "papel_pm.js: PM.balonGiro (balón de futbol o pelota de beisbol con flechas de giro, aire que se desvía y remolinos) + PM.curvaBalon + PM.estela (trayectorias punteadas)",
+  "archivo": "shorts/2026-11-22-2130-balon-curva.mp4",
+  "titulo": "¿Cómo se DOBLA el balón en el aire? ⚽ #shorts",
+  "pedido": false,
+  "prueba": "largo-40s"
  }
 ]

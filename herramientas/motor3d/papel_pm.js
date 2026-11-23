@@ -1465,5 +1465,55 @@ export function kitPM(P, THREE, group) {
   // PM.ojosRojos(p): pupilas que brillan rojas en los ojos de un chibi (foto con flash). Regresa f(k 0..1).
   function ojosRojos(p) { const rs = p.head.ojos.map(e => { const r = det(F.elipse(.058, .092), 0xff2b3f, [0, -.005, .004], e); det(F.elipse(.03, .05), 0xff9a7a, [0, -.01, .002], r); det(F.circ(.014), 0xffffff, [.02, .04, .004], r); r.visible = false; return r; });
     return k => rs.forEach(r => { r.visible = k > .02; r.scale.setScalar(Math.max(.001, k)); }); }
-  return { ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= BALÓN CON GIRO (22-nov-2026 21:30, short del balón que se dobla) =================
+  // PM.balonGiro(pos, o, padre): balón de futbol de cartulina (o.tipo 'beis' = pelota de beisbol con costuras rojas).
+  //   g.gira(ang): gira el balón (no las flechas); g.flechas: flechas amarillas de giro alrededor (g.flechas.update(t, k, dir));
+  //   g.aire: líneas de aire que pasan junto al balón y se van hacia un lado (g.aire.update(t, k, lado 1 = arriba | -1 = abajo));
+  //   g.remolinos: espiralitas detrás del balón (balón sin giro: g.remolinos.update(t, k)).
+  // PM.curvaBalon(p0, c1, c2, p1, n): puntos de una curva (Bézier cúbica) para trayectorias; PM.estela(pts, o, padre): puntitos de la
+  //   trayectoria que se van mostrando: e.update(k) y e.en(k) → [x, y] sobre la curva (k 0..1, por longitud).
+  function balonGiro(pos, o = {}, parent = null) { const g = group(pos, parent), r = o.r ?? .16, beis = o.tipo === 'beis';
+    const b = g.bola = group([0, 0, 0], g);
+    pz(F.circ(r), 0xffffff, [0, 0, 0], b, { tinta: .014, papel: .045 });
+    if (!beis) { const pent = (rr, a0) => { const p = []; for (let i = 0; i < 5; i++) { const a = a0 + i / 5 * Math.PI * 2; p.push([Math.cos(a) * rr, Math.sin(a) * rr]); } return F.poly(p); };
+      det(pent(r * .32, Math.PI / 2), 0x23202e, [0, 0, .014], b);
+      for (let i = 0; i < 5; i++) { const a = Math.PI / 2 + i / 5 * Math.PI * 2 + Math.PI / 5, d = r * .8;
+        det(pent(r * .2, a + Math.PI), 0x23202e, [Math.cos(a) * d, Math.sin(a) * d, .014], b);
+        linea([[Math.cos(a - Math.PI / 5) * r * .3, Math.sin(a - Math.PI / 5) * r * .3], [Math.cos(a - Math.PI / 5) * r * .62, Math.sin(a - Math.PI / 5) * r * .62]], r * .04, 0x6b6878, b, .016); } }
+    else for (const sx of [-1, 1]) { const pts = []; for (let i = 0; i <= 16; i++) { const a = -1.1 + i / 16 * 2.2; pts.push([sx * (r * 1.25 - Math.cos(a) * r * .75), Math.sin(a) * r * .8]); }
+      linea(pts, r * .05, 0xe2323f, b, .016); for (let i = 1; i < 16; i += 2) { const [x, y] = pts[i]; linea([[x - r * .1, y + r * .03], [x + r * .1, y - r * .03]], r * .035, 0xe2323f, b, .018); } }
+    det(F.elipse(r * .22, r * .14), 0xffffff, [-r * .45, r * .5, .03], g);                       // brillo fijo (no gira)
+    g.gira = a => b.rotation.z = a;
+    // flechas de giro (dos arcos con punta)
+    const fl = g.flechas = group([0, 0, .06], g);
+    [0, Math.PI].forEach(a0 => { const q = group([0, 0, 0], fl); q.rotation.z = a0;
+      pz(F.arco(r * 1.45, r * .16, .25, 1.75), 0xffc83d, [0, 0, 0], q, { tinta: .012, papel: .03 });
+      const a = 1.75, R = r * 1.45; pz(F.poly([[0, r * .26], [0, -r * .26], [-r * .3, 0]]), 0xffc83d, [Math.cos(a) * R, Math.sin(a) * R, 0], q, { tinta: .012, papel: .03, rot: a }); });
+    fl.update = (t, k = 1, dir = 1) => { fl.visible = k > .02; fl.scale.set(dir * Math.max(.001, k), Math.max(.001, k), 1); fl.rotation.z = dir * t * 3; };
+    fl.update(0, 0);
+    // líneas de aire: vienen de la derecha (el balón avanza a la derecha), rodean el balón y salen inclinadas hacia "lado"
+    const ai = g.aire = group([0, 0, -.02], g); ai.lin = [-2.1, -1.3, 1.3, 2.1].map(j => { const l = group([0, j * r, 0], ai); l.j = j;
+      l.d = [0, 1, 2].map(() => pz(F.rect(r * .6, r * .12, .004), 0xffffff, [0, 0, 0], l, { tinta: .01, papel: .025 })); return l; });
+    ai.update = (t, k = 1, lado = -1) => { ai.visible = k > .02; const m = r * 1.7 * lado * k, X = r * 3.4;
+      ai.lin.forEach(l => l.d.forEach((d, i) => { const u = ((t * .9 + i / 3 + l.j * .11) % 1 + 1) % 1, x = X - u * X * 2, q = x < 0 ? -x / X : 0;
+        d.position.set(x, m * q * q * 1.6 + m * q * .2, 0); d.rotation.z = x < 0 ? -Math.atan(m * (3.2 * q + .2) / X) : 0;
+        d.scale.setScalar(Math.max(.001, Math.min(1, k * 1.5) * Math.sin(u * Math.PI))); })); };
+    ai.update(0, 0);
+    // remolinos (sin giro): espiralitas que aparecen detrás y se desvanecen
+    const rm = g.remolinos = group([0, 0, -.02], g); const esp = []; for (let i = 0; i <= 24; i++) { const a = i / 24 * Math.PI * 3.2, rr = .01 + i / 24 * r * .55; esp.push([Math.cos(a) * rr, Math.sin(a) * rr]); }
+    rm.e = [0, 1, 2, 3].map(i => { const e = group([0, 0, 0], rm); pz(tubo(esp, r * .09, r * .09), 0xffffff, [0, 0, 0], e, { tinta: .01, papel: .025 }); e.i = i; return e; });
+    rm.update = (t, k = 1) => { rm.visible = k > .02; rm.e.forEach(e => { const u = ((t * 1.3 + e.i / 4) % 1 + 1) % 1;
+      e.position.set(-r * 1.2 - u * r * 3.5, Math.sin(e.i * 2.4 + t * 2) * r * 1.2, 0); e.rotation.z = (e.i % 2 ? 1 : -1) * t * 6; e.scale.setScalar(Math.max(.001, k * Math.sin(u * Math.PI) * (.8 + .3 * e.i / 3))); }); };
+    rm.update(0, 0);
+    return g; }
+  function curvaBalon(p0, c1, c2, p1, n = 60) { const pts = []; for (let i = 0; i <= n; i++) { const u = i / n, v = 1 - u;
+      pts.push([v * v * v * p0[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * p1[0], v * v * v * p0[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * p1[1]]); } return pts; }
+  function estela(pts, o = {}, parent = null) { const g = group([0, 0, o.z ?? 0], parent), L = [0];
+    for (let i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const tot = g.largo = L[L.length - 1], paso = o.paso ?? .09;
+    g.en = k => { const d = Math.min(1, Math.max(0, k)) * tot; let i = 1; while (i < L.length - 1 && L[i] < d) i++; const q = (d - L[i - 1]) / Math.max(1e-6, L[i] - L[i - 1]);
+      return [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * q, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * q]; };
+    g.p = []; for (let d = 0; d <= tot; d += paso) { const [x, y] = g.en(d / tot); const p = pz(F.circ(o.r ?? .028), o.color ?? 0xffffff, [x, y, 0], g, { tinta: .008, papel: .02 }); p.k = d / tot; g.p.push(p); }
+    g.update = k => g.p.forEach(p => { p.visible = p.k <= k; }); g.update(0); return g; }
+  return { balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

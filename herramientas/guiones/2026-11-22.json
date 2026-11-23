@@ -55,7 +55,7 @@
  {
   "hora": "21:30",
   "slug": "balon-curva",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "largo-40s",
   "tema": "¿Cómo se dobla el balón en el aire? (al pegarle de lado el balón gira; al girar desvía el aire hacia un lado y por reacción el balón se va al otro: efecto Magnus, el mismo de la curva del beisbol; el tiro libre de Roberto Carlos contra Francia en 1997 parecía irse fuera y se metió: físicos en París (Dupeux, Clanet y Quéré, New Journal of Physics 2010) explicaron que al frenarse el balón la curva se cierra cada vez más, como espiral; sin giro, el aire forma remolinos irregulares y el balón 'baila' de forma impredecible (tiro de nudillo/knuckleball)). Fuentes: Physics World (The physics of football), Physics Today (Magnus effect responsible for great soccer goal), Scientific American (Physics of free kicks), PBS NOVA (How the Magnus force curves soccer and baseballs), Univ. of Rochester (What is the Magnus effect)",
   "fuentes": [
