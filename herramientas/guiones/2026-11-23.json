@@ -28,7 +28,7 @@
  {
   "hora": "18:00",
   "slug": "chocolate-blanco",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "normal",
   "tema": "¿Por qué el chocolate se pone blanco? (no es moho: 'bloom' o florecimiento; con cambios de temperatura la manteca de cacao se derrite, migra a la superficie y recristaliza como capa blanca (fat bloom); en el refri o con humedad, el agua disuelve el azúcar de la superficie y al secarse queda polvito de azúcar (sugar bloom); es seguro comerlo, solo cambia la textura; derretido para chocolate caliente queda normal). Fuentes: Agencia Canadiense de Inspección de Alimentos (Chocolate bloom), Live Science (Why does chocolate turn white?), The Conversation (What's this white stuff on my Easter chocolate)",
   "fuentes": [

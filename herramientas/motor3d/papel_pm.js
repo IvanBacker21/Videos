@@ -1586,5 +1586,56 @@ export function kitPM(P, THREE, group) {
     g.revela = k => { tramos.forEach(tg => { tg.visible = tg.k0 < k - .001; }); g.focos.forEach(f => { f.visible = f.k <= k; });
       if (g.clavija) { const e = g.en(k); g.clavija.position.set(e[0], e[1], e[2] + .03); g.clavija.rotation.z = g.ang(Math.min(.995, Math.max(.005, k))); g.clavija.visible = k > .01; } };
     g.update(0); return g; }
-  return { serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // PM.tablillaChocolate(pos, o, padre) (23-nov 18:00): tablilla de chocolate de cartulina. o.vista 'frente' (default): cuadritos en relieve y
+  //   envoltura roja con papel dorado a la derecha (o.envoltura:false sin ella). o: {w, h, cols, filas, color, semilla}.
+  //   g.blanquea(k 0..1) manchas y velo blanco (bloom) · g.suda(k) gotitas de agua encima · g.derrite(k) se escurre (charquito y gotas)
+  //   o.vista 'corte': rebanada vista de lado con gotitas doradas de manteca adentro: g.sube(k) suben a la superficie, g.polvo(k) costra de
+  //   cristalitos blancos arriba (llama sube y luego polvo), g.suda(k) gotitas de agua sobre la superficie. g.topY = superficie (local).
+  function tablillaChocolate(pos, o = {}, parent = null) {
+    const corte = o.vista === 'corte', g = group(pos, parent), w = o.w ?? .9, h = o.h ?? (corte ? .4 : .5), col = o.color ?? 0x6b3a22, BL = 0xf4ede2;
+    let sm = o.semilla ?? 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647, c01 = x => Math.min(1, Math.max(0, x));
+    const c = g.cuerpo = group([0, 0, 0], g); g.topY = h / 2;
+    if (corte) {
+      pz(F.rect(w, h, .04), col, [0, 0, 0], c, { tinta: .016, papel: .05 });
+      det(F.rect(w - .04, h * .22, .02), osc(col, .82), [0, -h * .36, .014], c);
+      g.gotas = []; const n = o.n ?? Math.round(w * 9);
+      for (let i = 0; i < n; i++) { const x = -w / 2 + .07 + (i + .5) / n * (w - .14) + (rnd() - .5) * .03, y = -h / 2 + .08 + rnd() * (h - .2);
+        const d = pz(F.circ(.03 + rnd() * .018), 0xffc94d, [x, y, .03], c, { tinta: .008, papel: false }); det(F.circ(.009), 0xfff4c2, [-.01, .012, .006], d); d.y0 = y; d.f = rnd(); g.gotas.push(d); }
+      const nc = Math.round(w * 14); g.cristales = [];
+      for (let i = 0; i < nc; i++) { const q = pz(F.estrella(4, .055 + rnd() * .02, .02), BL, [-w / 2 + .04 + (i + .5) / nc * (w - .08), h / 2 + .02, .04], c, { tinta: .006, papel: false }); q.rotation.z = rnd(); q.f = i / nc; q.scale.setScalar(.001); g.cristales.push(q); }
+      g.sube = k => g.gotas.forEach(d => { const q = c01(k * 1.5 - d.f * .5), e = q * q * (3 - 2 * q); d.position.y = d.y0 + (h / 2 - .025 - d.y0) * e; d.scale.setScalar(1 - .25 * e); });
+      g.polvo = k => { g.cristales.forEach(q => q.scale.setScalar(Math.max(.001, c01(k * 1.6 - q.f * .6)))); if (k > 0) g.gotas.forEach(d => d.scale.setScalar(Math.max(.001, d.scale.x * (1 - c01(k * 1.3))))); };
+      g.sube(0); g.polvo(0);
+    } else {
+      pz(F.rect(w, h, .05), col, [0, 0, 0], c, { tinta: .018, papel: .06 });
+      const cols = o.cols ?? 4, fil = o.filas ?? 2, cw = (w - .08) / cols, ch = (h - .08) / fil;
+      for (let i = 0; i < cols; i++) for (let j = 0; j < fil; j++) { const x = -w / 2 + .04 + (i + .5) * cw, y = -h / 2 + .04 + (j + .5) * ch;
+        det(F.rect(cw * .84, ch * .84, .02), osc(col, .78), [x + .008, y - .008, .014], c); det(F.rect(cw * .78, ch * .78, .02), mez(col, 0xffffff, .1), [x, y, .018], c);
+        det(F.rect(cw * .3, .014, .007), mez(col, 0xffffff, .35), [x - cw * .15, y + ch * .28, .022], c); }
+      const env = o.envoltura !== false, xr = env ? .58 : 1;
+      g.velo = matPropio(det(F.rect(w - .05, h - .05, .03), BL, [0, 0, .024], c), BL, 0);
+      g.manchas = []; for (let i = 0; i < 10; i++) { const r = .045 + rnd() * .055, pts = []; for (let a = 0; a < 7; a++) { const an = a / 7 * Math.PI * 2, k = r * (.7 + rnd() * .5); pts.push([Math.cos(an) * k * 1.25, Math.sin(an) * k]); }
+        const m = det(blob(pts), BL, [-w / 2 + .07 + rnd() * (w - .14) * xr, -h / 2 + .07 + rnd() * (h - .14), .028], c); m.scale.setScalar(.001); m.f = i / 10; g.manchas.push(m); }
+      if (env) { const e = g.env = group([0, 0, .05], c), x0 = w * .1, zz = [[x0 - .05, h / 2 + .02]];
+        for (let i = 1; i <= 8; i++) zz.push([x0 - (i % 2 ? .01 : .05), h / 2 + .02 - i * (h + .04) / 8]);
+        zz.push([w / 2 + .02, -h / 2 - .02], [w / 2 + .02, h / 2 + .02]);
+        pz(F.poly(zz), 0xe8c35a, [0, 0, 0], e, { tinta: .01, papel: false });
+        const rw = w / 2 + .03 - x0;
+        pz(F.rect(rw, h + .08, .03), 0xd9343f, [x0 + .03 + rw / 2, 0, .012], e, { tinta: .016, papel: .05 });
+        det(F.rect(rw, .05, .01), 0xffd23d, [x0 + .03 + rw / 2, h * .22, .03], e); det(F.rect(rw, .05, .01), 0xffd23d, [x0 + .03 + rw / 2, -h * .22, .03], e);
+        det(F.corazon ? F.corazon(.14) : F.circ(.06), 0xfff4e4, [x0 + .03 + rw / 2, 0, .032], e); }
+      // derretido: charquito y gotas (no se escalan con el cuerpo)
+      g.charco = det(F.elipse(w * .42, .05), osc(col, .9), [0, -h / 2 - .02, .02], g); g.charco.scale.setScalar(.001);
+      g.escurre = [-.25, .05, .3].map((x, i) => { const d = pz(F.gota(.12), col, [x * w, -h / 2 + .01, .04], g, { tinta: .01, papel: false }); d.rotation.z = Math.PI; d.f = i * .2; d.scale.setScalar(.001); return d; });
+      g.derrite = k => { const e = c01(k); c.scale.y = Math.max(.05, 1 - .62 * e); c.position.y = -h / 2 * .62 * e; c.rotation.z = Math.sin(e * 3) * .03;
+        g.charco.scale.set(Math.max(.001, e * 1.2), Math.max(.001, e), 1); g.escurre.forEach(d => { const q = c01(e * 1.8 - d.f); d.scale.setScalar(Math.max(.001, q)); d.position.y = -h / 2 * (1 - .62 * e) * 1 - .02 * q; }); };
+      g.blanquea = k => { g.manchas.forEach(m => m.scale.setScalar(Math.max(.001, c01(k * 1.6 - m.f * .6)))); g.velo.children[0].material.opacity = .35 * c01(k); };
+      g.blanquea(0);
+    }
+    const na = corte ? Math.round(w * 5) : 7; g.aguas = [];
+    for (let i = 0; i < na; i++) { const x = corte ? -w / 2 + .08 + (i + .5) / na * (w - .16) : -w / 2 + .1 + rnd() * (w - .2) * (o.envoltura === false ? 1 : .55), y = corte ? h / 2 + .055 : -h / 2 + .1 + rnd() * (h - .2);
+      const d = pz(F.gota(.12), 0x8fd3ff, [x, y, .07], c, { tinta: .008, papel: false }); det(F.circ(.012), 0xffffff, [-.013, -.012, .006], d); d.f = i / na; d.scale.setScalar(.001); g.aguas.push(d); }
+    g.suda = k => g.aguas.forEach(d => d.scale.setScalar(Math.max(.001, c01(k * 1.6 - d.f * .6))));
+    return g; }
+  return { tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
