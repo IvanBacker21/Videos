@@ -1515,5 +1515,76 @@ export function kitPM(P, THREE, group) {
       return [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * q, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * q]; };
     g.p = []; for (let d = 0; d <= tot; d += paso) { const [x, y] = g.en(d / tot); const p = pz(F.circ(o.r ?? .028), o.color ?? 0xffffff, [x, y, 0], g, { tinta: .008, papel: .02 }); p.k = d / tot; g.p.push(p); }
     g.update = k => g.p.forEach(p => { p.visible = p.k <= k; }); g.update(0); return g; }
-  return { balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // PM.serieLuces(pos, o, padre) (23-nov): serie de foquitos navideños de cartulina (cable verde + focos de colores que parpadean) o cuerda sola.
+  //   o.modo: 'recta' (o.largo, o.nudos = [u 0..1] lazos con cruce, o.rNudo), 'bola' (madeja enredada de radio o.r con dos puntas sueltas),
+  //   'carton' (enrollada en un cartón o.w × o.h, o.vueltas, moños en las puntas), o.pts = ruta propia [[x, y, z?]] (z por punto: pasa encima/debajo).
+  //   o.focos:false = cuerda sola (o.color, o.grosor); o.enchufe:true = clavija en la punta final; o.s escala. Cada tramo se dibuja con su tinta,
+  //   así los cruces se ven por encima/debajo. g.update(t, on) parpadeo · g.revela(k 0..1) muestra la ruta hasta k (la clavija sigue la punta)
+  //   g.en(k) → [x, y] de la ruta · g.ang(k) ángulo · g.nudos: puntitos de cada nudo (escálalos para que "aparezcan") · g.amarra(k) moños (carton) · g.carton
+  function serieLuces(pos, o = {}, parent = null) {
+    const g = group(pos, parent); g.scale.setScalar(o.s ?? 1);
+    const modo = o.modo ?? 'recta', focos = o.focos !== false, cab = o.color ?? (focos ? 0x2f7d32 : 0xff8a3d), gr = o.grosor ?? (focos ? .03 : .036);
+    let pts = o.pts ? o.pts.map(p => [p[0], p[1], p[2] ?? 0]) : null; const cruces = [];
+    if (!pts && modo === 'recta') { const L = o.largo ?? 1.6, rk = o.rNudo ?? .09, a = rk * .3, nd = (o.nudos ?? []).slice().sort((x, y) => x - y), N = Math.max(8, Math.round(L / .04)), f = o.fase ?? 0;
+      const yb = x => Math.sin((x / L) * 9 + f) * .018; pts = []; let j = 0;
+      for (let i = 0; i <= N; i++) { const x = -L / 2 + i / N * L;
+        if (j < nd.length && x >= -L / 2 + nd[j] * L - a * Math.PI) { const x0 = -L / 2 + nd[j] * L, y0 = yb(x0);
+          for (let s = 0; s <= 28; s++) { const th = s / 28 * Math.PI * 2; pts.push([x0 + a * (th - Math.PI) + rk * Math.sin(th), y0 + rk * (1 - Math.cos(th)) * (o.abajo ? -1 : 1), s > 14 ? .004 : 0]); }
+          let th = 1; for (let it = 0; it < 30; it++) th -= (a * (th - Math.PI) + rk * Math.sin(th)) / (a + rk * Math.cos(th));      // cruce del lazo
+          cruces.push([x0, y0 + rk * (1 - Math.cos(th)) * (o.abajo ? -1 : 1)]);
+          while (i < N && -L / 2 + (i + 1) / N * L <= x0 + a * Math.PI + .01) i++; j++; continue; }
+        pts.push([x, yb(x), 0]); } }
+    if (!pts && modo === 'bola') { const R = o.r ?? .4, f1 = o.fase ?? .7, f2 = f1 * 2.3 + 1, n = 320; pts = [];
+      const cur = u => [R * (.6 * Math.cos(u) + .36 * Math.cos(5.3 * u + f1)), R * (.6 * Math.sin(1.13 * u) + .36 * Math.sin(4.1 * u + f2)) * .92];
+      const c0 = cur(0); for (let s = 0; s < 6; s++) { const k = s / 6; pts.push([-R * 1.35 + (c0[0] + R * 1.35) * k, -R * .95 + (c0[1] + R * .95) * k, 0]); }
+      for (let i = 0; i <= n; i++) { const [x, y] = cur(i / n * Math.PI * 6); pts.push([x, y, 0]); }
+      const c1 = pts[pts.length - 1]; for (let s = 1; s <= 6; s++) { const k = s / 6; pts.push([c1[0] + (R * 1.3 - c1[0]) * k, c1[1] + (-R * 1.0 - c1[1]) * k + Math.sin(k * 3) * .04, 0]); } }
+    if (modo === 'carton') { const w = o.w ?? .9, h = o.h ?? .6, nv = o.vueltas ?? 6, col = o.colorCarton ?? 0xd9a066;
+      g.carton = pz(F.rect(w, h, .04), col, [0, 0, 0], g, { tinta: .016, papel: .05 });
+      for (let i = -2; i <= 2; i++) det(F.rect(.02, h * .9, 0), osc(col, .88), [i * w * .2 + w * .1, 0, .013], g.carton);
+      if (!pts) { pts = []; const yy = i => h / 2 - .07 - i * (h - .14) / Math.max(1, nv - 1), ex = w / 2 + .035;
+        for (let s = 0; s < 4; s++) pts.push([-ex - .16 + s * .04, yy(0) + .1 - s * .033, .03]);
+        for (let i = 0; i < nv; i++) { for (let s = 0; s <= 10; s++) { const k = s / 10; pts.push([-ex + 2 * ex * k, yy(i) - .035 * k + Math.sin(k * Math.PI) * .012, .03]); }
+          if (i < nv - 1) for (let s = 1; s <= 9; s++) { const k = s / 10; pts.push([ex - 2 * ex * k, yy(i) - .035 + (yy(i + 1) - yy(i) + .035) * k, -.07]); } }
+        const e = pts[pts.length - 1]; for (let s = 1; s <= 4; s++) pts.push([e[0] + s * .04, e[1] - s * .03, .03]); } }
+    // ruta: longitudes, tramos con tinta (sin tapas en las uniones) y fondo de papel
+    const L = [0]; for (let i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const tot = g.largo = L[L.length - 1];
+    g.en = k => { const d = Math.min(1, Math.max(0, k)) * tot; let i = 1; while (i < L.length - 1 && L[i] < d) i++; const q = (d - L[i - 1]) / Math.max(1e-6, L[i] - L[i - 1]);
+      return [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * q, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * q, pts[i - 1][2] + (pts[i][2] - pts[i - 1][2]) * q]; };
+    g.ang = k => { const a = g.en(k - .004), b = g.en(k + .004); return Math.atan2(b[1] - a[1], b[0] - a[0]); };
+    const tramos = []; const T = 6;
+    for (let s = 0; s < pts.length - 1; s += T) { const sub = pts.slice(s, Math.min(pts.length, s + T + 1)), zz = sub.reduce((m, p) => m + p[2], 0) / sub.length + s / pts.length * .03;
+      const c2 = sub.map(p => [p[0], p[1]]), ini = s === 0, fin = s + T >= pts.length - 1;
+      const tg = group([0, 0, zz], g); tg.k0 = L[s] / tot;
+      det(tubo(c2, gr + .02, gr + .02, ini || fin), INK, [0, 0, 0], tg); det(tubo(c2, gr, gr, ini || fin), cab, [0, 0, .0015], tg);
+      det(tubo(c2, gr + .07, gr + .07, true), PAPEL, [0, 0, -.3], tg); tramos.push(tg); }
+    // focos: salen a los lados del cable, alternados, con brillo que parpadea
+    const COL = o.colores ?? [0xff4b5c, 0xffd23d, 0x3dd6ff, 0x5ce06b, 0xff7ad9, 0xff9b3d]; g.focos = [];
+    if (focos) { const paso = o.paso ?? .14; let i = 0;
+      for (let d = paso * .6; d < tot - paso * .3; d += paso, i++) { const k = d / tot, [x, y, z] = g.en(k), an = g.ang(k), sd = i % 2 ? 1 : -1, nx = -Math.sin(an) * sd, ny = Math.cos(an) * sd;
+        const f = group([x + nx * .035, y + ny * .035, z + .006 + s01(k) * .03], g); f.rotation.z = Math.atan2(ny, nx) - Math.PI / 2; f.k = k; f.i = i;
+        const c = COL[i % COL.length];
+        pz(F.rect(.034, .03, .006), osc(cab, .8), [0, 0, 0], f, { tinta: .008, papel: .02 });
+        pz(F.elipse(.028, .046), osc(c, .55), [0, .045, 0], f, { tinta: .008, papel: .022 });
+        f.luz = group([0, 0, .006], f); det(F.elipse(.028, .046), c, [0, .045, .0], f.luz); det(F.elipse(.009, .016), 0xffffff, [-.008, .056, .004], f.luz);
+        g.focos.push(f); } }
+    function s01(k) { return Math.min(1, Math.max(0, k)); }
+    // nudos (puntito oscuro en el cruce de cada lazo)
+    g.nudos = cruces.map(([x, y]) => pz(F.circ(.032), osc(cab, .62), [x, y, .04], g, { tinta: .01, papel: .02 }));
+    // clavija en la punta final
+    if (o.enchufe) { const cv = g.clavija = group([0, 0, .03], g); pz(F.rect(.11, .08, .02), 0x3b3f55, [0, 0, 0], cv, { tinta: .01, papel: .03 });
+      for (const y of [-.02, .02]) pz(F.rect(.06, .016, .004), 0xc9cdd6, [.08, y, -.004], cv, { tinta: .006, papel: false });
+      const e = g.en(1); cv.position.set(e[0], e[1], e[2] + .03); cv.rotation.z = g.ang(.995); }
+    // moños de alambrito en las dos puntas (modo carton)
+    g.monos = [];
+    if (modo === 'carton') for (const k of [0, 1]) { const [x, y] = g.en(k === 0 ? .01 : .99), m = group([x, y, .06], g);
+      for (const sx of [-1, 1]) pz(F.elipse(.05, .026), 0xff4b5c, [sx * .045, 0, 0], m, { tinta: .01, papel: .02, rot: sx * .35 });
+      pz(F.circ(.022), 0xd93347, [0, 0, .004], m, { tinta: .008, papel: false }); m.scale.setScalar(.001); g.monos.push(m); }
+    g.amarra = k => g.monos.forEach(m => m.scale.setScalar(Math.max(.001, k)));
+    g.update = (t, on = 1) => g.focos.forEach(f => { f.luz.visible = on > .02 && f.visible && ((Math.floor(t * 2.2) + f.i) % 3 !== 0); });
+    g.revela = k => { tramos.forEach(tg => { tg.visible = tg.k0 < k - .001; }); g.focos.forEach(f => { f.visible = f.k <= k; });
+      if (g.clavija) { const e = g.en(k); g.clavija.position.set(e[0], e[1], e[2] + .03); g.clavija.rotation.z = g.ang(Math.min(.995, Math.max(.005, k))); g.clavija.visible = k > .01; } };
+    g.update(0); return g; }
+  return { serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

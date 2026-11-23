@@ -1010,5 +1010,23 @@
   "pedido": false,
   "prueba": "largo-40s",
   "publicacion": "TikTok programado en Buffer 21:30; YouTube NO: Buffer limita a 2 posts de YouTube por día (LimitReachedError) → subida manual"
+ },
+ {
+  "fecha": "2026-11-23",
+  "hora": "13:30",
+  "tema": "¿Por qué las luces de Navidad SIEMPRE salen enredadas? (Raymer y Smith, Universidad de California en San Diego, PNAS 2007: metieron cuerdas en una caja que giraba; en segundos se formaban nudos solos; con menos de medio metro casi nunca, y la probabilidad subía con la longitud; la punta suelta se cuela entre las vueltas paralelas y cada sacudida la amarra; truco: enrollarlas fijas en un cartón y amarrar las puntas para que no se muevan). Fuentes: PNAS/PMC (Spontaneous knotting of an agitated string), Physics Today (Pieces of tumbled string form knots), NPR (Physicists study the knotty problem)",
+  "formato": "¿por qué SIEMPRE…? + experimento + truco útil",
+  "categoria": "casa / física (Navidad)",
+  "tendencia": "Fin de noviembre: todos sacan las series de luces para poner el árbol y el nacimiento",
+  "disparadores": [
+   "eres tú (todos han desenredado luces)",
+   "truco útil (enrollarlas en cartón)"
+  ],
+  "duracion": 28.2,
+  "mejora": "papel_pm.js: PM.serieLuces (serie de foquitos navideños o cuerda: recta con nudos de lazo, madeja enredada, enrollada en cartón con moños; cruces por encima/debajo, parpadeo y revela)",
+  "archivo": "shorts/2026-11-23-1330-luces-enredadas.mp4",
+  "titulo": "¿Por qué las luces SIEMPRE se enredan? 🎄 #shorts",
+  "pedido": false,
+  "prueba": "normal"
  }
 ]

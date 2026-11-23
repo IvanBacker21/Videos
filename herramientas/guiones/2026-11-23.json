@@ -2,7 +2,7 @@
  {
   "hora": "13:30",
   "slug": "luces-enredadas",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "normal",
   "tema": "¿Por qué las luces de Navidad SIEMPRE salen enredadas? (Raymer y Smith, Universidad de California en San Diego, PNAS 2007: metieron cuerdas en una caja que giraba; en segundos se formaban nudos solos; con menos de medio metro casi nunca, y la probabilidad subía con la longitud; la punta suelta se cuela entre las vueltas paralelas y cada sacudida la amarra; truco: enrollarlas fijas en un cartón y amarrar las puntas para que no se muevan). Fuentes: PNAS/PMC (Spontaneous knotting of an agitated string), Physics Today (Pieces of tumbled string form knots), NPR (Physicists study the knotty problem)",
   "fuentes": [
