@@ -44,7 +44,7 @@ Reglas surgidas de los datos: ver "UA LO QUE FUNCIONA" en GUIA.md (actualizada 8
 Fuente: Metricool (Chrome/YouTube Studio no disponible en esta ejecución en la nube: sin % de Feed de Shorts, % visto ni tiempo real). TikTok (TKPO07) **sin cambios**: 4,763 vistas en los 10 videos de Metricool. YouTube YTVP06/YTVP08 vacíos; YTEV01 = 29, YTEV13 8-nov = 0 (desfasado frente a Studio). Sin posts programados en Metricool 8–10 nov; los shorts de Buffer no aparecen aquí.
 
 | Short | Vistas | % visto | % feed | Observación |
-|---|---|---|---|
+|---|---|---|
 | Panza que ruge (8-nov 21:30, Buffer) | s/d | s/d | s/d | ~2 h publicado; no medible desde Metricool |
 | Picante / Nadar | 11 / 8 (YT, 20:50) | s/d | s/d | atascados según revisión 20:50; sin datos nuevos |
 | Resto | ver tabla 20:50 | | | sin cambios medibles |
@@ -332,3 +332,44 @@ Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube:
 **Acción urgente recomendada a Iván (igual que ayer):** ir a panel.buffer.com → Posts → "Needs attention" y ELIMINAR (no solo ignorar) todos los posts fallidos para cortar el ciclo de reintentos. Mientras sigan activos, agotarán el cupo de YouTube cada día.
 
 **Conclusión:** TikTok 6/6 OK; YouTube 2/6 OK (palomitas y vibración fantasma), 4 errores de cupo. La prueba de largo-40s avanza solo en TikTok el 21-nov; los datos de YouTube de los largos serán incompletos si no se resuelve el límite diario.
+
+## 2026-11-22 23:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (21 y 22-nov).
+
+**Buffer: 🟡 MEJORA. 1 error (LimitReachedError) en YouTube el 22-nov, pero NO en los slots 13:30 ni 18:00 — por primera vez en varios días los dos primeros slots del día pasaron correctamente en YouTube vía Buffer. El 21:30 hit el límite estructural de Buffer (máx. 2 posts YouTube/día) → subida manual por Iván.**
+
+| Short | Publicado (MX) | Buffer TikTok | Buffer YouTube | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| Palomitas que truenan | 21-nov 13:30 | ✓ sent | ✓ sent | 28.4 s | ✓ | comida/ciencia | concreto ✓ | normal | ✅ Ambas redes OK |
+| Suéter de lana pica | 21-nov 18:00 | ✓ sent | ❌ daily limit | 26.6 s | ✓ | cuerpo/mito | concreto ✓ | normal | ❌ YouTube no publicado (retries anteriores) |
+| **Cielo azul y atardecer** | 21-nov 21:30 | ✓ sent | ❌ daily limit | 44.7 s | ✗ (prueba) | espacio/ciencia | concreto ✓ | **largo-40s** | ❌ Largo-40s NO en YouTube; TikTok ✓ |
+| Refresco agitado | 22-nov 13:30 | ✓ sent | ✓ sent | 29.77 s | ✓ | comida/ciencia | concreto ✓ | normal | ✅ Ambas redes OK — mejora respecto a días anteriores |
+| Ojos rojos con flash | 22-nov 18:00 | ✓ sent | ✓ sent | 26.4 s | ✓ | cuerpo/ciencia | concreto ✓ | normal | ✅ Ambas redes OK — mejora respecto a días anteriores |
+| **Balón que se dobla** | 22-nov 21:30 | ✓ sent | ❌ LimitReachedError | 45.6 s | ✗ (prueba) | física/cotidiano | concreto ✓ | **largo-40s** | ❌ Buffer: límite de 2 YT/día; YouTube subida manual por Iván ✅ |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Prueba de duración — estado al 22-nov:**
+
+| Short largo-40s | Fecha | YouTube | TikTok | Vistas YT | Vistas TikTok |
+|---|---|---|---|---|---|
+| Vibración fantasma | 20-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Cielo azul y atardecer | 21-nov 21:30 | ❌ no publicado | ✅ Buffer | — | s/d |
+| Balón que se dobla | 22-nov 21:30 | ✅ manual | ✅ Buffer | s/d | s/d |
+
+**Reglas de GUIA:**
+- Duración ≤30 s: 4/4 normales ✓ (rango 26.4–29.77 s); largos son prueba.
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla de temas: comida × 2, cuerpo × 1, espacio × 1, física × 1 — buena variedad; sin animales en las últimas 6 entradas → cupo libre.
+
+**Insight clave del 22-nov — límite estructural de Buffer confirmado:**
+El error del 21:30 NO es por retries acumulados: es el límite de 2 posts de YouTube por día que Buffer impone en el plan actual. Los retries de days anteriores parecen haber cesado (o agotado sus intentos), lo que permitió que 13:30 y 18:00 pasaran hoy. El 21:30 (el tercer slot) siempre chocará con este techo. **Conclusión práctica: el slot de 21:30 en YouTube debe tratarse como subida manual rutinaria**, no como error a resolver en Buffer.
+
+**Alertas:**
+- ⚠️ **Suéter de lana pica (21-nov 18:00)** y **Cielo azul y atardecer (21-nov 21:30)** siguen sin publicarse en YouTube. Si ya se limpiaron los retries, estos ya no se reintentarán; reprogramar manualmente si se quieren publicar.
+- ✅ **22-nov: 2/3 YouTube vía Buffer OK** — el mejor día de la semana para los slots regulares.
+- ✅ **Prueba largo-40s**: balón curva publicado manualmente en YouTube; prueba continúa (evaluación después del 28-nov).
+
+**Conclusión:** TikTok 6/6 OK; YouTube 4/6 OK (palomitas, refresco, ojos-rojos vía Buffer + balón-curva manual). Mejora significativa respecto a los días anteriores. El techo de 2 YT posts/día en Buffer es estructural: tratar el 21:30 como manual rutinario. Sin vistas disponibles; evaluación de la prueba de duración pendiente para después del 28-nov.
