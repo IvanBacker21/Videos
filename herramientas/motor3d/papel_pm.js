@@ -1637,5 +1637,34 @@ export function kitPM(P, THREE, group) {
       const d = pz(F.gota(.12), 0x8fd3ff, [x, y, .07], c, { tinta: .008, papel: false }); det(F.circ(.012), 0xffffff, [-.013, -.012, .006], d); d.f = i / na; d.scale.setScalar(.001); g.aguas.push(d); }
     g.suda = k => g.aguas.forEach(d => d.scale.setScalar(Math.max(.001, c01(k * 1.6 - d.f * .6))));
     return g; }
-  return { tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // PM.estelaAvion(pos, o) (23-nov 21:30): avión de pasajeros de cartulina visto de lado (nariz hacia +x local; rota/voltea el grupo) que deja
+  //   una ESTELA de condensación de bolitas de nube desde el motor. g.update(t, k, vida, abre): k 0..1 = qué tanto de la estela ya salió
+  //   (si el avión avanza k·largo, la cola queda fija en el mundo); vida 0..1 = hasta dónde dura antes de borrarse (aire seco ≈ .2, húmedo = 1);
+  //   abre 0..1 = cuánto se ensancha y se esparce en nubes (aire muy húmedo). g.head.ojos (A.parpadea) si o.cara. g.salida = punto del motor.
+  //   o: {largo (2.4), n (34), r (radio de bolita, .05), color (franja y cola), cara (true), escala}
+  function estelaAvion(pos, o = {}) { const g = group(pos), col = o.color ?? 0xff6b5b, L = o.largo ?? 2.4, n = o.n ?? 34, r0 = o.r ?? .05;
+    g.scale.setScalar(o.escala ?? 1); const av = g.avion = group([0, 0, 0], g);
+    pz(F.poly([[-.6, .04], [-.43, .08], [-.5, .36], [-.64, .36]]), col, [0, 0, -.012], av, { tinta: .012, papel: .035 });                                          // cola
+    pz(blob([[-.62, .02], [-.56, .1], [-.3, .12], [.34, .12], [.52, .08], [.63, 0], [.56, -.075], [.34, -.105], [-.4, -.1], [-.6, -.04]]), 0xf7f9fc, [0, 0, 0], av, { tinta: .014, papel: .045 });
+    det(blob([[-.55, -.05], [.5, -.05], [.56, -.075], [.34, -.1], [-.4, -.095]]), 0xdde5f0, [0, 0, .014], av);                                                  // panza sombreada
+    det(F.rect(.95, .026, .004), col, [-.02, -.015, .016], av);                                                                                                       // franja
+    for (let i = 0; i < 7; i++) det(F.circ(.021), 0x8fd3ff, [-.3 + i * .085, .05, .016], av);                                                                         // ventanitas
+    pz(F.poly([[-.66, .0], [-.48, .0], [-.56, -.07], [-.68, -.065]]), osc(col, .85), [0, 0, .02], av, { tinta: .01, papel: false });                              // timón horizontal
+    pz(F.poly([[-.06, -.02], [.16, -.02], [-.13, -.31], [-.25, -.31]]), 0xdfe6f2, [0, 0, .03], av, { tinta: .012, papel: .03 });                                   // ala
+    const mo = pz(F.elipse(.115, .05), 0xb8c2d4, [.03, -.19, .05], av, { tinta: .01, papel: .02 }); det(F.elipse(.022, .042), 0x4a5068, [.1, 0, .014], mo);           // motor
+    g.salida = [-.09, -.19];
+    if (o.cara !== false) { g.head = { ojos: [.43, .51].map(x => { const e = pz(F.elipse(.022, .032), 0x2a1f2e, [x, .035, .018], av, { tinta: false, papel: false }); det(F.circ(.008), 0xffffff, [.006, .01, .006], e); return e; }) };
+      det(F.arco(.03, .009, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [.47, .0, .018], av); }
+    else det(blob([[.45, .065], [.53, .065], [.58, .02], [.46, .02]]), 0x3d5a80, [0, 0, .016], av);                                                                  // cabina
+    g.bolas = Array.from({ length: n }, (_, i) => { const c = group([0, 0, -.06], g); c.u = i / (n - 1);
+      const b = matPropio(det(F.circ(r0 * 1.16), 0xc5d8ea, [0, 0, -.004], c), 0xc5d8ea, 1), f = matPropio(det(F.circ(r0), 0xffffff, [0, 0, 0], c), 0xffffff, 1);
+      c.ms = [b.children[0].material, f.children[0].material]; return c; });
+    g.update = (t, k = 1, vida = 1, abre = 0) => g.bolas.forEach((c, i) => { const u = c.u, s0 = .45 + .55 * Math.min(1, u * 5), ab = abre * u;
+      const op = (u <= k ? 1 : 0) * Math.max(0, Math.min(1, 1 - (u - vida) / .14));
+      c.visible = op > .01; if (!c.visible) return;
+      c.position.set(g.salida[0] - .05 - u * L + Math.sin(i * 1.7 + t * .6) * .05 * ab, g.salida[1] + Math.sin(i * 2.3 + t * .8) * .2 * ab + ab * .06, -.06 - i * .0005);
+      const s = s0 * (1 + ab * 3.2) * (1 + Math.sin(t * 2 + i) * .04) * (vida < 1 ? Math.max(.25, Math.min(1, 1 - (u - vida + .1) / .3)) : 1);
+      c.scale.set(s * (1 + ab * .8), s, 1); c.ms[0].opacity = op * .9; c.ms[1].opacity = op; });
+    g.update(0, 0); return g; }
+  return { estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
