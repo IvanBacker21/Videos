@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-24-1800-sal-agua-hierve",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Le echas sal al agua para que hierva más rápido?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Mito: la sal hace que hierva a una temperatura un poquito más alta."
+   ]
+  },
+  {
+   "tipo": "pizca",
+   "titulo": "",
+   "frases": [
+    "Con una pizca, la diferencia es tan chiquita que ni se nota."
+   ]
+  },
+  {
+   "tipo": "tapa",
+   "titulo": "",
+   "frases": [
+    "El truco de verdad: ponle tapa a la olla."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a tu mamá, que jura que la sal lo acelera."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

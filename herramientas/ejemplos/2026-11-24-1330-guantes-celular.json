@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-24-1330-guantes-celular",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué con guantes tu celular no te hace caso?"
+   ]
+  },
+  {
+   "tipo": "electricidad",
+   "titulo": "",
+   "frases": [
+    "La pantalla no siente presión: siente la electricidad de tu dedo."
+   ]
+  },
+  {
+   "tipo": "aislante",
+   "titulo": "",
+   "frases": [
+    "La tela del guante corta esa señal y la pantalla cree que no hay nadie."
+   ]
+  },
+  {
+   "tipo": "hilos",
+   "titulo": "",
+   "frases": [
+    "Los guantes táctiles traen hilitos de metal que sí la dejan pasar."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al que se quita los guantes para contestar mensajes."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

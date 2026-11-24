@@ -1,0 +1,75 @@
+{
+ "id": "2026-11-24-2130-luna-misma-cara",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Hoy hay superluna, y SIEMPRE te enseña la misma cara."
+   ]
+  },
+  {
+   "tipo": "giro",
+   "titulo": "",
+   "frases": [
+    "No es que no gire: da una vuelta sobre sí misma por cada vuelta a la Tierra."
+   ]
+  },
+  {
+   "tipo": "trabada",
+   "titulo": "",
+   "frases": [
+    "La gravedad de la Tierra la fue frenando hasta dejarla trabada mirándonos."
+   ]
+  },
+  {
+   "tipo": "lado-oscuro",
+   "titulo": "",
+   "frases": [
+    "Y el lado oscuro no existe: la cara de atrás recibe tanto Sol como esta."
+   ]
+  },
+  {
+   "tipo": "luna-nueva",
+   "titulo": "",
+   "frases": [
+    "Cuando aquí ves luna nueva, allá atrás es pleno día."
+   ]
+  },
+  {
+   "tipo": "bamboleo",
+   "titulo": "",
+   "frases": [
+    "Además se bambolea tantito, así que vemos un poquito más de la mitad."
+   ]
+  },
+  {
+   "tipo": "se-aleja",
+   "titulo": "",
+   "frases": [
+    "Y se aleja unos cuatro centímetros cada año, casi lo que te crecen las uñas."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien todavía dice el lado oscuro de la Luna."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

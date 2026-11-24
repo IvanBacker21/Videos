@@ -1,0 +1,85 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "guantes-celular",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué con guantes tu celular no te hace caso? (las pantallas táctiles de los celulares son capacitivas: detectan el pequeño cambio eléctrico que produce un dedo, porque la piel y el cuerpo conducen; no detectan presión; la tela del guante es aislante y bloquea esa señal; los guantes táctiles llevan hilos conductores (plata/cobre) en las puntas que dejan pasar la carga). Fuentes: How-To Geek (Why does my smartphone not detect my finger), Gear Patrol (The science behind touchscreen gloves), ALLPCB (Why capacitive touchscreens don't work with gloves)",
+  "fuentes": [
+   "https://www.howtogeek.com/841094/why-does-my-smartphone-not-detect-my-finger-sometimes/",
+   "https://www.gearpatrol.com/outdoors/a38804510/smartphone-compatible-gloves-explained/",
+   "https://www.allpcb.com/allelectrohub/why-capacitive-touchscreens-dont-work-with-gloves"
+  ],
+  "tendencia": "Frente frío 8 y masa de aire polar esta semana en México: todos sacan guantes",
+  "formato": "pregunta '¿por qué SIEMPRE…?' cotidiana + explicación + truco útil (normal ≤30 s)",
+  "categoria": "tecnología / celular",
+  "disparadores": [
+   "eres tú (todos lo han sufrido)",
+   "truco útil (guantes táctiles)",
+   "sorpresa (la pantalla siente electricidad, no presión)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-24-1330-guantes-celular.json",
+  "visual": "Calle fría del kit (vaho, bufanda). 1) chibi con guantes gordos toca el celular una y otra vez, pantalla con '...' y cara de fastidio. 2) zoom: dedo sin guante y chispitas azules que saltan del dedo a la pantalla (rejilla de la pantalla se ilumina donde toca). 3) dedo con guante: las chispitas chocan con la tela como contra una pared, la rejilla queda apagada. 4) corte transversal del guante táctil: hilitos plateados en la punta por donde pasan las chispitas; la pantalla responde con palomita. 5) amigo quitándose los guantes con los dientes para contestar. Pieza nueva reutilizable: PM.chispasDedo (flujo de cargas dedo→pantalla, sirve para cualquier tema de electricidad/pantallas).",
+  "titulo_yt": "¿Por qué tu celular IGNORA tus guantes? 🧤 #shorts",
+  "descripcion_yt": "La pantalla de tu celular no siente presión: siente la electricidad de tu dedo. Por eso con guantes no te hace caso.\n\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n\n#shorts #datoscuriosos #ciencia #celular #frio",
+  "titulo_tt": "Tu celular no te ignora, es tu guante 🧤",
+  "texto_tt": "¿Por qué con guantes la pantalla no responde? La respuesta es eléctrica ⚡ Etiqueta al que se quita los guantes para contestar 👇 #datoscuriosos #ciencia #celular #frio #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "sal-agua-hierve",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿La sal hace que el agua hierva más rápido? (mito: la sal disuelta eleva ligeramente el punto de ebullición (aumento ebulloscópico), así que en teoría tarda un poquito más; con la cantidad que se usa en la cocina el cambio es de fracciones de grado, imperceptible; truco real: tapar la olla reduce la pérdida de calor por evaporación y hierve antes). Fuentes: Live Science (Does salt make water boil faster?), University of Illinois Physics Van (Salt and the boiling point of water), Mental Floss (Does adding salt to water make it boil sooner?)",
+  "fuentes": [
+   "https://www.livescience.com/56214-does-salt-make-water-boil-faster.html",
+   "https://van.physics.illinois.edu/ask/listing/1447",
+   "https://www.mentalfloss.com/science/chemistry/does-adding-salt-water-make-it-boil-sooner"
+  ],
+  "tendencia": "Temporada de frío: más caldos, sopas, café de olla y ponche en casa",
+  "formato": "mito de cocina '¿ves? te dije' + explicación + truco útil (normal ≤30 s)",
+  "categoria": "comida / cocina (química)",
+  "disparadores": [
+   "¿ves? te dije (mito de mamá)",
+   "truco útil (tapa)",
+   "eres tú (todos le echan sal)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-24-1800-sal-agua-hierve.json",
+  "visual": "Cocina del kit con estufa y olla. 1) mamá chibi echa sal a la olla con cara de 'así se hace'; letrero '¿más rápido?'. 2) termómetro en la olla: la marca de hervor sube apenas un pelito; letrero 'mito' con tache. 3) lupa sobre una pizca de sal junto a la olla gigante: la diferencia es diminuta (flechita casi invisible). 4) se pone tapa a la olla: el vapor que antes escapaba se queda adentro y empieza a hervir con burbujas grandes; palomita verde. 5) hijo enseñándole el celular a mamá, mamá con cara de 'ah caray'. Pieza nueva reutilizable: PM.ollaTapa (olla con/sin tapa y vapor escapando, útil para temas de cocina y calor).",
+  "titulo_yt": "¿La sal hace hervir el agua MÁS rápido? 🧂 #shorts",
+  "descripcion_yt": "El mito de cocina que todos repiten: echarle sal al agua no la hace hervir antes. El truco que sí funciona está al final.\n\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n\n#shorts #datoscuriosos #ciencia #cocina #mitos",
+  "titulo_tt": "La sal NO hace hervir el agua más rápido 🧂",
+  "texto_tt": "Tu mamá lo jura, pero la ciencia dice otra cosa 🍲 Etiqueta a quien le echa sal para que hierva 👇 #datoscuriosos #cocina #mitos #ciencia #aprendeentiktok",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "luna-misma-cara",
+  "estado": "listo",
+  "prueba": "largo-40s",
+  "tema": "¿Por qué la Luna SIEMPRE nos enseña la misma cara? (hoy 24-nov es la superluna del castor; acoplamiento de marea: la Luna gira una vez sobre su eje por cada órbita (~27 días), la gravedad terrestre deformó y frenó su rotación hasta sincronizarla; mito 'lado oscuro': la cara lejana recibe la misma luz solar, en luna nueva está totalmente iluminada; libración: un bamboleo aparente que nos deja ver cerca del 59 % de la superficie; la Luna se aleja unos 3.8 cm por año (medido con láser y reflectores del Apolo), parecido a lo que crecen las uñas). Fuentes: NASA Science (Tidal locking), timeanddate (Far side of the Moon), Live Science (Why can't we see the far side of the moon), N+ / Star Walk (superluna del castor 24-nov-2026)",
+  "fuentes": [
+   "https://science.nasa.gov/moon/tidal-locking/",
+   "https://www.timeanddate.com/astronomy/moon/far-side.html",
+   "https://www.livescience.com/space/astronomy/why-cant-we-see-the-far-side-of-the-moon",
+   "https://www.nmas.com.mx/ciencia-tecnologia/astronomia/cuando-es-luna-de-castor-noviembre-2026-habra-superluna-estos-dias-mes/",
+   "https://starwalk.space/es/news/full-moon-november"
+  ],
+  "tendencia": "Hoy 24 de noviembre: superluna del castor, la luna llena de noviembre, en medios mexicanos",
+  "formato": "gancho de tendencia (superluna) + explicación + sorpresa a la mitad (no hay lado oscuro) + dato extra (bamboleo) + dato extra (se aleja) (LARGO prueba 40 s)",
+  "categoria": "espacio / cielo",
+  "disparadores": [
+   "tendencia (superluna hoy)",
+   "¿ves? te dije (el lado oscuro no existe)",
+   "sorpresa (se aleja cada año)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-24-2130-luna-misma-cara.json",
+  "visual": "Cielo nocturno 3D del kit con Tierra y Luna chibi (reutiliza la Luna del 17-nov); acción nueva cada 4–6 s. 1) azotea en México, chibi mirando una superluna enorme con carita fija; letrero 'siempre la misma cara'. 2) vista desde arriba: la Luna orbita la Tierra y gira a la vez, una marca en su cara siempre apunta a la Tierra (contador 1 vuelta = 1 vuelta). 3) Luna joven girando rápido; la Tierra la 'jala' con una liga elástica que la estira tantito y la frena hasta quedar quieta mirándonos. 4) SORPRESA: letrero 'lado oscuro' con tache; el Sol ilumina la cara de atrás. 5) misma vista en luna nueva: desde la Tierra se ve negra, pero la cara de atrás está brillante con un solecito 'pleno día'. 6) la Luna se bambolea como cabeza que dice 'más o menos' y se asoma un borde extra. 7) regla entre Tierra y Luna que crece cuatro centímetros junto a una uña chibi creciendo. 8) amigo con playera 'lado oscuro de la Luna' que se queda pensando. Pieza nueva reutilizable: PM.orbitaLunaGiro (Luna orbitando con marca fija hacia la Tierra, sirve para fases, eclipses y mareas).",
+  "titulo_yt": "¿Por qué la Luna SIEMPRE nos da la misma cara? 🌕 #shorts",
+  "descripcion_yt": "Hoy hay superluna del castor. Aprovecha para saber por qué siempre vemos la misma cara de la Luna y por qué el lado oscuro no existe.\n\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n\n#shorts #datoscuriosos #superluna #luna #espacio",
+  "titulo_tt": "El lado oscuro de la Luna NO existe 🌕",
+  "texto_tt": "Hoy hay superluna y siempre nos enseña la misma cara. ¿Por qué? 🌕 Etiqueta a quien dice 'el lado oscuro de la Luna' 👇 #superluna #luna #datoscuriosos #espacio #aprendeentiktok",
+  "pedido": false
+ }
+]
