@@ -29,7 +29,7 @@
  {
   "hora": "18:00",
   "slug": "sal-agua-hierve",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "normal",
   "tema": "¿La sal hace que el agua hierva más rápido? (mito: la sal disuelta eleva ligeramente el punto de ebullición (aumento ebulloscópico), así que en teoría tarda un poquito más; con la cantidad que se usa en la cocina el cambio es de fracciones de grado, imperceptible; truco real: tapar la olla reduce la pérdida de calor por evaporación y hierve antes). Fuentes: Live Science (Does salt make water boil faster?), University of Illinois Physics Van (Salt and the boiling point of water), Mental Floss (Does adding salt to water make it boil sooner?)",
   "fuentes": [

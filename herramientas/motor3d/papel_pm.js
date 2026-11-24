@@ -1715,5 +1715,42 @@ export function kitPM(P, THREE, group) {
   function guantes(p, color = 0x7b5cff) { const hs = p.brazos.map(b => b.children.find(c => Math.abs(c.position.y + .5) < 1e-6 && Math.abs(c.position.x) < 1e-6));
     return hs.map((h, i) => guanteForma(group([0, -.01, .03], h), color, i ? 1 : -1)); }
   function guanteSuelto(pos, color = 0x7b5cff, parent = null) { const g = group(pos, parent); const q = guanteForma(group([0, -.16, 0], g), color, 1); q.rotation.z = Math.PI; return g; }
-  return { chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 24-nov 18:00 (la sal y el agua que hierve) ----
+  // PM.ollaTapa(pos, o, padre): olla de cartulina de frente (dos asas, brillo, orilla) con TAPA de perilla y su hornilla debajo. Fondo en y = 0
+  // (en la cocina ponla en y = cocina.topY + .25, z = -1). g.tapa(k): 0 = tapa levantada a la derecha → 1 = puesta (la baja con arco).
+  // g.traquetea(t, k): la tapa puesta brinca y suelta hilitos de vapor por la orilla. g.fuego(k, t) flamitas; g.hierve(t, k) burbujas que revientan
+  // en la superficie del agua (se esconden solas con la tapa puesta); g.vapor(t, k) nubes de vapor que escapan hacia arriba (con tapa casi no salen). g.quitaTapa(): sin tapa (no se ve).
+  // g.topAgua = altura del agua. o: {w, h, color, agua, fuego:true, tapaCol, tapa: 0..1 | 'no'}
+  function ollaTapa(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? .9, h = o.h ?? w * .58, col = o.color ?? 0xd9dde6, agua = o.agua ?? 0x8fd3ff, NEG = 0x34313d, TC = o.tapaCol ?? osc(col, .9);
+    const fu = group([0, -.08, -.08], g);
+    if (o.fuego !== false) { pz(F.rect(w * .75, .12, .03), 0x9aa3b5, [0, -.2, -.1], g, { tinta: .014, papel: .04 }); pz(F.rect(w * 1.15, .045, .02), NEG, [0, -.02, -.02], g, { tinta: .01, papel: .03 });
+      for (let i = -2; i <= 2; i++) { const l = pz(F.gota(.2), i & 1 ? 0xffc83d : 0xff8a3d, [i * w * .14, 0, 0], fu, { tinta: .01, papel: .025 }); l.f = i * 1.7; } }
+    g.fuego = (k, t = 0) => fu.children.forEach(l => l.scale.set(Math.max(.001, k * (.9 + .15 * Math.sin(t * 11 + l.f))), Math.max(.001, k * (.85 + .25 * Math.sin(t * 13 + l.f * 2))), 1));
+    for (const sx of [-1, 1]) pz(F.rect(.2, .085, .035), NEG, [sx * (w / 2 + .07), h * .78, -.02], g, { tinta: .012, papel: .04 });       // asas
+    pz(F.rect(w, h, .07), col, [0, h / 2, 0], g, { tinta: .018, papel: .06 });                                                           // cuerpo
+    det(F.rect(w * .92, .035, .01), osc(col, .78), [0, h * .2, .016], g);
+    det(F.rect(.055, h * .5, .025), 0xffffff, [-w * .33, h * .52, .016], g); det(F.circ(.03), 0xffffff, [-w * .33, h * .17, .016], g);   // brillo
+    pz(F.rect(w + .09, .065, .03), osc(col, .66), [0, h, .02], g, { tinta: .01, papel: false });                                        // orilla
+    const top = g.topAgua = h + .005; det(F.elipse(w * .44, .045), agua, [0, top, .034], g);
+    // burbujas que revientan arriba
+    const bb = Array.from({ length: 7 }, (_, i) => { const b = pz(F.circ(.04), 0xe6f6ff, [0, 0, .04], g, { tinta: .008, papel: false }); b.i = i; b.x = (i / 6 - .5) * w * .72; b.traverse(m => m.castShadow = false); return b; });
+    let kt = 0; g.hierve = (t, k = 1) => bb.forEach(b => { const q = (t * 1.7 + b.i * .37) % 1, kk = k * (1 - kt); b.visible = kk > .02; b.position.set(b.x + Math.sin(t * 4 + b.i) * .02, top + .02 + q * .15, .04); b.scale.setScalar(Math.max(.001, kk * (q < .8 ? .6 + q * .6 : (1 - q) * 5 * 1.08))); });
+    // tapa (domo con perilla)
+    const tp = g.tapaG = group([0, h + .03, .07], g); const tw2 = w / 2 + .05;
+    pz(blob([[-tw2, 0], [-tw2 * .8, .09], [-tw2 * .4, .15], [0, .17], [tw2 * .4, .15], [tw2 * .8, .09], [tw2, 0]]), TC, [0, 0, 0], tp, { tinta: .016, papel: .05 });
+    det(F.rect(w + .1, .035, .01), osc(TC, .7), [0, .01, .016], tp); det(F.elipse(.07, .03), 0xffffff, [-tw2 * .45, .11, .016], tp, .3);
+    pz(F.rect(.05, .06, .02), NEG, [0, .2, -.005], tp, { tinta: .008, papel: false }); pz(F.elipse(.09, .05), NEG, [0, .25, .005], tp, { tinta: .01, papel: .03 });
+    g.tapa = (k) => { kt = k; tp.visible = true; const e = k * k * (3 - 2 * k); tp.position.set((1 - e) * w * .75, h + .03 + (1 - e) * .55 + Math.sin(e * Math.PI) * .25, .07); tp.rotation.z = (1 - e) * -.45; };
+    // vapor: nubes que suben (sin tapa) o hilitos cortos por la orilla (con tapa)
+    const vs = Array.from({ length: 7 }, (_, i) => { const c = group([0, 0, .1], g);
+      const bo = matPropio(det(F.nube(.3), 0x8fb6d6, [0, 0, -.004], c), 0x8fb6d6, 0), cu = matPropio(det(F.nube(.27), 0xffffff, [0, .004, 0], c), 0xffffff, 0);
+      c.traverse(m => m.castShadow = false); c.ms = [bo.children[0].material, cu.children[0].material]; c.f = i / 7; c.x = ((i * .618) % 1 - .5) * w * .7; c.sx = i % 2 ? 1 : -1; return c; });
+    g.vapor = (t, k = 1) => vs.forEach(c => { const q = (t * .75 + c.f) % 1, e = kt * kt * (3 - 2 * kt), alto = 1.1 - .8 * e, tam = 1 - .72 * e;
+      const x0 = c.x * (1 - e) + c.sx * (w / 2 + .02) * e; c.visible = k > .01;
+      c.position.set(x0 + Math.sin(t * 2.2 + c.f * 9) * .06 + c.sx * e * q * .25, top + .05 + e * .14 + q * alto, .1 + c.f * .01); c.scale.setScalar(Math.max(.001, tam * (.35 + q * .9)));
+      const op = k * Math.min(1, q * 5) * Math.min(1, (1 - q) * 2.2); c.ms[0].opacity = op * .75; c.ms[1].opacity = op * .95; });
+    g.quitaTapa = () => { kt = 0; tp.visible = false; };
+    g.traquetea = (t, k = 1) => { if (kt < .99) return; tp.position.y = h + .03 + Math.max(0, Math.sin(t * 15)) * .035 * k; tp.rotation.z = Math.sin(t * 11) * .045 * k; };
+    g.fuego(o.k ?? 1); if (o.tapa === 'no') g.quitaTapa(); else g.tapa(o.tapa ?? 0); g.hierve(0, 0); g.vapor(0, 0); return g; }
+  return { ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
