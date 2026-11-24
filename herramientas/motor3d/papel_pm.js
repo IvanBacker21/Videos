@@ -1666,5 +1666,54 @@ export function kitPM(P, THREE, group) {
       const s = s0 * (1 + ab * 3.2) * (1 + Math.sin(t * 2 + i) * .04) * (vida < 1 ? Math.max(.25, Math.min(1, 1 - (u - vida + .1) / .3)) : 1);
       c.scale.set(s * (1 + ab * .8), s, 1); c.ms[0].opacity = op * .9; c.ms[1].opacity = op; });
     g.update(0, 0); return g; }
-  return { estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // PM.chispasDedo(pos, o, padre) (24-nov 13:30): ACERCAMIENTO de un dedo gigante (baja desde arriba del cuadro) sobre una pantalla táctil
+  //   (franja de vidrio con REJILLA de puntitos). El ORIGEN es la superficie de la pantalla justo bajo la yema. Chispitas azules (cargas)
+  //   bajan del dedo a la pantalla. g.update(t, k 0..1, modo): 'piel' = saltan y la rejilla se ilumina donde toca; 'guante' = chocan con la
+  //   tela como contra una pared, rebotan y la rejilla queda apagada; 'hilos' = pasan por los hilitos plateados y la rejilla se ilumina.
+  //   g.guante(k 0..1) baja la funda de estambre sobre el dedo; g.hilos(k) hace aparecer los hilos de metal en la punta. Sirve para
+  //   electricidad, pantallas, estática, toques. o: {ancho (2.4), piel, color (guante), dedo (ancho .38)}
+  function chispasDedo(pos, o = {}, parent = null) { const g = group(pos, parent), W = o.ancho ?? 2.4, piel = o.piel ?? 0xe8b48c, gc = o.color ?? 0x7b5cff, dw = o.dedo ?? .38, gap = .17;
+    // pantalla: vidrio azul clarito con brillo y rejilla de sensores
+    const pa = pz(F.rect(W, .3, .05), 0x9fd8ff, [0, -.15, 0], g, { tinta: .016, papel: .05 });
+    det(F.rect(W - .08, .035, .015), 0xffffff, [0, .1, .016], pa); det(F.rect(W - .08, .02, .01), 0x6aa8d8, [0, -.02, .016], pa);
+    g.puntos = []; for (let x = -W / 2 + .12; x <= W / 2 - .12 + 1e-6; x += .16) { const d = det(F.circ(.038), 0x5f8fb8, [x, -.02, .02], pa);
+      const l = det(F.circ(.085), 0xffe45c, [0, 0, .004], d); l.visible = false; d.luz = l; d.x = x; g.puntos.push(d); }
+    // dedo gigante (yema redonda abajo) con arruguitas de nudillo
+    const de = g.dedo = group([0, gap, .02], g);
+    pz(F.rect(dw, 5, dw / 2), piel, [0, 2.5, 0], de, { tinta: .016, papel: .06 });
+    det(F.rect(dw * .28, 4.2, .05), osc(piel, .88), [dw * .3, 2.6, .014], de);
+    for (const y of [.95, 1.08, 2.1, 2.22]) det(F.rect(dw * .5, .022, .01), osc(piel, .76), [-.02, y, .016], de);
+    det(F.elipse(dw * .16, dw * .1), mez(piel, 0xffffff, .4), [-dw * .18, .2, .016], de);
+    // guante de estambre (funda que baja) y sus hilos de metal
+    const gu = group([0, 6, .03], de); gu.visible = false;
+    pz(F.rect(dw + .16, 5.2, (dw + .16) / 2), gc, [0, 2.6 - gap + .01, 0], gu, { tinta: .016, papel: .06 });
+    for (let y = .12; y < 3.4; y += .16) for (let x = -dw / 2 + .02; x <= dw / 2 - .02 + 1e-6; x += .12) linea([[x - .035, y + .035], [x, y], [x + .035, y + .035]], .014, osc(gc, .74), gu, .016);
+    det(F.rect(.06, 3.6, .03), mez(gc, 0xffffff, .3), [-dw * .3, 2.0, .016], gu);
+    const hi = group([0, -gap + .02, .03], gu); hi.scale.setScalar(.001);
+    for (let i = 0; i < 4; i++) { const x0 = -.15 + i * .1; const hp = [[x0, .02], [x0 + .03, .12], [x0 - .02, .24], [x0 + .02, .36], [x0, .46]]; linea(hp, .05, 0x4a5068, hi, .018); linea(hp, .03, 0xe6edf7, hi, .02);
+      linea([[x0 + .01, .03], [x0 + .035, .12]], .012, 0xffffff, hi, .024); }
+    det(F.estrella(4, .07, .025), 0xffffff, [.17, .3, .03], hi); det(F.estrella(4, .05, .018), 0xffffff, [-.2, .14, .03], hi);
+    g.guante = k => { gu.visible = k > .002; gu.position.y = (1 - k) * 6; };
+    g.hilos = k => hi.scale.setScalar(Math.max(.001, k));
+    // chispitas (rayitos azules con centro blanco)
+    const n = o.n ?? 7; g.chispas = Array.from({ length: n }, (_, i) => { const c = group([0, 0, .25], g);
+      pz(F.rayo(.24), 0x3fb6ff, [0, 0, 0], c, { tinta: .01, papel: .03 }); det(F.rayo(.12), 0xffffff, [.005, .01, .016], c); c.f = i / n; return c; });
+    g.update = (t, k = 1, modo = 'piel') => { const muro = gap - .06;
+      g.chispas.forEach((c, i) => { const u = (t * 1.25 + c.f) % 1; let y = lerp(gap + 1.15, -.05, u), s = 1, r = Math.sin(t * 11 + i * 2) * .3;
+        if (modo === 'guante' && y < muro + .06) { const v = (muro + .06 - y) / (muro + .11); y = muro + .06 + v * .55; s = Math.max(.001, 1 - v * 1.1); r += v * 3 * (i % 2 ? 1 : -1); }
+        else if (u > .86) s = Math.max(.001, 1 - (u - .86) / .14);
+        c.position.set(Math.sin(i * 2.1) * .1 + Math.sin(t * 9 + i) * .02, y, .25); c.rotation.z = r; c.scale.setScalar(Math.max(.001, s * k)); c.visible = k > .01; });
+      const on = modo === 'guante' ? 0 : k; g.puntos.forEach(d => { const e = on * Math.max(0, 1 - Math.abs(d.x) / .6); d.luz.visible = e > .05; d.luz.scale.setScalar(Math.max(.001, e * (.9 + Math.sin(t * 14 + d.x * 9) * .15))); }); };
+    g.update(0, 0); return g; }
+  // PM.guantes(p, color, o) (24-nov 13:30): guantes gordos de estambre (manopla con pulgar y puño de resorte) sobre las manos de un chibi.
+  //   Devuelve [izq, der] (grupos; .visible = false para "quitárselo"). PM.guanteSuelto(pos, color, padre): el mismo guante suelto
+  //   (cuelga hacia abajo desde su origen: de la boca, de la mano, de un tendedero).
+  function guanteForma(g, color, sx = 1) { const c2 = osc(color, .78);
+    pz(F.elipse(.135, .15), color, [0, -.02, 0], g, { tinta: .014, papel: .045 }); pz(F.elipse(.05, .085), color, [-sx * .12, .03, -.004], g, { tinta: .012, papel: .03, rot: sx * .5 });
+    for (const y of [-.05, .04]) linea([[-.08, y], [-.04, y - .03], [0, y], [.04, y - .03], [.08, y]], .012, c2, g, .016);
+    const pu = pz(F.rect(.27, .08, .03), mez(color, 0xffffff, .55), [0, .13, .01], g, { tinta: .012, papel: .03 }); for (let x = -.1; x <= .1 + 1e-6; x += .05) det(F.rect(.015, .06, .006), color, [x, 0, .016], pu); return g; }
+  function guantes(p, color = 0x7b5cff) { const hs = p.brazos.map(b => b.children.find(c => Math.abs(c.position.y + .5) < 1e-6 && Math.abs(c.position.x) < 1e-6));
+    return hs.map((h, i) => guanteForma(group([0, -.01, .03], h), color, i ? 1 : -1)); }
+  function guanteSuelto(pos, color = 0x7b5cff, parent = null) { const g = group(pos, parent); const q = guanteForma(group([0, -.16, 0], g), color, 1); q.rotation.z = Math.PI; return g; }
+  return { chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

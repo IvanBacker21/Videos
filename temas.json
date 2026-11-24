@@ -1065,5 +1065,23 @@
   "archivo": "shorts/2026-11-23-2130-estelas-avion.mp4",
   "titulo": "¿Qué son las rayas BLANCAS de los aviones? ✈️ #shorts",
   "prueba": "largo-40s"
+ },
+ {
+  "fecha": "2026-11-24",
+  "hora": "13:30",
+  "tema": "¿Por qué con guantes tu celular no te hace caso? (las pantallas táctiles de los celulares son capacitivas: detectan el pequeño cambio eléctrico que produce un dedo, porque la piel y el cuerpo conducen; no detectan presión; la tela del guante es aislante y bloquea esa señal; los guantes táctiles llevan hilos conductores (plata/cobre) en las puntas que dejan pasar la carga). Fuentes: How-To Geek (Why does my smartphone not detect my finger), Gear Patrol (The science behind touchscreen gloves), ALLPCB (Why capacitive touchscreens don't work with gloves)",
+  "formato": "pregunta '¿por qué SIEMPRE…?' cotidiana + explicación + truco útil (normal ≤30 s)",
+  "categoria": "tecnología / celular",
+  "tendencia": "Frente frío 8 y masa de aire polar esta semana en México: todos sacan guantes",
+  "disparadores": [
+   "eres tú (todos lo han sufrido)",
+   "truco útil (guantes táctiles)",
+   "sorpresa (la pantalla siente electricidad, no presión)"
+  ],
+  "duracion": 26.2,
+  "mejora": "papel_pm.js: PM.chispasDedo (dedo gigante sobre pantalla táctil con chispitas de carga; modos piel/guante/hilos) + PM.guantes y PM.guanteSuelto",
+  "archivo": "shorts/2026-11-24-1330-guantes-celular.mp4",
+  "titulo": "¿Por qué tu celular IGNORA tus guantes? 🧤 #shorts",
+  "prueba": "normal"
  }
 ]

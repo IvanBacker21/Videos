@@ -2,7 +2,7 @@
  {
   "hora": "13:30",
   "slug": "guantes-celular",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "normal",
   "tema": "¿Por qué con guantes tu celular no te hace caso? (las pantallas táctiles de los celulares son capacitivas: detectan el pequeño cambio eléctrico que produce un dedo, porque la piel y el cuerpo conducen; no detectan presión; la tela del guante es aislante y bloquea esa señal; los guantes táctiles llevan hilos conductores (plata/cobre) en las puntas que dejan pasar la carga). Fuentes: How-To Geek (Why does my smartphone not detect my finger), Gear Patrol (The science behind touchscreen gloves), ALLPCB (Why capacitive touchscreens don't work with gloves)",
   "fuentes": [
