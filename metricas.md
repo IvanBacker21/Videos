@@ -2,6 +2,50 @@
 
 Lo llena la revisión automática una vez al día (cada 24 h). La tarea de producción lo lee antes de elegir tema y formato (ver `herramientas/GUIA.md`).
 
+## 2026-11-23 23:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (22 y 23-nov).
+
+**Buffer: 🟡 2/3 YouTube OK en 23-nov. El largo-40s (estelas de avión) pasó vía Buffer a YouTube — primer largo que Buffer logra publicar por sí solo en YT. El chocolate blanco (18:00) volvió a dar daily limit en YouTube.**
+
+| Short | Publicado (MX) | Buffer TikTok | Buffer YouTube | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| Refresco agitado | 22-nov 13:30 | ✓ sent | ✓ sent | 29.77 s | ✓ | comida/ciencia | concreto ✓ | normal | ✅ Ambas redes OK (confirmado de revisión anterior) |
+| Ojos rojos con flash | 22-nov 18:00 | ✓ sent | ✓ sent | 26.4 s | ✓ | cuerpo/tecnología | concreto ✓ | normal | ✅ Ambas redes OK (confirmado) |
+| **Balón que se dobla** | 22-nov 21:30 | ✓ sent | — (manual) | 45.6 s | ✗ (prueba) | física/cotidiano | concreto ✓ | **largo-40s** | YouTube subida manual por Iván; Buffer solo TikTok |
+| Luces de Navidad enredadas | 23-nov 13:30 | ✓ sent | ✓ sent | 28.2 s | ✓ | casa/física | concreto ✓ | normal | ✅ Ambas redes OK; tema de temporada (posadas) |
+| Chocolate blanco | 23-nov 18:00 | ✓ sent | ❌ daily limit | 25.8 s | ✓ | comida/mito | concreto ✓ | normal | ❌ YouTube: daily limit — tercer día con este problema en slot 18:00 |
+| **Estelas de avión** | 23-nov 21:30 | ✓ sent | ✓ sent | 43.5 s | ✗ (prueba) | cielo/mito | concreto ✓ | **largo-40s** | ✅ **Primer largo-40s que Buffer publica en YouTube solo** |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Prueba de duración — estado al 23-nov (días 1–4 de 7):**
+
+| Short largo-40s | Fecha | YouTube | TikTok | Vistas YT | Vistas TikTok |
+|---|---|---|---|---|---|
+| Vibración fantasma | 20-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Cielo azul y atardecer | 21-nov 21:30 | ❌ no publicado | ✅ Buffer | — | s/d |
+| Balón que se dobla | 22-nov 21:30 | ✅ manual | ✅ Buffer | s/d | s/d |
+| Estelas de avión | 23-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+
+**Reglas de GUIA:**
+- Duración ≤30 s: normales (28.2 s, 25.8 s) ✓; largos son prueba.
+- Tema cotidiano/mito: todos ✓ (luces de Navidad perfecta para temporada, chocolate = mito clásico, estelas = mito "chemtrails" muy vigente).
+- Gancho concreto: todos ✓.
+- Mezcla: comida × 1, cuerpo × 1, casa × 1, cielo × 1 — buena variedad; sin animales en las últimas 6+ entradas → cupo libre.
+
+**Largo vs normales de hoy (23-nov):**
+- largo-40s (estelas 21:30): YouTube ✅ Buffer, TikTok ✅. Sin vistas.
+- normales (luces 13:30 ✓✓; chocolate 18:00 TikTok ✓/YT ❌).
+
+**Alertas:**
+- 🟡 **Chocolate blanco (18:00) sin publicar en YouTube** — daily limit otra vez. Reprogramar manualmente o limpiar desde panel.buffer.com.
+- ✅ **Estelas de avión (21:30, largo-40s) publicado en YouTube vía Buffer** — avance importante. Buffer parece poder publicar el 21:30 en YouTube si los retries anteriores ya están limpios.
+- ⚠️ **Cielo azul y atardecer (21-nov 21:30)** sigue sin publicarse en YouTube. Reprogramar manualmente si se quiere incluir en la comparación final.
+- ℹ️ Sin vistas disponibles; comparación final de la prueba de 40 s pendiente para la revisión del 28-nov.
+
+**Conclusión:** TikTok 6/6 OK; YouTube 23-nov 2/3 OK (luces + estelas), chocolate sin publicar. Mejora en el slot 21:30 de YouTube vía Buffer. El patrón sigue siendo: slot 13:30 y 21:30 OK, slot 18:00 problemático (daily limit).
+
 ## 2026-11-04 17:41 (CDMX)
 
 Fuente: Metricool (Chrome/YouTube Studio no disponible en esta corrida, así que no hay % de Feed de Shorts, % visto ni vistas en tiempo real). Metricool aún no da vistas por video (conectado el 3-nov); canal: **6 vistas el 4-nov, 6 suscriptores**. TikTok: sin datos todavía.
