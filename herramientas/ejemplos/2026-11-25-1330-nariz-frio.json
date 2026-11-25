@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-25-1330-nariz-frio",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué con el frío SIEMPRE te escurre la nariz?"
+   ]
+  },
+  {
+   "tipo": "calefactor",
+   "titulo": "",
+   "frases": [
+    "Tu nariz calienta y humedece el aire antes de que llegue a tus pulmones."
+   ]
+  },
+  {
+   "tipo": "gotitas",
+   "titulo": "",
+   "frases": [
+    "Con aire frío y seco suelta más agua, y tu aliento calientito se vuelve gotitas en la punta."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: tápala con la bufanda y el aire te llega más tibio."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al que siempre anda con el pañuelo en la mano."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

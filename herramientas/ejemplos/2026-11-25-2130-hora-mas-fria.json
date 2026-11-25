@@ -1,0 +1,75 @@
+{
+ "id": "2026-11-25-2130-hora-mas-fria",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Cuál es la hora más fría del día? No, no es la medianoche."
+   ]
+  },
+  {
+   "tipo": "amanecer",
+   "titulo": "",
+   "frases": [
+    "Es justo al salir el sol: toda la noche el suelo pierde calor y se sigue enfriando."
+   ]
+  },
+  {
+   "tipo": "sol",
+   "titulo": "",
+   "frases": [
+    "Y al principio, el sol calienta menos de lo que la tierra pierde."
+   ]
+  },
+  {
+   "tipo": "cobija",
+   "titulo": "",
+   "frases": [
+    "Sorpresa: las nubes son una cobija que le regresa el calor al suelo."
+   ]
+  },
+  {
+   "tipo": "estrellas",
+   "titulo": "",
+   "frases": [
+    "Con cielo despejado y estrellado, el calor se escapa directo al espacio."
+   ]
+  },
+  {
+   "tipo": "helada",
+   "titulo": "",
+   "frases": [
+    "Por eso el pasto amanece blanco aunque el termómetro marque arriba de cero."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: si de noche ves muchas estrellas, deja lista la chamarra."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al que sale en la madrugada en puro suéter."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

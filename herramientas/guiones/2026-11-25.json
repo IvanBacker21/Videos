@@ -1,0 +1,81 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "nariz-frio",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué con el frío SIEMPRE te escurre la nariz? (rinitis por frío: la nariz calienta y humedece el aire antes de los pulmones; con aire frío y seco las glándulas sueltan más líquido; además el vapor del aliento se condensa en la punta fría de la nariz; truco: cubrir nariz y boca con bufanda para respirar aire más tibio). Fuentes: Smithsonian (Ask Smithsonian), NPR, Ohio State Wexner Medical Center",
+  "fuentes": [
+   "https://www.smithsonianmag.com/smithsonian-institution/ask-smithsonian-why-does-my-nose-run-when-its-cold-180958383/",
+   "https://www.npr.org/2009/01/24/99844567/why-does-cold-weather-cause-runny-noses",
+   "https://wexnermedical.osu.edu/blog/is-the-cold-weather-causing-your-runny-nose"
+  ],
+  "tendencia": "Frente frío 8 y chorro polar con temperaturas de hasta 0 °C en varios estados esta semana (N+, Xataka México)",
+  "formato": "¿por qué SIEMPRE…? + explicación + truco útil",
+  "categoria": "cuerpo / frío",
+  "disparadores": [
+   "eres tú",
+   "truco útil"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-25-1330-nariz-frio.json",
+  "visual": "Escenario: calle fría de CDMX en la mañana (kit de frío: bufanda, vaho).\nGancho: personaje chibi con bufanda y la nariz escurriendo una gotita que cae en cámara lenta.\nCalefactor: corte de la nariz como 'calefactor' con flechas de aire azul que salen naranjas rumbo a pulmones.\nGotitas: glándulas que sueltan agua + aliento calientito que se vuelve gotitas en la punta (reutiliza la nube de vaho).\nTruco: el personaje se sube la bufanda y el aire que entra pasa de azul a naranja.\nRemate: amigo con pañuelo en la mano. Pieza nueva reutilizable: corte de nariz con flujo de aire (sirve para estornudos, olores, etc.).",
+  "titulo_yt": "¿Por qué el frío te hace MOQUEAR? 🤧 #shorts",
+  "descripcion_yt": "Tu nariz es un calefactor: con aire frío y seco trabaja doble y suelta más agua. Truco: la bufanda.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#ciencia #datoscuriosos #frio #shorts",
+  "titulo_tt": "¿Por qué con el frío te escurre la nariz? 🤧",
+  "texto_tt": "No estás enfermo: tu nariz está trabajando doble 🤧 Etiqueta al que siempre anda con pañuelo. #ciencia #datoscuriosos #frio #fyp",
+  "pedido": false
+ },
+ {
+  "hora": "18:00",
+  "slug": "hielo-truena",
+  "estado": "listo",
+  "prueba": "normal",
+  "tema": "¿Por qué el hielo truena cuando le echas refresco? (choque térmico: el hielo del congelador está a unos -18 °C; el líquido calienta y dilata la capa externa mientras el centro sigue frío y sin dilatarse; la tensión abre grietas internas y el crujido es el sonido de esas fracturas; el hielo cerca de 0 °C casi no truena). Fuentes: Univ. de Illinois Physics Van (Ask the Van), Mental Floss, Gizmodo",
+  "fuentes": [
+   "https://van.physics.illinois.edu/ask/listing/2679",
+   "https://www.mentalfloss.com/science/physics/why-does-ice-make-crackling-sound-when-you-pour-liquid-over-it",
+   "https://gizmodo.com/why-do-ice-cubes-crack-when-you-drop-them-in-drinks-1598935375"
+  ],
+  "tendencia": "Algo que todos han vivido (refresco con hielo en la comida); semana de reuniones y fiestas de fin de mes",
+  "formato": "¿por qué…? cotidiano + explicación + sorpresa (no es el vaso)",
+  "categoria": "comida / física",
+  "disparadores": [
+   "eres tú",
+   "sorpresa"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-25-1800-hielo-truena.json",
+  "visual": "Escenario: cocina/mesa del kit con vaso de vidrio y refri.\nGancho: se sirve refresco sobre hielos y aparecen onomatopeyas '¡crac!'.\nCongelador: hielo sacado del congelador con termómetro muy abajo (sin cifra en pantalla, solo 'casi veinte bajo cero' en texto).\nChoque: corte de un cubo: capa de afuera naranja que se 'estira' (flechas hacia fuera) y centro azul quieto.\nGrietas: líneas de grieta que se abren dentro del cubo con chispitas de sonido.\nRemate: amigo asustado revisando su vaso. Pieza nueva reutilizable: cubo de hielo en corte con capas de temperatura y grietas animables.",
+  "titulo_yt": "¿Por qué el hielo TRUENA en tu refresco? 🧊 #shorts",
+  "descripcion_yt": "No es tu vaso: es el choque de temperatura que cuartea el hielo por dentro.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#ciencia #datoscuriosos #hielo #shorts",
+  "titulo_tt": "¿Por qué truena el hielo? 🧊",
+  "texto_tt": "No, tu vaso no se está rompiendo 🧊 Etiqueta al que se asusta con el crac. #ciencia #datoscuriosos #fyp",
+  "pedido": false
+ },
+ {
+  "hora": "21:30",
+  "slug": "hora-mas-fria",
+  "estado": "listo",
+  "prueba": "largo-40s",
+  "tema": "¿Cuál es la hora más fría del día? (justo después del amanecer: toda la noche el suelo pierde calor por radiación hacia el cielo y sigue enfriándose hasta que el sol calienta más de lo que la tierra pierde; enfriamiento radiativo: las nubes regresan calor infrarrojo al suelo, por eso las noches despejadas y estrelladas son más frías; puede haber helada en el pasto aunque el termómetro (a ~1.5 m) marque algunos grados sobre cero, porque el suelo está más frío que el aire). Fuentes: Georgia Tech College of Sciences, AccuWeather, UBC ATSC 113",
+  "fuentes": [
+   "https://cos.gatech.edu/node/3344",
+   "https://www.accuweather.com/en/weather-news/radiational-cooling-with-clear-skies/277207",
+   "https://www.eoas.ubc.ca/courses/atsc113/snow/met_concepts/06-met_concepts/06i-temp-adj-sfc-heat-cool/"
+  ],
+  "tendencia": "Frente frío 8 y chorro polar: heladas y temperaturas de hasta 0 °C en la madrugada en el centro y norte de México (N+)",
+  "formato": "mito (no es la medianoche) + explicación + sorpresa a la mitad (las nubes son cobija) + dato extra (helada sobre cero) + truco (LARGO prueba 40 s)",
+  "categoria": "clima / cielo",
+  "disparadores": [
+   "¿ves? te dije",
+   "sorpresa",
+   "truco útil"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-25-2130-hora-mas-fria.json",
+  "visual": "Escenario: calle/azotea mexicana con cielo nocturno que pasa a amanecer; reloj grande en pantalla.\nGancho (0–4 s): reloj marca 12:00 con '¿la más fría?' y se tacha.\nAmanecer (4–9 s): manecillas avanzan rápido mientras del suelo salen flechas de calor hacia el cielo; termómetro baja; sale el sol.\nSol (9–13 s): balanza sol vs tierra: flechas que entran (sol) pequeñas contra las que salen (suelo) grandes, hasta empatar.\nCobija (13–18 s): SORPRESA: nubes chibi con cobija que rebotan las flechas de calor al suelo.\nEstrellas (18–22 s): cielo despejado y estrellado; flechas escapan al espacio sin rebotar.\nHelada (22–27 s): pasto que se pone blanco mientras un termómetro en poste marca arriba de cero.\nTruco + remate (27–40 s): personaje ve estrellas y cuelga la chamarra en la puerta; amigo saliendo de madrugada en suéter temblando. Pieza nueva reutilizable: flechas de calor radiativo suelo↔cielo con nube que las rebota.",
+  "titulo_yt": "¿Cuál es la hora más FRÍA del día? 🥶 #shorts",
+  "descripcion_yt": "No es la medianoche: es justo al salir el sol. Y las noches estrelladas son las más frías.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#ciencia #datoscuriosos #frio #clima #shorts",
+  "titulo_tt": "La hora más fría NO es la medianoche 🥶",
+  "texto_tt": "Y si ves muchas estrellas, prepara la chamarra 🥶 Etiqueta al que sale de madrugada en puro suéter. #ciencia #datoscuriosos #frio #fyp",
+  "pedido": false
+ }
+]

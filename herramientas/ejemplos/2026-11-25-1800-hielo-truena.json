@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-25-1800-hielo-truena",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el hielo truena cuando le echas refresco?"
+   ]
+  },
+  {
+   "tipo": "congelador",
+   "titulo": "",
+   "frases": [
+    "El hielo del congelador está a casi veinte grados bajo cero."
+   ]
+  },
+  {
+   "tipo": "choque",
+   "titulo": "",
+   "frases": [
+    "Al caerle el refresco, la capa de afuera se calienta y se estira, pero el centro sigue helado."
+   ]
+  },
+  {
+   "tipo": "grietas",
+   "titulo": "",
+   "frases": [
+    "Esa jaloneada lo cuartea por dentro: el tronido son grietas abriéndose."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo al que cree que su vaso se está rompiendo."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
