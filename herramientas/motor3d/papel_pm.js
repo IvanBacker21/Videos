@@ -1822,5 +1822,73 @@ export function kitPM(P, THREE, group) {
     g.sube = k => { g.visible = k > .01; g.position.y = -.2 - (1 - k) * .45; g.scale.y = Math.max(.001, .4 + .6 * k); };
     g.sube(0); return g; }
 
-  return { narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= HIELO QUE TRUENA (25-nov-2026 18:00) =================
+  // PM.vasoHielos(pos, o, padre): vaso de vidrio de cartulina con cubitos de hielo; fondo en y = 0, g.H = alto, g.W = ancho de arriba.
+  //   g.llena(k 0..1): sube el refresco (los hielos flotan con el nivel). g.chorro(t, k, alto): chorrito de refresco que cae desde
+  //   g.H + alto hasta el líquido, con gotitas que salpican. g.truena(t, k): los hielos brincan y se les dibujan grietitas.
+  //   o: {w .5, h .75, liquido 0x6e3418, n 3 (hielos)}
+  function vasoHielos(pos, o = {}, parent = null) { const g = group(pos, parent), W = g.W = o.w ?? .5, H = g.H = o.h ?? .75, LIQ = o.liquido ?? 0x6e3418, wb = W * .4;
+    const forma = (a, b, y0, y1) => F.poly([[-b, y0], [b, y0], [a, y1], [-a, y1]]);
+    pz(forma(W / 2, wb, 0, H), 0xe6f6ff, [0, 0, 0], g, { tinta: .016, papel: .05 });                                    // vidrio
+    det(F.rect(W * .82, .05, .02), 0xc9e9fb, [0, .03, .012], g);                                                     // fondo grueso
+    g.liq = group([0, .06, .014], g); const LH = H * .84;
+    det(forma(W / 2 - .03, wb - .025, 0, LH), LIQ, [0, 0, 0], g.liq); g.espuma = det(F.rect(W - .07, .05, .02), 0xe9c89a, [0, LH, .003], g.liq);
+    let sm = 3; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    g.burbs = Array.from({ length: 6 }, (_, i) => { const b = det(F.circ(.014 + rnd() * .01), 0xb8754a, [(rnd() - .5) * W * .6, 0, .006], g.liq); b.f = rnd(); return b; });
+    // hielos (cubitos redondeados con brillo y grietitas escondidas)
+    const n = o.n ?? 3, lad = W * .34;
+    g.hielos = Array.from({ length: n }, (_, i) => { const h = group([0, 0, .03 + i * .004], g);
+      pz(F.rect(lad, lad, lad * .18), o.hielo ?? 0xb3e5ff, [0, 0, 0], h, { tinta: .012, papel: .03 });
+      det(F.rect(lad * .16, lad * .5, .02), 0xffffff, [-lad * .26, lad * .08, .012], h);
+      h.gr = group([0, 0, .016], h); det(tubo([[-lad * .4, lad * .3], [-lad * .05, lad * .05], [-lad * .15, -lad * .15], [lad * .3, -lad * .38]], .012, .006), 0x2a6fd0, [0, 0, 0], h.gr);
+      det(tubo([[lad * .38, lad * .35], [lad * .1, lad * .1]], .01, .005), 0x2a6fd0, [0, 0, 0], h.gr); h.gr.visible = false;
+      h.x0 = (i - (n - 1) / 2) * lad * .95; h.yb = .06 + lad / 2 + (i % 2) * lad * .9; h.a0 = (i - 1) * .25; h.f = i * 1.7; return h; });
+    let niv = 0;
+    g.llena = k => { niv = Math.max(0, Math.min(1, k)); g.liq.visible = niv > .01; g.liq.scale.y = Math.max(.001, niv);
+      g.hielos.forEach((h, i) => { const sup = .06 + LH * niv - lad * .2 - (i % 2) * lad * .55; h.position.x = h.x0; h.position.y = Math.max(h.yb, sup); h.rotation.z = h.a0; }); };
+    g.ch = group([0, 0, .025], g); const col = det(F.rect(.06, 1, .02), LIQ, [0, .5, 0], g.ch);
+    g.sal = Array.from({ length: 5 }, (_, i) => { const q = pz(F.circ(.025), LIQ, [0, 0, .01], g.ch, { tinta: .008, papel: false }); q.a = (i / 4 - .5) * 2.4; q.f = i / 5; return q; });
+    g.chorro = (t, k, alto = .6) => { g.ch.visible = k > .01; if (!g.ch.visible) return; const y0 = .06 + LH * niv, y1 = H + alto;
+      col.position.y = y0 + (y1 - y0) * (1 - k) + (y1 - y0) * k / 2; col.scale.set(1 + Math.sin(t * 17) * .12, Math.max(.001, (y1 - y0) * k), 1);
+      g.sal.forEach(q => { const u = (t * 2.2 + q.f) % 1; q.visible = k > .6; q.position.set(Math.sin(q.a) * .25 * u, y0 + .25 * u - .55 * u * u, .01); q.scale.setScalar(Math.max(.001, 1 - u)); }); };
+    g.truena = (t, k) => g.hielos.forEach(h => { h.gr.visible = k > .05; h.gr.scale.setScalar(Math.max(.001, Math.min(1, k * 1.4)));
+      const b = Math.max(0, Math.sin(t * 23 + h.f)) * k; h.position.y += b * .025; h.rotation.z = h.a0 + Math.sin(t * 31 + h.f) * .08 * k; });
+    g.update = t => g.burbs.forEach(b => { const q = (t * .5 + b.f) % 1; b.position.y = LH * q; b.visible = niv > .2; });
+    g.llena(0); g.chorro(0, 0); return g; }
+  // PM.termometro(pos, o, padre): termómetro de cartulina (tubo blanco con rayitas y bulbo). g.nivel(k 0..1) sube/baja la columna;
+  //   o: {h 1.0, color 0x3d9bff (columna; rojo 0xff4d5e para calor), copo: true (copito arriba = frío)}
+  function termometro(pos, o = {}, parent = null) { const g = group(pos, parent), H = o.h ?? 1.0, col = o.color ?? 0x3d9bff;
+    pz(F.rect(.2, H, .1), 0xffffff, [0, H / 2, 0], g, { tinta: .016, papel: .05 }); pz(F.circ(.16), col, [0, 0, .01], g, { tinta: .016, papel: .05 });
+    for (let i = 1; i < 6; i++) det(F.rect(.06, .015, 0), 0x9aa3b5, [.05, .12 + i * (H - .2) / 6, .012], g);
+    g.col = group([0, .05, .014], g); det(F.rect(.075, 1, .03), col, [0, .5, 0], g.col);
+    if (o.copo !== false) det(F.estrella(6, .09, .03), 0x8fd3ff, [.24, H - .1, .01], g);
+    g.nivel = k => { g.col.scale.y = Math.max(.001, (H - .18) * Math.max(0, Math.min(1, k))); }; g.nivel(.5); return g; }
+  // PM.hieloCorte(pos, o, padre): CUBO DE HIELO GIGANTE EN CORTE (para acercamientos), mide o.s (1.5) por lado. Capa de afuera azul claro y
+  //   centro azul fuerte con copito. g.calienta(k): la capa de afuera se pone naranja; g.estira(t, k): la capa crece y 4 flechas naranjas
+  //   empujan hacia afuera (el centro se queda igual); g.grietas(k): grietas que salen del centro hacia las esquinas; g.chispas(t, k):
+  //   estrellitas amarillas de "¡crac!" en las puntas de las grietas; g.tiembla(t, k). Sirve para dilatación, choque térmico, hielo, vidrio.
+  function hieloCorte(pos, o = {}, parent = null) { const g = group(pos, parent), S = o.s ?? 1.5, AZC = 0x9fdcff, NA = 0xff9a4d, c = S * .3;
+    g.in = group([0, 0, 0], g); g.capa = group([0, 0, 0], g.in);
+    const ca = pz(F.rect(S, S, S * .12), AZC, [0, 0, 0], g.capa, { tinta: .02, papel: .07 }); const mc = ca.children[0]; mc.material = mc.material.clone();
+    det(F.rect(S * .08, S * .5, .03), 0xffffff, [-S * .4, S * .12, .012], g.capa); det(F.circ(S * .03), 0xffffff, [-S * .4, -S * .22, .012], g.capa);
+    g.centro = pz(F.rect(c * 2, c * 2, S * .08), 0x4aa8ff, [0, 0, .03], g.in, { tinta: .016, papel: false });
+    det(F.estrella(6, c * .45, c * .14), 0xffffff, [0, 0, .016], g.centro);
+    g.gr = group([0, 0, .06], g.in); const GR = 0x1e4f9a;
+    g.puntas = [];
+    for (const [sx, sy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) { const p0 = [sx * c * .9, sy * c * .9], p3 = [sx * S * .47, sy * S * .47];
+      const pts = [p0, [sx * c * 1.3, sy * c * 1.05], [sx * S * .3, sy * S * .38], [sx * S * .4, sy * S * .33], p3];
+      const gg = group([0, 0, 0], g.gr); det(tubo(pts, .03, .012), GR, [0, 0, 0], gg);
+      det(tubo([pts[2], [sx * S * .22, sy * S * .46]], .018, .008), GR, [0, 0, .002], gg); gg.p0 = p0; gg.visible = false; g.puntas.push({ gg, p: p3 }); }
+    g.fl = [0, 1, 2, 3].map(i => { const a = i * Math.PI / 2, f = flechaAire([Math.cos(a) * S * .63, Math.sin(a) * S * .63, .08], g.in, 1.4); f.rotation.z = a; f.color(NA); f.a = a; return f; });
+    g.ch = g.puntas.map(({ p }, i) => { const e = pz(F.estrella(5, .14, .06), 0xffd640, [p[0], p[1], .09], g.in, { tinta: .01, papel: .03 }); e.f = i * .27; return e; });
+    g.calienta = k => mc.material.color.setHex(mez(AZC, NA, Math.max(0, Math.min(1, k))));
+    g.estira = (t, k) => { const e = 1 + .07 * k + Math.sin(t * 6) * .015 * k; g.capa.scale.setScalar(e);
+      g.fl.forEach((f, i) => { const q = (t * 1.4 + i * .25) % 1, r = S * (.6 + .12 * q) * e; f.visible = k > .02; f.position.set(Math.cos(f.a) * r, Math.sin(f.a) * r, .08); f.scale.setScalar(Math.max(.001, 1.4 * k * Math.min(1, (1 - q) * 4, q * 6 + .2))); }); };
+    g.grietas = k => g.puntas.forEach(({ gg }, i) => { const kk = Math.max(0, Math.min(1, k * 1.6 - i * .2)); gg.visible = kk > .02;
+      gg.scale.setScalar(Math.max(.001, kk)); gg.position.set(gg.p0[0] * (1 - kk), gg.p0[1] * (1 - kk), 0); });
+    g.chispas = (t, k) => g.ch.forEach(e => { const q = (t * 1.8 + e.f) % 1; e.visible = k > .02; e.scale.setScalar(Math.max(.001, k * Math.sin(q * Math.PI) * 1.2)); e.rotation.z = q * 2; });
+    g.tiembla = (t, k) => { g.in.position.set(Math.sin(t * 37) * .025 * k, Math.sin(t * 29 + 1) * .02 * k, 0); g.in.rotation.z = Math.sin(t * 23) * .03 * k; };
+    g.calienta(0); g.estira(0, 0); g.grietas(0); g.chispas(0, 0); return g; }
+
+  return { vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

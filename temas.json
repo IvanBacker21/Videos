@@ -1136,5 +1136,22 @@
   "archivo": "shorts/2026-11-25-1330-nariz-frio.mp4",
   "titulo": "¿Por qué el frío te hace MOQUEAR? 🤧 #shorts",
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-25",
+  "hora": "18:00",
+  "tema": "¿Por qué el hielo truena cuando le echas refresco? (choque térmico: el hielo del congelador está a unos -18 °C; el líquido calienta y dilata la capa externa mientras el centro sigue frío y sin dilatarse; la tensión abre grietas internas y el crujido es el sonido de esas fracturas; el hielo cerca de 0 °C casi no truena). Fuentes: Univ. de Illinois Physics Van (Ask the Van), Mental Floss, Gizmodo",
+  "formato": "¿por qué…? cotidiano + explicación + sorpresa (no es el vaso)",
+  "categoria": "comida / física",
+  "tendencia": "Algo que todos han vivido (refresco con hielo en la comida); semana de reuniones y fiestas de fin de mes",
+  "disparadores": [
+   "eres tú",
+   "sorpresa"
+  ],
+  "duracion": 26.8,
+  "mejora": "papel_pm.js: PM.hieloCorte (cubo de hielo en corte: capa que se calienta y se estira con flechas, centro helado, grietas, chispas) + PM.vasoHielos (vaso con hielos, llenar, chorro desde botella, truena) + PM.termometro",
+  "archivo": "shorts/2026-11-25-1800-hielo-truena.mp4",
+  "titulo": "¿Por qué el hielo TRUENA en tu refresco? 🧊 #shorts",
+  "prueba": "normal"
  }
 ]

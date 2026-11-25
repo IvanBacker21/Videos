@@ -28,7 +28,7 @@
  {
   "hora": "18:00",
   "slug": "hielo-truena",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "normal",
   "tema": "¿Por qué el hielo truena cuando le echas refresco? (choque térmico: el hielo del congelador está a unos -18 °C; el líquido calienta y dilata la capa externa mientras el centro sigue frío y sin dilatarse; la tensión abre grietas internas y el crujido es el sonido de esas fracturas; el hielo cerca de 0 °C casi no truena). Fuentes: Univ. de Illinois Physics Van (Ask the Van), Mental Floss, Gizmodo",
   "fuentes": [
