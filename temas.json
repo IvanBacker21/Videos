@@ -1101,5 +1101,23 @@
   "archivo": "shorts/2026-11-24-1800-sal-agua-hierve.mp4",
   "titulo": "¿La sal hace hervir el agua MÁS rápido? 🧂 #shorts",
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-24",
+  "hora": "21:30",
+  "tema": "¿Por qué la Luna SIEMPRE nos enseña la misma cara? (hoy 24-nov es la superluna del castor; acoplamiento de marea: la Luna gira una vez sobre su eje por cada órbita (~27 días), la gravedad terrestre deformó y frenó su rotación hasta sincronizarla; mito 'lado oscuro': la cara lejana recibe la misma luz solar, en luna nueva está totalmente iluminada; libración: un bamboleo aparente que nos deja ver cerca del 59 % de la superficie; la Luna se aleja unos 3.8 cm por año (medido con láser y reflectores del Apolo), parecido a lo que crecen las uñas). Fuentes: NASA Science (Tidal locking), timeanddate (Far side of the Moon), Live Science (Why can't we see the far side of the moon), N+ / Star Walk (superluna del castor 24-nov-2026) (dato extra al producir: el alejamiento se mide rebotando un láser en los espejos que dejaron los astronautas del Apolo; fuente: NASA, Apollo laser ranging)",
+  "formato": "gancho de tendencia (superluna) + explicación + sorpresa a la mitad (no hay lado oscuro) + dato extra (bamboleo) + dato extra (se aleja) (LARGO prueba 40 s)",
+  "categoria": "espacio / cielo",
+  "tendencia": "Hoy 24 de noviembre: superluna del castor, la luna llena de noviembre, en medios mexicanos",
+  "disparadores": [
+   "tendencia (superluna hoy)",
+   "¿ves? te dije (el lado oscuro no existe)",
+   "sorpresa (se aleja cada año)"
+  ],
+  "duracion": 44.7,
+  "mejora": "papel_pm.js: PM.orbitaLunaGiro (Luna orbitando la Tierra con rotación sincronizada y marca que siempre apunta a la Tierra: fases, eclipses, mareas)",
+  "archivo": "shorts/2026-11-24-2130-luna-misma-cara.mp4",
+  "titulo": "¿Por qué la Luna SIEMPRE nos da la misma cara? 🌕 #shorts",
+  "prueba": "largo-40s"
  }
 ]

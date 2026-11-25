@@ -56,6 +56,13 @@
    ]
   },
   {
+   "tipo": "laser",
+   "titulo": "",
+   "frases": [
+    "Lo sabemos porque le rebotamos un láser en espejos que dejaron los astronautas."
+   ]
+  },
+  {
    "tipo": "remate",
    "titulo": "",
    "frases": [

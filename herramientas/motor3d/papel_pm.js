@@ -1705,6 +1705,18 @@ export function kitPM(P, THREE, group) {
         c.position.set(Math.sin(i * 2.1) * .1 + Math.sin(t * 9 + i) * .02, y, .25); c.rotation.z = r; c.scale.setScalar(Math.max(.001, s * k)); c.visible = k > .01; });
       const on = modo === 'guante' ? 0 : k; g.puntos.forEach(d => { const e = on * Math.max(0, 1 - Math.abs(d.x) / .6); d.luz.visible = e > .05; d.luz.scale.setScalar(Math.max(.001, e * (.9 + Math.sin(t * 14 + d.x * 9) * .15))); }); };
     g.update(0, 0); return g; }
+  // PM.orbitaLunaGiro(pos, o) (24-nov 21:30): vista desde arriba de la Luna orbitando la Tierra con rotación SINCRONIZADA: la Luna lleva
+  //   una marca roja (triangulito) que siempre apunta a la Tierra y su carita gira con ella. Órbita punteada. Sirve para fases, eclipses y mareas.
+  //   o: {R (radio de la órbita, 1), rT (.4), rL (.2), cara (carita de la Luna, true), caraTierra (true), tierra (false = sin Tierra), puntos (true)}
+  //   g.tierra, g.luna, g.marca, g.pivote. g.update(ang, giro = ang): ang = posición en la órbita (rad, 0 = derecha); giro distinto = Luna NO trabada.
+  function orbitaLunaGiro(pos, o = {}) { const g = group(pos), R = o.R ?? 1, rT = o.rT ?? .4, rL = o.rL ?? .2;
+    if (o.puntos !== false) { const n = Math.round(R * 24); for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2; det(F.circ(.032), 0x8fd3ff, [Math.cos(a) * R, Math.sin(a) * R, -.03], g); } }
+    g.tierra = o.tierra === false ? null : tierra([0, 0, 0], rT, { cara: o.caraTierra ?? true }); if (g.tierra) g.add(g.tierra);
+    g.pivote = group([R, 0, .06], g);
+    g.luna = luna([0, 0, 0], rL, { halo: false, cara: o.cara ?? true }); g.pivote.add(g.luna);
+    g.marca = pz(F.poly([[-rL * .32, 0], [rL * .32, 0], [0, -rL * .5]]), 0xff5b5b, [0, -rL * .98, .03], g.luna, { tinta: .01, papel: .03 });
+    g.update = (ang, giro = ang) => { g.pivote.position.set(Math.cos(ang) * R, Math.sin(ang) * R, .06); g.luna.rotation.z = giro - Math.PI / 2; };
+    g.update(0); return g; }
   // PM.guantes(p, color, o) (24-nov 13:30): guantes gordos de estambre (manopla con pulgar y puño de resorte) sobre las manos de un chibi.
   //   Devuelve [izq, der] (grupos; .visible = false para "quitárselo"). PM.guanteSuelto(pos, color, padre): el mismo guante suelto
   //   (cuelga hacia abajo desde su origen: de la boca, de la mano, de un tendedero).
@@ -1752,5 +1764,5 @@ export function kitPM(P, THREE, group) {
     g.quitaTapa = () => { kt = 0; tp.visible = false; };
     g.traquetea = (t, k = 1) => { if (kt < .99) return; tp.position.y = h + .03 + Math.max(0, Math.sin(t * 15)) * .035 * k; tp.rotation.z = Math.sin(t * 11) * .045 * k; };
     g.fuego(o.k ?? 1); if (o.tapa === 'no') g.quitaTapa(); else g.tapa(o.tapa ?? 0); g.hierve(0, 0); g.vapor(0, 0); return g; }
-  return { ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  return { orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

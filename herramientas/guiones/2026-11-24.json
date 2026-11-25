@@ -56,9 +56,9 @@
  {
   "hora": "21:30",
   "slug": "luna-misma-cara",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "largo-40s",
-  "tema": "¿Por qué la Luna SIEMPRE nos enseña la misma cara? (hoy 24-nov es la superluna del castor; acoplamiento de marea: la Luna gira una vez sobre su eje por cada órbita (~27 días), la gravedad terrestre deformó y frenó su rotación hasta sincronizarla; mito 'lado oscuro': la cara lejana recibe la misma luz solar, en luna nueva está totalmente iluminada; libración: un bamboleo aparente que nos deja ver cerca del 59 % de la superficie; la Luna se aleja unos 3.8 cm por año (medido con láser y reflectores del Apolo), parecido a lo que crecen las uñas). Fuentes: NASA Science (Tidal locking), timeanddate (Far side of the Moon), Live Science (Why can't we see the far side of the moon), N+ / Star Walk (superluna del castor 24-nov-2026)",
+  "tema": "¿Por qué la Luna SIEMPRE nos enseña la misma cara? (hoy 24-nov es la superluna del castor; acoplamiento de marea: la Luna gira una vez sobre su eje por cada órbita (~27 días), la gravedad terrestre deformó y frenó su rotación hasta sincronizarla; mito 'lado oscuro': la cara lejana recibe la misma luz solar, en luna nueva está totalmente iluminada; libración: un bamboleo aparente que nos deja ver cerca del 59 % de la superficie; la Luna se aleja unos 3.8 cm por año (medido con láser y reflectores del Apolo), parecido a lo que crecen las uñas). Fuentes: NASA Science (Tidal locking), timeanddate (Far side of the Moon), Live Science (Why can't we see the far side of the moon), N+ / Star Walk (superluna del castor 24-nov-2026) (dato extra al producir: el alejamiento se mide rebotando un láser en los espejos que dejaron los astronautas del Apolo; fuente: NASA, Apollo laser ranging)",
   "fuentes": [
    "https://science.nasa.gov/moon/tidal-locking/",
    "https://www.timeanddate.com/astronomy/moon/far-side.html",
