@@ -1119,5 +1119,22 @@
   "archivo": "shorts/2026-11-24-2130-luna-misma-cara.mp4",
   "titulo": "¿Por qué la Luna SIEMPRE nos da la misma cara? 🌕 #shorts",
   "prueba": "largo-40s"
+ },
+ {
+  "fecha": "2026-11-25",
+  "hora": "13:30",
+  "tema": "¿Por qué con el frío SIEMPRE te escurre la nariz? (rinitis por frío: la nariz calienta y humedece el aire antes de los pulmones; con aire frío y seco las glándulas sueltan más líquido; además el vapor del aliento se condensa en la punta fría de la nariz; truco: cubrir nariz y boca con bufanda para respirar aire más tibio). Fuentes: Smithsonian (Ask Smithsonian), NPR, Ohio State Wexner Medical Center",
+  "formato": "¿por qué SIEMPRE…? + explicación + truco útil",
+  "categoria": "cuerpo / frío",
+  "tendencia": "Frente frío 8 y chorro polar con temperaturas de hasta 0 °C en varios estados esta semana (N+, Xataka México)",
+  "disparadores": [
+   "eres tú",
+   "truco útil"
+  ],
+  "duracion": 26.6,
+  "mejora": "papel_pm.js: PM.narizCorte (corte de la cabeza con túnel nariz→pulmones, flechas de aire azul→naranja, glándulas con gotitas, gota en la fosa) + PM.flechaAire, PM.gotaNariz, PM.bufandaNariz",
+  "archivo": "shorts/2026-11-25-1330-nariz-frio.mp4",
+  "titulo": "¿Por qué el frío te hace MOQUEAR? 🤧 #shorts",
+  "prueba": "normal"
  }
 ]

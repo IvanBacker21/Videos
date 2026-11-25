@@ -1764,5 +1764,63 @@ export function kitPM(P, THREE, group) {
     g.quitaTapa = () => { kt = 0; tp.visible = false; };
     g.traquetea = (t, k = 1) => { if (kt < .99) return; tp.position.y = h + .03 + Math.max(0, Math.sin(t * 15)) * .035 * k; tp.rotation.z = Math.sin(t * 11) * .045 * k; };
     g.fuego(o.k ?? 1); if (o.tapa === 'no') g.quitaTapa(); else g.tapa(o.tapa ?? 0); g.hierve(0, 0); g.vapor(0, 0); return g; }
-  return { orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 25-nov 13:30 (nariz que escurre con el frío) ----
+  // PM.flechaAire(pos, padre, s): flechita gorda de aire de cartulina (apunta a +x local) con color cambiable: g.color(hex).
+  const flechaForma = () => F.poly([[-.13, .04], [.02, .04], [.02, .09], [.14, 0], [.02, -.09], [.02, -.04], [-.13, -.04]]);
+  function flechaAire(pos, parent = null, s = 1) { const g = group(pos, parent); g.scale.setScalar(s);
+    const f = pz(flechaForma(), 0x3d9bff, [0, 0, 0], g, { tinta: .012, papel: .035 }); const m = f.children[0]; m.material = m.material.clone();
+    g.color = hex => m.material.color.setHex(hex); return g; }
+  // PM.narizCorte(pos, o, padre): CORTE de perfil de una cabeza (mira a la DERECHA) con el túnel de la nariz que baja por la garganta
+  //   hasta dos pulmoncitos abajo. Pon el grupo con escala ≈ .7 (mide ~2.5 × 3.5 sin escalar). Partes:
+  //   g.aire(t, k, dir = 1, calienta = true): flechitas que viajan por el túnel (dir 1 = entra por la nariz hacia los pulmones, azul → naranja;
+  //     dir -1 = sale de los pulmones, naranja → azul clarito en la punta fría). g.glandulas(t, k): bolitas rosas en el techo del túnel
+  //     que se inflan y sueltan gotitas de agua que resbalan. g.gotea(t, k): gotita que crece en la fosa nasal y cae. g.ruta(u) = punto
+  //   del túnel (u 0 = fosa nasal, 1 = pulmones) en coordenadas locales. Sirve para estornudos, olores, respirar, gripa, aire frío.
+  function narizCorte(pos, o = {}, parent = null) { const g = group(pos, parent), piel = o.piel ?? 0xe8b48c, ROSA = 0xff9fb2, AZ = 0x3d9bff, NA = 0xff8a3d;
+    pz(blob([[-1.25, 1.25], [-.6, 1.42], [0, 1.32], [.22, 1.05], [.24, .72], [.42, .45], [.8, .02], [.74, -.14], [.48, -.2], [.46, -.38], [.56, -.52],
+      [.42, -.64], [.47, -.8], [.32, -1.02], [-.15, -1.12], [-.3, -1.35], [-1.25, -1.35]]), piel, [0, 0, 0], g, { tinta: .02, papel: .07 });
+    pz(blob([[-1.25, 1.25], [-.7, 1.48], [-.1, 1.4], [-.2, 1.2], [-.8, 1.12], [-1.27, .7]]), 0x3a2416, [0, 0, .02], g, { tinta: .014, papel: .03 });   // pelo
+    det(F.elipse(.05, .1), INK, [.02, .66, .02], g); det(F.circ(.018), 0xffffff, [.03, .7, .024], g);                                                     // ojo
+    det(F.elipse(.1, .05), mez(piel, 0xff6f86, .45), [-.05, .32, .02], g);                                                                              // chapita
+    det(F.arco(.08, .028, Math.PI * 1.25, Math.PI * 1.75), 0x7a1f30, [.4, -.48, .02], g);                                                                 // boca
+    // túnel: fosa nasal → arriba → atrás → garganta → pulmones
+    const ctrl = [[.6, -.1], [.42, .08], [.1, .22], [-.3, .2], [-.6, -.05], [-.7, -.5], [-.7, -1.1], [-.7, -1.55]];
+    const cur = new THREE.CatmullRomCurve3(ctrl.map(([a, b]) => new THREE.Vector3(a, b, 0)));
+    g.ruta = u => cur.getPointAt(Math.min(1, Math.max(0, u)));
+    pz(tubo(ctrl, .26, .2), ROSA, [0, 0, .03], g, { tinta: .016, papel: false });
+    det(tubo(ctrl.slice(0, 6), .1, .08), osc(ROSA, .9), [0, -.02, .046], g);
+    for (const sx of [-1, 1]) { const l = pz(F.elipse(.3, .42), ROSA, [-.7 + sx * .34, -1.85, .01], g, { tinta: .018, papel: .06 });                    // pulmones
+      for (const [x, y, a] of [[0, .05, .5], [sx * .1, -.12, .9 * sx], [-sx * .06, -.22, -.6 * sx]]) det(F.rect(.16, .025, .01), osc(ROSA, .8), [x, y, .016], l, a); }
+    pz(F.rect(.2, .3, .05), ROSA, [-.7, -1.5, .025], g, { tinta: .014, papel: false });
+    // glándulas en el techo del túnel y sus gotitas
+    g.gl = [.14, .26, .38].map((u, i) => { const p = cur.getPointAt(u), d = pz(F.circ(.065), 0xff6f8e, [p.x, p.y + .1, .07], g, { tinta: .01, papel: false });
+      d.u = u; d.i = i; d.gt = pz(F.gota(.24), 0x8fd3ff, [0, 0, .09], g, { tinta: .01, papel: .02 }); d.gt.visible = false; return d; });
+    g.glandulas = (t, k) => g.gl.forEach(d => { const q = (t * .9 + d.i * .33) % 1, p = cur.getPointAt(d.u);
+      d.scale.setScalar(1 + k * (.35 + Math.sin(t * 7 + d.i * 2) * .15)); d.gt.visible = k > .02;
+      d.gt.position.set(p.x + q * .12, p.y + .06 - q * .14, .09); d.gt.scale.setScalar(Math.max(.001, k * Math.min(1, q * 4) * (1 - Math.max(0, q - .8) * 5))); });
+    // flechitas de aire
+    g.fl = Array.from({ length: o.n ?? 5 }, (_, i) => { const f = flechaAire([0, 0, .1], g, 1.25); f.f = i / (o.n ?? 5); return f; });
+    g.aire = (t, k, dir = 1, calienta = true) => g.fl.forEach(f => { f.visible = k > .01; if (!f.visible) return;
+      const q = (t * .32 + f.f) % 1, u = dir > 0 ? q : 1 - q, p = cur.getPointAt(u), tg = cur.getTangentAt(u);
+      f.position.set(p.x, p.y, .1); f.rotation.z = Math.atan2(tg.y, tg.x) + (dir > 0 ? 0 : Math.PI);
+      f.scale.setScalar(Math.max(.001, 1.25 * k * Math.min(1, q * 8, (1 - q) * 8)));
+      f.color(dir > 0 ? (calienta ? mez(AZ, NA, Math.min(1, u / .55)) : AZ) : (u > .12 ? NA : mez(0x9fdcff, NA, u / .12))); });
+    // gotita en la fosa nasal
+    g.gt = pz(F.gota(.32), 0x8fd3ff, [.62, -.2, .12], g, { tinta: .012, papel: .03 }); det(F.circ(.035), 0xffffff, [-.035, -.03, .016], g.gt);
+    g.gotea = (t, k) => { const q = (t * .5) % 1; g.gt.visible = k > .01; const cae = Math.max(0, q - .6) / .4;
+      g.gt.position.set(.62, -.3 - cae * cae * 1.2, .12); g.gt.scale.setScalar(Math.max(.001, k * Math.min(1, .35 + q * 1.1))); };
+    g.aire(0, 0); g.glandulas(0, 0); g.gotea(0, 0); return g; }
+  // PM.gotaNariz(p): gotita de moco aguado colgando de la nariz de un chibi. g.update(t, k 0..1 tamaño, cae 0..1: 0 colgando, 1 ya cayó lejos)
+  function gotaNariz(p) { const g = group([.0, -.15, .06], p.head); const d = pz(F.gota(.2), 0x8fd3ff, [0, 0, 0], g, { tinta: .012, papel: .03 });
+    det(F.circ(.022), 0xffffff, [-.022, -.02, .016], d);
+    g.update = (t, k = 1, cae = 0) => { g.visible = k > .01; d.position.y = -.09 * k - cae * cae * 1.6; d.scale.set(Math.max(.001, k), Math.max(.001, k * (1 + Math.sin(t * 5) * .08 * (1 - cae))), 1); };
+    g.update(0, 0); return g; }
+  // PM.bufandaNariz(p, color, color2): la bufanda SUBIDA tapando nariz y boca (encima de la cara del chibi). g.sube(k 0..1) la sube desde el cuello.
+  function bufandaNariz(p, color = 0xff6b5b, color2 = 0xffffff) { const g = group([0, -.2, .06], p.head);
+    const b = pz(blob([[-.46, .1], [-.2, .15], [.2, .15], [.46, .1], [.44, -.12], [.2, -.16], [-.2, -.16], [-.44, -.12]]), color, [0, 0, 0], g, { tinta: .014, papel: .04 });
+    for (const x of [-.27, -.09, .09, .27]) det(F.rect(.06, .24, .01), color2, [x, -.005, .016], b);
+    g.sube = k => { g.visible = k > .01; g.position.y = -.2 - (1 - k) * .45; g.scale.y = Math.max(.001, .4 + .6 * k); };
+    g.sube(0); return g; }
+
+  return { narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
