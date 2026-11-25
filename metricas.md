@@ -417,3 +417,50 @@ El error del 21:30 NO es por retries acumulados: es el límite de 2 posts de You
 - ✅ **Prueba largo-40s**: balón curva publicado manualmente en YouTube; prueba continúa (evaluación después del 28-nov).
 
 **Conclusión:** TikTok 6/6 OK; YouTube 4/6 OK (palomitas, refresco, ojos-rojos vía Buffer + balón-curva manual). Mejora significativa respecto a los días anteriores. El techo de 2 YT posts/día en Buffer es estructural: tratar el 21:30 como manual rutinario. Sin vistas disponibles; evaluación de la prueba de duración pendiente para después del 28-nov.
+
+## 2026-11-24 23:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (23 y 24-nov).
+
+**Buffer: 🟡 2/3 YouTube OK en 24-nov. Daily limit persiste en slot 13:30. Los largos-40s (estelas 23-nov y luna 24-nov) pasaron en YouTube vía Buffer sin problemas. Chocolate blanco (23-nov 18:00) y guantes (24-nov 13:30) sin publicar en YouTube.**
+
+| Short | Publicado (MX) | Buffer TikTok | Buffer YouTube | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| Luces de Navidad enredadas | 23-nov 13:30 | ✓ sent | ✓ sent | 28.2 s | ✓ | casa/física | concreto ✓ | normal | ✅ Ambas redes OK |
+| Chocolate blanco | 23-nov 18:00 | ✓ sent | ❌ daily limit | 25.8 s | ✓ | comida/mito | concreto ✓ | normal | ❌ YouTube: daily limit — cuarto día con este patrón en 18:00 (anterior: 20-nov) |
+| **Estelas de avión** | 23-nov 21:30 | ✓ sent | ✓ sent | 43.5 s | ✗ (prueba) | cielo/mito | concreto ✓ | **largo-40s** | ✅ Largo-40s publicado en ambas redes |
+| Guantes y celular | 24-nov 13:30 | ✓ sent | ❌ daily limit | 26.2 s | ✓ | tecnología/celular | concreto ✓ | normal | ❌ YouTube: daily limit — mismo patrón slot 13:30 MX (19:30 UTC = mismo día YouTube que reintentos previos) |
+| Sal y agua hirviendo | 24-nov 18:00 | ✓ sent | ✓ sent | 25.6 s | ✓ | comida/mito | concreto ✓ | normal | ✅ Ambas redes OK |
+| **Luna siempre la misma cara** | 24-nov 21:30 | ✓ sent | ✓ sent | 44.7 s | ✗ (prueba) | espacio/cielo | concreto ✓ | **largo-40s** | ✅ Largo-40s + superluna del castor HOY = tendencia perfecta |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Prueba de duración — estado al 24-nov (días 5 de 7):**
+
+| Short largo-40s | Fecha | YouTube | TikTok | Vistas YT | Vistas TikTok |
+|---|---|---|---|---|---|
+| Vibración fantasma | 20-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Cielo azul y atardecer | 21-nov 21:30 | ❌ no publicado | ✅ Buffer | — | s/d |
+| Balón que se dobla | 22-nov 21:30 | ✅ manual | ✅ Buffer | s/d | s/d |
+| Estelas de avión | 23-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Luna misma cara | 24-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+
+**Reglas de GUIA:**
+- Duración ≤30 s: normales (28.2, 25.8, 26.2, 25.6 s) ✓; largos son prueba.
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla: comida × 2, tecnología × 1, casa × 1, espacio/cielo × 1 — buena variedad; sin animales → cupo libre.
+
+**Largo vs normales de hoy (24-nov):**
+- largo-40s (luna 21:30): YouTube ✅ Buffer, TikTok ✅. Sin vistas.
+- normales (guantes 13:30: TikTok ✓/YT ❌; sal 18:00: ✓✓).
+
+**Insight del patrón YouTube daily limit:**
+El error cae sistemáticamente en el slot 13:30 MX (= 19:30 UTC del mismo día). La causa probable es que los reintentos automáticos de posts anteriores fallidos se ejecutan durante el día UTC 24, agotando las 2 publicaciones permitidas por Buffer antes de que llegue el slot de 13:30 MX. Los slots 18:00 MX (00:00 UTC del día siguiente) y 21:30 MX (03:30 UTC del día siguiente) caen en el próximo día UTC de YouTube, libre de reintentos. **Solución definitiva: eliminar (no solo ignorar) todos los posts fallidos en panel.buffer.com → Posts → "Needs attention" para cortar el ciclo de reintentos.**
+
+**Alertas:**
+- 🔴 **Guantes celular (24-nov 13:30) sin publicar en YouTube** — reprogramar manualmente.
+- 🔴 **Chocolate blanco (23-nov 18:00) sigue sin publicarse en YouTube** — reprogramar manualmente si aún es relevante.
+- ✅ **Luna misma cara (21:30, largo-40s)** publicado en ambas redes y coincide con la superluna del castor de hoy — timing excelente.
+
+**Conclusión:** TikTok 6/6 OK; YouTube 24-nov 2/3 OK (sal + luna), 1 error por daily limit. Los dos largos de las últimas 48 h (estelas y luna) pasaron en YouTube vía Buffer. Patrón de fallo sigue siendo slot 13:30 MX en YouTube. La prueba de largo-40s va en día 5/7; comparación final pendiente para revisión del 28-nov.
