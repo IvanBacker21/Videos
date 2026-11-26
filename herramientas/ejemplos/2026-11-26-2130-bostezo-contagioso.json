@@ -1,0 +1,77 @@
+{
+ "id": "2026-11-26-2130-bostezo-contagioso",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué SIEMPRE que alguien bosteza, tú también bostezas?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Te dijeron que es por falta de oxígeno. Falso: en experimentos, respirar más oxígeno no cambió cuánto bostezaba la gente."
+   ]
+  },
+  {
+   "tipo": "ventilador",
+   "titulo": "",
+   "frases": [
+    "Una idea fuerte es que el bostezo enfría tu cerebro, como un ventilador: abres grande y entra aire fresco."
+   ]
+  },
+  {
+   "tipo": "contagio",
+   "titulo": "",
+   "frases": [
+    "Y lo más raro: se contagia con solo verlo, oírlo… o leer sobre él. ¿Ya bostezaste?"
+   ]
+  },
+  {
+   "tipo": "carino",
+   "titulo": "",
+   "frases": [
+    "Se pega más con la gente que quieres que con desconocidos."
+   ]
+  },
+  {
+   "tipo": "perro",
+   "titulo": "",
+   "frases": [
+    "Hasta tu perro puede contagiarse de tus bostezos."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco para aguantarte uno: respira por la nariz o ponte algo frío en la frente."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien te bostezó en plena plática."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "SIEMPRE"
+ ]
+}

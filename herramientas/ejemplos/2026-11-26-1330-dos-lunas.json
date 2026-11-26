@@ -1,0 +1,56 @@
+{
+ "id": "2026-11-26-1330-dos-lunas",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Nos preguntaron: ¿qué pasaría si la Tierra tuviera dos lunas?"
+   ]
+  },
+  {
+   "tipo": "mareas",
+   "titulo": "",
+   "frases": [
+    "Las mareas serían más altas, porque dos lunas jalarían el mar."
+   ]
+  },
+  {
+   "tipo": "noches",
+   "titulo": "",
+   "frases": [
+    "Habría noches más brillantes y más eclipses."
+   ]
+  },
+  {
+   "tipo": "choque",
+   "titulo": "",
+   "frases": [
+    "Pero tarde o temprano chocarían. ¡Y quizá ya pasó: hay científicos que creen que una lunita chocó con la nuestra!"
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a tu amigo que siempre pregunta: ¿y qué pasaría si…?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "DOS"
+ ]
+}

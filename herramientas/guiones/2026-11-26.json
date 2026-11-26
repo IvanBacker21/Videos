@@ -1,0 +1,85 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "dos-lunas",
+  "estado": "listo",
+  "pedido": true,
+  "tema": "¿Qué pasaría si la Tierra tuviera DOS lunas? (pedido de un seguidor en comentarios; una segunda luna grande sumaría su jalón gravitacional: mareas más altas y más complicadas; noches más brillantes y más eclipses; un sistema así no sería estable a largo plazo: acabarían chocando o una saldría expulsada; hipótesis de Jutzi y Asphaug (Nature 2011): la Tierra pudo tener una segunda luna pequeña que chocó lentamente con la Luna y explicaría por qué su cara oculta es más montañosa). Fuentes: Discover Magazine (5 ways life on Earth would be different if we had two moons), Universe Today (What if the Earth had two moons?), National Geographic (second mini-moon), NPR (Early Earth may have been orbited by two moons), NBC News (Was Earth's moon made by 2 moons crashing?)",
+  "fuentes": [
+   "https://www.discovermagazine.com/the-sciences/5-ways-life-on-earth-would-be-different-if-we-had-two-moons",
+   "https://www.universetoday.com/articles/what-if-the-earth-had-two-moons",
+   "https://www.nationalgeographic.com/science/article/second-mini-moon-asteroid",
+   "https://www.npr.org/2011/08/04/138954932/early-earth-may-have-been-orbited-by-two-moons",
+   "https://www.nbcnews.com/id/wbna44006008"
+  ],
+  "tendencia": "Pedido de seguidor (comentarios); serie de Luna en tendencia tras la superluna del 24-nov",
+  "formato": "pregunta '¿qué pasaría si…?' + 3 consecuencias + sorpresa (quizá ya pasó)",
+  "categoria": "espacio / cielo",
+  "disparadores": [
+   "sorpresa",
+   "eres tú (el amigo del '¿y qué pasaría si…?')"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-26-1330-dos-lunas.json",
+  "visual": "Escenario PM.nocheCalle de noche con PM.personitas mirando al cielo.\nGancho: burbuja de comentario chibi con la pregunta y aparece una segunda PM.luna junto a la primera.\nMareas: PM.tierrita con olas que suben y bajan de más, jaladas por las dos lunas (flechas de jalón).\nNoches/eclipses: la calle se ilumina más; una luna tapa al Sol en mini eclipse.\nChoque: PM.orbitaLunaGiro con dos lunas cuyas órbitas se cruzan y la lunita se 'aplasta' contra la grande (choque lento, polvo de confeti gris).\nPieza nueva reutilizable: PM.burbujaComentario (globo de comentario de seguidor) y PM.olaMarea.",
+  "titulo_yt": "¿Y si la Tierra tuviera DOS lunas? 🌙 #shorts",
+  "descripcion_yt": "Nos lo preguntaron en los comentarios 👀 Mareas más altas, noches más brillantes… y un choque.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datocurioso #luna #espacio #ciencia #shorts",
+  "titulo_tt": "¿Y si la Tierra tuviera DOS lunas? 🌙",
+  "texto_tt": "Nos lo preguntaron y la respuesta acaba en choque 💥 Etiqueta a tu amigo del '¿y qué pasaría si…?' #datocurioso #luna #espacio #ciencia #fyp"
+ },
+ {
+  "hora": "18:00",
+  "slug": "precios-99",
+  "estado": "listo",
+  "pedido": false,
+  "tema": "¿Por qué los precios SIEMPRE terminan en 99? (efecto del dígito izquierdo: leemos de izquierda a derecha y el primer dígito pesa más en cómo sentimos el precio; Thomas y Morwitz, Journal of Consumer Research 2005: $2.99 se percibe bastante más barato que $3.00 cuando cambia el dígito izquierdo, pero no $3.59 vs $3.60; truco: redondear hacia arriba antes de comprar). Fuentes: ScienceDaily (Study explains how consumers react to prices ending in 99), Phys.org, NYU Stern Business (Penny saved), Psychology Today (The left digit effect)",
+  "fuentes": [
+   "https://www.sciencedaily.com/releases/2005/06/050607030351.htm",
+   "https://phys.org/news/2005-06-consumers-react-prices.html",
+   "https://w4.stern.nyu.edu/sternbusiness/fall_2005/pennySaved.html",
+   "https://www.psychologytoday.com/us/blog/mind-games/201306/the-left-digit-effect-why-game-prices-end-in-99"
+  ],
+  "tendencia": "Black Friday mañana (27-nov) y temporada de ofertas y compras navideñas en México",
+  "formato": "¿por qué SIEMPRE…? + explicación + ejemplo en pesos + truco útil",
+  "categoria": "mente / compras",
+  "disparadores": [
+   "truco útil",
+   "eres tú (el que compra porque está en oferta)"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-26-1800-precios-99.json",
+  "visual": "Escenario: tiendita/súper de cartulina con estante y etiquetas de precio.\nGancho: varias etiquetas que cambian y todas terminan en .99; personita rascándose la cabeza.\nCerebro: cabeza chibi con PM.lupa leyendo de izquierda a derecha; el primer dígito se agranda y los demás se encogen.\nEtiqueta: '$199' que la personita ve como '$100 y pico' (globo de pensamiento) mientras un indicador muestra que casi llega a 200.\nTruco: mano redondeando la etiqueta hacia arriba (flecha) y carrito de Black Friday.\nPieza nueva reutilizable: PM.etiquetaPrecio (etiqueta con número editable) y PM.carrito.",
+  "titulo_yt": "¿Por qué los precios SIEMPRE terminan en 99? 🏷️ #shorts",
+  "descripcion_yt": "Tu cerebro cae en el truco del noventa y nueve 🧠 Úsalo a tu favor este Black Friday.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datocurioso #blackfriday #psicologia #ciencia #shorts",
+  "titulo_tt": "El truco del 99 🏷️",
+  "texto_tt": "Por esto todo cuesta X.99 🧠 Etiqueta a quien compra todo porque está en oferta #datocurioso #blackfriday #psicologia #ciencia #fyp"
+ },
+ {
+  "hora": "21:30",
+  "slug": "bostezo-contagioso",
+  "estado": "listo",
+  "pedido": false,
+  "prueba": "largo-40s",
+  "tema": "¿Por qué el bostezo se CONTAGIA? (mito: no es por falta de oxígeno; Provine 1987: respirar aire con más oxígeno o más CO2 no cambió la frecuencia de bostezos; hipótesis de enfriamiento cerebral (Gallup y Gallup, Evolutionary Psychology 2007); se contagia con verlo, oírlo o leer sobre él; más contagioso entre familiares y amigos que entre desconocidos (Norscia y Palagi, PLoS ONE 2011); los perros pueden contagiarse de bostezos humanos (Joly-Mascheroni et al., Biology Letters 2008); truco: respirar por la nariz o un paño frío en la frente redujo el bostezo contagioso (Gallup y Gallup 2007)). Fuentes: Smithsonian (Why do we yawn and why is it contagious?), Frontiers for Young Minds (Why do we yawn?), SAGE/Evolutionary Psychology (Gallup y Gallup 2007), The Psychologist BPS (A yawning gap), PMC3534187",
+  "fuentes": [
+   "https://www.smithsonianmag.com/science-nature/why-do-we-yawn-and-why-is-it-contagious-3749674/",
+   "https://kids.frontiersin.org/articles/10.3389/frym.2017.00052",
+   "https://journals.sagepub.com/doi/10.1177/147470490700500109",
+   "https://thepsychologist.bps.org.uk/yawning-gap",
+   "https://pmc.ncbi.nlm.nih.gov/articles/PMC3534187/"
+  ],
+  "tendencia": "Noche (21:30, hora de bostezos) y descanso tras días de frío; tema universal que todos han vivido",
+  "formato": "¿por qué SIEMPRE…? + mito (oxígeno) + explicación (ventilador) + sorpresa a la mitad (¿ya bostezaste?) + dato extra (cariño y perro) + truco (LARGO prueba 40 s)",
+  "categoria": "cuerpo / mente",
+  "disparadores": [
+   "eres tú",
+   "¿ves? te dije",
+   "sorpresa",
+   "truco útil"
+  ],
+  "guion": "herramientas/ejemplos/2026-11-26-2130-bostezo-contagioso.json",
+  "visual": "Escenario: sala/oficina de cartulina con PM.personitas en fila (0–4 s): la primera bosteza y la ola de bostezos recorre la fila.\nMito (4–10 s): tanque de oxígeno chibi con tache rojo; personita respira de una mascarilla y sigue bostezando.\nVentilador (10–15 s): cabeza en corte con cerebro chibi sudando; al bostezar entra PM.flechaAire y un ventilador lo enfría (termómetro baja).\nContagio (15–20 s): celular con texto 'bostezo', oreja con PM.zumbido, ojos: los tres disparan bostezos; mirada a cámara '¿ya bostezaste?'.\nCariño/perro (20–30 s): corazón conecta mamá e hijo que bostezan juntos; desconocido no; luego perrito chibi que bosteza tras su dueño.\nTruco/remate (30–40 s): nariz respirando con flechas y compresa fría en la frente (PM.vasoHielos/trapito azul). Piezas nuevas reutilizables: PM.bostezo (boca chibi que se abre grande con estiramiento) y PM.perrito.",
+  "titulo_yt": "¿Por qué el bostezo se CONTAGIA? 🥱 #shorts",
+  "descripcion_yt": "No es por falta de oxígeno 😮 Y hasta tu perro se contagia.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datocurioso #bostezo #cuerpohumano #ciencia #shorts",
+  "titulo_tt": "¿Ya bostezaste? 🥱",
+  "texto_tt": "El bostezo no es por falta de oxígeno 😮 Etiqueta a quien te bosteza en plena plática #datocurioso #bostezo #cuerpohumano #ciencia #fyp"
+ }
+]

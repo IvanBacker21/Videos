@@ -1,0 +1,56 @@
+{
+ "id": "2026-11-26-1800-precios-99",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué los precios SIEMPRE terminan en noventa y nueve?"
+   ]
+  },
+  {
+   "tipo": "cerebro",
+   "titulo": "",
+   "frases": [
+    "Tu cerebro lee de izquierda a derecha y se queda con el primer número."
+   ]
+  },
+  {
+   "tipo": "etiqueta",
+   "titulo": "",
+   "frases": [
+    "Ciento noventa y nueve pesos lo sientes como cien y pico, aunque está a nada de subir."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Es el efecto del dígito izquierdo. Truco para el Black Friday: redondea hacia arriba."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "Mándaselo a quien todo lo compra porque está en oferta."
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": [
+  "SIEMPRE"
+ ]
+}
