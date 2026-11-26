@@ -1189,5 +1189,22 @@
   "titulo": "¿Y si la Tierra tuviera DOS lunas? 🌙 #shorts",
   "pedido": true,
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-26",
+  "hora": "18:00",
+  "tema": "¿Por qué la leche SIEMPRE está hasta el fondo del súper? (para que cruces la tienda y compres por impulso cosas que no ibas a comprar; y otra razón logística: los camiones descargan atrás, directo a los refrigeradores, y así la leche no se calienta; truco de Black Friday: lleva lista y ve directo). Fuentes: NPR (Planet Money, 2014: Why is the milk in the back of the store?), WBEZ Curious City, Mental Floss (Why grocery stores put dairy in the back), Tasting Table",
+  "formato": "¿por qué SIEMPRE…? + razón que todos sospechan + segunda razón sorpresa + truco útil",
+  "categoria": "casa / compras",
+  "tendencia": "Black Friday mañana (27-nov) y temporada de compras navideñas en México",
+  "disparadores": [
+   "truco útil",
+   "eres tú (el que va por leche y regresa con el carrito lleno)"
+  ],
+  "duracion": 28.6,
+  "mejora": "papel_pm.js: PM.anaquel (estante de súper con productos que brincan) + PM.leche (cartón de leche) + PM.camion (camión de reparto con puerta trasera)",
+  "archivo": "shorts/2026-11-26-1800-leche-fondo.mp4",
+  "titulo": "¿Por qué la leche SIEMPRE está hasta el fondo? 🥛 #shorts",
+  "prueba": "normal"
  }
 ]

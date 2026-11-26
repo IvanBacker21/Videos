@@ -28,29 +28,30 @@
  },
  {
   "hora": "18:00",
-  "slug": "precios-99",
-  "estado": "listo",
+  "slug": "leche-fondo",
+  "estado": "producido",
   "pedido": false,
-  "tema": "¿Por qué los precios SIEMPRE terminan en 99? (efecto del dígito izquierdo: leemos de izquierda a derecha y el primer dígito pesa más en cómo sentimos el precio; Thomas y Morwitz, Journal of Consumer Research 2005: $2.99 se percibe bastante más barato que $3.00 cuando cambia el dígito izquierdo, pero no $3.59 vs $3.60; truco: redondear hacia arriba antes de comprar). Fuentes: ScienceDaily (Study explains how consumers react to prices ending in 99), Phys.org, NYU Stern Business (Penny saved), Psychology Today (The left digit effect)",
+  "tema": "¿Por qué la leche SIEMPRE está hasta el fondo del súper? (para que cruces la tienda y compres por impulso cosas que no ibas a comprar; y otra razón logística: los camiones descargan atrás, directo a los refrigeradores, y así la leche no se calienta; truco de Black Friday: lleva lista y ve directo). Fuentes: NPR (Planet Money, 2014: Why is the milk in the back of the store?), WBEZ Curious City, Mental Floss (Why grocery stores put dairy in the back), Tasting Table",
   "fuentes": [
-   "https://www.sciencedaily.com/releases/2005/06/050607030351.htm",
-   "https://phys.org/news/2005-06-consumers-react-prices.html",
-   "https://w4.stern.nyu.edu/sternbusiness/fall_2005/pennySaved.html",
-   "https://www.psychologytoday.com/us/blog/mind-games/201306/the-left-digit-effect-why-game-prices-end-in-99"
+   "https://www.npr.org/transcripts/337034378",
+   "https://www.wbez.org/stories/why-is-the-milk-in-the-back-of-the-store/1d347463-d1fa-4872-afa5-a23f49c05fb3",
+   "https://www.mentalfloss.com/food/grocery-stores/why-grocery-stores-put-dairy-in-the-back",
+   "https://tastingtable.com/885535/why-is-milk-always-at-the-back-of-the-grocery-store"
   ],
-  "tendencia": "Black Friday mañana (27-nov) y temporada de ofertas y compras navideñas en México",
-  "formato": "¿por qué SIEMPRE…? + explicación + ejemplo en pesos + truco útil",
-  "categoria": "mente / compras",
+  "tendencia": "Black Friday mañana (27-nov) y temporada de compras navideñas en México",
+  "formato": "¿por qué SIEMPRE…? + razón que todos sospechan + segunda razón sorpresa + truco útil",
+  "categoria": "casa / compras",
   "disparadores": [
    "truco útil",
-   "eres tú (el que compra porque está en oferta)"
+   "eres tú (el que va por leche y regresa con el carrito lleno)"
   ],
-  "guion": "herramientas/ejemplos/2026-11-26-1800-precios-99.json",
-  "visual": "Escenario: tiendita/súper de cartulina con estante y etiquetas de precio.\nGancho: varias etiquetas que cambian y todas terminan en .99; personita rascándose la cabeza.\nCerebro: cabeza chibi con PM.lupa leyendo de izquierda a derecha; el primer dígito se agranda y los demás se encogen.\nEtiqueta: '$199' que la personita ve como '$100 y pico' (globo de pensamiento) mientras un indicador muestra que casi llega a 200.\nTruco: mano redondeando la etiqueta hacia arriba (flecha) y carrito de Black Friday.\nPieza nueva reutilizable: PM.etiquetaPrecio (etiqueta con número editable) y PM.carrito.",
-  "titulo_yt": "¿Por qué los precios SIEMPRE terminan en 99? 🏷️ #shorts",
-  "descripcion_yt": "Tu cerebro cae en el truco del noventa y nueve 🧠 Úsalo a tu favor este Black Friday.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datocurioso #blackfriday #psicologia #ciencia #shorts",
-  "titulo_tt": "El truco del 99 🏷️",
-  "texto_tt": "Por esto todo cuesta X.99 🧠 Etiqueta a quien compra todo porque está en oferta #datocurioso #blackfriday #psicologia #ciencia #fyp"
+  "guion": "herramientas/ejemplos/2026-11-26-1800-leche-fondo.json",
+  "visual": "Súper de cartulina (PM.anaquel): caminata larga hasta el refri de LECHE al fondo; carrito que se llena de cosas que saltan de los anaqueles; patio de bodega con camión de reparto (PM.camion) que descarga leches (PM.leche) directo al refri; protagonista con lista que ignora las tentaciones; remate: amigo con el carrito lleno levantando su leche.",
+  "titulo_yt": "¿Por qué la leche SIEMPRE está hasta el fondo? 🥛 #shorts",
+  "descripcion_yt": "No es casualidad: así cruzas toda la tienda 🛒 Úsalo a tu favor este Black Friday.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datocurioso #blackfriday #supermercado #ciencia #shorts",
+  "titulo_tt": "El truco de la leche al fondo 🥛",
+  "texto_tt": "¿Por qué la leche siempre está hasta atrás del súper? 🛒 Etiqueta a quien va por leche y regresa con el carrito lleno #datocurioso #blackfriday #supermercado #ciencia #fyp",
+  "nota": "Cambiado en la producción de las 14:40: el tema de la mañana (precios en 99) ya salió el 13-nov 13:30 ('¿Por qué en el Buen Fin TODO termina en 99?')."
  },
  {
   "hora": "21:30",

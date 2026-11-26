@@ -1,0 +1,17 @@
+{
+ "id": "2026-11-26-1800-leche-fondo",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {"tipo": "gancho", "titulo": "", "frases": ["¿Por qué la leche SIEMPRE está hasta el fondo del súper?"]},
+  {"tipo": "trampa", "titulo": "", "frases": ["Para que cruces toda la tienda y en el camino agarres cosas que no ibas a comprar."]},
+  {"tipo": "camion", "titulo": "", "frases": ["Pero hay otra razón: los camiones la descargan atrás, directo a los refris, para que no se caliente."]},
+  {"tipo": "truco", "titulo": "", "frases": ["Truco para el Black Friday: lleva tu lista y ve directo a lo que necesitas."]},
+  {"tipo": "remate", "titulo": "", "frases": ["Mándaselo a quien va por leche y regresa con el carrito lleno."]},
+  {"tipo": "cierre", "titulo": "", "frases": ["¿Tienes algún dato curioso del que te gustaría que habláramos?", "Déjalo en los comentarios y síguenos para más datos."]}
+ ],
+ "resaltar": ["SIEMPRE"]
+}

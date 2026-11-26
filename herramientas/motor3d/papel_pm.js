@@ -1948,5 +1948,54 @@ export function kitPM(P, THREE, group) {
     g.update = (t, nivel = 0) => { ag.position.y = nivel + Math.sin(t * 2.4) * .025; cr.position.x = (t * .22) % sep; };
     g.update(0, 0); return g; }
 
-  return { olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 26-nov 18:00 (¿por qué la leche está hasta el fondo del súper?) ----
+  // PM.anaquel(pos, o, padre): estante de súper de cartulina (3 repisas) lleno de productos de colores (cajas, latas, botellas).
+  //   o: {w (1.6), h (1.9), color, semilla, vacio}. g.prods = productos (cada uno con .y0); g.brinca(t, k): los productos saltan
+  //   "llamando" al cliente (tentación); g.saca(i) devuelve el producto i (para moverlo al carrito). Base en pos.y; ancho = w.
+  function anaquel(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? 1.6, h = o.h ?? 1.9, col = o.color ?? 0xe9e2d0;
+    let sm = o.semilla ?? 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+    pz(F.rect(w, h, .04), osc(col, .82), [0, h / 2, -.12], g, { tinta: .02, papel: .07 });
+    pz(F.rect(w - .12, h - .14, .02), osc(col, .68), [0, h / 2 + .02, -.1], g, { tinta: false, papel: false });
+    const ys = [.12, h * .38, h * .7]; g.prods = [];
+    const cols = [0xff6b5b, 0xffc83d, 0x2ec4a6, 0x3d9bff, 0xff8a3d, 0x9b6bff, 0xff5d8f, 0x7fcf6a];
+    for (const y of ys) { pz(F.rect(w, .07, .02), col, [0, y, .02], g, { tinta: .014, papel: .04 }); det(F.rect(w, .025, .01), osc(col, .7), [0, y - .035, .035], g);
+      if (o.vacio) continue; let x = -w / 2 + .1;
+      while (x < w / 2 - .22) { const tipo = Math.floor(rnd() * 3), c = cols[Math.floor(rnd() * cols.length)];
+        let ww, hh, pr; const gp = group([0, 0, -.04], g);
+        if (tipo === 0) { ww = .2 + rnd() * .1; hh = .3 + rnd() * .14; pz(F.rect(ww, hh, .02), c, [0, hh / 2, 0], gp, { tinta: .012, papel: .03 }); det(F.rect(ww * .7, hh * .25, .01), 0xfff6e0, [0, hh * .55, .016], gp); }
+        else if (tipo === 1) { ww = .16; hh = .22; pz(F.rect(ww, hh, .03), c, [0, hh / 2, 0], gp, { tinta: .012, papel: .03 }); det(F.rect(ww, .05, .01), 0xdfe3ea, [0, hh - .03, .016], gp); det(F.rect(ww, .05, .01), 0xdfe3ea, [0, .03, .016], gp); }
+        else { ww = .14; hh = .4; pz(F.poly([[-.07, 0], [.07, 0], [.07, .26], [.03, .32], [.03, .4], [-.03, .4], [-.03, .32], [-.07, .26]]), c, [0, 0, 0], gp, { tinta: .012, papel: .03 }); det(F.rect(.14, .09, .01), 0xfff6e0, [0, .15, .016], gp); }
+        gp.position.set(x + ww / 2, y + .035, -.04); gp.y0 = y + .035; gp.hh = hh; g.prods.push(gp); x += ww + .05 + rnd() * .04; } }
+    g.brinca = (t, k = 1) => g.prods.forEach((p, i) => { const s = Math.max(0, Math.sin(t * 9 + i * 1.7)); p.position.y = p.y0 + s * .06 * k; p.rotation.z = Math.sin(t * 9 + i) * .06 * k; });
+    g.saca = i => g.prods[i]; return g; }
+  // PM.leche(pos, s, padre, o): cartón de leche de cartulina alto (mitad de abajo azul con gotita blanca, manchitas de vaca arriba). g.update(t, fase) se mece. o: {color}
+  function leche(pos, s = 1, parent = null, o = {}) { const g = group(pos, parent); g.scale.setScalar(s); const az = o.color ?? 0x3d9bff;
+    pz(F.poly([[-.17, 0], [.17, 0], [.17, .58], [0, .7], [-.17, .58]]), 0xffffff, [0, 0, 0], g, { tinta: .014, papel: .04 });
+    det(F.rect(.34, .34, .0), az, [0, .17, .016], g); det(F.rect(.34, .04, .0), az, [0, .58, .016], g);
+    det(F.rect(.05, .08, .0), az, [0, .73, .015], g);
+    det(blob([[0, .3], [.07, .18], [.06, .12], [0, .09], [-.06, .12], [-.07, .18]]), 0xffffff, [0, 0, .018], g);
+    for (const [x, y, r] of [[-.08, .46, .035], [.07, .42, .028], [.0, .5, .02]]) det(F.circ(r), 0x2b2f4a, [x, y, .018], g);
+    g.update = (t, f = 0) => g.rotation.z = Math.sin(t * 3 + f) * .04; return g; }
+  // PM.camion(pos, o): camión de reparto de cartulina de perfil (mira a +x; para que mire a -x: g.scale.x = -es). Caja trasera con
+  //   puerta que se abre (g.abre(k) 0→1) y texto opcional (o.texto). g.update(t, vel): llantas y rebote. o: {color, caja, texto, escala}. Largo ≈ 3.4·es
+  function camion(pos, o = {}) { const g = group(pos), es = o.escala ?? 1; g.scale.setScalar(es); g.es = es; const col = o.color ?? 0xff6b5b, cj = o.caja ?? 0xfff6e0;
+    g.cuerpo = group([0, 0, 0], g);
+    const box = pz(F.rect(2.2, 1.45, .06), cj, [-.5, 1.15, 0], g.cuerpo, { tinta: .02, papel: .07 });
+    det(F.rect(2.2, .12, .0), col, [0, -.55, .016], box); det(F.rect(2.2, .06, .0), col, [0, .55, .016], box);
+    if (o.texto) { const L = letrero([0, .05, .02], o.texto, { w: 1.6, h: .5, color: cj, borde: cj, tinta: '#' + col.toString(16).padStart(6, '0'), hilos: false }, box); L.traverse(m => m.castShadow = false); }
+    const cab = pz(blob([[.62, .4], [.62, 1.55], [1.15, 1.6], [1.55, 1.05], [1.62, .4]]), col, [0, 0, .02], g.cuerpo, { tinta: .02, papel: .07 });
+    det(blob([[.75, 1.0], [.75, 1.42], [1.1, 1.45], [1.42, 1.02]]), 0xc9ecff, [0, 0, .016], cab);
+    pz(F.elipse(.08, .07), 0xffe27a, [1.58, .62, .03], cab, { tinta: .01, papel: false });
+    pz(F.rect(3.25, .14, .03), 0x3a3550, [-.1, .4, -.02], g.cuerpo, { tinta: .012, papel: false });
+    const hu = g.hueco = det(F.rect(.62, 1.2, .03), 0x4a3f52, [-1.25, 1.12, .09], g.cuerpo);
+    const pu = g.puerta = group([-1.25, 1.12, .12], g.cuerpo); pz(F.rect(.64, 1.24, .03), osc(cj, .9), [0, 0, 0], pu, { tinta: .014, papel: .03 });
+    det(F.rect(.05, .22, .02), 0x8a86a0, [.22, 0, .016], pu);
+    g.abre = k => { pu.position.x = -1.25 - .72 * k; pu.position.z = .12 + .1 * k; pu.rotation.z = -.05 * k; hu.visible = k > .02; };
+    g.llantas = [-1.1, 1.15].map(x => { const w = group([x, .3, .12], g); pz(F.circ(.3), 0x2b2f4a, [0, 0, 0], w, { tinta: .016, papel: .05 }); pz(F.circ(.13), 0xdfe3ea, [0, 0, .016], w, { tinta: .01, papel: false });
+      for (let i = 0; i < 3; i++) det(F.rect(.2, .035, .015), 0x9aa0ad, [0, 0, .032], w, i * Math.PI / 3); return w; });
+    sombraPiso(g, 1.4);
+    g.update = (t, vel = 1) => { g.llantas.forEach(w => w.rotation.z = -t * 9 * vel); g.cuerpo.position.y = Math.abs(Math.sin(t * 9)) * .02 * vel; };
+    g.abre(0); return g; }
+
+  return { anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
