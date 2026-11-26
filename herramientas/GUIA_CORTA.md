@@ -17,6 +17,8 @@ Clave de Buffer: solo en `~/.buffer_key` (nunca en el repo, commits, mensajes ni
 - Máximo 1 de animales cada 6 shorts (revisa los últimos 6 de `temas.json`). Nada abstracto en el gancho, nada de ganchos de reto. No repetir `temas.json` NI los pedidos pendientes de `pedidos.json`. No más de 2 shorts seguidos del mismo tema de temporada (p. ej. frío).
 - Dos fuentes fiables por dato. Prueba de compartir: ¿a quién se lo mandarían y qué le dirían? (eres tú / ¿ves? te dije / lo mexicano / truco útil / sorpresa: usa al menos dos).
 
+- **NO REPETIR (Iván, 26-nov):** antes de quedarte con un tema corre `python3 herramientas/repetido.py "clave1" "clave2" "clave3"` (2–4 palabras clave del tema, p. ej. "bostezo" "bostezar"). Busca en TODO el historial (temas.json, pedidos.json y guiones). Si sale ⚠️, ese tema ya se hizo: elige otro.
+
 ## Guion `herramientas/ejemplos/AAAA-MM-DD-HHMM-slug.json`
 - `"voz": {"modelo": "em_alex", "lang": "es-419", "speed": 1.0}`; 4–5 escenas de contenido (una idea cada una), 18–23 s de contenido, TOTAL ≤ 30 s con el cierre. Números con letra, máximo dos.
 - Gancho concreto en los primeros 2 s. Última escena de contenido = **PREGUNTA A o B** (Iván, 26-nov-2026; reemplaza a "Mándaselo a…"). **CALIDAD ANTE TODO: nada de preguntas de relleno o forzadas.** La pregunta debe cumplir TODO esto:
