@@ -464,3 +464,50 @@ El error cae sistemáticamente en el slot 13:30 MX (= 19:30 UTC del mismo día).
 - ✅ **Luna misma cara (21:30, largo-40s)** publicado en ambas redes y coincide con la superluna del castor de hoy — timing excelente.
 
 **Conclusión:** TikTok 6/6 OK; YouTube 24-nov 2/3 OK (sal + luna), 1 error por daily limit. Los dos largos de las últimas 48 h (estelas y luna) pasaron en YouTube vía Buffer. Patrón de fallo sigue siendo slot 13:30 MX en YouTube. La prueba de largo-40s va en día 5/7; comparación final pendiente para revisión del 28-nov.
+
+## 2026-11-25 23:30 (CDMX)
+
+Fuente: Buffer API (Chrome/YouTube Studio no disponible en esta corrida de nube: sin vistas ni % visto). Revisión de las últimas 48 h (24 y 25-nov).
+
+**Buffer: 🔴 3 errores en YouTube ("daily posting limit") en 25-nov. El patrón persiste: solo el slot 21:30 pasa en YouTube; los slots 13:30 y 18:00 fallan por cupo. En 24-nov solo el slot 13:30 falló (mejora de ayer); hoy los tres primeros dos slots fallaron.**
+
+| Short | Publicado (MX) | Buffer TikTok | Buffer YouTube | Duración | ≤30s | Tema | Gancho | prueba | Observación |
+|---|---|---|---|---|---|---|---|---|---|
+| Guantes y celular | 24-nov 13:30 | ✓ sent | ❌ daily limit | 26.2 s | ✓ | tecnología/celular | concreto ✓ | normal | ❌ YouTube: daily limit — mismo patrón slot 13:30 MX |
+| Sal y agua hirviendo | 24-nov 18:00 | ✓ sent | ✓ sent | 25.6 s | ✓ | comida/mito | concreto ✓ | normal | ✅ Ambas redes OK |
+| **Luna misma cara** | 24-nov 21:30 | ✓ sent | ✓ sent | 44.7 s | ✗ (prueba) | espacio/cielo | concreto ✓ | **largo-40s** | ✅ Largo-40s publicado en ambas redes |
+| Nariz y frío | 25-nov 13:30 | ✓ sent | ❌ daily limit | 26.6 s | ✓ | cuerpo/frío | concreto ✓ | normal | ❌ YouTube: daily limit — mismo patrón |
+| Hielo que truena | 25-nov 18:00 | ✓ sent | ❌ daily limit | 26.8 s | ✓ | comida/física | concreto ✓ | normal | ❌ YouTube: daily limit — peor que 24-nov (ayer 18:00 OK) |
+| **Hora más fría del día** | 25-nov 21:30 | ✓ sent | ✓ sent | 44.7 s | ✗ (prueba) | clima/cielo | concreto ✓ | **largo-40s** | ✅ Largo-40s publicado en ambas redes |
+
+**Vistas:** sin datos (Chrome no disponible en nube).
+
+**Prueba de duración — estado al 25-nov (días 6 de 7):**
+
+| Short largo-40s | Fecha | YouTube | TikTok | Vistas YT | Vistas TikTok |
+|---|---|---|---|---|---|
+| Vibración fantasma | 20-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Cielo azul y atardecer | 21-nov 21:30 | ❌ no publicado | ✅ Buffer | — | s/d |
+| Balón que se dobla | 22-nov 21:30 | ✅ manual | ✅ Buffer | s/d | s/d |
+| Estelas de avión | 23-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Luna misma cara | 24-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+| Hora más fría del día | 25-nov 21:30 | ✅ Buffer | ✅ Buffer | s/d | s/d |
+
+**Reglas de GUIA:**
+- Duración ≤30 s: normales (26.2, 25.6, 26.6, 26.8 s) ✓; largos son prueba.
+- Tema cotidiano/mito: todos ✓.
+- Gancho concreto: todos ✓.
+- Mezcla: comida × 2, cuerpo × 1, tecnología × 1, espacio × 1, clima × 1 — buena variedad; sin animales → cupo libre.
+- Patrón de temporada: 3 de los 6 shorts son de frío/clima (guantes-frío, nariz-frío, hora-más-fría) = ancla perfecta al frente frío 8.
+
+**Largo vs normales de hoy (25-nov):**
+- largo-40s (hora más fría 21:30): YouTube ✅ Buffer, TikTok ✅. Sin vistas.
+- normales (nariz 13:30: TikTok ✓/YT ❌; hielo 18:00: TikTok ✓/YT ❌).
+
+**Alertas:**
+- 🔴 **Nariz y frío (25-nov 13:30) y Hielo que truena (25-nov 18:00) sin publicar en YouTube** — daily limit. Reprogramar manualmente si aún es relevante, o eliminar de Buffer → "Needs attention" para cortar los reintentos automáticos.
+- 🔴 **Patrón YouTube daily limit se mantiene**: slots 13:30 y 18:00 MX (19:30 y 00:00 UTC) siguen fallando. La causa sigue siendo los reintentos automáticos de Buffer de posts fallidos anteriores que agotan el cupo del canal en YouTube. **Acción definitiva pendiente: eliminar (no ignorar) todos los posts fallidos en panel.buffer.com → Posts → "Needs attention".**
+- ✅ **Prueba largo-40s día 6/7**: "Hora más fría" publicado en ambas redes. Mañana 26-nov es el último largo de la prueba. Comparación final disponible a partir del 28-nov.
+- ✅ **TikTok: 6/6 OK en las últimas 48 h** — sin errores.
+
+**Conclusión:** TikTok 6/6 OK; YouTube 2/6 OK (sal+luna el 24, solo hora-más-fría el 25). Los dos largos de las últimas 48 h (luna y hora-más-fría) llegaron a YouTube. La prueba de largo-40s va en día 6/7; el 26-nov es el último largo; comparación final pendiente para revisión del 28-nov.
