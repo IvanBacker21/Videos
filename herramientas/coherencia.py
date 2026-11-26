@@ -25,6 +25,11 @@ if "?" not in remate or " o " not in remate:
     warn.append("El remate debe ser una PREGUNTA A o B del tema (p. ej. '¿La tomas fría o caliente?'), corta, para que comenten.")
 if any(w in remate for w in COMPARTIR):
     warn.append("El remate usa 'Mándaselo/Etiqueta/Comparte…': desde el 26-nov el remate es una pregunta A o B.")
+GENERICAS = ["sabías", "sabias", "te sorprendió", "te sorprendio", "qué opinas", "que opinas", "te gustó", "te gusto", "lo sabías", "lo sabias"]
+if any(w in remate for w in GENERICAS):
+    err.append("El remate es una pregunta GENÉRICA (¿sabías…?, ¿te sorprendió?, ¿qué opinas?). Debe nacer del dato y contestarse con la propia vida (ver GUIA_CORTA).")
+if "?" in remate:
+    warn.append("Revisa la pregunta A o B con los 4 puntos de calidad de GUIA_CORTA (nace del dato, se contesta con tu vida, divide de verdad, suena natural) y que el video NO la haya respondido ya.")
 if len(remate.split()) > 14:
     warn.append(f"El remate tiene {len(remate.split())} palabras: la pregunta A o B debe ser corta (≤ 12).")
 tipos = [e["tipo"] for e in esc]
