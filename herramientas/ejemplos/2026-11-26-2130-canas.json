@@ -1,0 +1,68 @@
+{
+ "id": "2026-11-26-2130-canas",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Un susto te puede dejar el pelo blanco de la noche a la mañana?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Mito: el pelo que ya tienes no cambia de color. Las canas salen blancas desde la raíz."
+   ]
+  },
+  {
+   "tipo": "raiz",
+   "titulo": "",
+   "frases": [
+    "En cada raíz hay unas células que le ponen color al pelo, y con los años se van acabando."
+   ]
+  },
+  {
+   "tipo": "estres",
+   "titulo": "",
+   "frases": [
+    "Lo sorprendente: en ratones, un estrés fuerte sí acabó con esas células… y les salieron canas."
+   ]
+  },
+  {
+   "tipo": "siete",
+   "titulo": "",
+   "frases": [
+    "Otro mito: si te arrancas una, no te salen siete. Cada raíz saca un solo pelo."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Eso sí, arrancarla lastima la raíz: mejor córtala con tijera."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "¿Y tú: te arrancas las canas o las dejas en paz?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

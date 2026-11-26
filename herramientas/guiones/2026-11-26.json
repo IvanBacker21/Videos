@@ -55,31 +55,31 @@
  },
  {
   "hora": "21:30",
-  "slug": "pipi-frio",
+  "slug": "canas",
   "estado": "listo",
   "prueba": "largo-40s",
-  "tema": "¿Por qué con el frío SIEMPRE te andas haciendo pipí? (diuresis por frío: para guardar calor el cuerpo contrae los vasos de manos y pies (por eso se enfrían); la sangre se concentra en el centro, sube la presión y el cuerpo 'siente' que le sobra líquido; los riñones filtran el exceso y se llena la vejiga; pasa aunque no tomes más líquidos (aunque en invierno también tomamos más bebidas calientes); truco: abrigar manos y pies y seguir tomando agua porque en invierno también hay deshidratación). REEMPLAZA al del bostezo, que ya se había hecho el 3-nov.",
+  "tema": "¿Un susto te deja el pelo blanco de la noche a la mañana? (mito: el pelo ya formado no cambia de color, las canas crecen blancas desde la raíz (Harvard); en la raíz hay células madre que dan el color y se agotan con la edad; estudio de Harvard 2020 en ratones (Nature, Ya-Chieh Hsu): el estrés libera noradrenalina en el folículo y agota esas células → canas (en ratones); otro mito: arrancar una cana no hace que salgan siete, cada folículo saca un solo pelo, pero arrancarla lo lastima: mejor cortarla). REEMPLAZA al del bostezo (ya hecho el 3-nov) y al de la pipí con frío (ya hecho el 12-nov).",
   "fuentes": [
-   "https://theconversation.com/why-do-i-need-to-pee-more-in-the-cold-184236",
-   "https://www.accuweather.com/en/health-wellness/why-does-cold-weather-make-me-need-to-pee/647306",
-   "https://www.backpacker.com/skills/beginner-skills/winter-camping/why-do-i-need-to-pee-so-much-on-cold-hikes/",
-   "https://www.scienceabc.com/humans/why-do-we-urinate-more-when-were-cold"
+   "https://salud.nih.gov/node/6361",
+   "https://www.lanacion.com.ar/lifestyle/el-estres-provoca-que-aparezcan-canas-un-estudio-revela-la-verdad-detras-del-mito-nid04052022/",
+   "https://expansion.mx/tendencias/2023/12/08/es-cierto-que-el-estres-provoca-canas",
+   "https://www.semana.com/vida-moderna/articulo/por-que-vivir-con-estres-saca-canas/649107"
   ],
-  "tendencia": "Frentes fríos y madrugadas heladas en casi todo México a finales de noviembre",
-  "formato": "¿Por qué SIEMPRE…? + mito + truco",
-  "categoria": "cuerpo humano / clima",
+  "tendencia": "Fin de año: estrés de cierre, posadas y reuniones familiares (el tío que dice 'me sacaste canas')",
+  "formato": "mito + sorpresa + segundo mito + truco",
+  "categoria": "cuerpo humano",
   "disparadores": [
-   "eres tú (a todos nos pasa)",
-   "lo mexicano (café, atole)",
+   "eres tú (todos tienen o tendrán canas)",
+   "¿ves? te dije (lo de las siete canas)",
    "truco útil",
-   "risa ligera (el baño)"
+   "lo mexicano (la abuela y el 'me sacas canas')"
   ],
-  "guion": "herramientas/ejemplos/2026-11-26-2130-pipi-frio.json",
-  "visual": "Escenario: calle mexicana de noche con frío (vaho) y luego un 'corte' del cuerpo en papel. Acción nueva cada 4–6 s.\n1) gancho: protagonista abrigado, cruza las piernas y corre hacia una puerta de baño de papel con letrero 'WC'.\n2) mito: taza de café y vaso de atole con una X; el protagonista sin beber nada y aun así sale el letrero '¡AL BAÑO!'.\n3) venas: silueta de cartulina del cuerpo; las venitas de manos y pies se aprietan (tubos que se adelgazan) y las manos se ponen azules con escarcha.\n4) centro: flechitas rojas de sangre van al pecho y la panza; un medidor de 'presión' sube.\n5) riñones: dos riñones chibi con carita trabajan como coladeras y mandan gotitas a una vejiga-globo que se infla; letrero 'DIURESIS POR FRÍO'.\n6) truco: el protagonista se pone guantes y calcetines gruesos y toma un vaso de agua; palomita verde.\n7) remate: dos letreros de papel con pop: 'ME LEVANTO' (protagonista en pijama con linterna rumbo al baño) y 'AGUANTO' (protagonista apretando la cobija). Pieza nueva reutilizable: PM.rinon(expresion) y PM.vejiga(llenado 0–1) en papel_pm.js. Nada explícito: solo la puerta del baño, nada de inodoros en uso.",
-  "titulo_yt": "¿Por qué con el FRÍO te da más pipí? 🥶 #shorts",
-  "descripcion_yt": "¿Tú te levantas de madrugada al baño o aguantas hasta la mañana? 🥶\nCon el frío vas más al baño aunque no tomes nada: se llama diuresis por frío.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #frio #cuerpohumano #shorts",
-  "titulo_tt": "¿Por qué con el frío vas más al baño? 🥶",
-  "texto_tt": "Aunque no tomes nada 🥶 Comenta: ¿te levantas de madrugada al baño o aguantas hasta la mañana? #datoscuriosos #ciencia #frio #cuerpohumano #aprendeentiktok",
+  "guion": "herramientas/ejemplos/2026-11-26-2130-canas.json",
+  "visual": "Escenario: sala mexicana de papel con un espejo; acción nueva cada 4–6 s.\n1) gancho: el protagonista se asusta (rayitas, ojos enormes) frente al espejo y su copete se pone blanco de golpe… y se rompe como papel con un letrero 'MITO'.\n2) mito: lupa sobre un pelo de cartulina: la parte de arriba sigue café y desde la raíz crece un tramo blanco.\n3) raíz: corte de la piel en papel: dentro de la raíz, células chibi con pincelitos pintan el pelo; con un contador de años, se van yendo una por una.\n4) estrés: ratón de cartulina gris con un rayito de estrés; sus 'pintoras' huyen y su pelaje se vuelve blanco; letrero 'EN RATONES'.\n5) siete: el protagonista se arranca una cana y aparecen siete canas de mentira que se tachan con una X; cada raíz con su único pelo.\n6) truco: tijeritas de papel cortan la cana; palomita verde.\n7) remate: dos letreros con pop: 'ME LAS ARRANCO' (protagonista con pinzas) y 'LAS DEJO EN PAZ' (protagonista relajado). Pieza nueva reutilizable: PM.raton(color) y PM.lupa() en papel_pm.js. Sin barbas.",
+  "titulo_yt": "¿Un SUSTO te puede sacar canas? 😱 #shorts",
+  "descripcion_yt": "¿Y tú: te arrancas las canas o las dejas en paz? 😱\nEl pelo no se pone blanco de la noche a la mañana… y arrancarte una no te saca siete.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #canas #mitos #shorts",
+  "titulo_tt": "¿Un susto te saca canas? 😱",
+  "texto_tt": "Y no, no te salen siete 😱 Comenta: ¿te las arrancas o las dejas en paz? #datoscuriosos #ciencia #canas #mitos #aprendeentiktok",
   "pedido": false
  }
 ]
