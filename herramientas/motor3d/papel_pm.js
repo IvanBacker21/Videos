@@ -1890,5 +1890,50 @@ export function kitPM(P, THREE, group) {
     g.tiembla = (t, k) => { g.in.position.set(Math.sin(t * 37) * .025 * k, Math.sin(t * 29 + 1) * .02 * k, 0); g.in.rotation.z = Math.sin(t * 23) * .03 * k; };
     g.calienta(0); g.estira(0, 0); g.grietas(0); g.chispas(0, 0); return g; }
 
-  return { vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 25-nov 21:30 (hora más fría) ----
+  // PM.flechasCalor(o): flechas onduladas de CALOR RADIATIVO que salen del suelo hacia el cielo (apuntan a +y local; rota el grupo para
+  //   que bajen, p. ej. las del sol). o: {x0, x1, n, y0 (salida), y1 (techo / nube), fin (1.8: cuánto siguen tras y1 al escaparse), color, s, z}
+  //   g.update(t, k 0..1, rebote 0..1, vel): rebote 0 = suben y se ESCAPAN por arriba del cuadro; rebote 1 = llegan a y1, se voltean y
+  //   REGRESAN al suelo (nube-cobija). g.tam(k) agranda/achica las flechas (balanza sol vs suelo).
+  function flechasCalor(o = {}) { const g = group([0, 0, o.z ?? .5]), n = o.n ?? 5, x0 = o.x0 ?? -1.2, x1 = o.x1 ?? 1.2, y0 = g.y0 = o.y0 ?? .1, y1 = g.y1 = o.y1 ?? 2.2;
+    const col = o.color ?? 0xff6b3d, s0 = o.s ?? 1, L = .42, fin = o.fin ?? 1.8; let tam = 1;
+    const pts = []; for (let i = 0; i <= 20; i++) { const y = -L / 2 + L * i / 20; pts.push([Math.sin(i / 20 * Math.PI * 2) * .045, y]); }
+    const fs = []; for (let i = 0; i < n; i++) { const f = group([x0 + (n > 1 ? (x1 - x0) * i / (n - 1) : 0), y0, 0], g);
+      const c = group([0, 0, 0], f); pz(tubo(pts, .05, .035), col, [0, 0, 0], c, { tinta: .012, papel: .035 });
+      pz(F.poly([[-.11, 0], [.11, 0], [0, .15]]), col, [0, L / 2 - .01, .01], c, { tinta: .012, papel: .035 });
+      f.f = ((i * .37) % 1); f.c = c; f.x = f.position.x; fs.push(f); }
+    g.flechas = fs; g.tam = k => { tam = k; };
+    g.update = (t, k = 1, reb = 0, vel = .45) => { fs.forEach(f => { const q = (t * vel + f.f) % 1;
+        let y, rz = 0, a = Math.sin(q * Math.PI);
+        if (reb > .5) { const up = q < .5, u = up ? q * 2 : (q - .5) * 2; y = up ? lerpN(y0, y1, u) : lerpN(y1, y0, u); rz = up ? 0 : Math.PI; a = Math.min(1, Math.min(q, 1 - q) * 8); }
+        else y = lerpN(y0, y1 + fin, q);
+        f.position.set(f.x + Math.sin(t * 3 + f.f * 9) * .04, y, 0); f.c.rotation.z = rz; f.scale.setScalar(Math.max(.001, s0 * tam * k * Math.min(1, a * 1.6))); });
+      g.visible = k > .01; };
+    const lerpN = (a, b, u) => a + (b - a) * u;
+    g.update(0, 1); return g; }
+  // PM.nubeCobija(pos, o): nube chibi de cartulina con carita que sostiene una COBIJA de parches colgando debajo (las nubes "tapan" el suelo).
+  //   o: {s, color, cobija:[colores], expr}. g.head (A.parpadea / A.preocupa), g.cara('feliz'|'abierta'), g.update(t) mece la cobija.
+  //   g.cobija.visible = false para una nube normal. g.bajo = y local del borde de abajo de la cobija.
+  function nubeCobija(pos, o = {}) { const g = group(pos), s = o.s ?? 1, col = o.color ?? 0xf6f9ff, cc = o.cobija ?? [0xff6b5b, 0xffc83d, 0x2ec4a6, 0x7b5cff];
+    g.cobija = group([0, -.1 * s, -.08], g); const W = 1.05 * s, H = .55 * s, cw = W / 4, ch = H / 2;
+    const cb = pz(F.rect(W, H, .04), cc[0], [0, -H / 2, 0], g.cobija, { tinta: .014, papel: .05 });
+    for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) { const k = (r * 4 + c + r) % cc.length;
+      det(F.rect(cw - .03, ch - .03, .02), cc[k], [-W / 2 + cw * (c + .5), -H / 2 + (r ? ch / 2 : -ch / 2), .016], cb);
+      if (k % 2 === 0) det(F.corazon(.12 * s), 0xffffff, [-W / 2 + cw * (c + .5), -H / 2 + (r ? ch / 2 : -ch / 2) + .02, .02], cb); }
+    for (let c = 0; c < 9; c++) det(F.rect(.035 * s, .012, .004), 0xfffdf6, [-W / 2 + .06 + c * (W - .12) / 8, -H + .04, .022], cb);
+    g.bajo = -.1 * s - H;
+    const cu = pz(F.nube(s), col, [0, 0, 0], g, { tinta: .02, papel: .07 });
+    det(F.elipse(.16 * s, .07 * s), 0xffffff, [-.32 * s, .2 * s, .016], cu, .4);
+    for (const sx of [-1, 1]) pz(F.circ(.07 * s), col, [sx * .5 * s, -.1 * s, .03], g, { tinta: .012, papel: .03 });   // manitas que sostienen la cobija
+    const h = g.head = group([0, .08 * s, .03], g); h.r0 = 0;
+    h.ojos = [-1, 1].map(sx => { const e = group([sx * .14 * s, .04 * s, .01], h); det(F.elipse(.045 * s, .08 * s), INK, [0, 0, 0], e); det(F.elipse(.017 * s, .028 * s), 0xffffff, [.012 * s, .032 * s, .003], e); return e; });
+    h.cejas = [-1, 1].map(sx => { const c = group([sx * .14 * s, .16 * s, .012], h); det(F.rect(.08 * s, .022 * s, .01 * s), 0x8aa0c8, [0, 0, 0], c); c.sx = sx; return c; });
+    for (const sx of [-1, 1]) det(F.elipse(.055 * s, .03 * s), 0xffb3c1, [sx * .25 * s, -.06 * s, .008], h);
+    const bF = det(F.arco(.065 * s, .02 * s, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -.03 * s, .01], h);
+    const bA = det(F.elipse(.05 * s, .045 * s), 0x7a1f30, [0, -.09 * s, .01], h);
+    g.cara = (e = 'feliz') => { bF.visible = e !== 'abierta'; bA.visible = e === 'abierta'; }; g.cara(o.expr ?? 'feliz');
+    g.update = t => { g.cobija.rotation.z = Math.sin(t * 2.2) * .04; g.cobija.position.x = Math.sin(t * 2.2 + 1) * .02; g.rotation.z = Math.sin(t * 1.3) * .03; };
+    return g; }
+
+  return { flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

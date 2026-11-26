@@ -1153,5 +1153,23 @@
   "archivo": "shorts/2026-11-25-1800-hielo-truena.mp4",
   "titulo": "¿Por qué el hielo TRUENA en tu refresco? 🧊 #shorts",
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-25",
+  "hora": "21:30",
+  "tema": "¿Cuál es la hora más fría del día? (justo después del amanecer: toda la noche el suelo pierde calor por radiación hacia el cielo y sigue enfriándose hasta que el sol calienta más de lo que la tierra pierde; enfriamiento radiativo: las nubes regresan calor infrarrojo al suelo, por eso las noches despejadas y estrelladas son más frías; puede haber helada en el pasto aunque el termómetro (a ~1.5 m) marque algunos grados sobre cero, porque el suelo está más frío que el aire). Fuentes: Georgia Tech College of Sciences, AccuWeather, UBC ATSC 113",
+  "formato": "mito (no es la medianoche) + explicación + sorpresa a la mitad (las nubes son cobija) + dato extra (helada sobre cero) + truco (LARGO prueba 40 s)",
+  "categoria": "clima / cielo",
+  "tendencia": "Frente frío 8 y chorro polar: heladas y temperaturas de hasta 0 °C en la madrugada en el centro y norte de México (N+)",
+  "disparadores": [
+   "¿ves? te dije",
+   "sorpresa",
+   "truco útil"
+  ],
+  "duracion": 44.7,
+  "mejora": "papel_pm.js: PM.flechasCalor (flechas de calor radiativo que se escapan o rebotan) + PM.nubeCobija (nube chibi con cobija de parches)",
+  "archivo": "shorts/2026-11-25-2130-hora-mas-fria.mp4",
+  "titulo": "¿Cuál es la hora más FRÍA del día? 🥶 #shorts",
+  "prueba": "largo-40s"
  }
 ]

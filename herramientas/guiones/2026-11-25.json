@@ -54,7 +54,7 @@
  {
   "hora": "21:30",
   "slug": "hora-mas-fria",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "largo-40s",
   "tema": "¿Cuál es la hora más fría del día? (justo después del amanecer: toda la noche el suelo pierde calor por radiación hacia el cielo y sigue enfriándose hasta que el sol calienta más de lo que la tierra pierde; enfriamiento radiativo: las nubes regresan calor infrarrojo al suelo, por eso las noches despejadas y estrelladas son más frías; puede haber helada en el pasto aunque el termómetro (a ~1.5 m) marque algunos grados sobre cero, porque el suelo está más frío que el aire). Fuentes: Georgia Tech College of Sciences, AccuWeather, UBC ATSC 113",
   "fuentes": [
