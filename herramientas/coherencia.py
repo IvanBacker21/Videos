@@ -10,7 +10,7 @@ COMPARTIR = ["manda este video", "mándaselo", "mandaselo", "etiqueta", "compart
 
 ap = argparse.ArgumentParser(); ap.add_argument("guion"); ap.add_argument("escenas", nargs="?")
 ap.add_argument("--out"); ap.add_argument("--titulo", default=""); ap.add_argument("--descripcion", default="")
-ap.add_argument("--largo", action="store_true", help="PRUEBA 20–26 nov 2026: short largo de 21:30 (contenido 36–42 s)")
+ap.add_argument("--largo", action="store_true", help="short largo diario de las 21:30 (contenido 36–42 s)")
 a = ap.parse_args()
 d = json.load(open(a.guion)); esc = d["escenas"]
 err, warn = [], []
@@ -40,8 +40,8 @@ if largas: warn.append(f"Frases demasiado largas para un short (>22 palabras): {
 if a.out and os.path.exists(f"{a.out}/timings.json"):
     T = json.load(open(f"{a.out}/timings.json")); total = sum(t["dur"] for t in T); cont = sum(t["dur"] for t in T[:-1])
     if a.largo:
-        if cont > 43: err.append(f"PRUEBA LARGA: el contenido dura {cont:.1f} s; el máximo es 42 s. Recorta frases.")
-        elif cont < 35: warn.append(f"PRUEBA LARGA: el contenido dura {cont:.1f} s (objetivo 36–42 s).")
+        if cont > 43: err.append(f"SHORT LARGO: el contenido dura {cont:.1f} s; el máximo es 42 s. Recorta frases.")
+        elif cont < 35: warn.append(f"SHORT LARGO: el contenido dura {cont:.1f} s (objetivo 36–42 s).")
     elif cont > 32: err.append(f"El contenido dura {cont:.1f} s: el máximo es 30 s (los shorts largos se ven a menos del 50 %). Recorta frases.")
     elif cont < 18: warn.append(f"El contenido dura {cont:.1f} s (objetivo 20–30 s).")
     if T[0]["dur"] > 6.5: warn.append(f"La primera escena dura {T[0]['dur']:.1f} s: el gancho debe ser corto y directo.")
