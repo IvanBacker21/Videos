@@ -1171,5 +1171,23 @@
   "archivo": "shorts/2026-11-25-2130-hora-mas-fria.mp4",
   "titulo": "¿Cuál es la hora más FRÍA del día? 🥶 #shorts",
   "prueba": "largo-40s"
+ },
+ {
+  "fecha": "2026-11-26",
+  "hora": "13:30",
+  "tema": "¿Qué pasaría si la Tierra tuviera DOS lunas? (pedido de un seguidor en comentarios; una segunda luna grande sumaría su jalón gravitacional: mareas más altas y más complicadas; noches más brillantes y más eclipses; un sistema así no sería estable a largo plazo: acabarían chocando o una saldría expulsada; hipótesis de Jutzi y Asphaug (Nature 2011): la Tierra pudo tener una segunda luna pequeña que chocó lentamente con la Luna y explicaría por qué su cara oculta es más montañosa). Fuentes: Discover Magazine (5 ways life on Earth would be different if we had two moons), Universe Today (What if the Earth had two moons?), National Geographic (second mini-moon), NPR (Early Earth may have been orbited by two moons), NBC News (Was Earth's moon made by 2 moons crashing?)",
+  "formato": "pregunta '¿qué pasaría si…?' + 3 consecuencias + sorpresa (quizá ya pasó)",
+  "categoria": "espacio / cielo",
+  "tendencia": "Pedido de seguidor (comentarios); serie de Luna en tendencia tras la superluna del 24-nov",
+  "disparadores": [
+   "sorpresa",
+   "eres tú (el amigo del '¿y qué pasaría si…?')"
+  ],
+  "duracion": 28.0,
+  "mejora": "papel_pm.js: PM.olaMarea (mar de cartulina de frente con nivel ajustable: mareas, inundación)",
+  "archivo": "shorts/2026-11-26-1330-dos-lunas.mp4",
+  "titulo": "¿Y si la Tierra tuviera DOS lunas? 🌙 #shorts",
+  "pedido": true,
+  "prueba": "normal"
  }
 ]

@@ -1935,5 +1935,18 @@ export function kitPM(P, THREE, group) {
     g.update = t => { g.cobija.rotation.z = Math.sin(t * 2.2) * .04; g.cobija.position.x = Math.sin(t * 2.2 + 1) * .02; g.rotation.z = Math.sin(t * 1.3) * .03; };
     return g; }
 
-  return { flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 26-nov 13:30 (¿y si la Tierra tuviera dos lunas?) ----
+  // PM.olaMarea(pos, o): mar de cartulina visto de frente (bloque azul con crestas de olitas, rayas de reflejo y espuma) cuyo NIVEL cambia:
+  //   mareas, inundación, alberca, ola que sube. g.update(t, nivel): nivel = altura de la superficie sobre pos.y (las olitas se deslizan y
+  //   suben y bajan solas). Pon arena u otra pieza DELANTE (z mayor) para que solo se vea lo que asoma. o: {w (6), fondo (3), color, espuma}
+  function olaMarea(pos, o = {}) { const g = group(pos), w = o.w ?? 6, fondo = o.fondo ?? 3, col = o.color ?? 0x3d8fe0;
+    const ag = g.agua = group([0, 0, 0], g);
+    pz(F.rect(w, fondo, 0), col, [0, -fondo / 2, 0], ag, { tinta: false, papel: .05 });
+    for (const [y, k] of [[-.2, .3], [-.45, .2], [-.75, .14]]) for (let x = -w / 2 + .3; x < w / 2; x += .9) det(F.rect(.42, .035, .017), mez(col, 0xffffff, k), [x + (y * 7 % .5), y, .016], ag);
+    const cr = g.crestas = group([0, 0, .006], ag), sep = .34, n = Math.ceil(w / sep) + 4;
+    for (let i = 0; i < n; i++) { const x = -w / 2 - sep * 2 + i * sep; pz(F.circ(.16), col, [x, -.05, 0], cr, { tinta: false, papel: .04 }); det(F.elipse(.08, .028), o.espuma ?? 0xeaf6ff, [x - .03, .075, .02], cr, .2); }
+    g.update = (t, nivel = 0) => { ag.position.y = nivel + Math.sin(t * 2.4) * .025; cr.position.x = (t * .22) % sep; };
+    g.update(0, 0); return g; }
+
+  return { olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
