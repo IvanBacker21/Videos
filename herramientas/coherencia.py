@@ -21,8 +21,12 @@ elif " ".join(esc[-1]["frases"]).strip() != CIERRE: err.append(f"El texto del ci
 contenido = esc[:-1]
 if not contenido: err.append("No hay escenas de contenido.")
 remate = " ".join(contenido[-1]["frases"]).lower() if contenido else ""
-if not any(w in remate for w in COMPARTIR):
-    warn.append("La última escena de contenido no invita a compartir con alguien concreto ('Mándaselo a…', 'Etiqueta a…').")
+if "?" not in remate or " o " not in remate:
+    warn.append("El remate debe ser una PREGUNTA A o B del tema (p. ej. '¿La tomas fría o caliente?'), corta, para que comenten.")
+if any(w in remate for w in COMPARTIR):
+    warn.append("El remate usa 'Mándaselo/Etiqueta/Comparte…': desde el 26-nov el remate es una pregunta A o B.")
+if len(remate.split()) > 14:
+    warn.append(f"El remate tiene {len(remate.split())} palabras: la pregunta A o B debe ser corta (≤ 12).")
 tipos = [e["tipo"] for e in esc]
 if len(set(tipos)) != len(tipos): err.append(f"Hay tipos de escena repetidos: {tipos} (cada escena necesita un 'tipo' único).")
 

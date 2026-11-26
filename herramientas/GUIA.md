@@ -95,6 +95,7 @@ Reglas que salen de los datos:
 1. **Tema = algo que TODOS han vivido + un mito o un "¿por qué SIEMPRE…?"** (tronarse los dedos, el pan, la cebolla, dedos arrugados). Mejor aún si hay "tu mamá decía…": genera discusión y compartidos. Cuerpo, comida y casa son lo más fuerte.
 2. **Nada abstracto en el gancho.** Átomos fue el que más gente deslizó (45 %). Si el tema es abstracto, el gancho debe ser algo físico y cotidiano ("tu mano nunca toca nada").
 3. **No uses ganchos de reto** ("te reto a no…"): el bostezo fue el peor en "se quedaron viendo" (43 %).
+- **❓ REMATE = PREGUNTA A o B (Iván, 26-nov-2026):** la última escena de contenido ya NO es "Mándaselo a…"; es una pregunta corta del tema con dos opciones para comentar (detalles en GUIA_CORTA.md). Donde esta guía diga "Mándaselo a…" o "remate compartible", aplica esto.
 - **⏱️ SHORT LARGO DIARIO (Iván, 26-nov-2026; PERMANENTE desde el 27-nov):** tras la prueba del 20 al 26-nov, el short de las **21:30** de todos los días dura ~40 s de contenido (36–42 s, 6–8 escenas) + el cierre; los de 13:30 y 18:00 siguen en 25–30 s. Ver detalles en GUIA_CORTA.md. Sigue marcando `"prueba": "largo-40s"`/`"normal"` en temas.json para comparar.
 4. **Más corto = más % visto.** La gente ve ~20–24 s sin importar la duración. Duración TOTAL ≤ 30 s (contenido 18–23 s + cierre). Los de 35–45 s pierden. Recorta frases, una idea por escena, sin repetir.
 5. **Incluye un truco útil cuando se pueda** (cebolla: 2 trucos) → se guarda y se reenvía.
