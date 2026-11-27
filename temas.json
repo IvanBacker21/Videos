@@ -1245,5 +1245,25 @@
   "titulo": "¿Por qué SIEMPRE piden el modo AVIÓN? ✈️ #shorts",
   "pedido": false,
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-27",
+  "hora": "18:00",
+  "tema": "Navidad Cósmica ep. 1: Los pastores a Belén y sus zapatos rotos (hace dos mil años los pastores de Judea usaban sandalias de cuero: suela y correas; se han hallado sandalias de época romana en cuevas del desierto de Judea —Qumrán, Cueva de las Cartas/Masada—; con piedras y kilómetros detrás de las ovejas se rompían). Fuentes: https://www.ibiblio.org/expo/deadsea.scrolls.exhibit/Community/leather.html, https://cojs.org/leather_sandals_from_qumran/, https://cojs.org/roman_period_sandal/",
+  "formato": "villancico + dato histórico/arqueológico",
+  "categoria": "Navidad / historia",
+  "tendencia": "Arranque de la temporada navideña; serie Navidad Cósmica (episodio 1, pedido de Iván)",
+  "disparadores": [
+   "lo mexicano",
+   "sorpresa",
+   "eres tú"
+  ],
+  "duracion": 28.2,
+  "mejora": "papel_pm.js: PM.pastor (pastorcito con túnica, tocado, cayado y sandalias), PM.sandalia (de lado con g.rompe / vista desde arriba), PM.oveja (borreguito de perfil), PM.desierto (dunas de día o noche con estrella)",
+  "archivo": "shorts/2026-11-27-1800-pastores-zapatos.mp4",
+  "titulo": "¿Por qué los pastores llevaban los zapatos ROTOS? 🎄 #shorts",
+  "pedido": true,
+  "serie": "Navidad Cósmica",
+  "prueba": "normal"
  }
 ]

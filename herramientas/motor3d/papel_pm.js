@@ -2128,5 +2128,87 @@ export function kitPM(P, THREE, group) {
     const arcos = [0, 1, 2].map(i => pz(F.arco(.16 + i * .1, .035, Math.PI * .2, Math.PI * .8), 0x2ec4a6, [0, H + .1, .04], g, { tinta: .008, papel: .025 }));
     g.update = (t, k = 0) => { luz.visible = Math.sin(t * 5) > -.2; arcos.forEach((a, i) => { const u = ((t * 1.6 - i / 3) % 1 + 1) % 1; a.visible = k > .02; a.scale.setScalar(Math.max(.001, k * (.6 + u * .8))); }); };
     sombraPiso(g, .35); g.update(0, 0); return g; }
-  return { avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= NAVIDAD CÓSMICA (27-nov 18:00, ep. 1: los pastores y sus zapatos rotos) =================
+  // PM.sandalia(pos, o, padre): sandalia de cuero de hace dos mil años vista de lado (punta a +x local): suela café con costura, correa del
+  //   tobillo y correa de enfrente. o: {pie (color de piel; false = sandalia sola, sin pie), cuero (0x9a6234), s (escala)}.
+  //   o.vista 'arriba': vista desde arriba (suela con forma de huella, para hallazgos/acercamientos).
+  //   g.rompe(k 0..1, t): la correa de enfrente se revienta y cae, la punta de la suela se despega y aletea (zapato roto) y asoma el dedo.
+  function sandalia(pos, o = {}, padre = null) { const g = group(pos, padre); g.scale.setScalar(o.s ?? 1);
+    const cu = o.cuero ?? 0x9a6234, cu2 = osc(cu, .7), piel = o.pie ?? 0xe8b48c;
+    if (o.vista === 'arriba') {   // vista desde arriba (punta hacia +y): suela con forma de huella, correa ancha cruzada, anillo del dedo y lazo del talón
+      const cs = o.correas ?? osc(cu, .62);
+      pz(blob([[-.09, -.24], [-.11, -.1], [-.12, .06], [-.1, .18], [-.04, .26], [.04, .27], [.1, .2], [.12, .08], [.1, -.08], [.08, -.22], [0, -.27]]), cu, [0, 0, 0], g, { tinta: .014, papel: .04 });
+      det(blob([[-.06, -.2], [-.08, .0], [-.06, .16], [.03, .2], [.07, .05], [.05, -.18], [0, -.22]]), osc(cu, .88), [0, 0, .014], g);   // huella gastada
+      for (const [x, y] of [[-.05, -.12], [.04, .1], [.06, -.2]]) det(F.circ(.012), cu2, [x, y, .02], g);                                 // agujeritos del uso
+      g.correa = pz(F.rect(.25, .06, .02), cs, [0, .03, .03], g, { tinta: .01, papel: false, rot: .12 });                                 // correa ancha
+      det(F.arco(.035, .016, 0, Math.PI * 2), cs, [-.04, .19, .03], g); linea([[-.04, .155], [-.01, .06]], .02, cs, g, .03);              // anillo del dedo
+      pz(F.arco(.1, .026, Math.PI * 1.05, Math.PI * 1.95), cs, [0, -.13, .03], g, { tinta: .01, papel: false });                           // lazo del talón
+      g.rompe = () => {}; return g; }
+    if (o.pie !== false) { pz(blob([[-.15, -.02], [-.14, .1], [-.02, .12], [.12, .07], [.2, .0], [.18, -.03]]), piel, [0, 0, 0], g, { tinta: .012, papel: .03 });
+      g.dedo = pz(F.elipse(.045, .035), piel, [.17, .0, .01], g, { tinta: .01, papel: false }); }
+    const trasera = pz(F.rect(.27, .045, .02), cu, [-.055, -.045, .02], g, { tinta: .012, papel: .03 });
+    det(F.rect(.23, .01, .005), cu2, [-.055, -.05, .034], g);
+    const punta = group([.08, -.045, .02], g); pz(F.rect(.16, .045, .02), cu, [.07, 0, 0], punta, { tinta: .012, papel: .03 }); det(F.rect(.13, .01, .005), cu2, [.07, -.005, .014], punta);
+    // correa del tobillo (tiras que suben) y correa de enfrente (cruza el empeine)
+    det(F.rect(.05, .17, .01), cu, [-.1, .04, .03], g, -.15); det(F.rect(.2, .045, .01), cu, [-.07, .1, .032], g, .1);
+    const fr = group([.03, -.03, .034], g); pz(F.rect(.05, .17, .01), cu, [0, .075, 0], fr, { tinta: .01, papel: false, rot: -.35 }); det(F.circ(.018), 0xe0b15a, [.03, .15, .012], fr);
+    g.punta = punta; g.correa = fr; g.trasera = trasera;
+    g.rompe = (k = 1, t = 0) => { fr.rotation.z = -k * (2.3 + Math.sin(t * 9) * .15); fr.position.x = .03 + .05 * k;
+      punta.rotation.z = -k * (.5 + Math.sin(t * 13) * .25); if (g.dedo) { g.dedo.position.x = .17 + .1 * k; g.dedo.scale.setScalar(1 + .3 * k); } };
+    g.rompe(0); return g; }
+  // PM.pastor(pos, o): pastorcito chibi de hace dos mil años: túnica (falda larga) con franjas, cinto de cuerda, tocado de tela con cinta,
+  //   cayado de madera en la mano derecha y SANDALIAS (PM.sandalia) en lugar de tenis. Acepta las opciones de PM.chibi (escala, boca, mira…).
+  //   o: {ropa (0xc9a46a), franja (0x8a5a3a), tela (0xf2ead8), cinta (0xc0392b), cayado (true)}. p.sandalias[0|1] (izq|der), p.cayado.
+  //   p.cayadoRecto(): llámalo cada cuadro después de mover el brazo derecho para que el cayado quede vertical.
+  function pastor(pos, o = {}) { const ropa = o.ropa ?? 0xc9a46a, fra = o.franja ?? 0x8a5a3a, tela = o.tela ?? 0xf2ead8;
+    const p = chibi(pos, { boca: 'feliz', ...o, ropa, falda: ropa, logo: false });
+    for (const x of [-.17, .17]) det(F.rect(.07, .62, .01), fra, [x, .82, .04], p);                                   // franjas de la túnica
+    pz(F.rect(.7, .055, .02), 0xb08850, [0, .6, .05], p, { tinta: .01, papel: false }); linea([[.05, .58], [.1, .4]], .02, 0xb08850, p, .06);   // cinto de cuerda
+    const h = p.head;
+    for (const sx of [-1, 1]) pz(blob([[sx * .44, .2], [sx * .62, -.15], [sx * .6, -.52], [sx * .4, -.42], [sx * .42, .05]]), tela, [0, 0, -.03], h, { tinta: .014, papel: .04 });
+    pz(blob([[-.58, .08], [-.56, .4], [-.34, .68], [0, .8], [.3, .78], [.52, .66], [.6, .36], [.58, .08], [.4, .2], [0, .24], [-.4, .2]]), tela, [0, 0, .05], h, { tinta: .014, papel: .04 });
+    det(blob([[-.58, .2], [-.3, .3], [0, .33], [.3, .3], [.58, .2], [.58, .12], [.3, .22], [0, .25], [-.3, .22], [-.58, .12]]), o.cinta ?? 0xc0392b, [0, 0, .066], h);
+    det(blob([[.1, .7], [.36, .62], [.46, .4], [.3, .58]]), osc(tela, .9), [0, 0, .066], h);
+    p.sandalias = p.piernas.map((pi, i) => { const t = pi.children[pi.children.length - 1]; t.visible = false;
+      const s = sandalia([i ? .04 : -.04, -.44, .02], { pie: o.piel ?? 0xe8b48c }, pi); if (!i) s.scale.x = -1; return s; });
+    if (o.cayado !== false) { const br = p.brazos[1]; const c = group([0, -.5, .07], br);
+      pz(tubo([[0, -.95], [0, .55], [.02, .7], [.12, .78], [.22, .72], [.24, .6]], .05, .05), 0x8a5a2b, [0, 0, 0], c, { tinta: .012, papel: .03 });
+      p.cayado = c; p.cayadoRecto = () => { c.rotation.z = -br.rotation.z; }; p.cayadoRecto(); }
+    return p; }
+  // PM.oveja(pos, o): borreguito de cartulina de perfil (mira a +x local; para que mire a -x: g.scale.x = -es). Lana esponjada de bolitas,
+  //   cara y patitas oscuras, orejitas. Sirve con A.anda (g.patas), A.parpadea (g.head.ojos) y g.bala(k): abre la boquita (beee).
+  //   o: {escala (.6), lana (0xfaf5e8), cara (0x4a4038)}
+  function oveja(pos, o = {}) { const g = group(pos), es = o.escala ?? .6; g.scale.set(es, es, es * .3); g.es = es;
+    const lana = o.lana ?? 0xfaf5e8, cara = o.cara ?? 0x4a4038;
+    g.patas = [[-.3, -.02], [-.18, .02], [.2, -.02], [.32, .02]].map(([x, z]) => { const p = group([x, .32, z], g); p.r0 = 0;
+      pz(F.rect(.08, .3, .03), cara, [0, -.15, 0], p, { tinta: .01, papel: .03 }); det(F.rect(.08, .05, .02), osc(cara, .6), [0, -.28, .014], p); return p; });
+    const cu = group([0, 0, .03], g);
+    for (const [x, y, r] of [[-.34, .55, .2], [-.12, .66, .23], [.14, .66, .22], [.34, .55, .19], [-.22, .42, .2], [.04, .42, .22], [.28, .42, .19], [0, .55, .25]]) pz(F.circ(r), lana, [x, y, 0], cu, { tinta: .014, papel: .04 });
+    for (const [x, y] of [[-.2, .6], [.1, .7], [.2, .48]]) det(F.arco(.07, .018, .3, 2.6), osc(lana, .86), [x, y, .02], cu);
+    const h = group([.5, .62, .06], g); g.head = h; h.rotation.z = h.r0 = -.15;
+    for (const sx of [-1, 1]) { const e = pz(F.elipse(.1, .045), cara, [-.04, .12, sx > 0 ? .01 : -.02], h, { tinta: .01, papel: .03, rot: sx > 0 ? .5 : .9 }); e.position.x = sx > 0 ? -.1 : .02; }
+    pz(blob([[-.12, .14], [.08, .16], [.2, .04], [.18, -.14], [.04, -.2], [-.12, -.08]]), cara, [0, 0, .02], h, { tinta: .012, papel: .04 });
+    pz(F.circ(.09), lana, [-.06, .17, .04], h, { tinta: .01, papel: false });                                                                 // copetito de lana
+    h.ojos = [group([.06, .02, .05], h)]; det(F.elipse(.03, .045), 0xffffff, [0, 0, 0], h.ojos[0]); det(F.circ(.018), INK, [.008, -.004, .004], h.ojos[0]);
+    const bo = det(F.elipse(.035, .02), 0x2a201a, [.13, -.12, .05], h); bo.visible = false;
+    g.bala = k => { bo.visible = k > .3; bo.scale.y = Math.max(.2, k); };
+    sombraPiso(g, .55); return g; }
+  // PM.desierto(o): escenario de cartulina del desierto de Judea (como PM.diorama): cielo, sol, dunas en capas, rocas y matorrales,
+  //   piso arenoso con puntadas. o: {noche (false): cielo azul noche con estrellitas y una estrella grande dorada, cielo, sol (true)}
+  function desierto(o = {}) { const noche = !!o.noche;
+    pz(F.rect(30, 30, 0), o.cielo ?? (noche ? 0x2b3466 : 0xffe2b0), [0, 8, -4], null, { tinta: false, papel: false });
+    if (noche) { let sm = 7; const rnd = () => (sm = (sm * 16807) % 2147483647) / 2147483647;
+      for (let i = 0; i < 26; i++) det(F.estrella(4, .05, .02), 0xfff3c4, [-3 + rnd() * 6, 1.6 + rnd() * 2.6, -3.9]);
+      pz(F.estrella(4, .28, .08), 0xffd640, [1.1, 3.4, -3.8], null, { tinta: .016, papel: .06 }); }
+    else if (o.sol !== false) { const so = pz(F.circ(.55), 0xffc24a, [1.6, 3.6, -3.9], null, { tinta: .02, papel: .08 }); det(F.circ(.4), 0xffd877, [-.08, .08, .014], so); }
+    const duna = (x, y, w, h, c, z) => { pz(blob([[-w, -1], [-w, 0], [-w * .5, h * .7], [w * .05, h], [w * .6, h * .55], [w, 0], [w, -1]]), c, [x, y, z], null, { tinta: .022, papel: .1 });
+      det(blob([[w * .05, h * .96], [w * .55, h * .54], [w * .9, .05], [w * .4, .3]]), osc(c, .9), [x, y, z + .014]); };
+    const tono = noche ? .62 : 1, cc = c => osc(c, tono);
+    duna(-2.4, .4, 2.4, 1.5, cc(0xe7b96e), -3.0); duna(2.5, .4, 2.6, 1.9, cc(0xdca85c), -3.1); duna(.2, .3, 2.0, .95, cc(0xf0c985), -2.6);
+    for (const [x, s] of [[-2.0, 1], [1.9, .8], [2.9, 1.2]]) { const r = pz(blob([[-.3, 0], [-.24, .2], [0, .3], [.26, .18], [.32, 0]]), cc(0xa88d72), [x, .02, -1.62], null, { tinta: .014, papel: .05 }); r.scale.setScalar(s); }
+    for (const x of [-1.4, 1.2]) for (const a of [-.5, 0, .5]) linea([[x, .03], [x + Math.sin(a) * .22, .03 + Math.cos(a) * .22]], .025, cc(0x8a9a4a), null, -1.6);
+    pz(F.rect(30, 6, 0), cc(0xeccb8f), [0, -2.95, -1.7], null, { tinta: false, papel: false });
+    pz(F.rect(30, .06, 0), cc(0xd6a865), [0, .03, -1.69], null, { tinta: false, papel: false });
+    for (let i = -14; i < 14; i++) { det(F.rect(.18, .03, .01), cc(0xfff0d0), [i * .4, -.35, -1.68]); det(F.rect(.18, .03, .01), cc(0xf3d6a4), [i * .4 + .2, -1.3, -1.68]); } }
+  return { sandalia, pastor, oveja, desierto, avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
