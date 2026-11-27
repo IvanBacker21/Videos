@@ -56,7 +56,7 @@
  {
   "hora": "21:30",
   "slug": "canas",
-  "estado": "listo",
+  "estado": "producido",
   "prueba": "largo-40s",
   "tema": "¿Un susto te deja el pelo blanco de la noche a la mañana? (mito: el pelo ya formado no cambia de color, las canas crecen blancas desde la raíz (Harvard); en la raíz hay células madre que dan el color y se agotan con la edad; estudio de Harvard 2020 en ratones (Nature, Ya-Chieh Hsu): el estrés libera noradrenalina en el folículo y agota esas células → canas (en ratones); otro mito: arrancar una cana no hace que salgan siete, cada folículo saca un solo pelo, pero arrancarla lo lastima: mejor cortarla). REEMPLAZA al del bostezo (ya hecho el 3-nov) y al de la pipí con frío (ya hecho el 12-nov).",
   "fuentes": [
@@ -77,9 +77,9 @@
   "guion": "herramientas/ejemplos/2026-11-26-2130-canas.json",
   "visual": "Escenario: sala mexicana de papel con un espejo; acción nueva cada 4–6 s.\n1) gancho: el protagonista se asusta (rayitas, ojos enormes) frente al espejo y su copete se pone blanco de golpe… y se rompe como papel con un letrero 'MITO'.\n2) mito: lupa sobre un pelo de cartulina: la parte de arriba sigue café y desde la raíz crece un tramo blanco.\n3) raíz: corte de la piel en papel: dentro de la raíz, células chibi con pincelitos pintan el pelo; con un contador de años, se van yendo una por una.\n4) estrés: ratón de cartulina gris con un rayito de estrés; sus 'pintoras' huyen y su pelaje se vuelve blanco; letrero 'EN RATONES'.\n5) siete: el protagonista se arranca una cana y aparecen siete canas de mentira que se tachan con una X; cada raíz con su único pelo.\n6) truco: tijeritas de papel cortan la cana; palomita verde.\n7) remate: dos letreros con pop: 'ME LAS ARRANCO' (protagonista con pinzas) y 'LAS DEJO EN PAZ' (protagonista relajado). Pieza nueva reutilizable: PM.raton(color) y PM.lupa() en papel_pm.js. Sin barbas.",
   "titulo_yt": "¿Un SUSTO te puede sacar canas? 😱 #shorts",
-  "descripcion_yt": "¿Y tú: te arrancas las canas o las dejas en paz? 😱\nEl pelo no se pone blanco de la noche a la mañana… y arrancarte una no te saca siete.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #canas #mitos #shorts",
+  "descripcion_yt": "¿Y a ti quién te saca más canas: tu familia o tu trabajo? 😱\nEl pelo no se pone blanco de la noche a la mañana… pero en ratones, un susto fuerte sí les sacó canas. Y no: arrancarte una no te saca siete.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #canas #mitos #shorts",
   "titulo_tt": "¿Un susto te saca canas? 😱",
-  "texto_tt": "Y no, no te salen siete 😱 Comenta: ¿te las arrancas o las dejas en paz? #datoscuriosos #ciencia #canas #mitos #aprendeentiktok",
+  "texto_tt": "Y no, no te salen siete 😱 Comenta: ¿quién te saca más canas, tu familia o tu trabajo? #datoscuriosos #ciencia #canas #mitos #aprendeentiktok",
   "pedido": false
  }
 ]

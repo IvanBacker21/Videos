@@ -1206,5 +1206,25 @@
   "archivo": "shorts/2026-11-26-1800-leche-fondo.mp4",
   "titulo": "¿Por qué la leche SIEMPRE está hasta el fondo? 🥛 #shorts",
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-26",
+  "hora": "21:30",
+  "tema": "¿Un susto te deja el pelo blanco de la noche a la mañana? (mito: el pelo ya formado no cambia de color, las canas crecen blancas desde la raíz; en la raíz hay células que dan color y se agotan con los años; Harvard 2020 (Nature, Ya-Chieh Hsu): en ratones el estrés activa nervios que agotan de golpe esas células, para siempre; otro mito: arrancar una cana no saca siete, cada raíz saca un solo pelo; arrancarla lastima la raíz: mejor cortarla). Fuentes: NIH (salud.nih.gov/node/6361), La Nación, Expansión, Semana",
+  "formato": "mito + sorpresa + segundo mito + truco",
+  "categoria": "cuerpo humano",
+  "tendencia": "Fin de año: estrés de cierre, posadas y reuniones familiares ('me sacas canas')",
+  "disparadores": [
+   "eres tú (todos tienen o tendrán canas)",
+   "¿ves? te dije (lo de las siete canas)",
+   "truco útil",
+   "lo mexicano ('me sacas canas')"
+  ],
+  "duracion": 44.3,
+  "mejora": "papel_pm.js: PM.raizPelo (corte de la raíz con células 'pintoras' y nervio) + PM.raton + PM.tijeras + PM.copeteBlanco",
+  "archivo": "shorts/2026-11-26-2130-canas.mp4",
+  "titulo": "¿Un SUSTO te puede sacar canas? 😱 #shorts",
+  "pedido": false,
+  "prueba": "largo-40s"
  }
 ]

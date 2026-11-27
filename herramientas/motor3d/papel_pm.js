@@ -1997,5 +1997,78 @@ export function kitPM(P, THREE, group) {
     g.update = (t, vel = 1) => { g.llantas.forEach(w => w.rotation.z = -t * 9 * vel); g.cuerpo.position.y = Math.abs(Math.sin(t * 9)) * .02 * vel; };
     g.abre(0); return g; }
 
-  return { anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- canas (26-nov 21:30) ----
+  // PM.raizPelo(pos, o, padre): CORTE de piel con la raíz de UN pelo (folículo rosa con bulbo) y sus "pintoras" (células chibi cafés con
+  //   pincelito que le dan color). g.canas(k 0..1): tramo blanco que crece desde la raíz (lo de arriba sigue de color);
+  //   g.update(t, salidas): salidas[i] 0..1 = la pintora i se va (sale volando a un lado y se encoge); las que quedan pintan.
+  //   o: {n (3), nervio (false: nervio amarillo que llega por la izquierda; g.zap(t, k) lo hace chispear), piel, colPelo, largo (2.4)}
+  function raizPelo(pos, o = {}, parent = null) { const g = group(pos, parent), piel = o.piel ?? 0xe8b48c, cp = o.colPelo ?? 0x5a3a24, L = o.largo ?? 2.4, n = o.n ?? 3;
+    pz(F.rect(2.6, 1.55, .1), o.dermis ?? 0xf6cdb8, [0, -.82, -.04], g, { tinta: .014, papel: .05 });
+    for (const [x, y] of [[-.95, -.4], [.9, -.55], [-.7, -1.3], [.75, -1.25], [1.05, -.95], [-1.05, -.85]]) det(F.circ(.035), 0xe7a593, [x, y, .015], g);
+    pz(F.rect(2.6, .2, .05), piel, [0, .02, .02], g, { tinta: .014, papel: false }); det(F.rect(2.5, .025, .0), osc(piel, .86), [0, -.05, .074], g);
+    // folículo (tubito) y bulbo
+    pz(F.rect(.3, 1.05, .1), 0xe8968a, [0, -.55, .05], g, { tinta: .012, papel: false }); pz(F.elipse(.3, .26), 0xe8968a, [0, -1.12, .05], g, { tinta: .012, papel: false });
+    det(F.elipse(.15, .12), 0xd27566, [0, -1.15, .155], g);
+    // pelo: tramo de color + tramo blanco que crece desde la raíz (pivote abajo)
+    const y0 = -1.08; g.pelo = group([0, y0, .17], g);
+    pz(F.rect(.11, L, .05), cp, [0, L / 2, 0], g.pelo, { tinta: .01, papel: false }); det(F.rect(.03, L * .9, .0), mez(cp, 0xffffff, .3), [-.02, L / 2, .03], g.pelo);
+    const bl = group([0, 0, .035], g.pelo); pz(F.rect(.12, 1, .02), 0xf7f7fb, [0, .5, 0], bl, { tinta: .01, papel: false });
+    g.canas = k => { const e = cl01(k); bl.visible = e > .005; bl.scale.y = Math.max(.001, e * L); };
+    // pintoras: célula café con ojitos y pincel
+    g.pintoras = []; const homes = [[-.36, -1.05], [.36, -1.05], [0, -1.38], [-.3, -1.32], [.3, -1.32]].slice(0, n);
+    homes.forEach(([x, y], i) => { const c = group([x, y, .2], g); c.hx = x; c.hy = y; c.i = i;
+      pz(F.circ(.13), 0x8a5a3a, [0, 0, 0], c, { tinta: .012, papel: .04 }); det(F.circ(.05), mez(0x8a5a3a, 0xffffff, .3), [-.05, .05, .018], c);
+      for (const sx of [-1, 1]) { det(F.elipse(.022, .035), INK, [sx * .045, .01, .02], c); det(F.circ(.008), 0xffffff, [sx * .045 + .006, .025, .024], c); }
+      det(F.arco(.035, .012, Math.PI * 1.15, Math.PI * 1.85), 0x3a1d10, [0, -.035, .02], c);
+      c.pincel = group([x < 0 ? .1 : -.1, .02, .01], c); pz(F.rect(.03, .2, .01), 0xffc83d, [0, .08, 0], c.pincel, { tinta: .006, papel: false }); pz(F.elipse(.03, .05), 0x5a3a24, [0, .2, .004], c.pincel, { tinta: .006, papel: false });
+      c.pincel.rotation.z = x < 0 ? -.7 : .7; if (x === 0) c.pincel.rotation.z = 0; g.pintoras.push(c); });
+    if (o.nervio) { g.nervio = group([0, 0, .16], g); const pts = []; for (let i = 0; i <= 24; i++) { const u = i / 24; pts.push([-1.3 + u * .95, -1.0 + Math.sin(u * 9) * .07 - u * .12]); }
+      pz(tubo(pts, .07, .05), 0xffc83d, [0, 0, 0], g.nervio, { tinta: .01, papel: false });
+      g.chispas = [[-.4, -.82, .4], [-.55, -1.32, -.5], [-.2, -.9, 1.0]].map(([x, y, r]) => { const z = pz(F.rayo(.32), 0xfff07a, [x, y, .1], g.nervio, { tinta: .01, papel: false }); z.rotation.z = r; z.visible = false; return z; });
+      g.zap = (t, k) => g.chispas.forEach((z, i) => { z.visible = k > 0 && ((t * 9 + i * 1.3) % 2) < 1.2; z.scale.setScalar(.7 + .3 * Math.sin(t * 20 + i)); }); }
+    g.update = (t, salidas = []) => g.pintoras.forEach((c, i) => { const q = cl01(salidas[i] ?? 0), sx = c.hx < 0 ? -1 : c.hx > 0 ? 1 : (i % 2 ? 1 : -1);
+      c.position.set(c.hx + sx * q * 1.6, c.hy + Math.sin(q * Math.PI) * .5 + q * .2, .2); c.scale.setScalar(Math.max(.001, 1 - q * .9)); c.visible = q < .98;
+      c.pincel.rotation.z = (c.hx < 0 ? -.7 : c.hx > 0 ? .7 : 0) + (q < .05 ? Math.sin(t * 10 + i * 2) * .35 : 0); c.rotation.z = q * 4 * sx + (q < .05 ? Math.sin(t * 5 + i) * .06 : 0); });
+    g.canas(o.k ?? 0); g.update(0); return g; }
+  // PM.raton(pos, o): ratón de laboratorio de cartulina visto de lado (mira a +x). g.blanco(k 0..1): el pelaje gris se vuelve blanco
+  //   (manchas blancas que crecen); g.update(t, anda 0|1): cola, bigotes y rebote; g.susto(k): orejas hacia atrás y ojos grandes. o: {color, escala}
+  function raton(pos, o = {}) { const g = group(pos), es = o.escala ?? 1; g.scale.setScalar(es); g.es = es; const col = o.color ?? 0x9b97a8, ROSA = 0xffa3b8;
+    g.cuerpo = group([0, 0, 0], g);
+    const ptsC = []; for (let i = 0; i <= 30; i++) { const u = i / 30; ptsC.push([-.55 - u * .7, .18 + Math.sin(u * 5) * .12 - u * .05]); }
+    g.cola = group([-.5, .18, -.03], g.cuerpo); pz(tubo(ptsC.map(([x, y]) => [x + .5, y - .18]), .06, .025), ROSA, [0, 0, 0], g.cola, { tinta: .01, papel: false });
+    for (const x of [-.25, .25]) pz(F.elipse(.09, .06), ROSA, [x, .04, .05], g.cuerpo, { tinta: .01, papel: false });
+    const body = blob([[-.55, .12], [-.5, .42], [-.2, .58], [.15, .56], [.42, .44], [.55, .22], [.5, .08], [.2, .04], [-.3, .04]]);
+    pz(body, col, [0, 0, 0], g.cuerpo, { tinta: .014, papel: .05 }); det(blob([[-.4, .12], [.3, .1], [.45, .18], [-.3, .2]]), osc(col, .85), [0, 0, .016], g.cuerpo);
+    g.head = group([.55, .38, .03], g.cuerpo);
+    g.oreja = group([-.08, .2, -.02], g.head); pz(F.circ(.17), col, [0, 0, 0], g.oreja, { tinta: .012, papel: .04 }); det(F.circ(.1), ROSA, [0, 0, .016], g.oreja);
+    pz(blob([[-.2, -.12], [-.22, .1], [-.05, .2], [.15, .12], [.33, -.02], [.3, -.1], [.05, -.16]]), col, [0, 0, .01], g.head, { tinta: .012, papel: .04 });
+    pz(F.circ(.045), ROSA, [.33, -.04, .03], g.head, { tinta: .008, papel: false });
+    g.ojo = group([.08, .03, .03], g.head); det(F.elipse(.035, .05), INK, [0, 0, 0], g.ojo); det(F.circ(.013), 0xffffff, [.01, .02, .004], g.ojo);
+    g.bigotes = group([.28, -.06, .04], g.head); for (const a of [-.25, 0, .25]) { const b = group([0, 0, 0], g.bigotes); b.rotation.z = a; det(F.rect(.26, .012, .0), 0x6a6678, [.14, 0, 0], b); }
+    det(F.elipse(.05, .03), mez(col, 0xff6f86, .4), [.12, -.08, .03], g.head);
+    // manchas blancas (canas) que crecen sobre el cuerpo y la cabeza
+    g.manchas = [[-.25, .3, .2], [.1, .38, .18], [.35, .25, .14], [-.05, .15, .15], [-.4, .2, .12]].map(([x, y, r]) => { const m = det(F.circ(r), 0xf7f7fb, [x, y, .02], g.cuerpo); m.scale.setScalar(.001); m.r = r; return m; });
+    g.manchaCab = det(F.elipse(.2, .14), 0xf7f7fb, [0, .02, .025], g.head); g.manchaCab.scale.setScalar(.001);
+    g.blanco = k => { const e = cl01(k); g.manchas.forEach((m, i) => m.scale.setScalar(Math.max(.001, cl01(e * 1.6 - i * .15) * 1.7))); g.manchaCab.scale.setScalar(Math.max(.001, cl01(e * 1.5 - .4) * 1.15)); };
+    g.susto = k => { const e = cl01(k); g.oreja.rotation.z = .6 * e; g.ojo.scale.setScalar(1 + .5 * e); };
+    g.update = (t, anda = 0) => { g.cola.rotation.z = Math.sin(t * 4) * .15; g.bigotes.rotation.z = Math.sin(t * 9) * .08; g.cuerpo.position.y = anda ? Math.abs(Math.sin(t * 12)) * .05 : Math.abs(Math.sin(t * 2.5)) * .012; };
+    sombraPiso(g, .7); g.blanco(0); return g; }
+  // PM.tijeras(pos, s, padre): tijeritas de cartulina (puntas a +x local). g.corta(k 0..1): 0 abiertas, 1 cerradas.
+  function tijeras(pos, s = 1, parent = null, o = {}) { const g = group(pos, parent); g.scale.setScalar(s); const col = o.color ?? 0xff5d8f;
+    g.hojas = [1, -1].map(sx => { const h = group([0, 0, sx > 0 ? .02 : 0], g);
+      pz(F.poly([[0, -.02 * sx], [.55, .0], [.5, .05 * sx], [0, .05 * sx]]), 0xdfe3ea, [0, 0, 0], h, { tinta: .01, papel: false });
+      pz(F.arco(.1, .05, 0, Math.PI * 2), col, [-.18, .1 * sx, 0], h, { tinta: .01, papel: false }); pz(F.rect(.14, .05, .02), col, [-.06, .05 * sx, .002], h, { tinta: .008, papel: false }); return h; });
+    det(F.circ(.03), 0x5a5670, [0, 0, .05], g);
+    g.corta = k => { const a = (1 - cl01(k)) * .38; g.hojas[0].rotation.z = a; g.hojas[1].rotation.z = -a; }; g.corta(0); return g; }
+  // PM.copeteBlanco(p): copete de chibi BLANCO (canas) encima del pelo normal, partido en dos mitades con orilla en zigzag para que se
+  //   "rompa como papel". g.aparece(k 0..1) (crece desde arriba); g.rompe(k 0..1): las mitades se separan, giran y caen.
+  function copeteBlanco(p) { const g = group([0, 0, .045], p.head), Z = [[0, .57], [.04, .5], [-.03, .43], [.04, .36], [-.02, .3], [0, .26]];
+    const izq = [[-.53, .02], [-.5, .32], [-.34, .5], [-.05, .56], ...Z, [-.12, .3], [-.3, .23], [-.45, .1]];
+    const der = [...Z.slice().reverse(), [.08, .25], [.28, .28], [.42, .22], [.53, .1], [.52, .42], [.38, .58], [.44, .74], [.18, .68]];
+    g.mitades = [izq, der].map((pts, i) => { const m = group([0, 0, 0], g); pz(blob(pts), 0xf4f4f8, [0, 0, 0], m, { tinta: .012, papel: .04 }); linea(i ? [[.1, .5], [.3, .6]] : [[-.3, .4], [-.08, .5]], .024, 0xffffff, m, .02); m.sx = i ? 1 : -1; return m; });
+    g.aparece = k => { const e = cl01(k); g.visible = e > .01; g.scale.set(1, Math.max(.001, e), 1); g.position.y = .5 * (1 - e); };
+    g.rompe = k => { const e = cl01(k); g.mitades.forEach(m => { m.position.set(m.sx * .35 * e, -1.4 * e * e + .15 * Math.sin(e * Math.PI), .1 * e); m.rotation.z = m.sx * -1.2 * e; }); };
+    g.aparece(0); g.rompe(0); return g; }
+
+  return { raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }
