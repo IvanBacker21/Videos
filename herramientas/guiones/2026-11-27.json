@@ -1,0 +1,89 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "modo-avion",
+  "tema": "¿Por qué SIEMPRE te piden el modo avión al volar? (mito: el celular no tumba el avión; allá arriba busca señal a toda potencia y con muchas antenas a la vez —por eso la FCC lo restringió en 1991— y muchos celulares juntos pueden meter un zumbido en los audífonos de los pilotos; la regla es precaución)",
+  "fuentes": [
+   "https://www.popsci.com/science/is-airplane-mode-necessary/",
+   "https://www.lonelyplanet.com/articles/why-use-airplane-mode-flights",
+   "https://www.cbsnews.com/minnesota/news/what-happens-dont-put-phone-airplane-mode",
+   "https://www.Britannica.Com/story/why-do-you-have-to-turn-off-electronic-devices-on-an-airplane"
+  ],
+  "tendencia": "Arranca la temporada de viajes de diciembre y vuelos de fin de año (Black Friday 27-nov con ofertas de vuelos)",
+  "formato": "mito + ¿por qué SIEMPRE…?",
+  "categoria": "tecnología / celular / viajes",
+  "disparadores": [
+   "eres tú",
+   "sorpresa",
+   "¿ves? te dije"
+  ],
+  "visual": "Escenario: cabina de avión chibi vista de lado con ventanilla y nubes. Escena 1: el protagonista sentado con el cel y una sobrecargo señalando un letrero 'modo avión ✈️'. Escena 2: el cel 'empuja' al avión y no pasa nada; tache grande sobre 'avión cayendo' (mito). Escena 3: el avión arriba de un pueblito con varias antenas; del cel salen ondas gritonas hacia todas las antenas a la vez. Escena 4: pasa a la cabina de pilotos: piloto con audífonos hace mueca, rayitas de zumbido 'bzzz' saliendo de los audífonos. Pieza nueva reutilizable: PM.avionCabina (interior de avión con ventanillas) y PM.audifonosPiloto. Remate: letreros A 'Sí, modo avión' / B 'Se me olvida'.",
+  "prueba": "normal",
+  "pedido": false,
+  "estado": "listo",
+  "guion": "herramientas/ejemplos/2026-11-27-1330-modo-avion.json",
+  "titulo_yt": "¿Por qué SIEMPRE piden el modo AVIÓN? ✈️ #shorts",
+  "descripcion_yt": "¿Tú sí lo pones en modo avión o se te olvida? 👇\nNo es que tu celular pueda tumbar el avión: allá arriba busca señal a toda potencia con muchas antenas a la vez, y si muchos lo hacen, los pilotos oyen un zumbido en sus audífonos.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #modoavion #viajes #celular #shorts",
+  "titulo_tt": "¿Por qué SIEMPRE piden el modo avión? ✈️",
+  "texto_tt": "Tu celular no tumba el avión… pero sí molesta a los pilotos 🎧 Comenta: ¿lo pones en modo avión o se te olvida? #datoscuriosos #ciencia #modoavion #viajes #celular",
+  "fecha": "2026-11-27"
+ },
+ {
+  "hora": "18:00",
+  "slug": "pastores-zapatos",
+  "tema": "Navidad Cósmica ep. 1: Los pastores a Belén y sus zapatos rotos (hace dos mil años los pastores de Judea usaban sandalias de cuero: suela y correas; se han hallado sandalias de época romana en cuevas del desierto de Judea —Qumrán, Cueva de las Cartas/Masada—; con piedras y kilómetros detrás de las ovejas se rompían)",
+  "fuentes": [
+   "https://www.ibiblio.org/expo/deadsea.scrolls.exhibit/Community/leather.html",
+   "https://cojs.org/leather_sandals_from_qumran/",
+   "https://cojs.org/roman_period_sandal/"
+  ],
+  "tendencia": "Arranque de la temporada navideña; serie Navidad Cósmica (episodio 1, pedido de Iván)",
+  "formato": "villancico + dato histórico/arqueológico",
+  "categoria": "Navidad / historia",
+  "disparadores": [
+   "lo mexicano",
+   "sorpresa",
+   "eres tú"
+  ],
+  "visual": "SERIE NAVIDAD CÓSMICA: en la primera escena rótulo dorado rotulo('Navidad Cósmica', 'episodio 1', …), nieve ligera con PM.copos() y luces cálidas; tonos rojo/verde/dorado discretos. Escena 1: pastorcito chibi caminando con un pie asomándose del zapato roto, notas musicales flotando. Escena 2: zoom a sus pies: sandalias de cuero con correas; rótulo 'hace dos mil años'. Escena 3: cueva en el desierto, un arqueólogo chibi con lámpara saca una sandalia vieja (suela + correas). Escena 4: camino de piedras con ovejas; la correa se revienta con un pop y el pastor se lleva la mano a la cara. Piezas nuevas reutilizables: PM.pastor (con cayado), PM.sandalia, PM.oveja (sirve para próximos episodios). Remate: letreros A 'Me lo sé completo' / B 'Solo esa parte'.",
+  "prueba": "normal",
+  "pedido": true,
+  "estado": "listo",
+  "guion": "herramientas/ejemplos/2026-11-27-1800-pastores-zapatos.json",
+  "titulo_yt": "¿Por qué los pastores llevaban los zapatos ROTOS? 🎄 #shorts",
+  "descripcion_yt": "¿Tú te sabes completo el villancico o solo esa parte? 👇\n🎄 Serie Navidad Cósmica · episodio 1\nHace dos mil años los pastores de Judea usaban sandalias de cuero: una suela y correas. En cuevas del desierto se han encontrado sandalias de esa época. Con piedras, polvo y kilómetros detrás de las ovejas… ¡con razón se les rompían!\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #navidad #villancicos #historia #arqueologia #shorts",
+  "titulo_tt": "Los pastores y sus zapatos rotos 🎄",
+  "texto_tt": "Navidad Cósmica ep. 1: ¿qué calzaban de verdad los pastores a Belén? 👡 Comenta: ¿te sabes completo el villancico o solo esa parte? #datoscuriosos #navidad #villancicos #historia #arqueologia",
+  "fecha": "2026-11-27"
+ },
+ {
+  "hora": "21:30",
+  "slug": "cafe-despierta",
+  "tema": "¿Por qué el café te despierta si no te da energía? (la cafeína bloquea los receptores de adenosina, la sustancia que se acumula y da sueño; al pasar el efecto llega el bajón; mito: en cantidades normales el café no deshidrata —estudio 2014 con bebedores habituales—; truco: siesta de café, tomarlo y dormir unos veinte minutos)",
+  "fuentes": [
+   "https://pubmed.ncbi.nlm.nih.gov/15965471/",
+   "https://nationalgeographic.com/health/article/caffeine-nap-explained",
+   "https://www.npr.org/sections/thesalt/2014/01/13/262175623/coffee-myth-busting-cup-of-joe-may-help-hydration-and-memory",
+   "https://www.doccheck.com/en/detail/articles/48765-coffee-3-biggest-myths-debunked",
+   "https://www.cbsnews.com/news/the-buzz-behind-caffeine/"
+  ],
+  "tendencia": "Frío por la masa de aire polar: temporada de cafecito (y de café de olla en diciembre)",
+  "formato": "¿por qué…? + mito + truco (largo)",
+  "categoria": "cuerpo / cerebro / bebidas",
+  "disparadores": [
+   "eres tú",
+   "truco útil",
+   "sorpresa"
+  ],
+  "visual": "LARGO ~40 s: una acción nueva cada 4–6 s. Escenario: cocina mexicana de mañana con olla de café de olla humeando. Esc 1: el protagonista ojeroso con taza; rayito de energía tachado ('0 energía'). Esc 2: vista dentro de la cabeza: bolitas moradas 'adenosina' se van juntando en un frasco medidor de sueño que se llena. Esc 3: bolitas café 'cafeína' con disfraz de adenosina se sientan en las sillitas (receptores) y las moradas se quedan paradas sin lugar; el medidor de sueño se tapa con una cobija. Esc 4 (sorpresa a la mitad): las cafeínas se van y todas las moradas caen de golpe; el protagonista se derrumba en el sillón ('bajón'). Esc 5: mito: gota de agua vs taza de café en una balanza, quedan casi parejas. Esc 6: truco: toma la taza, se acuesta, reloj de veinte minutos y despierta como resorte. Piezas nuevas reutilizables: PM.ollaCafe, PM.medidorSueno, PM.sillaReceptor. Remate: letreros A 'Sí me quita el sueño' / B 'Ni me hace'.",
+  "prueba": "largo-40s",
+  "pedido": false,
+  "estado": "listo",
+  "guion": "herramientas/ejemplos/2026-11-27-2130-cafe-despierta.json",
+  "titulo_yt": "¿Por qué el CAFÉ te despierta? ☕ #shorts",
+  "descripcion_yt": "¿Y a ti el café sí te quita el sueño o ni te hace? 👇\nLa cafeína no te da energía: se mete en el lugar de la adenosina, la sustancia del cansancio, y tu cerebro deja de notarlo. Por eso luego viene el bajón. Además: en cantidades normales el café no deshidrata, y la siesta de café (tomarlo y dormir veinte minutos) sí funciona.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #cafe #cafeina #sueño #shorts",
+  "titulo_tt": "¿Por qué el café te despierta? ☕",
+  "texto_tt": "El café NO te da energía… te engaña 🧠☕ + el truco de la siesta de café. Comenta: ¿a ti el café sí te quita el sueño o ni te hace? #datoscuriosos #ciencia #cafe #cafeina #sueño",
+  "fecha": "2026-11-27"
+ }
+]

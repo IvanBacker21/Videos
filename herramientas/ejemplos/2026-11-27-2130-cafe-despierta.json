@@ -1,0 +1,68 @@
+{
+ "id": "2026-11-27-2130-cafe-despierta",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué el café te despierta… si no te da nada de energía?"
+   ]
+  },
+  {
+   "tipo": "adenosina",
+   "titulo": "",
+   "frases": [
+    "Mientras estás despierto, tu cerebro junta adenosina, la sustancia del cansancio."
+   ]
+  },
+  {
+   "tipo": "bloqueo",
+   "titulo": "",
+   "frases": [
+    "La cafeína se le parece y le gana el lugar. El cansancio sigue ahí, pero tu cerebro no lo nota."
+   ]
+  },
+  {
+   "tipo": "bajon",
+   "titulo": "",
+   "frases": [
+    "Por eso, cuando se acaba el efecto, todo ese cansancio guardado te cae de golpe: el famoso bajón."
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "Y el mito de que deshidrata: en cantidades normales, hidrata casi como el agua."
+   ]
+  },
+  {
+   "tipo": "truco",
+   "titulo": "",
+   "frases": [
+    "Truco: tómate un café y duerme veinte minutos; despiertas justo cuando hace efecto."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "¿Y a ti el café sí te quita el sueño o ni te hace?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-27-1330-modo-avion",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué SIEMPRE te piden el modo avión al volar?"
+   ]
+  },
+  {
+   "tipo": "mito",
+   "titulo": "",
+   "frases": [
+    "No es que tu cel pueda tumbar el avión."
+   ]
+  },
+  {
+   "tipo": "antenas",
+   "titulo": "",
+   "frases": [
+    "Allá arriba busca señal a todo lo que da, con muchas antenas a la vez."
+   ]
+  },
+  {
+   "tipo": "zumbido",
+   "titulo": "",
+   "frases": [
+    "Si muchos lo hacen, los pilotos oyen un zumbido en sus audífonos, como la bocina cerca del cel."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "¿Tú sí lo pones en modo avión o se te olvida?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}

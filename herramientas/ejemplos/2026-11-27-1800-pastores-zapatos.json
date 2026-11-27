@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-27-1800-pastores-zapatos",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "Los pastores a Belén… ¿por qué llevan los zapatos rotos?"
+   ]
+  },
+  {
+   "tipo": "sandalias",
+   "titulo": "",
+   "frases": [
+    "Hace dos mil años, los pastores de allá usaban sandalias de cuero."
+   ]
+  },
+  {
+   "tipo": "cueva",
+   "titulo": "",
+   "frases": [
+    "En cuevas del desierto han hallado sandalias de esa época: una suela y correas, y ya."
+   ]
+  },
+  {
+   "tipo": "camino",
+   "titulo": "",
+   "frases": [
+    "Con piedras, polvo y kilómetros detrás de las ovejas… ¡con razón se les rompían!"
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "¿Tú te sabes completo el villancico o solo esa parte?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
