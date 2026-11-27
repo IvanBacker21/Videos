@@ -2070,5 +2070,63 @@ export function kitPM(P, THREE, group) {
     g.rompe = k => { const e = cl01(k); g.mitades.forEach(m => { m.position.set(m.sx * .35 * e, -1.4 * e * e + .15 * Math.sin(e * Math.PI), .1 * e); m.rotation.z = m.sx * -1.2 * e; }); };
     g.aparece(0); g.rompe(0); return g; }
 
-  return { raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= AVIÓN POR DENTRO, AUDÍFONOS Y TORRE CELULAR (27-nov 13:30, short del modo avión) =================
+  // PM.avionCabina(o): escenario INTERIOR de avión de cartulina (como PM.cuarto): pared crema, compartimientos de equipaje arriba con
+  //   foquitos, ventanillas ovaladas con cielo y nubes que pasan, alfombra azul. g.asiento(x, o) pone un asiento de frente (respaldo
+  //   DETRÁS del chibi y cojín DELANTE, tapa las piernas: se ve sentado) y devuelve {sienta(p)}; g.update(t, vel) mueve las nubes.
+  //   o: {ventanas:[x...] (default [-1.05, 1.05]), y (1.75), cielo, noche:false}
+  function avionCabina(o = {}) { const PAR = 0xeef0f5, VY = o.y ?? 1.75, nubes = [];
+    pz(F.rect(30, 30, 0), PAR, [0, 15, -3], null, { tinta: false, papel: false });
+    det(F.rect(30, .05, 0), 0xd5dae4, [0, .95, -2.99]); det(F.rect(30, .05, 0), 0xd5dae4, [0, 2.45, -2.99]);                                   // molduras
+    // compartimientos de equipaje (arriba) con manija y foquito de cinturón
+    for (let i = -4; i <= 4; i++) { const c = pz(F.rect(1.12, .62, .1), 0xf8f9fc, [i * 1.18, 3.3, -2.5], null, { tinta: .016, papel: .05 });
+      det(F.rect(.34, .05, .02), 0xaab2c2, [0, -.18, .016], c); det(F.rect(1.0, .03, 0), 0xdfe3ec, [0, .2, .016], c); }
+    pz(F.rect(30, .16, 0), 0xdfe3ec, [0, 2.93, -2.45], null, { tinta: .012, papel: false });
+    for (let i = -4; i <= 4; i++) { det(F.circ(.035), 0xffd640, [i * 1.18 - .2, 2.93, -2.43]); det(F.circ(.035), 0xffd640, [i * 1.18 - .08, 2.93, -2.43]); }
+    // ventanillas
+    const ventanas = (o.ventanas ?? [-1.05, 1.05]).map(x => { const v = group([x, VY, -2.6]); const W = .6, H = .82;
+      pz(F.rect(W + .16, H + .16, .3), 0xd9dee8, [0, 0, 0], v, { tinta: .016, papel: .05 });
+      pz(F.rect(W, H, .26), o.noche ? 0x2a3270 : (o.cielo ?? 0x8fd3ff), [0, 0, .016], v, { tinta: .01, papel: false });
+      det(F.rect(W - .02, .2, .08), 0xc9ced8, [0, H / 2 - .11, .03], v);                                                                       // cortinilla a medio bajar
+      det(F.poly([[-W * .3, -H * .3], [-W * .12, -H * .3], [W * .1, H * .25], [-W * .08, H * .25]]), 0xffffff, [0, 0, .028], v).children[0].material.transparent = true;
+      for (let i = 0; i < 2; i++) { const n = det(F.nube(.13), 0xffffff, [0, -.12 - i * .2, .024], v); n.f = i * .5 + x; n.W = W; nubes.push(n); }
+      return v; });
+    pz(F.rect(30, 6, 0), o.alfombra ?? 0x9fb0dc, [0, -3, -1.7], null, { tinta: false, papel: false });                                         // alfombra
+    for (let i = -14; i < 14; i++) for (let j = 0; j < 3; j++) det(F.circ(.03), osc(o.alfombra ?? 0x9fb0dc, .86), [i * .45 + (j & 1) * .22, -.35 - j * .5, -1.69]);
+    pz(F.rect(30, .12, 0), 0xc9ced8, [0, .06, -2.97], null, { tinta: false, papel: false });                                                 // zoclo
+    const asiento = (x, ao = {}) => { const col = ao.color ?? 0x3d6bff, a = group([x, 0, 0]);
+      const r = pz(F.rect(.92, 1.45, .22), col, [0, 1.05, -.4], a, { tinta: .016, papel: .05 }); det(F.rect(.6, .3, .08), 0xffffff, [0, .5, .016], r);   // respaldo con funda
+      det(F.rect(.7, .9, .12), osc(col, .9), [0, -.15, .014], r);
+      const cj = pz(F.rect(1.0, .46, .12), col, [0, .3, .6], a, { tinta: .016, papel: .05 }); det(F.rect(.9, .08, .03), osc(col, .8), [0, .14, .016], cj);
+      for (const sx of [-1, 1]) pz(F.rect(.12, .34, .05), osc(col, .7), [sx * .52, .45, .64], a, { tinta: .012, papel: .03 });                 // descansabrazos
+      for (const sx of [-1, 1]) pz(F.rect(.06, .14, .02), 0x8a92a4, [sx * .35, .02, .55], a, { tinta: .01, papel: false });
+      a.sienta = p => { p.position.set(x, .18, .2); return p; }; return a; };
+    return { ventanas, asiento, update(t, vel = 1) { nubes.forEach(n => { const u = ((t * .22 * vel + n.f) % 1 + 1) % 1, xx = (.5 - u) * (n.W - .1);
+      n.position.x = xx; n.scale.setScalar(Math.max(.001, Math.min(1, (n.W / 2 - .08 - Math.abs(xx)) / .12))); }); } };
+  }
+  // PM.audifonos(p, o): diadema de audífonos de piloto sobre la cabeza de un chibi (arco, copas acolchadas y micrófono).
+  //   g.update(t, zumba 0..1): las copas tiemblan y salen rayitas de zumbido rojas a los lados. o: {color, colorZ}
+  function audifonos(p, o = {}) { const g = group([0, 0, .07], p.head), col = o.color ?? 0x2b2f4a;
+    pz(F.arco(.57, .07, .12 * Math.PI, .88 * Math.PI), col, [0, -.02, -.03], g, { tinta: .012, papel: .03 });
+    const copas = [-1, 1].map(sx => { const c = group([sx * .52, -.04, 0], g); pz(F.rect(.18, .3, .08), col, [0, 0, 0], c, { tinta: .012, papel: .035 });
+      det(F.rect(.1, .2, .05), 0x4a5068, [0, 0, .016], c); c.sx = sx; return c; });
+    pz(tubo([[-.5, -.14], [-.42, -.34], [-.2, -.4]], .028, .028), col, [0, 0, .02], g, { tinta: .008, papel: false });
+    pz(F.elipse(.06, .045), 0x4a5068, [-.17, -.4, .03], g, { tinta: .008, papel: false });
+    g.bzz = zumbido([0, -.04, .02], { r: .74, alto: .36, color: o.colorZ ?? 0xff5b5b }, g);
+    g.update = (t, k = 0) => { copas.forEach(c => { c.position.x = c.sx * .52 + Math.sin(t * 55 + c.sx) * .012 * k; }); g.bzz.update(t, k); };
+    return g; }
+  // PM.torreCel(pos, o): torre de antenas de celular de cartulina (estructura de rejilla gris, tres paneles blancos y foquito rojo arriba).
+  //   g.update(t, k 0..1): el foquito parpadea y, con k, salen arcos de señal; g.top = punta (coordenadas locales). o: {alto (1.5), escala}
+  function torreCel(pos, o = {}) { const g = group(pos), H = o.alto ?? 1.5; g.scale.setScalar(o.escala ?? 1);
+    for (const sx of [-1, 1]) pz(tubo([[sx * .22, 0], [sx * .05, H]], .04, .04), 0x8a92a4, [0, 0, 0], g, { tinta: .01, papel: .03 });
+    const pts = []; for (let i = 0; i <= 6; i++) { const y = i / 6 * H, w = .22 - .17 * i / 6; pts.push([(i & 1 ? 1 : -1) * w, y]); }
+    pz(tubo(pts, .022, .022), 0xaab2c2, [0, 0, -.01], g, { tinta: .008, papel: false });
+    for (const sx of [-1, 0, 1]) pz(F.rect(.1, .3, .03), 0xf8f9fc, [sx * .13, H - .12, .03 + (sx ? 0 : .01)], g, { tinta: .01, papel: .03 });
+    pz(tubo([[0, H], [0, H + .25]], .025, .025), 0x8a92a4, [0, 0, 0], g, { tinta: .008, papel: false });
+    const luz = pz(F.circ(.05), 0xff3b3b, [0, H + .27, .02], g, { tinta: .008, papel: false });
+    g.top = [0, H + .1];
+    const arcos = [0, 1, 2].map(i => pz(F.arco(.16 + i * .1, .035, Math.PI * .2, Math.PI * .8), 0x2ec4a6, [0, H + .1, .04], g, { tinta: .008, papel: .025 }));
+    g.update = (t, k = 0) => { luz.visible = Math.sin(t * 5) > -.2; arcos.forEach((a, i) => { const u = ((t * 1.6 - i / 3) % 1 + 1) % 1; a.visible = k > .02; a.scale.setScalar(Math.max(.001, k * (.6 + u * .8))); }); };
+    sombraPiso(g, .35); g.update(0, 0); return g; }
+  return { avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

@@ -1226,5 +1226,24 @@
   "titulo": "¿Un SUSTO te puede sacar canas? 😱 #shorts",
   "pedido": false,
   "prueba": "largo-40s"
+ },
+ {
+  "fecha": "2026-11-27",
+  "hora": "13:30",
+  "tema": "¿Por qué SIEMPRE te piden el modo avión al volar? (mito: el celular no tumba el avión; allá arriba busca señal a toda potencia y con muchas antenas a la vez —por eso la FCC lo restringió en 1991— y muchos celulares juntos pueden meter un zumbido en los audífonos de los pilotos; la regla es precaución). Fuentes: Popular Science (Is airplane mode necessary?), Lonely Planet (Why use airplane mode on flights), CBS News (What happens if you don't put your phone in airplane mode), Britannica (Why do you have to turn off electronic devices on an airplane)",
+  "formato": "mito + ¿por qué SIEMPRE…?",
+  "categoria": "tecnología / celular / viajes",
+  "tendencia": "Arranca la temporada de viajes de diciembre y vuelos de fin de año (Black Friday 27-nov con ofertas de vuelos)",
+  "disparadores": [
+   "eres tú",
+   "sorpresa",
+   "¿ves? te dije"
+  ],
+  "duracion": 25.6,
+  "mejora": "papel_pm.js: PM.avionCabina (interior de avión con asientos y ventanillas), PM.audifonos (diadema de piloto con zumbido), PM.torreCel (torre de antenas de celular)",
+  "archivo": "shorts/2026-11-27-1330-modo-avion.mp4",
+  "titulo": "¿Por qué SIEMPRE piden el modo AVIÓN? ✈️ #shorts",
+  "pedido": false,
+  "prueba": "normal"
  }
 ]
