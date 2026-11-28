@@ -1265,5 +1265,24 @@
   "pedido": true,
   "serie": "Navidad Cósmica",
   "prueba": "normal"
+ },
+ {
+  "fecha": "2026-11-27",
+  "hora": "21:30",
+  "tema": "¿Por qué el café te despierta si no te da energía? (la cafeína bloquea los receptores de adenosina, la sustancia que se acumula y da sueño; al pasar el efecto llega el bajón; mito: en cantidades normales el café no deshidrata —estudio 2014 con bebedores habituales—; dato extra: dura bastante, unas cinco horas después la mitad de la cafeína sigue en el cuerpo (vida media ≈ 5 h); truco: siesta de café, tomarlo y dormir unos veinte minutos) Fuentes: https://pubmed.ncbi.nlm.nih.gov/15965471/, https://nationalgeographic.com/health/article/caffeine-nap-explained, https://www.npr.org/sections/thesalt/2014/01/13/262175623/coffee-myth-busting-cup-of-joe-may-help-hydration-and-memory, https://www.doccheck.com/en/detail/articles/48765-coffee-3-biggest-myths-debunked, https://www.cbsnews.com/news/the-buzz-behind-caffeine/, https://www.statpearls.com/point-of-care/18756, https://www.ncbi.nlm.nih.gov/books/NBK223808/",
+  "formato": "¿por qué…? + mito + truco (largo)",
+  "categoria": "cuerpo / cerebro / bebidas",
+  "tendencia": "Frío por la masa de aire polar: temporada de cafecito (y de café de olla en diciembre)",
+  "disparadores": [
+   "eres tú",
+   "truco útil",
+   "sorpresa"
+  ],
+  "duracion": 44.3,
+  "mejora": "papel_pm.js: PM.ollaCafe, PM.medidorSueno, PM.sillaReceptor, PM.molecula (con antifaz), PM.balanza, PM.ojeras",
+  "archivo": "shorts/2026-11-27-2130-cafe-despierta.mp4",
+  "titulo": "¿Por qué el CAFÉ te despierta? ☕ #shorts",
+  "pedido": false,
+  "prueba": "largo-40s"
  }
 ]

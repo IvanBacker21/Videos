@@ -2210,5 +2210,61 @@ export function kitPM(P, THREE, group) {
     pz(F.rect(30, 6, 0), cc(0xeccb8f), [0, -2.95, -1.7], null, { tinta: false, papel: false });
     pz(F.rect(30, .06, 0), cc(0xd6a865), [0, .03, -1.69], null, { tinta: false, papel: false });
     for (let i = -14; i < 14; i++) { det(F.rect(.18, .03, .01), cc(0xfff0d0), [i * .4, -.35, -1.68]); det(F.rect(.18, .03, .01), cc(0xf3d6a4), [i * .4 + .2, -1.3, -1.68]); } }
-  return { sandalia, pastor, oveja, desierto, avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ---- 27-nov 21:30 (café: adenosina y cafeína) ----
+  // PM.ollaCafe(pos, o, padre): olla de barro de café de olla vista de frente (asas, banda de puntitos, rajita de canela y vapor).
+  //   Fondo en y = 0. g.humea(t, k) anima el vapor. o: {w, color}
+  function ollaCafe(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? .9, h = w * .72, col = o.color ?? 0xb5542c;
+    for (const sx of [-1, 1]) pz(F.arco(w * .14, .05, sx > 0 ? -1.4 : Math.PI / 2 + .17, sx > 0 ? 1.4 : Math.PI * 1.5 - .17), osc(col, .85), [sx * w * .47, h * .62, -.05], g, { tinta: .01, papel: .04 });
+    pz(blob([[-w * .36, h * .9], [w * .36, h * .9], [w * .5, h * .55], [w * .44, h * .15], [w * .25, 0], [-w * .25, 0], [-w * .44, h * .15], [-w * .5, h * .55]]), col, [0, 0, 0], g, { tinta: .016, papel: .06 });
+    det(F.elipse(w * .37, w * .06), osc(col, .6), [0, h * .9, .016], g); det(F.elipse(w * .31, w * .04), 0x4a2614, [0, h * .9, .02], g);
+    for (let i = -3; i <= 3; i++) det(F.circ(w * .028), 0xfff1c9, [i * w * .11, h * .55, .018], g);
+    det(tubo([[-w * .44, h * .42], [0, h * .38], [w * .44, h * .42]], .02, .02), 0xfff1c9, [0, 0, .018], g);
+    det(F.elipse(w * .1, w * .05), mez(col, 0xffffff, .45), [-w * .26, h * .7, .02], g, .4);
+    const can = pz(F.rect(w * .07, h * .5, .02), 0x8a4a22, [w * .14, h * 1.05, -.02], g, { tinta: .01, papel: .03 }); can.rotation.z = -.35;
+    const vp = g.vap = group([0, h * 1.0, .03], g);
+    for (let i = 0; i < 3; i++) { const v = det(tubo([[0, 0], [.06, .12], [-.05, .26], [.05, .4]], .05, .05), 0xffffff, [(i - 1) * w * .18, 0, 0], vp); v.f = i * .33; }
+    g.humea = (t, k = 1) => { vp.visible = k > .02; vp.children.forEach(v => { const q = (t * .7 + v.f) % 1; v.position.y = q * .4; v.scale.setScalar(Math.max(.001, k * Math.sin(q * Math.PI))); }); };
+    g.humea(0, 1); return g; }
+  // PM.medidorSueno(pos, o, padre): frasco medidor de SUEÑO (vidrio con rayitas, tapa con lunita) que se llena de líquido morado.
+  //   Fondo en y = 0. g.nivel(k 0..1) llena; g.tapa(k 0..1) le pone encima una cobijita de cuadros (el cerebro "no lo nota"). o: {w, h, color}
+  function medidorSueno(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? .6, h = o.h ?? 1.1, col = o.color ?? 0x8f5cff;
+    pz(F.rect(w, h, .1), 0xe3f4ff, [0, h / 2, 0], g, { tinta: .016, papel: .06 });
+    const fl = group([0, .05, .012], g); const liq = det(F.rect(w - .1, h - .12, .06), col, [0, (h - .12) / 2, 0], fl); det(F.rect(w - .1, .05, .02), mez(col, 0xffffff, .4), [0, h - .14, .062], fl); void liq;
+    for (let i = 1; i < 5; i++) det(F.rect(.1, .025, .01), 0x5a6a8a, [-w / 2 + .1, i * h / 5, .03], g);
+    det(F.rect(.05, h * .6, .02), 0xffffff, [w * .3, h * .55, .034], g);
+    pz(F.rect(w + .1, .16, .05), 0x3d3a5a, [0, h + .06, .01], g, { tinta: .012, papel: .04 });
+    det(F.circ(.075), 0xffd640, [0, h + .06, .04], g); det(F.circ(.065), 0x3d3a5a, [.04, h + .085, .045], g);
+    g.nivel = k => { fl.scale.y = Math.max(.001, k); };
+    g.cob = group([0, h * .62, .12], g); pz(blob([[-w * .7, .55], [w * .7, .55], [w * .62, -.55], [-w * .66, -.5]]), 0xff6b5b, [0, 0, 0], g.cob, { tinta: .016, papel: .05 });
+    for (let i = 0; i < 3; i++) det(F.rect(.06, 1.0, .01), 0xffd640, [-w * .35 + i * w * .35, 0, .016], g.cob); det(F.rect(w * 1.25, .07, .01), 0xffffff, [0, .2, .02], g.cob);
+    g.tapa = k => { g.cob.visible = k > .01; g.cob.scale.set(1, Math.max(.001, k), 1); g.cob.position.y = h * .62 + (1 - k) * h * .4; };
+    g.nivel(0); g.tapa(0); return g; }
+  // PM.sillaReceptor(pos, o, padre): sillita de cartulina (respaldo redondo, asiento y patas) = "receptor" donde se sienta una molécula.
+  //   g.asientoY = altura del asiento. o: {color, s}
+  function sillaReceptor(pos, o = {}, parent = null) { const g = group(pos, parent), col = o.color ?? 0x2ec4a6; g.scale.setScalar(o.s ?? 1);
+    pz(F.rect(.5, .5, .2), col, [0, .62, -.35], g, { tinta: .014, papel: .05 }); det(F.circ(.07), mez(col, 0xffffff, .5), [0, .66, -.33], g);
+    for (const sx of [-1, 1]) pz(F.rect(.06, .42, .02), osc(col, .7), [sx * .2, .2, .0], g, { tinta: .01, papel: .03 });
+    pz(F.rect(.58, .12, .05), osc(col, .85), [0, .4, .05], g, { tinta: .014, papel: .04 }); g.asientoY = .46; return g; }
+  // PM.molecula(pos, r, color, o, padre): bolita chibi de cartulina (astro con carita) con patitas. o: {antifaz: color → antifaz de "disfraz",
+  //   expr}. g.update(t, f) rebota y mueve patitas; g.cara(e) cambia la boca.
+  function molecula(pos, r = .16, color = 0x8f5cff, o = {}, parent = null) { const g = group(pos, parent);
+    const pa = g.patas = [-1, 1].map(sx => { const q = group([sx * r * .4, -r * .8, -.04], g); pz(F.rect(.035, r * .5, .015), INK, [0, -r * .2, 0], q, { tinta: false, papel: .02 }); pz(F.elipse(.06, .035), INK, [.02, -r * .45, 0], q, { tinta: false, papel: .02 }); return q; });
+    const a = astro([0, 0, 0], r, color, { expr: o.expr ?? 'feliz', papel: .05 }); g.add(a); g.cuerpo = a; g.head = a.head; g.cara = a.cara;
+    if (o.antifaz) { const s = r / .5; const m = group([0, .05 * s, .025], a.head); pz(blob([[-.32 * s, .1 * s], [0, .05 * s], [.32 * s, .1 * s], [.3 * s, -.08 * s], [0, -.04 * s], [-.3 * s, -.08 * s]]), o.antifaz, [0, 0, -.004], m, { tinta: .008, papel: false });
+      a.head.ojos.forEach(e => e.position.z = .04); }
+    g.update = (t, f = 0, on = 1) => { a.position.y = Math.abs(Math.sin(t * 8 + f)) * .04 * on; pa.forEach((q, i) => q.rotation.z = Math.sin(t * 12 + f + i * Math.PI) * .4 * on); };
+    return g; }
+  // PM.balanza(pos, o, padre): balanza de dos platos de cartulina (poste, brazo y platos colgando). g.inclina(a) gira el brazo (rad; + baja el
+  //   plato derecho) y los platos se quedan derechos; g.platos = [izq, der] para poner cosas encima (y = 0 del plato). o: {w, color}
+  function balanza(pos, o = {}, parent = null) { const g = group(pos, parent), w = o.w ?? 1.5, col = o.color ?? 0xffc83d;
+    pz(F.rect(.5, .12, .05), osc(col, .7), [0, .06, -.2], g, { tinta: .012, papel: .04 }); pz(F.rect(.1, 1.1, .03), osc(col, .8), [0, .6, -.2], g, { tinta: .012, papel: .04 });
+    const br = g.brazo = group([0, 1.15, -.1], g); pz(F.rect(w, .08, .04), col, [0, 0, 0], br, { tinta: .012, papel: .04 }); det(F.circ(.06), 0xffffff, [0, 0, .02], g.brazo);
+    g.platos = [-1, 1].map(sx => { const c = group([sx * w / 2, 0, .02], br); const pl = group([0, -.55, 0], c);
+      linea([[-.2, .02], [0, .55]], .012, INK, pl, -.02); linea([[.2, .02], [0, .55]], .012, INK, pl, -.02);
+      pz(blob([[-.28, .03], [.28, .03], [.2, -.07], [-.2, -.07]]), osc(col, .9), [0, 0, 0], pl, { tinta: .012, papel: .04 }); c.pl = pl; return pl; });
+    g.inclina = a => { br.rotation.z = -a; br.children.forEach(c => { if (c.pl) c.rotation.z = a; }); }; g.inclina(0); return g; }
+  // PM.ojeras(p): ojeras moradas bajo los ojos de un chibi. Regresa f(k 0..1) (0 = sin ojeras).
+  function ojeras(p) { const os = p.head.ojos.map(e => { const d = det(F.arco(.07, .022, Math.PI * 1.15, Math.PI * 1.85), 0x7b5c9a, [e.position.x, e.position.y - .06, e.position.z + .002], p.head); return d; });
+    return k => os.forEach(d => { d.visible = k > .02; d.scale.setScalar(Math.max(.001, k)); }); }
+  return { ollaCafe, medidorSueno, sillaReceptor, molecula, balanza, ojeras, sandalia, pastor, oveja, desierto, avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

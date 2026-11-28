@@ -59,13 +59,15 @@
  {
   "hora": "21:30",
   "slug": "cafe-despierta",
-  "tema": "¿Por qué el café te despierta si no te da energía? (la cafeína bloquea los receptores de adenosina, la sustancia que se acumula y da sueño; al pasar el efecto llega el bajón; mito: en cantidades normales el café no deshidrata —estudio 2014 con bebedores habituales—; truco: siesta de café, tomarlo y dormir unos veinte minutos)",
+  "tema": "¿Por qué el café te despierta si no te da energía? (la cafeína bloquea los receptores de adenosina, la sustancia que se acumula y da sueño; al pasar el efecto llega el bajón; mito: en cantidades normales el café no deshidrata —estudio 2014 con bebedores habituales—; dato extra: dura bastante, unas cinco horas después la mitad de la cafeína sigue en el cuerpo (vida media ≈ 5 h); truco: siesta de café, tomarlo y dormir unos veinte minutos)",
   "fuentes": [
    "https://pubmed.ncbi.nlm.nih.gov/15965471/",
    "https://nationalgeographic.com/health/article/caffeine-nap-explained",
    "https://www.npr.org/sections/thesalt/2014/01/13/262175623/coffee-myth-busting-cup-of-joe-may-help-hydration-and-memory",
    "https://www.doccheck.com/en/detail/articles/48765-coffee-3-biggest-myths-debunked",
-   "https://www.cbsnews.com/news/the-buzz-behind-caffeine/"
+   "https://www.cbsnews.com/news/the-buzz-behind-caffeine/",
+   "https://www.statpearls.com/point-of-care/18756",
+   "https://www.ncbi.nlm.nih.gov/books/NBK223808/"
   ],
   "tendencia": "Frío por la masa de aire polar: temporada de cafecito (y de café de olla en diciembre)",
   "formato": "¿por qué…? + mito + truco (largo)",
@@ -75,10 +77,10 @@
    "truco útil",
    "sorpresa"
   ],
-  "visual": "LARGO ~40 s: una acción nueva cada 4–6 s. Escenario: cocina mexicana de mañana con olla de café de olla humeando. Esc 1: el protagonista ojeroso con taza; rayito de energía tachado ('0 energía'). Esc 2: vista dentro de la cabeza: bolitas moradas 'adenosina' se van juntando en un frasco medidor de sueño que se llena. Esc 3: bolitas café 'cafeína' con disfraz de adenosina se sientan en las sillitas (receptores) y las moradas se quedan paradas sin lugar; el medidor de sueño se tapa con una cobija. Esc 4 (sorpresa a la mitad): las cafeínas se van y todas las moradas caen de golpe; el protagonista se derrumba en el sillón ('bajón'). Esc 5: mito: gota de agua vs taza de café en una balanza, quedan casi parejas. Esc 6: truco: toma la taza, se acuesta, reloj de veinte minutos y despierta como resorte. Piezas nuevas reutilizables: PM.ollaCafe, PM.medidorSueno, PM.sillaReceptor. Remate: letreros A 'Sí me quita el sueño' / B 'Ni me hace'.",
+  "visual": "LARGO ~40 s: una acción nueva cada 4–6 s. Escenario: cocina mexicana de mañana con olla de café de olla humeando. Esc 1: el protagonista ojeroso con taza; rayito de energía tachado ('0 energía'). Esc 2: vista dentro de la cabeza: bolitas moradas 'adenosina' se van juntando en un frasco medidor de sueño que se llena. Esc 3: bolitas café 'cafeína' con disfraz de adenosina se sientan en las sillitas (receptores) y las moradas se quedan paradas sin lugar; el medidor de sueño se tapa con una cobija. Esc 4 (sorpresa a la mitad): las cafeínas se van y todas las moradas caen de golpe; el protagonista se derrumba en el sillón ('bajón'). Esc 5: mito: gota de agua vs taza de café en una balanza, quedan casi parejas. Esc 6: truco: toma la taza, se acuesta, reloj de veinte minutos y despierta como resorte. Piezas nuevas reutilizables: PM.ollaCafe, PM.medidorSueno, PM.sillaReceptor. Esc extra (dura): reloj que avanza cinco horas y de seis cafeínas alrededor de la cabeza se van tres. Remate: letreros A 'SÍ ME DESVELA' / B 'NI ME HACE'.",
   "prueba": "largo-40s",
   "pedido": false,
-  "estado": "listo",
+  "estado": "producido",
   "guion": "herramientas/ejemplos/2026-11-27-2130-cafe-despierta.json",
   "titulo_yt": "¿Por qué el CAFÉ te despierta? ☕ #shorts",
   "descripcion_yt": "¿Y a ti el café sí te quita el sueño o ni te hace? 👇\nLa cafeína no te da energía: se mete en el lugar de la adenosina, la sustancia del cansancio, y tu cerebro deja de notarlo. Por eso luego viene el bajón. Además: en cantidades normales el café no deshidrata, y la siesta de café (tomarlo y dormir veinte minutos) sí funciona.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #cafe #cafeina #sueño #shorts",
