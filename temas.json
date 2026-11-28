@@ -1285,5 +1285,24 @@
   "pedido": false,
   "prueba": "largo-40s",
   "publicacion": "TikTok programado en Buffer 21:30; YouTube NO: Buffer limita a 2 posts de YouTube por día (LimitReachedError) → subida manual"
+ },
+ {
+  "fecha": "2026-11-28",
+  "hora": "13:30",
+  "tema": "¿Por qué graniza (aunque haga calor)? (pedido de seguidores en comentarios; en la parte alta de las nubes de tormenta hace muchísimo frío, bajo cero, aunque abajo haga calor; las corrientes de aire que suben llevan gotitas hasta allá, se congelan, caen y el viento las vuelve a subir; en cada vuelta se les pega otra capa de hielo —por eso un granizo partido tiene capas como cebolla— hasta que pesa más de lo que el viento aguanta y cae). Fuentes: NASA GPM (How does hail form?), NOAA (How does hail form), Met Office (Hail), N+ (¿Qué es el granizo y cómo se forma?)",
+  "formato": "¿por qué…? + proceso paso a paso + comparación (cebolla)",
+  "categoria": "clima",
+  "tendencia": "Pedido de seguidores en comentarios (Iván lo pidió el 27-nov en la noche)",
+  "disparadores": [
+   "sorpresa",
+   "¿ves? te dije",
+   "eres tú (el que de niño juntaba granizo)"
+  ],
+  "duracion": 27.9,
+  "mejora": "papel_pm.js: PM.granizo (lluvia de granizo que rebota y se acumula), PM.granizoCapas (granizo partido con capas como cebolla)",
+  "archivo": "shorts/2026-11-28-1330-granizo.mp4",
+  "titulo": "¿Por qué cae GRANIZO aunque haga calor? 🧊 #shorts",
+  "pedido": true,
+  "prueba": "normal"
  }
 ]

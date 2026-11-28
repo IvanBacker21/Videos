@@ -1,0 +1,31 @@
+[
+ {
+  "hora": "13:30",
+  "slug": "granizo",
+  "tema": "¿Por qué graniza (aunque haga calor)? (pedido de seguidores en comentarios; en la parte alta de las nubes de tormenta hace muchísimo frío, bajo cero, aunque abajo haga calor; las corrientes de aire que suben llevan gotitas hasta allá, se congelan, caen y el viento las vuelve a subir; en cada vuelta se les pega otra capa de hielo —por eso un granizo partido tiene capas como cebolla— hasta que pesa más de lo que el viento aguanta y cae)",
+  "fuentes": [
+   "https://gpm.nasa.gov/resources/faq/how-does-hail-form",
+   "https://noaa.gov/node/10785",
+   "https://weather.metoffice.gov.uk/learn-about/weather/types-of-weather/hail",
+   "https://www.nmas.com.mx/ciencia/granizo-que-es-como-se-forma-y-por-que-cae-cuando-llueve/"
+  ],
+  "tendencia": "Pedido de seguidores en comentarios (Iván lo pidió el 27-nov en la noche)",
+  "formato": "¿por qué…? + proceso paso a paso + comparación (cebolla)",
+  "categoria": "clima",
+  "disparadores": [
+   "sorpresa",
+   "¿ves? te dije",
+   "eres tú (el que de niño juntaba granizo)"
+  ],
+  "visual": "Día de calor con granizo cayendo; nube de tormenta con termómetro bajo cero; dentro de la nube la gotita sube con flechas de viento, se congela, cae y vuelve a subir; granizo partido con capas junto a media cebolla; remate con letreros SÍ, YA LO HICE / NUNCA.",
+  "prueba": "normal",
+  "pedido": true,
+  "estado": "producido",
+  "guion": "herramientas/ejemplos/2026-11-28-1330-granizo.json",
+  "titulo_yt": "¿Por qué cae GRANIZO aunque haga calor? 🧊 #shorts",
+  "descripcion_yt": "¿Tú ya partiste un granizo para ver sus capas, sí o no? 👇\nAllá arriba, en las nubes de tormenta, hace muchísimo frío aunque abajo haga calor. El viento sube y baja las gotitas: se congelan y en cada vuelta se les pega otra capa de hielo, como cebolla, hasta que pesan tanto que caen.\n💬 ¿Tienes algún dato curioso del que te gustaría que habláramos? Déjalo en los comentarios.\n#datoscuriosos #ciencia #granizo #clima #tormenta #shorts",
+  "titulo_tt": "¿Por qué cae GRANIZO aunque haga calor? 🧊",
+  "texto_tt": "Allá arriba hace un frío que congela… y el granizo crece en capas como cebolla 🧅 Comenta: ¿ya partiste un granizo para ver sus capas, sí o no? #datoscuriosos #ciencia #granizo #clima #tormenta",
+  "fecha": "2026-11-28"
+ }
+]

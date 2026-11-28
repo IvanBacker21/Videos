@@ -2266,5 +2266,37 @@ export function kitPM(P, THREE, group) {
   // PM.ojeras(p): ojeras moradas bajo los ojos de un chibi. Regresa f(k 0..1) (0 = sin ojeras).
   function ojeras(p) { const os = p.head.ojos.map(e => { const d = det(F.arco(.07, .022, Math.PI * 1.15, Math.PI * 1.85), 0x7b5c9a, [e.position.x, e.position.y - .06, e.position.z + .002], p.head); return d; });
     return k => os.forEach(d => { d.visible = k > .02; d.scale.setScalar(Math.max(.001, k)); }); }
-  return { ollaCafe, medidorSueno, sillaReceptor, molecula, balanza, ojeras, sandalia, pastor, oveja, desierto, avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
+  // ================= GRANIZO (28-nov 13:30, pedido: ¿por qué graniza?) =================
+  // PM.granizo(o): lluvia de granizo de cartulina: bolitas de hielo blancas con brillo que caen, rebotan en el piso y se quedan
+  //   un ratito; además un "tapete" de bolitas en el suelo. g.update(t, k 0..1 (cuánto granizo cae), acumula 0..1 (bolitas en el suelo)).
+  //   o: {n (18), x0 (-1.6), x1 (1.6), top (3.6), piso (.05), z (.4), r (.05)}
+  function granizo(o = {}) { const g = group([0, 0, o.z ?? .4]), n = o.n ?? 18, x0 = o.x0 ?? -1.6, x1 = o.x1 ?? 1.6, top = o.top ?? 3.6, piso = o.piso ?? .05, r0 = o.r ?? .05;
+    const bola = (r, p) => { const b = pz(F.circ(r), 0xf8fcff, [0, 0, 0], p, { tinta: .01, papel: .02 }); det(F.circ(r * .78), 0xd8eeff, [r * .12, -r * .12, .014], b); det(F.circ(r * .3), 0xffffff, [-r * .3, r * .32, .02], b); return b; };
+    const bs = Array.from({ length: n }, (_, i) => { const b = bola(r0 * (.8 + (i * 7 % 5) * .1), g); b.x = x0 + (x1 - x0) * ((i * .618) % 1); b.f = (i * .37) % 1; b.zz = (i % 3) * .05; return b; });
+    const suelo = Array.from({ length: Math.round(n * 1.4) }, (_, i) => { const b = bola(r0 * (.7 + (i * 3 % 4) * .1), g); b.position.set(x0 + (x1 - x0) * ((i * .382 + .1) % 1), piso + (i % 2) * .02, .1 + (i % 3) * .02); return b; });
+    g.update = (t, k = 1, acu = 0) => { bs.forEach((b, i) => { const u = ((t * .8 + b.f) % 1);
+        b.visible = k > .02 && (i / n) < k; const fall = Math.min(1, u / .72), y = fall < 1 ? top + (piso - top) * fall * fall : piso + Math.abs(Math.sin((u - .72) / .28 * Math.PI * 2)) * .18 * (1 - (u - .72) / .28);
+        b.position.set(b.x + (fall >= 1 ? (u - .72) * .4 * (i % 2 ? 1 : -1) : 0), y, b.zz); b.rotation.z = t * 3 + i; });
+      suelo.forEach((b, i) => { const s = Math.max(.001, Math.min(1, acu * suelo.length - i)); b.scale.setScalar(s); b.visible = s > .01; }); };
+    g.traverse(m => { if (m.isMesh) m.castShadow = false; });   // sin sombras sucias en el piso
+    g.update(0, 0, 0); return g; }
+  // PM.granizoCapas(pos, o, padre): granizo partido a la mitad que muestra sus CAPAS de hielo (anillos blancos y azul claro, como cebolla).
+  //   g.capas(n 0..N, puede ser decimal: el anillo de afuera crece); g.agua(k 0..1): lo tapa una gotita de agua azul (antes de congelarse);
+  //   g.head.ojos (A.parpadea), g.cara('feliz'|'abierta'|'preocupa'). o: {r (.5), N (5), cara: true}
+  function granizoCapas(pos, o = {}, parent = null) { const g = group(pos, parent), R = o.r ?? .5, N = o.N ?? 5;
+    const an = Array.from({ length: N }, (_, i) => { const ri = R * (i + 1) / N, a = pz(F.circ(ri), i % 2 ? 0xd6ecff : 0xfbfdff, [0, 0, .012 * (N - i)], g, { tinta: .012, papel: i === N - 1 ? .05 : false });
+      det(F.arco(ri * .82, ri * .06, Math.PI * .6, Math.PI * .95), 0xffffff, [0, 0, .006], a); return a; });
+    const gota = pz(F.gota(R * 2.4), 0x6cc4ff, [0, R * .35, .1], g, { tinta: .014, papel: .05 }); det(F.elipse(R * .12, R * .2), 0xd8f1ff, [-R * .3, R * .1, .016], gota);
+    const h = g.head = group([0, 0, .12], g); h.r0 = 0;
+    h.ojos = [-1, 1].map(sx => { const e = group([sx * R * .3, R * .05, 0], h); det(F.elipse(R * .1, R * .15), INK, [0, 0, 0], e); det(F.circ(R * .04), 0xffffff, [R * .03, R * .06, .003], e); return e; });
+    const bF = det(F.arco(R * .13, R * .045, Math.PI * 1.15, Math.PI * 1.85), 0x7a1f30, [0, -R * .12, .004], h), bA = det(F.elipse(R * .09, R * .08), 0x7a1f30, [0, -R * .25, .004], h);
+    const bP = det(F.arco(R * .12, R * .045, Math.PI * .2, Math.PI * .8), 0x7a1f30, [0, -R * .32, .004], h);
+    for (const sx of [-1, 1]) det(F.elipse(R * .1, R * .055), 0xffb3c1, [sx * R * .52, -R * .15, .002], h);
+    h.visible = o.cara !== false;
+    let nA = N; g.capas = n => { nA = n; const r = Math.max(1, n); an.forEach((a, i) => { a.visible = i < Math.ceil(r); const s = i === Math.ceil(r) - 1 ? Math.max(.001, .6 + .4 * (r - i)) : 1; a.scale.setScalar(Math.min(1, i < r - 1 ? 1 : s)); });
+      h.scale.setScalar(Math.max(.35, r / N)); };
+    g.agua = k => { gota.visible = k > .01; gota.scale.setScalar(Math.max(.001, k) * Math.max(.35, Math.max(1, nA) / N)); };
+    g.cara = e => { bF.visible = e === 'feliz'; bA.visible = e === 'abierta'; bP.visible = e === 'preocupa'; };
+    g.capas(N); g.agua(0); g.cara(o.expr ?? 'feliz'); return g; }
+  return { granizo, granizoCapas, ollaCafe, medidorSueno, sillaReceptor, molecula, balanza, ojeras, sandalia, pastor, oveja, desierto, avionCabina, audifonos, torreCel, raizPelo, raton, tijeras, copeteBlanco, anaquel, leche, camion, olaMarea, flechasCalor, nubeCobija, vasoHielos, termometro, hieloCorte, narizCorte, flechaAire, gotaNariz, bufandaNariz, orbitaLunaGiro, ollaTapa, chispasDedo, guantes, guanteSuelto, estelaAvion, tablillaChocolate, serieLuces, balonGiro, curvaBalon, estela, ojoCorte, ojosRojos, botellaRefresco, rayoLuz, sueter, palomita, zumbido, personitas, pluma, gorro, ondasCalor, microondas, modem, confeti, pastel, pocillo, bateria, vasosRayosX, manosFrias, chamarra, aguacate, molcajete, manzana, limon, nocheCalle, luna, fotoNoche, regla, manoPulgar, chicle, panzaRayosX, tortilla, aliento, vapor, taza, cocina, refri, pan, miga, comal, bolsa, carro, camino, mareo, oidoInterno, celular, pilaIones, cuarto, cama, acuesta, ojos, despertador, foco, cerebro, avion, tierra, pielChinita, pelaje, notas, meteoro, arenero, tierrita, olor, tapete, calendario, labios, balsamo, chibi, diorama, pz, det, perroPM, gatoPM, A, ondas, pelota, pregunta, espacio, astro, marca, letrero, comentario, bufanda, copos, lupa, formaRinon, formaVejiga, precio, carrito, caja, vestido };
 }

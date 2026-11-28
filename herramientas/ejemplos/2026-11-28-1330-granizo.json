@@ -1,0 +1,54 @@
+{
+ "id": "2026-11-28-1330-granizo",
+ "voz": {
+  "modelo": "em_alex",
+  "lang": "es-419",
+  "speed": 1.0
+ },
+ "escenas": [
+  {
+   "tipo": "gancho",
+   "titulo": "",
+   "frases": [
+    "¿Por qué cae hielo del cielo aunque haga calor?"
+   ]
+  },
+  {
+   "tipo": "frio",
+   "titulo": "",
+   "frases": [
+    "Allá arriba, en las nubes de tormenta, hace muchísimo frío, bajo cero."
+   ]
+  },
+  {
+   "tipo": "sube",
+   "titulo": "",
+   "frases": [
+    "Una gotita sube con el viento, se congela y cae… y el viento la vuelve a aventar para arriba."
+   ]
+  },
+  {
+   "tipo": "capas",
+   "titulo": "",
+   "frases": [
+    "En cada vuelta se le pega otra capa de hielo, como cebolla, hasta que pesa tanto que cae."
+   ]
+  },
+  {
+   "tipo": "remate",
+   "titulo": "",
+   "frases": [
+    "¿Tú ya partiste un granizo para ver sus capas, sí o no?"
+   ]
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "",
+   "frases": [
+    "¿Tienes algún dato curioso del que te gustaría que habláramos?",
+    "Déjalo en los comentarios y síguenos para más datos."
+   ]
+  }
+ ],
+ "resaltar": []
+}
